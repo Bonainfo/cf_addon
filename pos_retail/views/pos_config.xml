@@ -81,12 +81,22 @@
                                         <field name="validate_payment"/>
                                         <field name="validate_remove_order"/>
                                         <field name="validate_close_session"/>
-                                    </group>
-                                    <group>
                                         <field name="apply_validate_return_mode"/>
                                         <field name="validate_quantity_change"/>
                                         <field name="validate_price_change"/>
                                         <field name="validate_discount_change"/>
+                                    </group>
+                                    <group string="Discount">
+                                        <field name="display_amount_discount"/>
+                                        <field name="discount"/>
+                                        <field name="discount_ids" widget="many2many_tags"
+                                           attrs="{'invisible': [('discount', '=', False)], 'required' : [('discount', '=', True)]}"/>
+                                        <field name="discount_each_line" />
+                                        <field name="discount_limit"/>
+                                        <field name="discount_limit_amount"
+                                               attrs="{'invisible': [('discount_limit', '=', False)], 'required' : [('discount_limit', '=', True)]}"/>
+                                        <field name="manager_validate"/>
+                                        <field name="manager_user_id" attrs="{'invisible': [('manager_validate', '=', False),], 'required' : [('manager_validate', '=', True)]}"/>
                                     </group>
                                 </group>
                                 <group>
@@ -164,18 +174,6 @@
                                         <field name="invoice_journal_ids" widget="many2many_tags"/>
                                         <field name="fiscal_position_auto_detect"/>
                                         <field name="subtotal_tax_included"/>
-                                    </group>
-                                    <group string="Discount">
-                                        <field name="display_amount_discount"/>
-                                        <field name="discount"/>
-                                        <field name="discount_ids" widget="many2many_tags"
-                                           attrs="{'invisible': [('discount', '=', False)], 'required' : [('discount', '=', True)]}"/>
-                                        <field name="discount_each_line" />
-                                        <field name="discount_limit"/>
-                                        <field name="discount_limit_amount"
-                                               attrs="{'invisible': [('discount_limit', '=', False)], 'required' : [('discount_limit', '=', True)]}"/>
-                                        <field name="allow_manager_approve_discount" attrs="{'invisible': [('discount_limit', '=', False)]}"/>
-                                        <field name="manager_user_id" attrs="{'invisible': ['|' ,('allow_manager_approve_discount', '=', False), ('discount_limit', '=', False)], 'required' : [('allow_manager_approve_discount', '=', True), ('discount_limit', '=', True)]}"/>
                                     </group>
                                 </group>
                                 <group>

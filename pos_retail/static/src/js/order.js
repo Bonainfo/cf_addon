@@ -519,7 +519,14 @@ odoo.define('pos_retail.order', function (require) {
                 return this.pos.gui.show_popup('password', {
                     title: 'Input pos security pin ?',
                     confirm: function (value) {
-                        if (value != this.pos.user.pos_security_pin) {
+                        var pin;
+                        if (this.pos.config.manager_validate) {
+                            var user_validate = this.pos.user_by_id[this.pos.config.manager_user_id[0]];
+                            pin = user_validate['pos_security_pin']
+                        } else {
+                            pin = this.pos.user.pos_security_pin
+                        }
+                        if (value != pin) {
                             return this.pos.gui.show_popup('confirm', {
                                 title: 'Wrong',
                                 body: 'Password not correct, please check pos security pin'

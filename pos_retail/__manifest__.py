@@ -1,6 +1,6 @@
 {
-    'name': "POS Retail",
-    'version': '5.4.7',
+    'name': "POS Retail Management",
+    'version': '5.4.9',
     'category': 'Point of Sale',
     'author': 'TL Technology',
     'live_test_url': 'http://posodoo.com/web/signup',

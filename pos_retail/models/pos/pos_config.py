@@ -211,7 +211,7 @@ class pos_config(models.Model):
     customer_default_id = fields.Many2one('res.partner', 'Customer default')
     medical_insurance = fields.Boolean('Medical insurance', default=0)
     discount_each_line = fields.Boolean('Discount each line')
-    allow_manager_approve_discount = fields.Boolean('Allow manager approve discount')
+    manager_validate = fields.Boolean('Allow manager approve discount')
     manager_user_id = fields.Many2one('res.users', 'Manager approve discount')
     set_guest = fields.Boolean('Set guest', default=1)
     reset_sequence = fields.Boolean('Reset sequence order', default=1)

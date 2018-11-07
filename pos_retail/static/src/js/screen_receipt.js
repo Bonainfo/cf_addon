@@ -1,13 +1,8 @@
 "use strict";
 odoo.define('pos_retail.screen_receipt', function (require) {
 
-    var models = require('point_of_sale.models');
     var screens = require('point_of_sale.screens');
     var core = require('web.core');
-    var utils = require('web.utils');
-    var round_pr = utils.round_precision;
-    var _t = core._t;
-    var gui = require('point_of_sale.gui');
     var rpc = require('pos.rpc');
     var qweb = core.qweb;
 
@@ -86,10 +81,69 @@ odoo.define('pos_retail.screen_receipt', function (require) {
             this.pos.last_data_print = data_print;
             return data_print
         },
+        get_receipt_render_env_v10: function () {
+            var data_print = {
+                widget: this,
+                pos: this.pos,
+                order: this.pos.get_order(),
+                receipt: this.pos.get_order().export_for_printing(),
+                paymentlines: this.pos.get_order().get_paymentlines()
+            };
+            var orderlines_by_category_name = {};
+            var order = this.pos.get_order();
+            var orderlines = order.orderlines.models;
+            var categories = [];
+            if (this.pos.config.category_wise_receipt) {
+                for (var i = 0; i < orderlines.length; i++) {
+                    var line = orderlines[i];
+                    var pos_categ_id = line['product']['pos_categ_id']
+                    if (pos_categ_id && pos_categ_id.length == 2) {
+                        var root_category_id = order.get_root_category_by_category_id(pos_categ_id[0])
+                        var category = this.pos.db.category_by_id[root_category_id]
+                        var category_name = category['name'];
+                        if (!orderlines_by_category_name[category_name]) {
+                            orderlines_by_category_name[category_name] = [line];
+                            var category_index = _.findIndex(categories, function (category) {
+                                return category == category_name;
+                            });
+                            if (category_index == -1) {
+                                categories.push(category_name)
+                            }
+                        } else {
+                            orderlines_by_category_name[category_name].push(line)
+                        }
+
+                    } else {
+                        if (!orderlines_by_category_name['None']) {
+                            orderlines_by_category_name['None'] = [line]
+                        } else {
+                            orderlines_by_category_name['None'].push(line)
+                        }
+                        var category_index = _.findIndex(categories, function (category) {
+                            return category == 'None';
+                        });
+                        if (category_index == -1) {
+                            categories.push('None')
+                        }
+                    }
+                }
+            }
+            data_print['orderlines_by_category_name'] = orderlines_by_category_name;
+            data_print['categories'] = categories;
+            this.pos.last_data_print = data_print;
+            return data_print
+        },
         print_xml: function () {
             var self = this;
             if (this.pos.config.receipt_invoice_number) {
-                self.receipt_data = this.get_receipt_render_env();
+                /*
+                    V10 only, please dont remove
+                 */
+                if (this.pos.server_version == 10) {
+                    self.receipt_data = this.get_receipt_render_env_v10();
+                } else {
+                    self.receipt_data = this.get_receipt_render_env();
+                }
                 var order = this.pos.get_order();
                 return rpc.query({
                     model: 'pos.order',

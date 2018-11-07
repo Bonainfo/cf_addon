@@ -71,7 +71,14 @@ odoo.define('pos_retail.chromes', function (require) {
             if (this.pos.config.validate_remove_order) {
                 return this.pos.gui.show_popup('password', {
                     confirm: function (value) {
-                        if (value != this.pos.user.pos_security_pin) {
+                        var pin;
+                        if (this.pos.config.manager_validate) {
+                            var user_validate = this.pos.user_by_id[this.pos.config.manager_user_id[0]];
+                            pin = user_validate['pos_security_pin']
+                        } else {
+                            pin = this.pos.user.pos_security_pin
+                        }
+                        if (value != pin) {
                             return this.pos.gui.show_popup('confirm', {
                                 title: 'Wrong',
                                 body: 'Password not correct, please check pos secuirty pin',
@@ -87,7 +94,7 @@ odoo.define('pos_retail.chromes', function (require) {
                                     'body': _t('You will lose any data associated with the current order'),
                                     confirm: function () {
                                         self.pos.delete_current_order();
-                                    },
+                                    }
                                 });
                             } else {
                                 this.pos.delete_current_order();

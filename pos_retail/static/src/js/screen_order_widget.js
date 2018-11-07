@@ -499,7 +499,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                     'value': self.pos.config.discount_limit_amount,
                     'confirm': function (discount) {
                         if (discount > self.pos.config.discount_limit_amount) {
-                            if (self.pos.config.allow_manager_approve_discount) {
+                            if (self.pos.config.manager_validate) {
                                 return this.pos.gui.show_popup('password', {
                                     'title': _t('Discount have limited, need approve of manager. Please input pos security pin of manager'),
                                     confirm: function (password) {
@@ -565,7 +565,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                             }
                         })
                     }
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || (!is_return && !this.pos.config.apply_validate_return_mode)) {
+                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
                         return this.pos.gui.show_popup('password', {
                             confirm: function (value) {
                                 if (value != this.pos.user.pos_security_pin) {
@@ -581,7 +581,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                     }
                 }
                 if (mode == 'discount' && this.pos.config.validate_discount_change && line_selected) {
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || (!is_return && !this.pos.config.apply_validate_return_mode)) {
+                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
                         return this.pos.gui.show_popup('password', {
                             confirm: function (value) {
                                 if (value != this.pos.user.pos_security_pin) {
@@ -597,7 +597,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                     }
                 }
                 if (mode == 'price' && this.pos.config.validate_price_change && line_selected) {
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || (!is_return && !this.pos.config.apply_validate_return_mode)) {
+                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
                         return this.pos.gui.show_popup('password', {
                             confirm: function (value) {
                                 if (value != this.pos.user.pos_security_pin) {

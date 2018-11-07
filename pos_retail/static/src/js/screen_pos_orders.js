@@ -143,7 +143,7 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                 if (!order_lines) {
                     return self.gui.show_popup('confirm', {
                         title: 'Warning',
-                        body: 'Order empty lines',
+                        body: 'Order empty lines'
                     });
                 } else {
                     return self.gui.show_popup('popup_return_pos_order_lines', {
@@ -205,8 +205,8 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                 if (!order) {
                     return;
                 }
-                var date = null;
-                if (self.pos.server_version == 11) {
+                var date = order['date_order'];
+                if (self.pos.server_version == 11 || self.pos.server_version == 12) {
                     date = self.pos.format_date(order['date_order'])
                 }
                 var json = {
