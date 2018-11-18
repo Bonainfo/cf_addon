@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-     <t t-name="pos_orders_screen">
+    <t t-name="return_pos_order_line">
+        <t t-set="count" t-value="1"/>
+        <t t-foreach="order_lines || []" t-as="line">
+            <tr>
+                <td class="text-center"><t t-esc="count"/></td>
+                <td>
+                    <div class="checkbox">
+                        <label>
+                            <input class="line-select" type="checkbox" name="optionsCheckboxes" checked="true" t-att-data-id="line.id">
+                                <span class="checkbox-material"><span class="check"></span></span>
+                            </input>
+                        </label>
+                    </div>
+                </td>
+                <td class="text-right"><t t-esc="line.product_id[1]"/> </td>
+                <td class="text-right"><t t-esc="widget.format_currency(line.price_unit)"/></td>
+                <td class="text-right qty"><img class="header_logo" src="/pos_retail/static/src/icons/shopping_cart_header.png"/><t t-esc="line.qty"/></td>
+                <td class="qty_minus" t-if="line.qty > 1" t-att-data-id="line.id">
+                    <div class="button_icon">
+                        <img src="/pos_retail/static/src/icons/minus.png" class="right_pane_logo"/>
+                    </div>
+                </td>
+                <td class="qty_plus" t-att-data-id="line.id">
+                    <div class="button_icon">
+                        <img src="/pos_retail/static/src/icons/plus.png" class="right_pane_logo"/>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <span class="price">
+                        <t t-esc="widget.format_currency(line.price_subtotal_incl)"/>
+                    </span>
+                </td>
+            </tr>
+            <t t-set="count" t-value="count + 1"/>
+        </t>
+    </t>
+
+    <t t-name="pos_orders_screen">
         <div class="clientlist-screen screen">
             <div class="screen-content">
                 <section class="top-content">

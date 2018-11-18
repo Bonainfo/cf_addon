@@ -9,6 +9,20 @@
             <t t-if="order.date">
                 <div class="pos-center-align"><t t-esc="order.date"/> | <t t-esc="order.name"/></div>
             </t>
+            <br/>
+            <t t-if="widget.pos.get_shop_logo()">
+                <div class="ticket_image">
+                    <img t-att-src='widget.pos.get_shop_logo()' class="shop_logo"/>
+                </div>
+            </t>
+        </t>
+        <t t-jquery="div[class*='receipt-user']" t-operation="replace">
+            <div class="receipt-user">
+                Seller: <t t-esc="widget.pos.get_cashier().name"/><br />
+            </div>
+            <t t-if="order.get_client()">
+                Customer: <t t-esc="order.get_client().name"/><br />
+            </t>
         </t>
         <t t-jquery="table[class*='receipt-orderlines']" t-operation="replace">
             <t t-if="widget.pos.config.category_wise_receipt">
@@ -43,54 +57,54 @@
                                 </t>
                                 <t t-esc="orderline.get_product().display_name"/>
                                 <t t-if="orderline.get_discount() > 0">
-                                    <div class="pos-disc-font">
+                                    <div>
                                     With a <t t-esc="orderline.get_discount()"/>% discount
                                     </div>
                                 </t>
                                 <t t-if="widget.pos.config.display_tax_receipt and orderline.get_tax() > 0">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         Tax: <t t-esc="widget.format_currency(orderline.get_tax().toFixed(2))"/>
                                     </div>
                                 </t>
                                 <t t-if="orderline.get_discount() > 0">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         Discount: <t t-esc="orderline.get_discount()"/> %
                                     </div>
                                 </t>
                                 <t t-if="orderline.discount_reason">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         <t t-esc="orderline.discount_reason"/>
                                     </div>
                                 </t>
                                 <t t-if="orderline.pack_lot_lines and orderline.pack_lot_lines.models">
                                     <t t-foreach="orderline.pack_lot_lines.models" t-as="lot_model">
-                                        <div class="pos-disc-font">
+                                        <div>
                                             Lot: <t t-esc="lot_model['attributes']['lot_name']"/>
                                         </div>
                                     </t>
                                 </t>
                                 <t t-if="orderline.combo_items">
                                     <t t-foreach="orderline.combo_items" t-as="combo_item">
-                                        <div class="pos-disc-font">
+                                        <div>
                                             <t t-esc="combo_item.product_id[1]"/> With qty:  <t t-esc="combo_item.quantity * orderline['quantity']" />
                                         </div>
                                     </t>
                                 </t>
                                 <t t-if="orderline.get_line_note()">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         <t t-esc="orderline.get_line_note()"/>
                                     </div>
                                 </t>
                                 <t t-if="orderline.variants">
                                     <t t-foreach="orderline.variants" t-as="variant">
-                                        <div class="pos-disc-font">
+                                        <div>
                                             <t t-esc="variant.value_id[1]"/> with <t t-esc="widget.format_currency(variant.price_extra, 'Price extra')" />
                                         </div>
                                     </t>
                                 </t>
                                 <t t-if="orderline.tags">
                                     <t t-foreach="orderline.tags" t-as="tag">
-                                        <div class="pos-disc-font">
+                                        <div>
                                             <span class='bus-info' t-att-data-id="tag.id">
                                                 <i class="fa fa-tag"/><t t-esc="tag.name"/>
                                             </span>
@@ -122,54 +136,54 @@
                             </t>
                             <t t-esc="orderline.get_product().display_name"/>
                             <t t-if="orderline.get_discount() > 0">
-                                <div class="pos-disc-font">
+                                <div>
                                 With a <t t-esc="orderline.get_discount()"/>% discount
                                 </div>
                             </t>
                             <t t-if="widget.pos.config.display_tax_receipt and orderline.get_tax() > 0">
-                                <div class="pos-disc-font">
+                                <div>
                                     Tax: <t t-esc="widget.format_currency(orderline.get_tax().toFixed(2))"/>
                                 </div>
                             </t>
                             <t t-if="orderline.get_discount() > 0">
-                                <div class="pos-disc-font">
+                                <div>
                                     Discount: <t t-esc="orderline.get_discount()"/> %
                                 </div>
                             </t>
                             <t t-if="orderline.discount_reason">
-                                <div class="pos-disc-font">
+                                <div>
                                     <t t-esc="orderline.discount_reason"/>
                                 </div>
                             </t>
                             <t t-if="orderline.pack_lot_lines and orderline.pack_lot_lines.models">
                                 <t t-foreach="orderline.pack_lot_lines.models" t-as="lot_model">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         Lot: <t t-esc="lot_model['attributes']['lot_name']"/>
                                     </div>
                                 </t>
                             </t>
                             <t t-if="orderline.combo_items">
                                 <t t-foreach="orderline.combo_items" t-as="combo_item">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         <t t-esc="combo_item.product_id[1]"/> With qty:  <t t-esc="combo_item.quantity * orderline['quantity']" />
                                     </div>
                                 </t>
                             </t>
                             <t t-if="orderline.get_line_note()">
-                                <div class="pos-disc-font">
+                                <div>
                                     <t t-esc="orderline.get_line_note()"/>
                                 </div>
                             </t>
                             <t t-if="orderline.variants">
                                 <t t-foreach="orderline.variants" t-as="variant">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         <t t-esc="variant.value_id[1]"/> with <t t-esc="widget.format_currency(variant.price_extra, 'Price extra')" />
                                     </div>
                                 </t>
                             </t>
                             <t t-if="orderline.tags">
                                 <t t-foreach="orderline.tags" t-as="tag">
-                                    <div class="pos-disc-font">
+                                    <div>
                                         <span class='bus-info' t-att-data-id="tag.id">
                                             <i class="fa fa-tag"/><t t-esc="tag.name"/>
                                         </span>

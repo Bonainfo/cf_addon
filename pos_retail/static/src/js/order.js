@@ -136,6 +136,10 @@ odoo.define('pos_retail.order', function (require) {
             if (json.guest_number) {
                 this.guest_number = json.guest_number;
             }
+            if (json.location_id) {
+                this.location_id = json.location_id;
+                this.location = this.pos.stock_location_by_id[json.location_id];
+            }
             return res;
         },
         export_as_JSON: function () {
@@ -242,7 +246,6 @@ odoo.define('pos_retail.order', function (require) {
                 json.guest_number = this.guest_number.id
             }
             json.location_id = this.pos.get_location()['id'];
-            json.location = this.pos.get_location();
             return json;
         },
         export_for_printing: function () {
@@ -516,18 +519,19 @@ odoo.define('pos_retail.order', function (require) {
             var self = this;
             if (this.pos.config.validate_payment) {
                 this.pos.gui.show_screen('products');
-                return this.pos.gui.show_popup('password', {
-                    title: 'Input pos security pin ?',
+                return this.pos.gui.show_popup('ask_password', {
+                    title: 'Blocked',
+                    body: 'Please input pos pass pin for payment order',
                     confirm: function (value) {
                         var pin;
-                        if (this.pos.config.manager_validate) {
-                            var user_validate = this.pos.user_by_id[this.pos.config.manager_user_id[0]];
+                        if (self.pos.config.manager_validate) {
+                            var user_validate = self.pos.user_by_id[self.pos.config.manager_user_id[0]];
                             pin = user_validate['pos_security_pin']
                         } else {
-                            pin = this.pos.user.pos_security_pin
+                            pin = self.pos.user.pos_security_pin
                         }
                         if (value != pin) {
-                            return this.pos.gui.show_popup('confirm', {
+                            return self.pos.gui.show_popup('confirm', {
                                 title: 'Wrong',
                                 body: 'Password not correct, please check pos security pin'
                             })
@@ -558,8 +562,8 @@ odoo.define('pos_retail.order', function (require) {
         },
         add_global_discount: function (discount) {
             var total_without_tax = this.get_total_without_tax();
-            var product = this.pos.db.product_by_id[discount.product_id[0]]
-            var price = total_without_tax / 100 * discount['amount']
+            var product = this.pos.db.product_by_id[discount.product_id[0]];
+            var price = total_without_tax / 100 * discount['amount'];
             this.add_product(product, {
                 price: price,
                 quantity: -1
@@ -955,9 +959,9 @@ odoo.define('pos_retail.order', function (require) {
             if (json.medical_insurance) {
                 this.medical_insurance = json.medical_insurance;
             }
-            // if (json.frequent_buyer_id) {
-            //     this.frequent_buyer_id = json.frequent_buyer_id;
-            // }
+            if (json.frequent_buyer_id) {
+                this.frequent_buyer_id = json.frequent_buyer_id;
+            }
             return res;
         },
         export_as_JSON: function () {
@@ -998,9 +1002,9 @@ odoo.define('pos_retail.order', function (require) {
             if (this.medical_insurance) {
                 json.medical_insurance = this.medical_insurance
             }
-            // if (this.frequent_buyer_id) {
-            //     json.frequent_buyer_id = this.frequent_buyer_id
-            // }
+            if (this.frequent_buyer_id) {
+                json.frequent_buyer_id = this.frequent_buyer_id
+            }
             return json;
         },
         clone: function () {
@@ -1032,7 +1036,7 @@ odoo.define('pos_retail.order', function (require) {
             }
             return receipt_line;
         },
-        get_price_tax_inclued: function(){
+        get_price_tax_inclued: function () {
             /*
                 Return subtotal tax included
             */
@@ -1341,7 +1345,7 @@ odoo.define('pos_retail.order', function (require) {
                 var self = this;
                 setTimeout(function () {
                     self.set_quantity('remove', keep_price);
-                }, 100);
+                }, 1);
             }
             return res;
         },
@@ -1373,7 +1377,7 @@ odoo.define('pos_retail.order', function (require) {
             if (this.pos.server_version == 10) {
                 var line_add_price = this.price;
             }
-            if (this.pos.server_version == 11) {
+            if ([11, 12].indexOf(this.pos.server_version) != -1) {
                 var line_add_price = orderline.get_product().get_price(orderline.order.pricelist, this.get_quantity());
             }
             var current_price_round = round_pr(Math.max(0, current_price), this.pos.currency.rounding);

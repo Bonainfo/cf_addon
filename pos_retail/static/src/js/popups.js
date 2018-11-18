@@ -7,25 +7,6 @@ odoo.define('pos_retail.popups', function (require) {
     var rpc = require('pos.rpc');
     var qweb = core.qweb;
 
-    // print vouchers
-    var popup_print_vouchers = PopupWidget.extend({
-        template: 'popup_print_vouchers',
-        show: function (options) {
-            var self = this;
-            this._super(options);
-            $('.print-voucher').click(function () {
-                self.click_confirm();
-            });
-            $('.cancel').click(function () {
-                self.click_cancel();
-            });
-        }
-    });
-    gui.define_popup({
-        name: 'popup_print_vouchers',
-        widget: popup_print_vouchers
-    });
-
     var popup_selection_combos = PopupWidget.extend({ // select combo
         template: 'popup_selection_combos',
         show: function (options) {
@@ -850,114 +831,6 @@ odoo.define('pos_retail.popups', function (require) {
         widget: popup_create_purchase_order
     });
 
-    var popup_return_pos_order_lines = PopupWidget.extend({
-        template: 'popup_return_pos_order_lines',
-        show: function (options) {
-            var self = this;
-            this.line_selected = [];
-            var order_lines = options.order_lines;
-            for (var i=0; i < order_lines.length; i++) {
-                var line = order_lines[i];
-                this.line_selected.push(line);
-            }
-            this.order = options.order;
-            this._super(options);
-            var image_url = window.location.origin + '/web/image?model=product.product&field=image_medium&id=';
-            if (order_lines) {
-                self.$el.find('tbody').html(qweb.render('return_pos_order_line', {
-                    order_lines: order_lines,
-                    image_url: image_url,
-                    widget: self
-                }));
-                this.$('.line-select').click(function () {
-                    var line_id = parseInt($(this).data('id'));
-                    var line = self.pos.db.order_line_by_id[line_id];
-                    var checked = this.checked;
-                    if (checked == false    ) {
-                        for (var i = 0; i < self.line_selected.length; ++i) {
-                            if (self.line_selected[i].id == line.id) {
-                                self.line_selected.splice(i, 1);
-                            }
-                        }
-                    } else {
-                        self.line_selected.push(line);
-                    }
-                });
-                this.$('.confirm_return_order').click(function () {
-                    if (self.line_selected == [] || !self.order) {
-                        self.pos.gui.show_popup('confirm', {
-                            title: _t('Error'),
-                            body: 'Please select lines need return from request of customer',
-                        });
-                    } else {
-                        return self.pos.add_return_order(self.order, self.line_selected);
-                    }
-                });
-                this.$('.create_voucher').click(function () { // create voucher when return order
-                    var value = 0;
-                    if (!self.line_selected) {
-                        self.pos.gui.show_popup('confirm', {
-                            title: _t('Error'),
-                            body: 'Please select lines need return from request of customer',
-                        });
-                    } else {
-                        for (var i = 0; i < self.line_selected.length; i++) {
-                            value += self.line_selected[i]['price_subtotal_incl'];
-                        }
-                    }
-                    if (value) {
-                        var voucher_data = {
-                            apply_type: 'fixed_amount',
-                            value: value,
-                            method: 'general',
-                            period_days: self.pos.config.expired_days_voucher || 30,
-                            total_available: 1,
-                            customer_id: self.order['partner_id']
-                        };
-                        return rpc.query({
-                            model: 'pos.voucher',
-                            method: 'create_voucher',
-                            args: [voucher_data]
-                        }).then(function (vouchers) {
-                            self.pos.vouchers = vouchers;
-                            return self.pos.gui.show_screen('vouchers_screen');
-                        }).fail(function (type, error) {
-                            return self.pos.query_backend_fail(type, error);
-                        });
-                    }
-
-                });
-                this.$('.cancel').click(function () {
-                    self.pos.gui.close_popup();
-                });
-                this.$('.qty_minus').click(function () {
-                    var line_id = parseInt($(this).data('id'));
-                    var line = self.pos.db.order_line_by_id[line_id];
-                    var quantity = parseFloat($(this).parent().find('.qty').text());
-                    if (quantity > 1) {
-                        var new_quantity = quantity - 1;
-                        $(this).parent().find('.qty').text(new_quantity);
-                        line['new_quantity'] = new_quantity;
-                    }
-                });
-                this.$('.qty_plus').click(function () {
-                    var line_id = parseInt($(this).data('id'));
-                    var line = self.pos.db.order_line_by_id[line_id];
-                    var quantity = parseFloat($(this).parent().find('.qty').text());
-                    if (line['qty'] >= (quantity + 1)) {
-                        var new_quantity = quantity + 1;
-                        $(this).parent().find('.qty').text(new_quantity);
-                        line['new_quantity'] = new_quantity;
-                    }
-                })
-            }
-        }
-    });
-    gui.define_popup({
-        name: 'popup_return_pos_order_lines',
-        widget: popup_return_pos_order_lines
-    });
-
     // return products from sale order
     var popup_stock_return_picking = PopupWidget.extend({
         template: 'popup_stock_return_picking',
@@ -1401,8 +1274,8 @@ odoo.define('pos_retail.popups', function (require) {
                     });
                 } else {
                     return self.gui.show_popup('confirm', {
-                        title: 'Success',
-                        body: invoice.number + ' registered amount ' + self.pay_amount + ' success',
+                        title: 'Finished',
+                        body: invoice.number + ' registered amount ' + self.pay_amount + ' finished'
                     });
                 }
 
@@ -1696,162 +1569,6 @@ odoo.define('pos_retail.popups', function (require) {
     });
     gui.define_popup({name: 'popup_create_customer', widget: popup_create_customer});
 
-    var popup_create_pos_category = PopupWidget.extend({
-        template: 'popup_create_pos_category',
-        show: function (options) {
-            var self = this;
-            this.uploaded_picture = null;
-            this._super(options);
-            var contents = this.$('.create_product');
-            contents.scrollTop(0);
-            $('.confirm').click(function () {
-                self.click_confirm();
-            });
-            $('.cancel').click(function () {
-                self.click_cancel();
-            });
-            contents.find('.image-uploader').on('change', function (event) {
-                self.load_image_file(event.target.files[0], function (res) {
-                    if (res) {
-                        contents.find('.client-picture img, .client-picture .fa').remove();
-                        contents.find('.client-picture').append("<img src='" + res + "'>");
-                        contents.find('.detail.picture').remove();
-                        self.uploaded_picture = res;
-                    }
-                });
-            });
-        },
-        load_image_file: function (file, callback) {
-            var self = this;
-            if (!file) {
-                return;
-            }
-            if (file.type && !file.type.match(/image.*/)) {
-                return this.pos.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Unsupported File Format, Only web-compatible Image formats such as .png or .jpeg are supported',
-                });
-            }
-
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var dataurl = event.target.result;
-                var img = new Image();
-                img.src = dataurl;
-                self.resize_image_to_dataurl(img, 600, 400, callback);
-            };
-            reader.onerror = function () {
-                return self.pos.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Could Not Read Image, The provided file could not be read due to an unknown error',
-                });
-            };
-            reader.readAsDataURL(file);
-        },
-        resize_image_to_dataurl: function (img, maxwidth, maxheight, callback) {
-            img.onload = function () {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                var ratio = 1;
-
-                if (img.width > maxwidth) {
-                    ratio = maxwidth / img.width;
-                }
-                if (img.height * ratio > maxheight) {
-                    ratio = maxheight / img.height;
-                }
-                var width = Math.floor(img.width * ratio);
-                var height = Math.floor(img.height * ratio);
-
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(img, 0, 0, width, height);
-
-                var dataurl = canvas.toDataURL();
-                callback(dataurl);
-            };
-        }
-    });
-    gui.define_popup({name: 'popup_create_pos_category', widget: popup_create_pos_category});
-    
-    var popup_create_product = PopupWidget.extend({
-        template: 'popup_create_product',
-        show: function (options) {
-            var self = this;
-            this.uploaded_picture = null;
-            this._super(options);
-            var contents = this.$('.create_product');
-            contents.scrollTop(0);
-            $('.confirm').click(function () {
-                self.click_confirm();
-            });
-            $('.cancel').click(function () {
-                self.click_cancel();
-            });
-            contents.find('.image-uploader').on('change', function (event) {
-                self.load_image_file(event.target.files[0], function (res) {
-                    if (res) {
-                        contents.find('.client-picture img, .client-picture .fa').remove();
-                        contents.find('.client-picture').append("<img src='" + res + "'>");
-                        contents.find('.detail.picture').remove();
-                        self.uploaded_picture = res;
-                    }
-                });
-            });
-        },
-        load_image_file: function (file, callback) {
-            var self = this;
-            if (!file) {
-                return;
-            }
-            if (file.type && !file.type.match(/image.*/)) {
-                return this.pos.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Unsupported File Format, Only web-compatible Image formats such as .png or .jpeg are supported',
-                });
-            }
-
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                var dataurl = event.target.result;
-                var img = new Image();
-                img.src = dataurl;
-                self.resize_image_to_dataurl(img, 600, 400, callback);
-            };
-            reader.onerror = function () {
-                return self.pos.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Could Not Read Image, The provided file could not be read due to an unknown error',
-                });
-            };
-            reader.readAsDataURL(file);
-        },
-        resize_image_to_dataurl: function (img, maxwidth, maxheight, callback) {
-            img.onload = function () {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                var ratio = 1;
-
-                if (img.width > maxwidth) {
-                    ratio = maxwidth / img.width;
-                }
-                if (img.height * ratio > maxheight) {
-                    ratio = maxheight / img.height;
-                }
-                var width = Math.floor(img.width * ratio);
-                var height = Math.floor(img.height * ratio);
-
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(img, 0, 0, width, height);
-
-                var dataurl = canvas.toDataURL();
-                callback(dataurl);
-            };
-        }
-    });
-    gui.define_popup({name: 'popup_create_product', widget: popup_create_product});
-
     var popup_set_guest = PopupWidget.extend({
         template: 'popup_set_guest',
         show: function (options) {
@@ -1880,8 +1597,8 @@ odoo.define('pos_retail.popups', function (require) {
 
     gui.define_popup({name: 'popup_set_guest', widget: popup_set_guest});
 
-    var popup_lock_session = PopupWidget.extend({
-        template: 'popup_lock_session',
+    var ask_password = PopupWidget.extend({
+        template: 'ask_password',
         show: function (options) {
             options = options || {};
             this._super(options);
@@ -1893,10 +1610,40 @@ odoo.define('pos_retail.popups', function (require) {
             if (this.options.confirm) {
                 this.options.confirm.call(this, value);
             }
-        },
+        }
     });
 
-    gui.define_popup({name: 'popup_lock_session', widget: popup_lock_session});
+    gui.define_popup({name: 'ask_password', widget: ask_password});
+
+    var popup_lock_page = PopupWidget.extend({
+        template: 'popup_lock_page',
+        login: function () {
+            var pos_security_pin = this.$('.input_form').val();
+            if (pos_security_pin != this.pos.user.pos_security_pin) {
+                return this.pos.gui.show_popup('popup_lock_page', {
+                    title: 'Locked',
+                    body: 'Input could not blank or your pos pass pin not correct'
+                });
+            } else {
+                return this.pos.gui.close_popup();
+            }
+        },
+        show: function (options) {
+            var self = this;
+            options = options || {};
+            this._super(options);
+            this.$('#password').focus();
+            this.$('#password').value = "";
+            this.$('.login').click(function () {
+                self.login()
+            });
+            this.$('.logout').click(function () {
+                self.gui._close();
+            });
+
+        }
+    });
+    gui.define_popup({name: 'popup_lock_page', widget: popup_lock_page});
 
     _.each(gui.Gui.prototype.popup_classes, function (popup) {
         if (popup.name == 'packlotline') {
@@ -2294,25 +2041,35 @@ odoo.define('pos_retail.popups', function (require) {
                         order.trigger('change', order);
                     }
                     self.locations_selected = location;
+                    self.pos.gui.show_popup('confirm', {
+                        title: 'Plese Waiting',
+                        body: 'Waiting pos get stock datas of location just selected'
+                    });
                     return rpc.query({
                         model: 'pos.cache.database',
                         method: 'get_stock_datas',
-                        args: [location['id']],
+                        args: [location_id, []],
                         context: {}
                     }).then(function (datas) {
+                        if (!datas) {
+                            return true;
+                        }
                         var products = self.pos.database['product.product'];
                         for (var i = 0; i < products.length; i++) {
                             var product = products[i];
-                            if (datas[product.id]) {
+                            if (datas[product.id] != undefined) {
                                 var qty_available = datas[product.id];
                                 product['qty_available'] = qty_available;
+                                if (!(product['product_tmpl_id'] instanceof Array)) {
+                                    product['product_tmpl_id'] = [product['product_tmpl_id'], product['display_name']];
+                                }
                                 self.pos.trigger('sync:product', product)
                             }
                         }
                         self.pos.trigger('change:location');
                         return self.gui.show_popup('confirm', {
-                            title: 'Changed',
-                            body: self.locations_selected['name'] + ' selected',
+                            title: 'Loaded done',
+                            body: self.locations_selected['name'] + 'now is selected',
                         });
                     }).fail(function (type, error) {
                         return self.pos.query_backend_fail(type, error);
@@ -2322,55 +2079,71 @@ odoo.define('pos_retail.popups', function (require) {
             this.$('.close').click(function () {
                 self.pos.gui.close_popup();
             });
-        },
+        }
     });
     gui.define_popup({name: 'popup_set_location', widget: popup_set_location});
 
     var popup_sync_orders = PopupWidget.extend({
-        template: 'popup_set_location',
+        template: 'popup_sync_orders',
         show: function (options) {
             var self = this;
             this._super(options);
-            var configs = this.pos.pos_configs;
-            self.$el.find('.body').html(qweb.render('users_list', {
-                configs: configs,
-                widget: self
-            }));
-            this.$('.config').click(function () {
-                var config_id = parseInt($(this).data('id'));
-                var orders = [];
-                var unpaid_orders = self.pos.db.get_unpaid_orders();
-                not_loaded_count = 0;
-                for (var i = 0; i < unpaid_orders.length; i++) {
-                    var order = unpaid_orders[i];
-                    if (order.pos_session_id === self.pos.pos_session.id) {
-                        orders.push(order);
-                    } else {
-                        not_loaded_count += 1;
-                    }
+            var configs = [];
+            for (var i=0; i < this.pos.configs.length; i++) {
+                var config = this.pos.configs[i];
+                if (!config.user_id || !config.sync_multi_session || !config.bus_id || !this.pos.config.bus_id) {
+                    continue;
                 }
-                if (orders.length) {
-                    if (not_loaded_count) {
-                        console.info('There are ' + not_loaded_count + ' locally saved unpaid orders belonging to another session');
+                if (config.user_id[0] != this.pos.config.user_id[0] && config.bus_id[0] == this.pos.config.bus_id[0]) {
+                    configs.push(config)
+                }
+            }
+            if (configs.length > 0) {
+                self.$el.find('.body').html(qweb.render('users_list', {
+                    configs: configs,
+                    widget: self
+                }));
+                this.$('.config').click(function () {
+                    var config_id = parseInt($(this).data('id'));
+                    var orders = [];
+                    var unpaid_orders = self.pos.db.get_unpaid_orders();
+                    var not_loaded_count = 0;
+                    for (var i = 0; i < unpaid_orders.length; i++) {
+                        var order = unpaid_orders[i];
+                        if (order.pos_session_id === self.pos.pos_session.id) {
+                            orders.push(order);
+                        } else {
+                            not_loaded_count += 1;
+                        }
                     }
-                    return rpc.query({
-                        model: 'pos.cache.database',
-                        method: 'sync_orders',
-                        args: [config_id, orders],
-                        context: {}
-                    }).then(function () {
-                        self.pos.gui.close_popup();
+                    if (orders.length) {
+                        if (not_loaded_count) {
+                            console.info('There are ' + not_loaded_count + ' locally saved unpaid orders belonging to another session');
+                        }
+                        return rpc.query({
+                            model: 'pos.cache.database',
+                            method: 'sync_orders',
+                            args: [config_id, orders],
+                            context: {}
+                        }).then(function () {
+                            self.pos.gui.close_popup();
 
-                    }).fail(function (type, error) {
-                        self.pos.gui.close_popup();
-                        return self.pos.query_backend_fail(type, error);
-                    })
-                }
-            });
+                        }).fail(function (type, error) {
+                            self.pos.gui.close_popup();
+                            return self.pos.query_backend_fail(type, error);
+                        })
+                    }
+                });
+            } else {
+                return this.pos.gui.show_popup('confirm', {
+                    title: 'Warning',
+                    body: 'Your pos system only you active sync between session'
+                })
+            }
             this.$('.close').click(function () {
                 self.pos.gui.close_popup();
             });
-        },
+        }
     });
     gui.define_popup({name: 'popup_sync_orders', widget: popup_sync_orders});
 

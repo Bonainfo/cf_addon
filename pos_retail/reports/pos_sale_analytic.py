@@ -3,6 +3,7 @@ from odoo import models, fields, tools, api
 
 class pos_sale_analytic(models.Model):
     _name = 'pos.sale.analytic'
+    _description = "Report sale analytic"
 
     _auto = False
     _rec_name = 'date'

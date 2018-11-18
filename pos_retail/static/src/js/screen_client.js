@@ -151,7 +151,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
                     if (old_partners.length != 0) {
                         return this.pos.gui.show_popup('confirm', {
                             title: 'Warning',
-                            body: 'Email is duplicated with other customer',
+                            body: 'Email is duplicated with other customer' + old_partners[0]['name']
                         })
                     }
                 } else {
@@ -161,7 +161,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
                     if (old_partners.length != 0) {
                         return this.pos.gui.show_popup('confirm', {
                             title: 'Warning',
-                            body: 'Email is duplicated with other customer',
+                            body: 'Email is duplicated with other customer' + old_partners[0]['name']
                         })
                     }
                 }
@@ -174,7 +174,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
                     if (old_partners.length != 0) {
                         return this.pos.gui.show_popup('confirm', {
                             title: 'Warning',
-                            body: 'Phone have used before, your phone input of other client ' + old_partner['name'],
+                            body: 'Phone have used before, your phone input of other client ' + old_partners[0]['name']
                         })
                     }
                 } else {
@@ -184,7 +184,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
                     if (old_partners.length != 0) {
                         return this.pos.gui.show_popup('confirm', {
                             title: 'Warning',
-                            body: 'Phone have used before, your phone input of other client ' + old_partner['name'],
+                            body: 'Phone have used before, your phone input of other client ' + old_partners[0]['name']
                         })
                     }
                 }

@@ -151,20 +151,6 @@
         </receipt>
     </t>
 
-    <!-- login and lock screen -->
-    <t t-name="login_page">
-        <div class="form">
-            <div class="login-form">
-                <img alt="Scan" src="/pos_retail/static/src/imgs/barcode.gif" class="product-img" style="
-                    width: 350px;
-                "/>
-                <input type="password" placeholder="POS Security Pin / Scan your barcode" class="form-control pos_security_pin"/>
-                <div class="btn btn-warning confirm-login">login to pos</div>
-                <div class="btn btn-danger confirm-logout">log out</div>
-            </div>
-        </div>
-    </t>
-
     <t t-name="user_card_xml">
         <receipt align='center' width='40' value-thousands-separator='' >
             <t t-if='company.logo'>
@@ -417,7 +403,7 @@
                     <td>
                         <t t-esc="orderline.get_product().display_name"/>
                          <t t-if="orderline.get_discount() > 0">
-                            <div class="pos-disc-font">
+                            <div>
                                 With a <t t-esc="orderline.get_discount()"/>% discount
                             </div>
                         </t>

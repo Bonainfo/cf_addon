@@ -24,6 +24,9 @@ odoo.define('pos_retail.screen_kitchen_receipt', function (require) {
         get_receipt_all_printer_render_env: function () {
             var order = this.pos.get_order();
             var printers = this.pos.printers;
+            if (!printers) {
+                return false
+            }
             var item_new = [];
             var item_cancelled = [];
             var table = null;
@@ -90,6 +93,9 @@ odoo.define('pos_retail.screen_kitchen_receipt', function (require) {
         },
         render_receipt: function () {
             var values = this.get_receipt_all_printer_render_env();
+            if (!values) {
+                return;
+            }
             this.$('.pos-receipt-container').html(qweb.render('kitchen_receipt', values));
             var printers = this.pos.printers;
             for (var i = 0; i < printers.length; i++) {

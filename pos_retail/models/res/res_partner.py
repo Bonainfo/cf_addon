@@ -11,9 +11,9 @@ class res_partner(models.Model):
 
     wallet = fields.Float(digits=(16, 4),
                           compute='_compute_wallet', string='Wallet amount', help='This wallet amount of customer')
-    #credit = fields.Float(digits=(16, 4),
-#                          compute='_compute_debit_credit_balance', string='Credit')
-    #debit = fields.Float(digits=(16, 4),
+#    credit = fields.Float(digits=(16, 4),
+#                         compute='_compute_debit_credit_balance', string='Credit')
+#   debit = fields.Float(digits=(16, 4),
 #                         compute='_compute_debit_credit_balance', string='Debit')
     balance = fields.Float(digits=(16, 4),
                            compute='_compute_debit_credit_balance', string='Balance', store=True)
@@ -26,13 +26,17 @@ class res_partner(models.Model):
 
     @api.model
     def create_from_ui(self, partner):
-        if partner.get('property_product_pricelist', None):
+        _logger.info('begin create_from_ui')
+        if partner.get('property_product_pricelist', False):
             partner['property_product_pricelist'] = int(partner['property_product_pricelist'])
+        if not partner['property_product_pricelist']:
+            del partner['property_product_pricelist']
         for key, value in partner.items():
             if value == "false":
                 partner[key] = False
             if value == "true":
                 partner[key] = True
+        _logger.info(partner)
         return super(res_partner, self).create_from_ui(partner)
 
     @api.multi

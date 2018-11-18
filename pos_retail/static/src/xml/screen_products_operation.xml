@@ -1,6 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    
+
+    <t t-name="popup_create_pos_category">
+        <div class="modal-dialog">
+            <div class="popup touch-scrollable scrollable-y">
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card create_category">
+                                    <div class="card-content">
+                                        <h4 class="card-title">Create Category</h4>
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group label-floating">
+                                                <div class='client-picture'>
+                                                    <t><i class='fa fa-camera'></i></t>
+                                                    <input type='file' class='image-uploader'></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Name<span class="voucher-form-required"> (*)</span></span>
+                                            <input class="form-control category_input" name="name" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Sequence</span>
+                                            <input class="form-control category_input" name="sequence"/>
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Category</span>
+                                            <select class='form-control voucher-select category_input' name='parent_id'>
+                                                <option value=''>None</option>
+                                                <t t-foreach='widget.pos.categories' t-as='category'>
+                                                    <option t-att-value='category.id'>
+                                                        <t t-esc='category.name'/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-footer text-right">
+                                            <div class="checkbox pull-right">
+                                                <span class="control-button btn  cancel">Close</span>
+                                                <span class="control-button btn btn-rose btn-fill confirm"><i class="fa fa-plus"/>Create</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="popup_create_product">
+        <div class="modal-dialog">
+            <div class="popup touch-scrollable scrollable-y" style="height: 60%">
+                <p class="title"><t t-esc="widget.title"/></p>
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card create_product">
+                                    <div class="card-content">
+                                        <h4 class="card-title">Create Product</h4>
+                                        <div class="col-md-4 col-sm-4">
+                                            <div class="form-group label-floating">
+                                                <div class='client-picture'>
+                                                    <t><i class='fa fa-camera'></i></t>
+                                                    <input type='file' class='image-uploader'></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Name<span class="voucher-form-required"> (*)</span></span>
+                                            <input class="form-control product_input" name="name" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Internal ref</span>
+                                            <input class="form-control product_input" name="default_code" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Barcode</span>
+                                            <input class="form-control product_input" name="barcode" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Cost Price</span>
+                                            <input class="form-control product_input" name="cost_price" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>List Price</span>
+                                            <input class="form-control product_input" name="list_price" required="true" />
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Type</span>
+                                            <select class='form-control voucher-select product_input' name='type'>
+                                                 <option value='consu'>Consumable</option>
+                                                 <option value='service'>Service</option>
+                                                 <option value='product'>StockAble Product</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <span class='label voucher-label'>Category</span>
+                                            <select class='form-control voucher-select product_input' name='pos_categ_id'>
+                                                <option value=''>None</option>
+                                                <t t-foreach='widget.pos.categories' t-as='category'>
+                                                    <option t-att-value='category.id'>
+                                                        <t t-esc='category.name'/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-footer text-right">
+                                            <div class="checkbox pull-right">
+                                                <span class="control-button btn  cancel">Close</span>
+                                                <span class="control-button btn btn-rose btn-fill confirm"><i class="fa fa-plus"/>Create</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="popup_update_quantity_each_location">
+        <div class="modal-dialog">
+            <div class="popup touch-scrollable scrollable-y" style="height: 500px">
+                <div class="card">
+                    <div class="card-content">
+                        <h4 class="card-title">
+                            <t t-if="widget.options.title">
+                                <t t-esc="widget.options.title"/>
+                            </t>
+                        </h4>
+                        <div class="table-responsive">
+                            <div class='body'>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="btn btn-danger close">
+                                     Close
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
     <t t-name="products_screen">
         <div class="clientlist-screen screen">
             <div class="screen-content">
@@ -144,6 +297,12 @@
                         <span class='label'>Print Label</span>
                         <button class="btn print_label" style="height: 40px; width: 120px"><i class="fa fa-print"/></button>
                     </div>
+                    <t t-if="product.type == 'product'">
+                        <div class="client-detail state">
+                            <span class='label'>Update qty on hand</span>
+                            <button class="btn update_qty_on_hand" style="height: 40px; width: 120px"><i class="fa fa-check"/></button>
+                        </div>
+                    </t>
                 </div>
             </div>
         </section>

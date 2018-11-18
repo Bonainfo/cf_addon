@@ -2,6 +2,40 @@
 <templates id="template" xml:space="preserve">
 
     <t t-extend="XmlReceipt">
+        <t t-jquery="img[t-att-src*='receipt.company.logo']" t-operation="replace">
+            <t t-set="logo" t-value="widget.pos.get_shop_logo()"/>
+            <img t-att-src='logo' class="shop_logo"/>
+        </t>
+        <t t-jquery="div[class*='cashier']" t-operation="replace">
+            <div font='b'>
+                <t t-if='receipt.cashier'>
+                    <div class='cashier'>
+                        <div>--------------------------------</div>
+                        <div>Seller by <t t-esc='receipt.cashier' /></div>
+                        <br/>
+                    </div>
+                </t>
+                <t t-if='order.get_client()'>
+                    <t t-set="client" t-value="order.get_client()"/>
+                    <div class='cashier'>
+                        <div>Customer: <t t-esc='client.name' /></div>
+                        <br/>
+                    </div>
+                    <t t-if="client.mobile">
+                        <div class='cashier'>
+                            <div>Mobile: <t t-esc='client.mobile' /></div>
+                            <br/>
+                        </div>
+                    </t>
+                    <t t-if="client.mail">
+                        <div class='cashier'>
+                            <div>Email: <t t-esc='client.mail' /></div>
+                            <br/>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
         <t t-jquery="line[size*='double-height']:eq(1)" t-operation="replace">
             <t t-if="receipt.change">
                 <line size='double-height'>
@@ -16,9 +50,9 @@
                 </line>
             </t>
         </t>
-        <t t-jquery="t[t-if*='receipt.cashier']" t-operation="before">
+        <t t-jquery="t[t-if*='receipt.cashier']:eq(1)" t-operation="before">
             <line>
-                <left>WH location:</left>
+                <left>Stock location:</left>
                 <right><t t-esc='receipt.location.name' /></right>
             </line>
             <t t-if="widget.pos.config.booking_orders_display_shipping_receipt">

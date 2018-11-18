@@ -27,10 +27,8 @@ odoo.define('pos_retail.loyalty', function (require) {
                 } else {
                     self.loyalty = false;
                 }
-
             }
-        }
-        , {
+        }, {
             model: 'pos.loyalty.rule',
             fields: [
                 'name',
@@ -134,7 +132,7 @@ odoo.define('pos_retail.loyalty', function (require) {
                     title: _t('Please select Reward program'),
                     list: list,
                     confirm: function (reward) {
-                        var loyalty = self.pos.loyalty
+                        var loyalty = self.pos.loyalty;
                         if (!loyalty) {
                             return;
                         }
@@ -408,7 +406,6 @@ odoo.define('pos_retail.loyalty', function (require) {
             if (lines.length == 0 || !lines) {
                 return total_point;
             }
-            var amount_total_included_tax = this.get_total_with_tax();
             var loyalty = this.pos.loyalty;
             if (!loyalty) {
                 return total_point;
@@ -442,24 +439,15 @@ odoo.define('pos_retail.loyalty', function (require) {
                         line.plus_point = 0;
                         for (var i = 0; i < rules.length; i++) {
                             var rule = rules[i];
-                            var line_plus_point = round_pr(line.get_price_with_tax() * rule['coefficient'] || 0, this.pos.loyalty.rounding);
-                            if (rule['type'] == 'products' && rule['product_ids'].indexOf(line.product['id']) != -1) {
-                                line.plus_point += line_plus_point;
-                                total_point += line_plus_point;
-                            } else if (rule['type'] == 'categories' && rule['category_ids'].indexOf(line.product.pos_categ_id[0]) != -1) {
-                                line.plus_point += line_plus_point;
-                                total_point += line_plus_point;
-                            } else if (rule['type'] == 'order_amount') {
-                                if (rule['min_amount'] <= amount_total_included_tax) {
-                                    line.plus_point += line_plus_point;
-                                    total_point += line_plus_point;
-                                }
+                            var line_plus_point = line.get_price_with_tax() * rule['coefficient'];
+                            if ((rule['type'] == 'products' && rule['product_ids'].indexOf(line.product['id']) != -1) || (rule['type'] == 'categories' && rule['category_ids'].indexOf(line.product.pos_categ_id[0]) != -1) || (rule['type'] == 'order_amount')) {
+                                var plus_point = round_pr(line_plus_point, this.pos.loyalty.rounding);
+                                line.plus_point += plus_point;
+                                total_point += plus_point;
                             }
                         }
                     }
                 }
-            } else {
-                return total_point;
             }
             return total_point;
         },
@@ -572,7 +560,6 @@ odoo.define('pos_retail.loyalty', function (require) {
             _super_Orderline.set_discount.apply(this, arguments);
         },
     });
-
     screens.OrderWidget.include({
         active_loyalty: function (buttons, selected_order) {
             var $loyalty_element = $(this.el).find('.summary .loyalty');
@@ -624,5 +611,4 @@ odoo.define('pos_retail.loyalty', function (require) {
             }
         }
     })
-
 });

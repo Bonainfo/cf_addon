@@ -4,9 +4,9 @@ odoo.define('pos_retail.big_data', function (require) {
     var _t = core._t;
     var rpc = require('pos.rpc');
     var ParameterDB = require('pos_retail.parameter');
-    var change = require('pos_retail.pos_chanel');
+    var pos_chanel = require('pos_retail.pos_chanel');
     var session = require('web.session');
-    var WebClient = require('web.AbstractWebClient');
+    var indexed_db = require('pos_retail.indexedDB');
 
     models.load_models([
         {
@@ -19,8 +19,9 @@ odoo.define('pos_retail.big_data', function (require) {
                 rpc.query({
                     model: 'pos.cache.database',
                     method: 'get_stock_datas',
-                    args: [self.config.stock_location_id[0]],
+                    args: [self.config.stock_location_id[0], []]
                 }).then(function (stock_datas) {
+                    console.log('loaded stock done');
                     self['stock_datas'] = stock_datas;
                     stock_datas_loaded.resolve();
                 }, function (type, err) {
@@ -29,51 +30,110 @@ odoo.define('pos_retail.big_data', function (require) {
                 return stock_datas_loaded;
             }
         }, {
-            label: 'caches',
-            condition: function (self) {
-                return self.config.load_cache;
-            },
+            label: 'loading database',
             loaded: function (self) {
-                var databases_loaded = new $.Deferred();
-                rpc.query({
-                    model: 'pos.cache.database',
-                    method: 'get_cache',
-                    args: [self.config.id],
-                }).then(function (database) {
-                    if (database) {
-                        self.database = database;
-                        self.load_datas(self.database);
-                    }
-                    databases_loaded.resolve();
-                }, function (type, err) {
-                    databases_loaded.reject();
+                /**
+                 * We restore database for pos
+                 * @type {{}}
+                 */
+                self.database = {};
+                console.log('load browse cache');
+                var status = new $.Deferred();
+                $.when(indexed_db.search_read('product.pricelist')).then(function (results) {
+                    self.database['product.pricelist'] = results;
+                    return $.when(indexed_db.search_read('product.pricelist.item')).then(function (results) {
+                        self.database['product.pricelist.item'] = results;
+                        return $.when(indexed_db.search_read('product.product')).then(function (results) {
+                            self.database['product.product'] = results;
+                            return $.when(indexed_db.search_read('res.partner')).then(function (results) {
+                                self.database['res.partner'] = results;
+                                return $.when(indexed_db.search_read('account.invoice')).then(function (results) {
+                                    self.database['account.invoice'] = results;
+                                    return $.when(indexed_db.search_read('account.invoice.line')).then(function (results) {
+                                        self.database['account.invoice.line'] = results;
+                                        return $.when(indexed_db.search_read('pos.order')).then(function (results) {
+                                            self.database['pos.order'] = results;
+                                            return $.when(indexed_db.search_read('pos.order.line')).then(function (results) {
+                                                self.database['pos.order.line'] = results;
+                                                return $.when(indexed_db.search_read('sale.order')).then(function (results) {
+                                                    self.database['sale.order'] = results;
+                                                    return $.when(indexed_db.search_read('sale.order.line')).then(function (results) {
+                                                        self.database['sale.order.line'] = results;
+                                                        if (self.database['product.product'].length == 0 && self.database['res.partner'].length == 0) {
+                                                            self.cached = false;
+                                                        } else {
+                                                            self.load_datas(self.database);
+                                                            self.cached = true;
+                                                        }
+                                                        return status.resolve();
+                                                    }).fail(function (error) {
+                                                        self.database = false;
+                                                        status.reject(error);
+                                                    });
+                                                }).fail(function (error) {
+                                                    self.database = false;
+                                                    status.reject(error);
+                                                });
+                                            }).fail(function (error) {
+                                                self.database = false;
+                                                status.reject(error);
+                                            });
+                                        }).fail(function (error) {
+                                            self.database = false;
+                                            status.reject(error);
+                                        });
+                                    }).fail(function (error) {
+                                        self.database = false;
+                                        status.reject(error);
+                                    });
+                                }).fail(function (error) {
+                                    self.database = false;
+                                    status.reject(error);
+                                });
+                            }).fail(function (error) {
+                                self.database = false;
+                                status.reject(error);
+                            });
+                        }).fail(function (error) {
+                            self.database = false;
+                            status.reject(error);
+                        });
+                    }).fail(function (error) {
+                        self.database = false;
+                        status.reject(error);
+                    });
+                }).fail(function (error) {
+                    self.database = false;
+                    status.reject(error);
                 });
-                return databases_loaded;
+                return status.promise();
             }
         }, {
-            label: 'databases',
+            label: 'store databases',
             condition: function (self) {
-                if (self.database) {
-                    return false
-                } else {
-                    return true
-                }
+                return !self.cached
             },
             loaded: function (self) {
-                var database_parameter = {};
+                console.log('load databases cache');
+                self.models_cache = [];
                 for (var index_number in self.model_lock) {
-                    database_parameter[self.model_lock[index_number]['model']] = true;
+                    self.models_cache.push(self.model_lock[index_number]['model']);
                 }
                 var databases_loaded = new $.Deferred();
-                self.pos_database_parameter = database_parameter;
                 rpc.query({
                     model: 'pos.cache.database',
                     method: 'load_master_data',
-                    args: [database_parameter, self.config.id],
+                    args: [self.models_cache, self.config.id]
                 }).then(function (database) {
                     if (database) {
+                        console.log('loading database done');
                         self.database = database;
                         self.load_datas(self.database);
+                        for (var model in self.database) {
+                            indexed_db.write(model, self.database[model]);
+                        }
+                    } else {
+                        self.database = false
                     }
                     databases_loaded.resolve();
                 }, function (type, err) {
@@ -81,7 +141,7 @@ odoo.define('pos_retail.big_data', function (require) {
                 });
                 return databases_loaded;
             }
-        },
+        }
     ]);
     var _super_PosModel = models.PosModel.prototype;
     models.PosModel = models.PosModel.extend({
@@ -111,7 +171,7 @@ odoo.define('pos_retail.big_data', function (require) {
             if (config_id) {
                 var config_model = _.find(this.models, function (model) {
                     return model.model && model.model == "pos.config"
-                })
+                });
                 config_model.domain = [['id', '=', config_id]];
                 this.config_id = config_id;
             }
@@ -127,7 +187,9 @@ odoo.define('pos_retail.big_data', function (require) {
             return _super_PosModel.initialize.apply(this, arguments);
         },
         save_parameter_models_load: function () {
+            console.log('save_parameter_models_load()');
             var models = {};
+            var models_cache = [];
             for (var number in this.model_lock) {
                 var model = this.model_lock[number];
                 models[model['model']] = {
@@ -141,11 +203,10 @@ odoo.define('pos_retail.big_data', function (require) {
                 if (model['model'] == 'product.pricelist.item') {
                     models[model['model']]['domain'] = []
                 }
+                models_cache.push(model['model'])
             }
-            if (this.pos_database_parameter) {
-                models['pos_database_parameter'] = this.pos_database_parameter
-            }
-            rpc.query({
+            models['models_cache'] = models_cache;
+            return rpc.query({
                 model: 'pos.cache.database',
                 method: 'save_parameter_models_load',
                 args:
@@ -153,7 +214,7 @@ odoo.define('pos_retail.big_data', function (require) {
             })
         },
         first_install: function (model_name) {
-            this.chrome.loading_message(_t('First start session, installing pos database.'), 0.5);
+            var self = this;
             var loaded = new $.Deferred();
             var model = _.find(this.model_lock, function (model) {
                 return model.model == model_name;
@@ -161,7 +222,6 @@ odoo.define('pos_retail.big_data', function (require) {
             if (!model) {
                 return loaded.resolve();
             }
-            var self = this;
             var tmp = {};
             var fields = model.fields;
 
@@ -189,8 +249,8 @@ odoo.define('pos_retail.big_data', function (require) {
                     fields: fields,
                     context: context,
                 };
-                return session.rpc('/web/dataset/search_read', params, {}).then(function (results) {
-                    var results = results['records'] || [];
+                var url = '/pos/api_first_install';
+                return session.rpc(url, params, {}).then(function (results) {
                     if (!self.database) {
                         self.database = {};
                     }
@@ -199,6 +259,9 @@ odoo.define('pos_retail.big_data', function (require) {
                     }
                     self.database[model['model']] = self.database[model['model']].concat(results);
                     min_id += self.next_load;
+                    if (results.length <= 0) {
+                        console.warn('model ' + model['model'] + ' have results is 0')
+                    }
                     if (results.length > 0) {
                         var process = min_id / model['max_id'];
                         if (process > 1) {
@@ -212,6 +275,7 @@ odoo.define('pos_retail.big_data', function (require) {
                         }
                         max_id += self.next_load;
                         load_data(min_id, max_id);
+                        indexed_db.write(model['model'], results);
                         return $.when(model.loaded(self, results, tmp)).then(function () {
                         }, function (err) {
                             loaded.reject(err);
@@ -233,7 +297,8 @@ odoo.define('pos_retail.big_data', function (require) {
             return loaded;
         },
         load_datas: function (database) {
-            this.chrome.loading_message(_t('Restore pos databases'), 0.99999);
+            this.chrome.loading_message(_t('Restore pos databases'), 0.90);
+            var self = this;
             this.database = database;
             var pricelist_model = _.find(this.model_lock, function (model) {
                 return model.model == 'product.pricelist';
@@ -272,6 +337,7 @@ odoo.define('pos_retail.big_data', function (require) {
                     }
                 }
             }
+            console.log(this.write_date);
         },
         load_server_data: function () {
             var self = this;
@@ -306,38 +372,32 @@ odoo.define('pos_retail.big_data', function (require) {
                     })
                 }
             }).then(function () {
-                self.save_parameter_models_load();
-                rpc.query({
-                    model: 'pos.config',
-                    method: 'search_read',
-                    domain: [['user_id', '!=', null]],
-                    fields: [],
-                }).then(function (configs) {
-                    self.config_by_id = {};
-                    self.configs = configs;
-                    for (var i = 0; i < configs.length; i++) {
-                        var config = configs[i];
-                        self.config_by_id[config['id']] = config;
-                    }
-                    if (self.config_id) {
-                        var config = _.find(configs, function (config) {
-                            return config['id'] == self.config_id
-                        });
-                        if (config) {
-                            var user = self.user_by_id[config.user_id[0]]
-                            if (user) {
-                                self.set_cashier(user);
+                if (self.write_date) {
+                    rpc.query({
+                        model: 'pos.cache.database',
+                        method: 'search_read',
+                        domain: [['updated_date', '>', self.write_date]],
+                    }).then(function (results) {
+                        console.log('total record need update: ' + results.length)
+                        for (var i = 0; i < results.length; i++) {
+                            result = results[i];
+                            result_data = JSON.parse(result['data']);
+                            result_data['model'] = result['res_model'];
+                            result_data['deleted'] = result['deleted'];
+                            if (self.server_version != 12) {
+                                self.sync_backend.sync_with_backend(result_data);
                             }
                         }
-                    }
-                });
+                    });
+                }
                 return rpc.query({
                     model: 'res.currency',
                     method: 'search_read',
                     domain: [['active', '=', true]],
-                    fields: ['name', 'symbol', 'position', 'rounding', 'rate'],
+                    fields: ['name', 'symbol', 'position', 'rounding', 'rate']
                 }).then(function (currencies) {
                     self.multi_currency = currencies;
+                    self.save_parameter_models_load();
                 });
             })
         }

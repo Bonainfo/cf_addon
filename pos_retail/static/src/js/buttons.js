@@ -7,79 +7,7 @@ odoo.define('pos_retail.buttons', function (require) {
     var qweb = core.qweb;
     var WebClient = require('web.AbstractWebClient');
 
-    var button_print_voucher = screens.ActionButtonWidget.extend({
-        template: 'button_print_voucher',
-        button_click: function () {
-            this.gui.show_popup('popup_print_vouchers', {
-                confirm: function () {
-                    var self = this;
-                    var period_days = parseFloat(this.$('.period_days').val());
-                    var apply_type = this.$('.apply_type').val();
-                    var voucher_amount = parseFloat(this.$('.voucher_amount').val());
-                    var quantity_create = parseInt(this.$('.quantity_create').val());
-                    var method = this.$('.method').val();
-                    var customer = this.pos.get_order().get_client();
-                    if (method == "special_customer" && !customer) {
-                        this.pos.gui.show_popup('confirm', {
-                            title: 'Warning',
-                            body: 'Because apply to Special customer, required select customer the first',
-                        });
-                        return self.pos.gui.show_screen('clientlist')
-                    }
-                    if (typeof period_days != 'number' || isNaN(period_days)) {
-                        return this.pos.gui.show_popup('confirm', {
-                            title: 'Warning',
-                            body: 'Wrong format, Period days is required and format is Float',
-                        });
-                    }
-                    if (typeof voucher_amount != 'number' || isNaN(voucher_amount)) {
-                        return this.pos.gui.show_popup('confirm', {
-                            title: 'Warning',
-                            body: 'Amount is required and format is Float',
-                        });
-                    }
-                    if (typeof quantity_create != 'number' || isNaN(quantity_create)) {
-                        return this.pos.gui.show_popup('confirm', {
-                            title: 'Warning',
-                            body: 'Quantity voucher will create is required and format is Number or float',
-                        })
-                    }
-                    var voucher_data = {
-                        apply_type: apply_type,
-                        value: voucher_amount,
-                        method: method,
-                        period_days: period_days,
-                        total_available: quantity_create
-                    };
-                    if (customer) {
-                        voucher_data['customer_id'] = customer['id'];
-                    }
-                    rpc.query({
-                        model: 'pos.voucher',
-                        method: 'create_voucher',
-                        args: [voucher_data]
-                    }).then(function (vouchers) {
-                        self.pos.vouchers = vouchers;
-                        self.pos.gui.show_screen('vouchers_screen');
-                    }).fail(function (type, error) {
-                        return self.pos.query_backend_fail(type, error);
-                    });
-                    return this.gui.close_popup();
-                },
-                cancel: function () {
-                    return this.gui.close_popup();
-                }
-            });
 
-        }
-    });
-    screens.define_action_button({
-        'name': 'button_print_voucher',
-        'widget': button_print_voucher,
-        'condition': function () {
-            return this.pos.config.print_voucher;
-        }
-    });
 
     var button_combo = screens.ActionButtonWidget.extend({ // combo button
         template: 'button_combo',
@@ -223,7 +151,10 @@ odoo.define('pos_retail.buttons', function (require) {
     var button_lock_screen = screens.ActionButtonWidget.extend({
         template: 'button_lock_screen',
         button_click: function () {
-            this.gui.show_screen('login_page');
+            this.gui.show_popup('popup_lock_page', {
+                title: 'Locked',
+                body: 'Use pos security pin for unlock'
+            });
         }
     });
     screens.define_action_button({
@@ -1133,7 +1064,7 @@ odoo.define('pos_retail.buttons', function (require) {
         'name': 'button_sync_orders',
         'widget': button_sync_orders,
         'condition': function () {
-            return this.pos.pos_configs && this.pos.pos_configs.length;
+            return this.pos.configs && this.pos.configs.length > 1;
         }
     });
 });

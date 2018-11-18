@@ -277,7 +277,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
             this.$('.lock_session').click(function () {
                 $('.pos-content').addClass('oe_hidden');
                 $('.pos-topheader').addClass('oe_hidden');
-                return self.pos.gui.show_popup('popup_lock_session', {
+                return self.pos.gui.show_popup('ask_password', {
                     title: 'Locked',
                     body: 'Use pos security pin for unlock',
                     confirm: function (pw) {
@@ -448,7 +448,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                         $product_el.replaceWith(product_node);
                     }
                 }
-                if (self.pos.server_version == 11) {
+                if ([11, 12].indexOf(self.pos.server_version) != -1) {
                     var using_company_currency = self.pos.config.currency_id[0] === self.pos.company.currency_id[0];
                     var conversion_rate = self.pos.currency.rate / self.pos.company_currency.rate;
                     self.pos.db.add_products(_.map([product_data], function (product) {
@@ -536,7 +536,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                     }
                     return cached;
                 }
-                if (this.pos.server_version == 11) {
+                if ([11, 12].indexOf(this.pos.server_version) != -1) {
                     var current_pricelist = this._get_active_pricelist();
                     var cache_key = this.calculate_cache_key(product, current_pricelist);
                     var cached = this.product_cache.get_node(cache_key);

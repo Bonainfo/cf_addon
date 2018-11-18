@@ -29,24 +29,3 @@ class stock_move(models.Model):
                 })
         return move
 
-    @api.multi
-    def write(self, vals):
-        """
-        Method: rebuild stock on hand for product
-        """
-        res = super(stock_move, self).write(vals)
-        sessions = self.env['pos.session'].sudo().search([
-            ('state', '=', 'opened'),
-        ])
-        if vals.get('state', False) == 'done':
-            for move in self:
-                if move.product_id:
-                    data = move.product_id.get_data()
-                    for session in sessions:
-                        if session.config_id.stock_location_id:
-                            data['model'] = 'product.product'
-                            product = move.product_id.with_context(location=session.config_id.stock_location_id.id)
-                            qty_available = product.qty_available
-                            data['qty_available'] = qty_available
-                            self.env['pos.cache.database'].sync_to_pos(data)
-        return res

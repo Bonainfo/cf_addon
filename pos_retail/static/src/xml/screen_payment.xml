@@ -56,6 +56,14 @@
                 <td class='refresh-rounding-button' t-att-data-cid='line.cid'> <i class='fa fa-spinner' /> </td>
             </t>
         </t>
+        <t t-jquery="t[t-esc*='line.name']" t-operation="after">
+            <t t-if="line.voucher_code">
+                <li class="voucher_code">
+                    <t t-esc='line.voucher_code' />
+                    <img class="header_logo" src="/pos_retail/static/src/icons/gift_card.png"/>
+                </li>
+            </t>
+        </t>
     </t>
 
     <t t-extend="PaymentScreenWidget">
@@ -79,32 +87,36 @@
                         </span>
                     </t>
                 </span>
-                <span class='product left_button button_text button paid_full'>
-                    <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/payment_full.png" class="right_pane_logo"/>
-                    </div>
-                    <div class="product-name button_text">
-                        Paid full
-                    </div>
-                    <t t-if="widget.pos.config.keyboard_event">
-                        <span class="button_key">
-                            f
-                        </span>
-                    </t>
-                </span>
-                <span class='product left_button button_text button paid_partial'>
-                    <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/partial_payment.png" class="right_pane_logo"/>
-                    </div>
-                    <div class="product-name button_text">
-                        Partial pay
-                    </div>
-                    <t t-if="widget.pos.config.keyboard_event">
-                        <span class="button_key">
-                            p
-                        </span>
-                    </t>
-                </span>
+                <t t-if="widget.pos.config.paid_full">
+                    <span class='product left_button button_text button paid_full'>
+                        <div class="button_icon">
+                            <img src="/pos_retail/static/src/icons/payment_full.png" class="right_pane_logo"/>
+                        </div>
+                        <div class="product-name button_text">
+                            Paid full
+                        </div>
+                        <t t-if="widget.pos.config.keyboard_event">
+                            <span class="button_key">
+                                f
+                            </span>
+                        </t>
+                    </span>
+                </t>
+                <t t-if="widget.pos.config.paid_partial">
+                    <span class='product left_button button_text button paid_partial'>
+                        <div class="button_icon">
+                            <img src="/pos_retail/static/src/icons/partial_payment.png" class="right_pane_logo"/>
+                        </div>
+                        <div class="product-name button_text">
+                            Partial pay
+                        </div>
+                        <t t-if="widget.pos.config.keyboard_event">
+                            <span class="button_key">
+                                p
+                            </span>
+                        </t>
+                    </span>
+                </t>
                 <span class='product left_button button_text button next'>
                     <div class="button_icon">
                         <img src="/pos_retail/static/src/icons/next.png" class="right_pane_logo"/>

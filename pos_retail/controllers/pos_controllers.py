@@ -13,13 +13,12 @@ import werkzeug.utils
 _logger = logging.getLogger(__name__)
 
 class dataset(DataSet):
-    @http.route('/web/dataset/search_read', type='json', auth="user")
-    def search_read(self, model, fields=False, offset=0, limit=False, domain=None, sort=None):
-        datas = super(dataset, self).search_read(model, fields=fields, offset=offset, limit=limit, domain=domain,
-                                                 sort=sort)
-        context = request.env.context
-        if context.get('retail', False):
-            request.env['pos.cache.database'].insert_data(datas['records'], model, True)
+
+    @http.route('/pos/api_first_install', type='json', auth="user")
+    def api_first_install(self, model, fields=[], offset=0, limit=False, domain=[], sort=None):
+        record_ids = request.env[model].search(domain, order=sort, limit=limit, offset=offset)
+        datas = record_ids.read(fields)
+        request.env['pos.cache.database'].insert_data(datas, model, True)
         return datas
 
 class pos_controller(PosController):
@@ -102,6 +101,7 @@ class web_login(Home):
         return response
 
 class pos_bus(BusController):
+
     def _poll(self, dbname, channels, last, options):
         channels = list(channels)
         channels.append((request.db, 'pos.sync.data', request.uid))
@@ -121,7 +121,6 @@ class pos_bus(BusController):
                 'value'].get('action', None):
                 continue
             user_send_id = message['user_send_id']
-            _logger.info(message['value'].get('action', None))
             send = 0
             sessions = request.env['pos.session'].sudo().search([
                 ('state', '=', 'opened'),
@@ -134,6 +133,7 @@ class pos_bus(BusController):
             })
             for session in sessions:
                 if session.config_id.bus_id and session.config_id.bus_id.id == bus_id and user_send_id != session.user_id.id:
+                    _logger.info('%s sync ---> %s' % (request.env.user.login, session.config_id.name))
                     send += 1
                     request.env['bus.bus'].sendmany(
                         [[(request.env.cr.dbname, 'pos.bus', session.user_id.id), json.dumps(message)]])

@@ -7,6 +7,124 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
     var gui = require('point_of_sale.gui');
     var rpc = require('pos.rpc');
     var qweb = core.qweb;
+    var PopupWidget = require('point_of_sale.popups');
+    var utils = require('web.utils');
+    var round_pr = utils.round_precision;
+
+    var popup_return_pos_order_lines = PopupWidget.extend({
+        template: 'popup_return_pos_order_lines',
+        show: function (options) {
+            var self = this;
+            this.line_selected = [];
+            var order_lines = options.order_lines;
+            for (var i = 0; i < order_lines.length; i++) {
+                var line = order_lines[i];
+                this.line_selected.push(line);
+            }
+            this.order = options.order;
+            this._super(options);
+            var image_url = window.location.origin + '/web/image?model=product.product&field=image_medium&id=';
+            if (order_lines) {
+                self.$el.find('tbody').html(qweb.render('return_pos_order_line', {
+                    order_lines: order_lines,
+                    image_url: image_url,
+                    widget: self
+                }));
+                this.$('.line-select').click(function () {
+                    var line_id = parseInt($(this).data('id'));
+                    var line = self.pos.db.order_line_by_id[line_id];
+                    var checked = this.checked;
+                    if (checked == false) {
+                        for (var i = 0; i < self.line_selected.length; ++i) {
+                            if (self.line_selected[i].id == line.id) {
+                                self.line_selected.splice(i, 1);
+                            }
+                        }
+                    } else {
+                        self.line_selected.push(line);
+                    }
+                });
+                this.$('.confirm_return_order').click(function () {
+                    if (self.line_selected == [] || !self.order) {
+                        self.pos.gui.show_popup('confirm', {
+                            title: _t('Error'),
+                            body: 'Please select lines need return from request of customer',
+                        });
+                    } else {
+                        return self.pos.add_return_order(self.order, self.line_selected);
+                    }
+                });
+                this.$('.create_voucher').click(function () { // create voucher when return order
+                    var value = 0;
+                    if (!self.line_selected) {
+                        self.pos.gui.show_popup('confirm', {
+                            title: _t('Error'),
+                            body: 'Please select lines need return from request of customer',
+                        });
+                    } else {
+                        for (var i = 0; i < self.line_selected.length; i++) {
+                            var line = self.line_selected[i];
+                            if (!line['new_quantity']) {
+                                value += line['price_subtotal_incl'];
+                            } else {
+                                value += line['price_subtotal_incl'] / line['qty'] * line['new_quantity']
+                            }
+
+                        }
+                    }
+                    if (value) {
+                        value = round_pr(value, self.pos.currency.rounding);
+                        var voucher_data = {
+                            apply_type: 'fixed_amount',
+                            value: value,
+                            method: 'general',
+                            period_days: self.pos.config.expired_days_voucher || 30,
+                            total_available: 1,
+                            customer_id: self.order['partner_id']
+                        };
+                        return rpc.query({
+                            model: 'pos.voucher',
+                            method: 'create_voucher',
+                            args: [voucher_data]
+                        }).then(function (vouchers) {
+                            self.pos.vouchers = vouchers;
+                            return self.pos.gui.show_screen('vouchers_screen');
+                        }).fail(function (type, error) {
+                            return self.pos.query_backend_fail(type, error);
+                        });
+                    }
+
+                });
+                this.$('.cancel').click(function () {
+                    self.pos.gui.close_popup();
+                });
+                this.$('.qty_minus').click(function () {
+                    var line_id = parseInt($(this).data('id'));
+                    var line = self.pos.db.order_line_by_id[line_id];
+                    var quantity = parseFloat($(this).parent().find('.qty').text());
+                    if (quantity > 1) {
+                        var new_quantity = quantity - 1;
+                        $(this).parent().find('.qty').text(new_quantity);
+                        line['new_quantity'] = new_quantity;
+                    }
+                });
+                this.$('.qty_plus').click(function () {
+                    var line_id = parseInt($(this).data('id'));
+                    var line = self.pos.db.order_line_by_id[line_id];
+                    var quantity = parseFloat($(this).parent().find('.qty').text());
+                    if (line['qty'] >= (quantity + 1)) {
+                        var new_quantity = quantity + 1;
+                        $(this).parent().find('.qty').text(new_quantity);
+                        line['new_quantity'] = new_quantity;
+                    }
+                })
+            }
+        }
+    });
+    gui.define_popup({
+        name: 'popup_return_pos_order_lines',
+        widget: popup_return_pos_order_lines
+    });
 
     var pos_orders_screen = screens.ScreenWidget.extend({
         template: 'pos_orders_screen',
@@ -143,7 +261,7 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                 if (!order_lines) {
                     return self.gui.show_popup('confirm', {
                         title: 'Warning',
-                        body: 'Order empty lines'
+                        body: 'Order empty lines',
                     });
                 } else {
                     return self.gui.show_popup('popup_return_pos_order_lines', {
@@ -205,8 +323,8 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                 if (!order) {
                     return;
                 }
-                var date = order['date_order'];
-                if (self.pos.server_version == 11 || self.pos.server_version == 12) {
+                var date = null;
+                if ([11, 12].indexOf(self.pos.server_version) != -1) {
                     date = self.pos.format_date(order['date_order'])
                 }
                 var json = {

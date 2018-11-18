@@ -5,6 +5,7 @@ class pos_manufacturing_report(models.Model):
     _name = "pos.manufacturing.report"
     _auto = False
     _order = 'date desc'
+    _description = "Report manufacturing analytic"
 
     move_date = fields.Datetime(string='Move date', readonly=1)
     order_id = fields.Many2one('pos.order', string='Order', readonly=1)

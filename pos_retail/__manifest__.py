@@ -1,11 +1,11 @@
 {
-    'name': "POS Retail Management",
-    'version': '5.4.9',
+    'name': "POS Retail",
+    'version': '10.5.7.0',
     'category': 'Point of Sale',
     'author': 'TL Technology',
     'live_test_url': 'http://posodoo.com/web/signup',
-    'price': '350',
-    'website': 'http://posodoo.com',
+    'price': '450',
+    'website': 'http://posodoo.com/web/signup',
     'sequence': 0,
     'depends': [
         'sale_stock',
@@ -36,6 +36,7 @@
         'datas/pos_bus.xml',
         'import/import_libraties.xml',
         'views/pos_config.xml',
+        'views/pos_config_image.xml',
         'views/pos_session.xml',
         'views/product.xml',
         'views/pos_order.xml',

@@ -46,6 +46,7 @@ class product_template(models.Model):
     pack_ids = fields.One2many('product.quantity.pack', 'product_tmpl_id', 'Quantities Pack')
     pos_sequence = fields.Integer('POS sequence')
     bus_ids = fields.Many2many('pos.bus', string='Location branch')
+    is_voucher = fields.Boolean('Is voucher', default=0)
 
     @api.multi
     def write(self, vals):

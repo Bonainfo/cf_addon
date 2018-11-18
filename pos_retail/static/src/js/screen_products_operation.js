@@ -2,11 +2,167 @@
 odoo.define('pos_retail.screen_products_operation', function (require) {
     var screens = require('point_of_sale.screens');
     var core = require('web.core');
-    var utils = require('web.utils');
+    var PopupWidget = require('point_of_sale.popups');
     var _t = core._t;
     var gui = require('point_of_sale.gui');
     var rpc = require('pos.rpc');
     var qweb = core.qweb;
+
+    var popup_create_pos_category = PopupWidget.extend({
+        template: 'popup_create_pos_category',
+        show: function (options) {
+            var self = this;
+            this.uploaded_picture = null;
+            this._super(options);
+            var contents = this.$('.create_product');
+            contents.scrollTop(0);
+            $('.confirm').click(function () {
+                self.click_confirm();
+            });
+            $('.cancel').click(function () {
+                self.click_cancel();
+            });
+            contents.find('.image-uploader').on('change', function (event) {
+                self.load_image_file(event.target.files[0], function (res) {
+                    if (res) {
+                        contents.find('.client-picture img, .client-picture .fa').remove();
+                        contents.find('.client-picture').append("<img src='" + res + "'>");
+                        contents.find('.detail.picture').remove();
+                        self.uploaded_picture = res;
+                    }
+                });
+            });
+        },
+        load_image_file: function (file, callback) {
+            var self = this;
+            if (!file) {
+                return;
+            }
+            if (file.type && !file.type.match(/image.*/)) {
+                return this.pos.gui.show_popup('confirm', {
+                    title: 'Error',
+                    body: 'Unsupported File Format, Only web-compatible Image formats such as .png or .jpeg are supported',
+                });
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var dataurl = event.target.result;
+                var img = new Image();
+                img.src = dataurl;
+                self.resize_image_to_dataurl(img, 600, 400, callback);
+            };
+            reader.onerror = function () {
+                return self.pos.gui.show_popup('confirm', {
+                    title: 'Error',
+                    body: 'Could Not Read Image, The provided file could not be read due to an unknown error',
+                });
+            };
+            reader.readAsDataURL(file);
+        },
+        resize_image_to_dataurl: function (img, maxwidth, maxheight, callback) {
+            img.onload = function () {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var ratio = 1;
+
+                if (img.width > maxwidth) {
+                    ratio = maxwidth / img.width;
+                }
+                if (img.height * ratio > maxheight) {
+                    ratio = maxheight / img.height;
+                }
+                var width = Math.floor(img.width * ratio);
+                var height = Math.floor(img.height * ratio);
+
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+
+                var dataurl = canvas.toDataURL();
+                callback(dataurl);
+            };
+        }
+    });
+    gui.define_popup({name: 'popup_create_pos_category', widget: popup_create_pos_category});
+
+    var popup_create_product = PopupWidget.extend({
+        template: 'popup_create_product',
+        show: function (options) {
+            var self = this;
+            this.uploaded_picture = null;
+            this._super(options);
+            var contents = this.$('.create_product');
+            contents.scrollTop(0);
+            $('.confirm').click(function () {
+                self.click_confirm();
+            });
+            $('.cancel').click(function () {
+                self.click_cancel();
+            });
+            contents.find('.image-uploader').on('change', function (event) {
+                self.load_image_file(event.target.files[0], function (res) {
+                    if (res) {
+                        contents.find('.client-picture img, .client-picture .fa').remove();
+                        contents.find('.client-picture').append("<img src='" + res + "'>");
+                        contents.find('.detail.picture').remove();
+                        self.uploaded_picture = res;
+                    }
+                });
+            });
+        },
+        load_image_file: function (file, callback) {
+            var self = this;
+            if (!file) {
+                return;
+            }
+            if (file.type && !file.type.match(/image.*/)) {
+                return this.pos.gui.show_popup('confirm', {
+                    title: 'Error',
+                    body: 'Unsupported File Format, Only web-compatible Image formats such as .png or .jpeg are supported',
+                });
+            }
+
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var dataurl = event.target.result;
+                var img = new Image();
+                img.src = dataurl;
+                self.resize_image_to_dataurl(img, 600, 400, callback);
+            };
+            reader.onerror = function () {
+                return self.pos.gui.show_popup('confirm', {
+                    title: 'Error',
+                    body: 'Could Not Read Image, The provided file could not be read due to an unknown error',
+                });
+            };
+            reader.readAsDataURL(file);
+        },
+        resize_image_to_dataurl: function (img, maxwidth, maxheight, callback) {
+            img.onload = function () {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var ratio = 1;
+
+                if (img.width > maxwidth) {
+                    ratio = maxwidth / img.width;
+                }
+                if (img.height * ratio > maxheight) {
+                    ratio = maxheight / img.height;
+                }
+                var width = Math.floor(img.width * ratio);
+                var height = Math.floor(img.height * ratio);
+
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+
+                var dataurl = canvas.toDataURL();
+                callback(dataurl);
+            };
+        }
+    });
+    gui.define_popup({name: 'popup_create_product', widget: popup_create_product});
 
     var products_screen = screens.ScreenWidget.extend({ // products screen
         template: 'products_screen',
@@ -31,6 +187,8 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
                 products.push(product_data);
                 self.product_by_string = "";
                 self.save_products(products);
+                self.clear_search();
+                self.display_product_edit('show', product_data);
             })
         },
         save_products: function (products) {
@@ -294,6 +452,12 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
                         })
                     }
                 });
+                contents.find('.update_qty_on_hand').on('click', function (event) {
+                    self.pos.gui.show_popup('popup_update_quantity_each_location', {
+                        title: 'Update qty on hand',
+                        product: product
+                    })
+                });
                 this.$('.product-details-contents').show();
             }
             if (visibility == 'hide') {
@@ -320,5 +484,94 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
         }
     });
     gui.define_screen({name: 'productlist', widget: products_screen});
+
+    var popup_update_quantity_each_location = PopupWidget.extend({
+        template: 'popup_update_quantity_each_location',
+        show: function (options) {
+            var self = this;
+            this._super(options);
+            this.product = options.product;
+            var locations = this.pos.stock_locations;
+            this.location_selected = this.pos.get_location() || null;
+            self.$el.find('.body').html(qweb.render('locations_list', {
+                locations: locations,
+                widget: self
+            }));
+
+            this.$('.location').click(function () {
+                var location_id = parseInt($(this).data('id'));
+                var location = self.pos.stock_location_by_id[location_id];
+                var product_tmpl_id;
+                if (self.pos.server_version == 10) {
+                    product_tmpl_id = self.product.product_tmpl_id
+                } else {
+                    product_tmpl_id = self.product.product_tmpl_id[0];
+                }
+                if (location) {
+                    self.pos.gui.show_popup('number', {
+                        'title': _t('New Quantity on Hand'),
+                        'value': self.pos.config.discount_limit_amount,
+                        'confirm': function (new_quantity) {
+                            var new_quantity = parseFloat(new_quantity)
+                            return rpc.query({
+                                model: 'stock.change.product.qty',
+                                method: 'create',
+                                args: [{
+                                    product_id: self.product.id,
+                                    product_tmpl_id: product_tmpl_id,
+                                    new_quantity: new_quantity,
+                                    location_id: location.id
+                                }],
+                                context: {}
+                            }).then(function (wizard_id) {
+                                return rpc.query({
+                                    model: 'stock.change.product.qty',
+                                    method: 'change_product_qty',
+                                    args: [wizard_id],
+                                    context: {}
+                                }).then(function (result) {
+                                    return rpc.query({
+                                        model: 'pos.cache.database',
+                                        method: 'get_stock_datas',
+                                        args: [location.id, [product_tmpl_id]],
+                                        context: {}
+                                    }).then(function (datas) {
+                                        if (!datas) {
+                                            return true;
+                                        }
+                                        var products = self.pos.database['product.product'];
+                                        var product_need_update = _.find(self.pos.database['product.product'], function (product_check) {
+                                            return product_check['id'] == self.product.id
+                                        });
+                                        if (product_need_update) {
+                                            var qty_available = datas[self.product.id];
+                                            product_need_update['qty_available'] = qty_available;
+                                            if (!(product_need_update['product_tmpl_id'] instanceof Array)) {
+                                                product_need_update['product_tmpl_id'] = [product_need_update['product_tmpl_id'], product_need_update['display_name']];
+                                            }
+                                            self.pos.trigger('sync:product', product_need_update)
+                                        }
+                                        return self.pos.gui.show_popup('confirm', {
+                                            title: 'Finished',
+                                            body: 'Add new quantity to location'
+                                        })
+                                    })
+                                }).fail(function (type, error) {
+                                    return self.pos.query_backend_fail(type, error);
+                                })
+                            }).fail(function (type, error) {
+                                return self.pos.query_backend_fail(type, error);
+                            })
+                        }
+                    })
+
+                }
+            });
+            this.$('.close').click(function () {
+                self.pos.gui.close_popup();
+            });
+        }
+    });
+    gui.define_popup({name: 'popup_update_quantity_each_location', widget: popup_update_quantity_each_location});
 
 });

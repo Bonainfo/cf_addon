@@ -5,7 +5,7 @@
         <div class="ribbon"><span><t t-esc="title"></t></span></div>
     </t>
 
-    <t t-name="CountItemWidget">
+    <t t-name="button_list_widget">
         <div class="oe_status js_proxy show_hide_buttons">
             <div class="js_connected oe_icon">
                 <i class='fa fa-list'></i>
@@ -53,35 +53,6 @@
             </div>
         </div>
     </t>
-
-    <t t-name="promotion_recommend_customer">
-        <div class="promotion_recomment_customer">
-            <t t-foreach="promotions" t-as="promotion">
-                <ul class="bus_info">
-                    <i class="fa fa-gift"></i>
-                    <t t-esc="promotion['name']"/>
-                </ul>
-            </t>
-        </div>
-    </t>
-
-    <t t-extend="OrderSelectorWidget">
-        <t t-jquery="span[class*='neworder-button']" t-operation="replace">
-            <span class="order-button square neworder-button">
-                <span class="order-sequence">
-                    Add new order
-                </span>
-            </span>
-        </t>
-        <t t-jquery="span[class*='deleteorder-button']" t-operation="replace">
-            <span class="order-button square deleteorder-button">
-                <span class="order-sequence">
-                    Remove order
-                </span>
-            </span>
-        </t>
-    </t>
-
 
     <t t-extend="OrderChangeReceipt">
         <t t-jquery="receipt left:eq(2)" t-operation="prepend">

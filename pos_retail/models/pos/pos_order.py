@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, tools, _
-import odoo.addons.decimal_precision as dp
-from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 import odoo
 import logging
 import openerp.addons.decimal_precision as dp
+from datetime import datetime, timedelta
 
 _logger = logging.getLogger(__name__)
 
@@ -131,15 +130,11 @@ class pos_order(models.Model):
 
     @api.multi
     def write(self, vals):
-        for order in self:
-            if order.state in ['paid', 'done', 'invoiced'] and order.voucher_id and order.voucher_id.state != 'used':
-                order.voucher_id.write({'state': 'used', 'use_date': fields.Datetime.now()})
         res = super(pos_order, self).write(vals)
         for order in self:
             if vals.get('state', False) and not order.lock_return and not order.is_return:
                 order.sync()
             if order.partner_id:  # sync credit, wallet balance to pos sessions
-                _logger.info(order.partner_id.balance)
                 order.partner_id.sync()
         return res
 
@@ -160,14 +155,20 @@ class pos_order(models.Model):
         if not wrong_lots:
             picking.action_done()
 
-    # if line is return no need create invoice line
-    # def _action_create_invoice_line(self, line=False, invoice_id=False):
-    #     _logger.info('{_action_create_invoice_line} started')
-    #     if line.qty < 0:
-    #         _logger.error('quantity of line < 0')
-    #         return False
-    #     else:
-    #         return super(pos_order, self)._action_create_invoice_line(line, invoice_id)
+    def _action_create_invoice_line(self, line=False, invoice_id=False):
+        # when cashiers change tax on pos order line (pos screen)
+        # map pos.order.line to account.invoice.line
+        # map taxes of pos.order.line to account.invoice.line
+        inv_line = super(pos_order, self)._action_create_invoice_line(line, invoice_id)
+        if not line.order_id.fiscal_position_id:
+            tax_ids = [tax.id for tax in line.tax_ids]
+            inv_vals = {
+                'pos_line_id': line.id,
+                'invoice_line_tax_ids': [(6, 0 , tax_ids)]
+            }
+            inv_line.write(inv_vals)
+            _logger.info(inv_vals)
+        return  inv_line
 
     # create 1 purchase get products return from customer
     def made_purchase_order(self):
@@ -283,7 +284,6 @@ class pos_order(models.Model):
             order_fields.update({
                 'location_id': ui_order['location_id']
             })
-        _logger.info(order_fields)
         return order_fields
 
     @api.model
@@ -319,6 +319,8 @@ class pos_order(models.Model):
 
     @api.model
     def create_from_ui(self, orders):
+        _logger.info('begin create_from_ui')
+        _logger.info(orders)
         for o in orders:
             data = o['data']
             lines = data.get('lines')
@@ -370,6 +372,7 @@ class pos_order(models.Model):
                 for inv in invoices:
                     inv.send_email_invoice(order)
         self.pos_order_auto_invoice_reconcile(orders_object)
+        _logger.info('end create_from_ui')
         return order_ids
 
     def pos_made_manufacturing_order(self, order):
@@ -569,6 +572,8 @@ class pos_order(models.Model):
                     if wiz:
                         wiz.process()
                     _logger.info('Delivery combo: %s' % order_picking.name)
+                else:
+                    _logger.info('Order have not combo lines')
         _logger.info('end create_picking_combo')
         return True
 
@@ -639,6 +644,8 @@ class pos_order(models.Model):
                     wiz = self.env['stock.immediate.transfer'].create({'pick_ids': [(4, order_picking.id)]})
                     wiz.process()
                     _logger.info('Delivery Picking Variant : %s' % order_picking.name)
+                else:
+                    _logger.warning('Order have not variant items')
         _logger.info('end create_picking_with_multi_variant')
         return True
 
@@ -668,6 +675,8 @@ class pos_order(models.Model):
             payment_fields['currency_id'] = ui_paymentline.get('currency_id')
         if ui_paymentline.get('amount_currency', None):
             payment_fields['amount_currency'] = ui_paymentline.get('amount_currency')
+        if ui_paymentline.get('voucher_id', None):
+            payment_fields['voucher_id'] = ui_paymentline.get('voucher_id')
         return payment_fields
 
     # wallet rebuild partner for account statement line
@@ -697,6 +706,8 @@ class pos_order(models.Model):
             journal = self.env['account.journal'].browse(journal_id)
             if journal.pos_method_type == 'wallet':
                 datas['partner_id'] = self.partner_id.id
+        if data.get('voucher_id', None):
+            datas['voucher_id'] = data['voucher_id']
         return datas
 
 
@@ -757,6 +768,23 @@ class pos_order_line(models.Model):
     def create(self, vals):
         po_line = super(pos_order_line, self).create(vals)
         po_line.sync()
+        if po_line.product_id and po_line.product_id.is_voucher:
+            voucher = self.env['pos.voucher'].create({
+                'customer_id': po_line.order_id.partner_id.id if po_line.order_id.partner_id else None,
+                'apply_type': 'fixed_amount',
+                'method': 'general',
+                'user_id': self.env.user.id,
+                'source': po_line.order_id.name,
+                'pos_order_line_id': po_line.id,
+                'start_date': fields.Datetime.now(),
+                'end_date': datetime.today() + timedelta(days=po_line.order_id.config_id.expired_days_voucher),
+                'product_id': po_line.product_id.id,
+                'value': po_line.price_subtotal_incl,
+            })
+            format_code = "%s%s%s" % ('999', voucher.id, datetime.now().strftime("%d%m%y%H%M"))
+            code = self.env['barcode.nomenclature'].sanitize_ean(format_code)
+            voucher.write({'code': code})
+            _logger.info('cashier created new voucher id: %s' % voucher.id)
         return po_line
 
     @api.model

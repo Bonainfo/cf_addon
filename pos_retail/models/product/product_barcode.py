@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 class product_barcode(models.Model):
     _name = 'product.barcode'
     _rec_name = 'barcode'
+    _description = "Product multi barcode"
 
     product_tmpl_id = fields.Many2one('product.template', 'Product template', required=1)
     product_id = fields.Many2one('product.product', compute='_get_product_id', string='Product')

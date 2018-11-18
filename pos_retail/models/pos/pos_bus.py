@@ -6,7 +6,6 @@ class pos_bus(models.Model):
     _description = "Branch/Store of shops"
 
     name = fields.Char('Location Name', required=1)
-    cache = fields.Binary(attachment=True)
     user_id = fields.Many2one('res.users', string='Sale admin')
     log_ids = fields.One2many('pos.bus.log', 'bus_id', string='Logs')
 

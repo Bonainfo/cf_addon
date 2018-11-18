@@ -2,17 +2,18 @@
 <odoo>
 
     <data noupdate="0">
-        <record id="schedule_refresh_cache" model="ir.cron">
-            <field name="name">POS auto refresh cache</field>
-            <field name="model_id" ref="point_of_sale.model_pos_config"/>
+
+        <record id="schedule_refresh_stocks" model="ir.cron">
+            <field name="name">POS auto refresh stocks</field>
+            <field name="model_id" ref="stock.model_stock_location"/>
             <field name="state">code</field>
-            <field name="code">model.refresh_cache()</field>
-            <field name="interval_number">30</field>
+            <field name="code">model.refresh_stocks()</field>
+            <field name="interval_number">15</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
         </record>
-    </data>
 
+    </data>
 </odoo>
 

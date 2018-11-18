@@ -1,9 +1,9 @@
 odoo.define('pos_retail.pos_chanel', function (require) {
     var models = require('point_of_sale.models');
-    var screens = require('point_of_sale.screens');
     var exports = {};
     var Backbone = window.Backbone;
     var bus = require('bus.bus');
+    var indexed_db = require('pos_retail.indexedDB');
 
     exports.sync_backend = Backbone.Model.extend({ // chanel 2: pos sync backend
         initialize: function (pos) {
@@ -70,6 +70,12 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             }
             if (model == 'pos.category') {
                 this.pos.syncing_category(data)
+            }
+            if (model && (data['deleted'] == false || !data['deleted'])) {
+                indexed_db.write(model, [data]);
+            }
+            if (model && data['deleted'] == true) {
+                indexed_db.unlink(model, data);
             }
         }
     });
@@ -169,7 +175,7 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             this.pos_orders_autocomplete.push({
                 value: new_order['id'],
                 label: label
-            })
+            });
             this.order_search_string = "";
             for (var i = 0; i < this.orders_store.length; i++) {
                 var order = this.orders_store[i]
@@ -191,8 +197,7 @@ odoo.define('pos_retail.pos_chanel', function (require) {
                     return line['id'] != new_order_line['id'];
                 })
             }
-            this.pos_order_lines.push(new_order_line)
-
+            this.pos_order_lines.push(new_order_line);
         },
         save_data_sync_invoice: function (invoice) {
             var old_invoice = this.invoice_by_id[invoice['id']];
@@ -267,7 +272,7 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             this.sale_orders_autocomplete.push({
                 value: new_sale_order['id'],
                 label: label
-            })
+            });
             this.sale_search_string = "";
             for (var i = 0; i < this.sale_orders.length; i++) {
                 var sale = this.sale_orders[i]
@@ -287,26 +292,30 @@ odoo.define('pos_retail.pos_chanel', function (require) {
                     }
                 });
             }
+            var current_screen = self.posmodel.gui.get_current_screen();
+            if (current_screen == 'sale_orders') {
+                self.posmodel.gui.show_screen('products');
+            }
         },
         sync_sale_order_lines: function (line) {
             var order_id = line.order_id[0];
-            var order_lines = this.sale_lines_by_sale_id[order_id];
-            if (!order_lines) {
-                this.sale_lines_by_sale_id[order_id] = [line];
+            if (!order_id) {
+                return;
             } else {
-                var exist = false;
-                for (var i = 0; i < order_lines.length; i++) {
-                    var old_line = order_lines[i];
-                    if (old_line.id == line.id) {
-                        old_line = line;
-                        exist = true
-                    }
+                var old_order_lines = this.sale_lines_by_sale_id[order_id];
+                var new_order_lines = _.filter(old_order_lines, function (old_line) {
+                    return old_line['id'] != line['id'];
+                });
+                if (!line['deleted']) {
+                    new_order_lines.push(line);
                 }
-                if (exist == false) {
-                    this.sale_lines_by_sale_id[order_id].push(line);
-                }
+                this.sale_lines_by_sale_id[order_id] = new_order_lines;
             }
-        },
+            var current_screen = self.posmodel.gui.get_current_screen();
+            if (current_screen == 'sale_orders') {
+                self.posmodel.gui.show_screen('products');
+            }
+        }
     });
 
     return exports;

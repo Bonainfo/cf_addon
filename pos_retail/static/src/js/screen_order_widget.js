@@ -6,13 +6,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
     var utils = require('web.utils');
     var round_pr = utils.round_precision;
     var _t = core._t;
-    var qweb = core.qweb;
-    // var field_utils = require('web.field_utils');
-    /*
-        v10: var formats = require('web.formats');
-        v11: var field_utils = require('web.field_utils');
-    */
-    var formats = require('web.formats');
+    //var field_utils = require('web.field_utils'); // v11 only. Do not merge
 
     screens.OrderWidget.include({
         init: function (parent, options) {
@@ -230,7 +224,8 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                 if (this.pos.server_version == 10) {
                     $('.leftpane').keypress(this.keyboard_handler);
                     $('.leftpane').keydown(this.keyboard_keydown_handler);
-                } else if (this.pos.server_version == 11) {
+                }
+                if ([11, 12].indexOf(this.pos.server_version) != -1) {
                     $('body').keypress(this.keyboard_handler);
                     $('body').keydown(this.keyboard_keydown_handler);
                 }
@@ -242,7 +237,8 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
             if (this.pos.server_version == 10) {
                 $('.leftpane').off('keypress', this.keyboard_handler);
                 $('.leftpane').off('keydown', this.keyboard_keydown_handler);
-            } else if (this.pos.server_version == 11) {
+            }
+            if ([11, 12].indexOf(this.pos.server_version) != -1) {
                 $('body').off('keypress', this.keyboard_handler);
                 $('body').off('keydown', this.keyboard_keydown_handler);
             }
@@ -334,7 +330,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                                 var user_id = bus['user_id'][0];
                                 var user = self.pos.user_by_id[user_id];
                                 orderline.set_sale_person(user);
-                            },
+                            }
                         });
                     } else {
                         return this.pos.gui.show_popup('confirm', {
@@ -489,7 +485,6 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                 return false;
             }
             var line_selected = order.get_selected_orderline();
-            var is_return = order['is_return'];
             /*
             Security limit discount filter by cashiers
              */
@@ -500,8 +495,9 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                     'confirm': function (discount) {
                         if (discount > self.pos.config.discount_limit_amount) {
                             if (self.pos.config.manager_validate) {
-                                return this.pos.gui.show_popup('password', {
-                                    'title': _t('Discount have limited, need approve of manager. Please input pos security pin of manager'),
+                                return this.pos.gui.show_popup('ask_password', {
+                                    title: 'Blocked',
+                                    body: _t('Discount have limited, need approve of manager. Please input pos security pin of manager'),
                                     confirm: function (password) {
                                         var manager_user_id = self.pos.config.manager_user_id[0];
                                         var manager_user = self.pos.user_by_id[manager_user_id];
@@ -550,94 +546,12 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                     }
                 });
             } else {
-                /*
-                Validation function of 3 mode: discount, quantity, price
-                 */
-                if (mode == 'quantity' && this.pos.config.validate_quantity_change && line_selected) {
-                    if (val == 'remove' || val == '') {
-                        if (val == '') {
-                            val = 'remove';
-                        }
-                        return this.pos.gui.show_popup('confirm', {
-                            title: 'Are you sure need remove line ?',
-                            confirm: function () {
-                                order.get_selected_orderline().set_quantity(val);
-                            }
-                        })
-                    }
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
-                        return this.pos.gui.show_popup('password', {
-                            confirm: function (value) {
-                                if (value != this.pos.user.pos_security_pin) {
-                                    return this.pos.gui.show_popup('confirm', {
-                                        title: 'Wrong',
-                                        body: 'Password not correct, please check pos secuirty pin'
-                                    })
-                                } else {
-                                    order.get_selected_orderline().set_quantity(val);
-                                }
-                            }
-                        })
-                    }
-                }
-                if (mode == 'discount' && this.pos.config.validate_discount_change && line_selected) {
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
-                        return this.pos.gui.show_popup('password', {
-                            confirm: function (value) {
-                                if (value != this.pos.user.pos_security_pin) {
-                                    return this.pos.gui.show_popup('confirm', {
-                                        title: 'Wrong',
-                                        body: 'Password not correct, please check pos secuirty pin'
-                                    })
-                                } else {
-                                    order.get_selected_orderline().set_discount(val);
-                                }
-                            }
-                        })
-                    }
-                }
-                if (mode == 'price' && this.pos.config.validate_price_change && line_selected) {
-                    if ((is_return == true && this.pos.config.apply_validate_return_mode) || !is_return) {
-                        return this.pos.gui.show_popup('password', {
-                            confirm: function (value) {
-                                if (value != this.pos.user.pos_security_pin) {
-                                    return this.pos.gui.show_popup('confirm', {
-                                        title: 'Wrong',
-                                        body: 'Password not correct, please check pos secuirty pin'
-                                    })
-                                } else {
-                                    var selected_orderline = order.get_selected_orderline();
-                                    selected_orderline.price_manually_set = true;
-                                    selected_orderline.set_unit_price(val);
-                                }
-                            }
-                        })
-                    }
-                }
                 this._super(val);
             }
         },
         set_lowlight_order: function (buttons) {
             for (var button_name in buttons) {
                 buttons[button_name].highlight(false);
-            }
-        },
-        active_count_booked_orders: function () { // set count booked orders
-            var $booked_orders = $('.booked_orders');
-            if ($booked_orders) {
-                var sale_orders = _.filter(this.pos.db.sale_orders, function (order) {
-                    return order['book_order'] == true && (order['state'] == 'draft' || order['state'] == 'sent');
-                });
-                $booked_orders.text(sale_orders.length);
-            }
-        },
-        active_button_create_sale_order: function (buttons, selected_order) { // active function create sale order
-            if (buttons && buttons.button_create_sale_order) {
-                if (selected_order && selected_order.get_client() && selected_order.orderlines.length > 0) {
-                    buttons.button_create_sale_order.highlight(true);
-                } else {
-                    buttons.button_create_sale_order.highlight(false);
-                }
             }
         },
         active_button_combo: function (buttons, selected_order) { // active button set combo
@@ -656,32 +570,6 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
             if (buttons && buttons.internal_transfer_button) {
                 var active = selected_order.validation_order_can_do_internal_transfer();
                 buttons.internal_transfer_button.highlight(active);
-            }
-        },
-        active_button_booking_order: function (buttons, selected_order) { // active button set combo
-            if (buttons.button_booking_order && selected_order.get_client()) {
-                buttons.button_booking_order.highlight(true);
-            }
-            if (buttons.button_booking_order && !selected_order.get_client()) {
-                buttons.button_booking_order.highlight(false);
-            }
-        },
-        active_button_delivery_order: function (buttons, selected_order) { // active button set combo
-            if (buttons.button_delivery_order && selected_order.delivery_address) {
-                buttons.button_delivery_order.highlight(true);
-            }
-            if (buttons.button_delivery_order && !selected_order.delivery_address) {
-                buttons.button_delivery_order.highlight(false);
-            }
-        },
-        active_show_delivery_address: function (buttons, selected_order) {
-            var $delivery_address = this.el.querySelector('.delivery_address');
-            var $delivery_date = this.el.querySelector('.delivery_date');
-            if ($delivery_address) {
-                $delivery_address.textContent = selected_order['delivery_address'];
-            }
-            if ($delivery_date) {
-                $delivery_date.textContent = selected_order['delivery_date'];
             }
         },
         active_button_create_purchase_order: function (buttons, selected_order) {
@@ -766,7 +654,7 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
             $('.amount_total').html(amount_total);
         },
         set_total_items: function (count) {
-            $('.total_items').html(count);
+            $('.set_total_items').html(count);
         },
         update_summary: function () {
             var self = this
@@ -789,16 +677,11 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
             var selected_order = this.pos.get_order();
             var buttons = this.getParent().action_buttons;
             if (selected_order && buttons) {
-                this.active_count_booked_orders();
                 this.active_medical_insurance(buttons, selected_order);
-                this.active_button_create_sale_order(buttons, selected_order);
                 this.active_button_combo(buttons, selected_order);
                 this.active_button_combo_item_add_lot(buttons, selected_order);
                 this.active_internal_transfer_button(buttons, selected_order);
-                this.active_button_booking_order(buttons, selected_order);
-                this.active_button_delivery_order(buttons, selected_order);
                 this.active_button_variants(buttons, selected_order);
-                this.active_show_delivery_address(buttons, selected_order);
                 this.active_button_create_purchase_order(buttons, selected_order);
                 this.active_button_change_unit(buttons, selected_order);
                 this.active_button_set_tags(buttons, selected_order);
@@ -835,18 +718,14 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                 /*
                     Header order list
                 */
-                this.set_total_items(selected_order.orderlines.length)
-                this.set_amount_total(selected_order.get_total_with_tax())
+                this.set_total_items(selected_order.orderlines.length);
+                this.set_amount_total(selected_order.get_total_with_tax());
                 var promotion_lines = _.filter(selected_order.orderlines.models, function (line) {
                     return line.promotion;
                 });
                 if (promotion_lines.length > 0) {
                     this.set_total_gift(promotion_lines.length)
                 }
-
-            }
-            if (this.pos.config.single_screen) { // left pane order widget
-                this.pos.$order_html = $('.order-container').html();
             }
             var $find_customer_box = $('.find_customer >input');
             $find_customer_box.autocomplete({

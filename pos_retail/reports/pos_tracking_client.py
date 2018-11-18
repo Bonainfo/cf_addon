@@ -5,6 +5,7 @@ from odoo import api, fields, models
 class pos_tracking_client(models.Model):
     _name = "pos.tracking.client"
     _auto = False
+    _description = "Report tracking actions of cashiers"
 
     name = fields.Char()
     user_id = fields.Many2one('res.users', 'Client', readonly=1)

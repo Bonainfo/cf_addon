@@ -17,14 +17,16 @@
     font-family: 'SF';
     src: url(../fonts/SF-UI/SF-UI-Text-Light.otf);
 }
-
+.pos .order .orderline .info-list {
+    font-family: QuickSand;
+}
 .pos {
-    font-family: Quicksand, sans-serif;
+    font-family: Helvetical, sans-serif;
     color: initial
 }
 
 .card {
-    font-family: Quicksand, sans-serif;
+    font-family: Helvetical, sans-serif;
     background: none;
 }
 
@@ -55,12 +57,6 @@
 .pos .clientlist-screen .client-detail > .label {
     color: #635b5b;
     text-align: left;
-}
-
-.pos .product-list {
-    padding: 2px;
-    text-align: center;
-    background: white;
 }
 
 .pos .category-simple-button {
@@ -97,21 +93,21 @@
 
 .pos .product .qty_available {
     position: absolute;
-    float: left;
+    top: 32px;
     left: 0px;
     vertical-align: top;
+    margin-top: -32px;
     color: white;
     line-height: 13px;
     background: #6EC89B;
     padding: 2px 5px;
     text-align: left;
-    font-size: 12px;
     border-radius: 2px;
 }
 
 .pos .product .qty_not_available {
     position: absolute;
-    float: left;
+    top: 32px;
     left: 0px;
     vertical-align: top;
     color: white;
@@ -119,8 +115,8 @@
     background: orangered;
     padding: 2px 5px;
     text-align: left;
-    font-size: 12px;
     border-radius: 2px;
+    margin-top: -32px;
 }
 
 .pos .leftpane {
@@ -210,13 +206,12 @@
     color: white;
 }
 
-.pos .pos-branding .username {
-    font-size: 12px;
+.pos .username {
+    font-size: 14px;
     color: white;
-}
+    font-weight: bold;
+    padding-top: 12px;
 
-.pos .product-list {
-    text-align: left;
 }
 
 .pos .payment-screen {
@@ -376,11 +371,23 @@
     color: orangered;
 }
 
+.pos .order_signature {
+    float: left;
+    padding-left: 10px;
+    font-size: 30px;
+}
+
 .pos .pos_signature {
-    background: #6EC89B;
-    margin-bottom: 40px;
-    margin-left: 22px;
-    margin-right: 22px;
+    background: #63756e;
+    max-width: 405px;
+    margin-left: 20px;
+}
+
+.pos .pos_note {
+    float: left;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #151cdb
 }
 
 .pos .so_link {
@@ -431,13 +438,6 @@
 .pos .multi-currency {
     padding: 16px;
     padding-top: 0;
-}
-
-.pos .order .orderline .uom_change {
-    text-align: left;
-    width: 100%;
-    font-size: 80%;
-    color: blueviolet;
 }
 
 .pos .ribbon {
@@ -695,6 +695,7 @@ select.form-control {
 .pos .voucher-form-required {
     color: red;
 }
+
 .pos .table {
     width: 100%;
 }
@@ -745,15 +746,10 @@ select.form-control {
     border-left: solid 3px rgb(110, 200, 155);
     border-right: solid 3px rgb(110, 200, 155);
 }
+
 .pos .screen {
     overflow: initial;
     background: white;
-}
-
-.pos .promotion {
-    padding-left: 40px;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 .pos .return-order {
@@ -781,8 +777,9 @@ select.form-control {
 }
 
 .pos .order .loyalty {
-    border-top: solid 1px rgb(110, 200, 155);
-    border-bottom: solid 1px rgb(110, 200, 155);
+    border-right: solid 1px #bbb2a1;
+    border-top: solid 1px #bbb2a1;
+    border-bottom: solid 1px #bbb2a1;
     width: 100%;
     text-align: left;
     max-width: 140px;
@@ -790,8 +787,7 @@ select.form-control {
     margin-top: 10px;
     font-size: 12px;
     padding-left: 10px;
-    background: #6EC89B;
-    color: white;
+    color: black;
 
 }
 
@@ -801,6 +797,7 @@ select.form-control {
     color: red;
     border-top: solid 1px;
 }
+
 .pos .plus_point {
     float: right;
     padding-right: 10px;
@@ -815,14 +812,17 @@ select.form-control {
     float: right;
     padding-right: 10px;
 }
+
 .pos .client_point {
     float: right;
     padding-right: 10px;
 }
+
 .pos .next_point {
     float: right;
     padding-right: 10px;
 }
+
 .pos .line_plus_point {
     background: #6EC89B;
     color: white;
@@ -833,13 +833,6 @@ select.form-control {
     background: red;
     color: white;
     border-radius: 3px;
-}
-
-.pos .order .promotion_recomment_customer {
-    border-bottom: solid 1px rgb(110, 200, 155);
-    width: 100%;
-    text-align: left;
-    max-width: 200px;
 }
 
 .pos .modal-dialog .popup {
@@ -893,10 +886,9 @@ select.form-control {
 }
 
 .pos .orderline_image {
-    width: 30px;
-    height: 30px;
-    border-radius: 6px !important;
-    margin-top: 10px
+    width: 20px;
+    height: 20px;
+    border-radius: 3px !important;
 }
 
 .pos .lock-dialog {
@@ -931,11 +923,6 @@ select.form-control {
     width: auto;
 }
 
-.pos .product .price-tag {
-    top: 0px;
-    right: 0px;
-}
-
 .pos .paymentline .refresh-rounding-button {
     cursor: pointer;
     text-align: center;
@@ -948,7 +935,7 @@ select.form-control {
 }
 
 .screen .left-content.pc40 {
-    left: 25%;
+    left: 30%;
     right: 50%;
     border-right: none;
     border-left: none;
@@ -973,21 +960,11 @@ select.form-control {
     border-bottom: none;
 }
 
-.pos .order .summary .total {
-    font-size: 22px;
-    float: right;
-    color: #6EC89B;
-    margin-bottom: 100px
-}
-
-.pos .order .summary .line {
-    border-top: none;
-}
-
 .pos .product .price-tag-cost {
     position: absolute;
     font-size: 10px;
-    top: 50px;
+    top: 68px;
+    right: 2px;
     right: 0px;
     color: #3a0505;
     line-height: 13px;
@@ -1043,7 +1020,7 @@ select.form-control {
 .pos .leftpane .pads {
     border-left: solid 3px rgb(110, 200, 155);
     border-top: none;
-    background-color: #cecece;
+    background-color: #63756e;
 }
 
 .pos .actionpad {
@@ -1090,9 +1067,10 @@ select.form-control {
     height: 55px;
     width: 55px;
 }
+
 .pos .payment-numpad {
     width: auto;
-    background-color: #cecece;
+    background-color: #63756e;
     margin-top: 20px;
     margin-right: 20px;
     padding-left: 20px;
@@ -1107,7 +1085,7 @@ select.form-control {
     -ms-user-select: none;
     border: none;
     margin-bottom: 5px;
-    background: black;
+    background: #6EC89B;
     color: white;
 }
 
@@ -1131,10 +1109,6 @@ select.form-control {
     background-color: #6EC89B;
 }
 
-.pos .order .orderline:hover {
-    background-color: #ffffff;
-}
-
 .pos .block_add_product {
     pointer-events: none;
     opacity: 0.4;
@@ -1152,12 +1126,8 @@ select.form-control {
 }
 
 .pos .product-list-container .list tr {
-    transition: all 150ms linear;
-    color: #635b5b;
-    background: whitesmoke;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 32px;
+    font-size: 12px;
+    line-height: 20px;
 }
 
 .pos .product-list-container .list thead > tr,
@@ -1166,13 +1136,17 @@ select.form-control {
 }
 
 .pos .product_special {
-    background: red;
+    background: #ad48c4;
     position: absolute;
-    top: 19px;
+    top: 22px;
     vertical-align: top;
     color: white;
-    line-height: 13px;
-    border-radius: 2px;
+    line-height: 18px;
+    width: 100%;
+}
+
+.pos .order .order-empty {
+    color: red;
 }
 
 .pos .select_box {
@@ -1187,7 +1161,9 @@ select.form-control {
 .pos .header_order {
     padding-left: 4px;
     padding-top: 4px;
-    max-width: 500px
+    max-width: 500px;
+    border-bottom: solid 1px rgb(110, 200, 155);
+    height: 60px;
 }
 
 .pos .quickly_icon {
@@ -1197,19 +1173,18 @@ select.form-control {
     cursor: pointer;
     border-radius: 3px;
     text-align: center;
-    padding: 5px;
-    margin: 4px;
+    padding-bottom: 10px;
+    margin: 10px;
     font-family: Quicksand;
 }
 
 .pos .quickly_icon:hover {
-    background: #6EC89B;
-    color: black;
+    font-weight: bold;
+    color: rgb(110, 200, 155);
 }
 
 .pos .product-list {
-    cursor: pointer;
-    font-weight: bold;
+    text-align: center;
 }
 
 .pos .rightpane {
@@ -1253,7 +1228,7 @@ select.form-control {
 .pos .left_button .product-name {
     background: bottom;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .pos .left_button:hover {
@@ -1277,6 +1252,7 @@ select.form-control {
     padding-top: 5px;
     color: white;
 }
+
 .pos .payment-buttons {
     width: 100%;
 }
@@ -1286,6 +1262,7 @@ select.form-control {
     background: #6EC89B;
 
 }
+
 .pos .payment-buttons {
     padding: 5px;
     float: right;
@@ -1348,13 +1325,9 @@ select.form-control {
     line-height: 18px;
 }
 
-.pos .order .orderline.selected {
-    background: #6EC89B;
-    color: #635b5b;
-}
-
 .pos .pos-topheader {
-    background: #020202;
+    background: #000000;
+    color: white
 }
 
 .pos .pos-rightheader {
@@ -1382,6 +1355,12 @@ select.form-control {
     border-radius: 15px;
 }
 
+.pos .order .orderline {
+    border-bottom: 1px solid rgb(110, 200, 155);
+    padding-left: 0px;
+    padding-right: 5px;
+}
+
 .pos .order .orderline .info-list em {
     color: #635b5b;
     font-weight: bold;
@@ -1393,11 +1372,50 @@ select.form-control {
     font-size: 11px;
 }
 
+.pos .order .orderline .uom_change {
+    text-align: left;
+    width: 100%;
+    font-size: 80%;
+    color: blueviolet;
+}
+
+.pos .order .orderline:hover {
+    background-color: #ffffff;
+}
+
+.pos .order .orderline.selected {
+    background: #6EC89B;
+    color: #635b5b;
+}
+
+.pos .order .summary {
+    width: 100%;
+    text-align: right;
+    font-weight: bold;
+    margin-top: -3px;
+    padding-bottom: 40px;
+}
+
+.pos .order .summary .total {
+    font-size: 22px;
+    float: right;
+    color: #6EC89B;
+    margin-bottom: 100px
+}
+
+.pos .order .summary .line {
+    border-top: none;
+    float: none;
+    margin-right: 5px;
+}
+
 .pos .order .summary .line .subentry > span {
     font-size: 22px;
     color: red;
     margin-bottom: 80px;
+    float: right;
 }
+
 .pos .order .summary .total .value {
     font-size: 22px;
     color: red;
@@ -1453,12 +1471,15 @@ select.form-control {
 .pos .rightpane-header {
     background: white;
     height: 48px;
+    border-bottom: 0px;
+    border-top: 1px solid rgb(110, 200, 155);
 }
 
 .pos .order-button.selected {
     background: #6EC89B;
     color: white;
     height: auto;
+    border-bottom: none;
 }
 
 .pos .order-button {
@@ -1500,43 +1521,34 @@ select.form-control {
 }
 
 .pos .right_pane_logo {
-    max-width: 25px;
+    max-width: 15px;
 }
 
 .pos .product-list .product .product-name {
-    background: #cecece;
-    font-size: 12px;
-    padding-top: 20px;
-    text-align: center;
-    color: black;
-    height: 60px;
-    padding-top: 22px;
-}
-
-.pos .product-list .product:hover {
-    background: #ffffff;
-    color: ghostwhite;
+    color: #2a0000;
+    max-height: 60px;
+    font-family: Helvetical;
 }
 
 .pos .product-list .product {
-    width: 150px;
-    border: none;
-    border-radius: 3px;
-    display: inline-flex;
-    margin: 5px;
-    border-bottom-width: 1px;
-    height: 150px;
     margin: 20px !important;
-    border: 1px solid #9a9a9a;
+    border-bottom: 1px solid #cfb6b6;
+    border: 1px solid #cfb6b6;
+}
+
+.pos .product .price-tag {
+    top: 0px;
+    right: 0px;
 }
 
 .pos .product-information {
     width: 80px;
 }
+
 .pos .icon_line {
-    padding-left: 15px;
-    float: right;
+    padding-left: 20px;
     cursor: pointer;
+    float: right;
 }
 
 .pos .tag {
@@ -1582,13 +1594,124 @@ select.form-control {
 .pos .order_line_logo {
     max-width: 15px;
 }
+
 .pos .actionpad .button.set-customer.decentered {
     padding-left: 0px;
     padding-right: 0px;
 }
+
 .pos .find_customer {
     padding: 5px 5px 5px 5px;
 }
+
 .pos .screen .header-cell {
     padding-top: 10px;
+}
+
+.pos .clientlist-screen .pos-sale-ticket {
+    background-color: #6EC89B;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: solid 1px rgb(51, 43, 43)
+}
+
+.pos .payment-screen .pos-sale-ticket {
+    background-color: #6EC89B;
+    width: 274px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: solid 1px rgb(51, 43, 43)
+}
+
+.pos .ticket_image {
+    text-align: center;
+}
+
+.pos .ticket_image {
+    text-align: center;
+}
+
+.pos .shop_logo {
+    width: 50px;
+    height: 48px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.pos .backup_icon {
+    width: 50px;
+    height: 48px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.pos .category_home_icon {
+    height: 40px;
+    max-width: 40px;
+    padding-top: 5px;
+}
+.pos .logo_shop_header {
+    width: 100%;
+    height: 48px;
+}
+
+.pos .product-list-scroller {
+    background: white;
+}
+
+.pos .product .product-img img {
+    width: 120px;
+    height: 120px;
+}
+
+.pos .voucher_code {
+    color: #ff0707;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pos .promotion_active {
+    width: 100%;
+    border-bottom: 1px solid #bbb2a1;
+    font-size: 12px;
+    text-align: left;
+    color: #6EC89B;
+}
+
+.pos .promotion {
+    padding-left: 40px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pos .order .promotion_recomment_customer {
+    border-bottom: solid 1px rgb(110, 200, 155);
+    width: 100%;
+    text-align: left;
+    max-width: 200px;
+}
+.pos .pos-sale-ticket table td {
+    padding-right: 10px;
+}
+.pos .login {
+    width: 40%;
+}
+.pos .logout {
+    width: 40%;
+}
+.pos .input_form {
+    border: 1px #c57272 !important;
+    background: #91b9d6;
+    color: white;
+}
+.pos .order .orderline .product-name {
+    font-weight: normal;
+}
+.label {
+    color: darkblue;
+}
+.card .card-footer .btn {
+    width: 20%;
 }

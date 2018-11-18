@@ -4,18 +4,25 @@
         <record model="ir.ui.view" id="pos_config_retail">
             <field name="name">pos.config.retail</field>
             <field name="model">pos.config</field>
-            <!--<field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>--> <!-- v11-->
             <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/> <!-- v10-->
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='picking_type_id']" position="attributes">
                     <attribute name="required">1</attribute>
+                    <attribute name="groups">point_of_sale.group_pos_manager</attribute>
                 </xpath>
                 <xpath expr="//sheet" position="inside">
                     <notebook>
                         <page string="Retail Management">
                             <div id="pos_retail">
-                                <separator string="Sync between sessions"/>
                                 <group>
+                                    <group>
+                                        <field name="change_logo"/>
+                                    </group>
+                                    <group>
+                                        <field name="logo" widget="image" class="oe_avatar" attrs="{'invisible': [('change_logo', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group string="Sync between sessions">
                                     <group id="sync_multi_session">
                                         <field name="sync_multi_session"/>
                                         <field name="notify_alert" attrs="{'invisible': [('sync_multi_session', '=', False)]}"/>
@@ -27,25 +34,14 @@
                                                attrs="{'invisible': [('sync_multi_session', '=', False)], 'required' : [('sync_multi_session', '=', True)]}"/>
                                     </group>
                                 </group>
-                                <separator string="Big data" colspan="4"/>
-                                <group>
-                                    <group>
-                                        <field name="load_cache"/>
-                                    </group>
-                                    <group>
-                                        <button name="remove_database"
-                                                string="Remove caches"
-                                                class="btn-danger"
-                                                type="object"
-                                                icon="fa-archive"
-                                                />
-                                        <button name="refresh_cache"
-                                                class="btn-danger"
-                                                string="Refresh caches"
-                                                type="object"
-                                                icon="fa-archive"
-                                                />
-                                    </group>
+                                <group string="Big data">
+                                    <button name="remove_database"
+                                        string="Remove caches"
+                                        class="btn-danger"
+                                        type="object"
+                                        icon="fa-archive"
+                                        confirm="POS will removing all caches, and re-install caches. Are you want doing ?"
+                                        />
                                 </group>
                                 <separator string="Security Rules of cashier"/>
                                 <group>
@@ -85,6 +81,7 @@
                                         <field name="validate_quantity_change"/>
                                         <field name="validate_price_change"/>
                                         <field name="validate_discount_change"/>
+                                        <field name="validate_change_minus"/>
                                     </group>
                                     <group string="Discount">
                                         <field name="display_amount_discount"/>
@@ -101,6 +98,7 @@
                                 </group>
                                 <group>
                                     <group string="Promotion">
+                                        <field name="promotion_manual_select"/>
                                         <field name="promotion_ids" widget="many2many_tags"/>
                                     </group>
                                     <group string="Loyalty">
@@ -185,6 +183,12 @@
                                         <field name="display_onhand"/>
                                     </group>
                                     <group string="Quickly actions">
+                                        <field name="quickly_buttons"/>
+                                        <field name="product_operation"/>
+                                        <field name="product_view"/>
+                                        <field name="daily_report"/>
+                                        <field name="lock_session"/>
+                                        <field name="receipt_without_payment_template"/>
                                         <field name="quickly_payment"/>
                                         <field name="quickly_buttons"/>
                                         <field name="quickly_payment_full"/>
@@ -196,6 +200,8 @@
                                 <group>
                                     <group string="POS orders">
                                         <field name="pos_orders_management"/>
+                                        <field name="paid_full"/>
+                                        <field name="paid_partial"/>
                                         <field name="return_products"/>
                                         <field name="pos_order_period_return_days"/>
                                         <field name="display_return_days_receipt"/>
@@ -221,6 +227,9 @@
                                         <field name="display_tax_orderline"/>
                                         <field name="display_tax_receipt"/>
                                         <field name="display_image_orderline"/>
+                                        <field name="add_tags"/>
+                                        <field name="add_notes"/>
+                                        <field name="add_sale_person"/>
                                     </group>
                                     <group string="Receipt/Ticket display">
                                         <field name="print_last_order"/>
@@ -239,18 +248,17 @@
                                                attrs="{'invisible': [('receipt_without_payment_template', '=', 'none')]}"/>
                                     </group>
                                 </group>
-                                <separator string="Lock/Unlock"/>
+                                <separator string="Lock Screen"/>
                                 <group>
                                     <group>
                                         <field name="print_user_card"/>
                                         <field name="allow_lock_screen"/>
-                                        <field name="lock_session"/>
                                     </group>
                                 </group>
                                 <separator string="Product sceen"/>
                                 <group>
                                     <group>
-                                        <field name="product_view"/>
+                                        <field name="tooltip"/>
                                         <field name="display_sale_price_within_tax"/>
                                         <field name="display_cost_price"/>
                                         <field name="display_product_ref"/>
@@ -259,16 +267,14 @@
                                 <separator string="Extends"/>
                                 <group>
                                     <group>
-                                        <field name="product_operation"/>
                                         <field name="reset_sequence"/>
                                         <field name="customer_default_id"/>
                                         <field name="printer_on_off"/>
+                                        <field name="chat"/>
                                     </group>
                                     <group>
-                                        <field name="tooltip"/>
                                         <field name="switch_user"/>
-                                        <field name="daily_report"/>
-                                        <field name="single_screen"/>
+                                        <field name="review_receipt_before_paid"/>
                                         <field name="keyboard_event"/>
                                         <field name="min_length_search"/>
                                         <field name="close_session"/>
@@ -279,30 +285,23 @@
                                     <group>
                                         <field name="is_customer_screen"/>
                                     </group>
-                                    <group attrs="{'invisible': [('is_customer_screen', '=', False)]}">
-                                        <field name="delay" attrs="{'required': [('is_customer_screen', '=', True)]}"/>
-                                        <field name="slogan" attrs="{'required': [('is_customer_screen', '=', True)]}"/>
-                                        <field name="image_ids"
-                                               attrs="{'required': [('is_customer_screen', '=', True)]}">
-                                            <tree string="Images">
-                                                <field name="name"/>
-                                                <field name="image" widget='image' class="oe_avatar"/>
-                                            </tree>
-                                            <form string="Image">
-                                                <field name="image" widget='image' class="oe_avatar"/>
-                                                <div class="oe_title">
-                                                    <h1>
-                                                        <field name="name"/>
-                                                    </h1>
-                                                </div>
-                                                <group>
-                                                    <field name="description"/>
-                                                </group>
-                                            </form>
-                                        </field>
+                                    <group>
+                                        <field name="delay" attrs="{'invisible': [('is_customer_screen', '=', False)], 'required': [('is_customer_screen', '=', True)]}"/>
+                                        <field name="slogan" attrs="{'invisible': [('is_customer_screen', '=', False)], 'required': [('is_customer_screen', '=', True)]}"/>
+                                        <field name="image_ids" attrs="{'invisible': [('is_customer_screen', '=', False)], 'required': [('is_customer_screen', '=', True)]}"/>
                                     </group>
                                 </group>
                             </div>
+                        </page>
+                        <page string="Orders backup">
+                            <group>
+                                <group>
+                                    <field name="backup"/>
+                                </group>
+                                <group colspan="4">
+                                    <field name="backup_orders" nolabel="1"/>
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </xpath>

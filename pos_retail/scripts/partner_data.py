@@ -6,10 +6,10 @@ __logger = logging.getLogger(__name__)
 
 start_time = time.time()
 
-database = 'v11_pos_dev'
+database = 'v10_pos_dev'
 login = 'admin'
 password = '1'
-url = 'http://localhost:8011'
+url = 'http://localhost:8010'
 
 common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(url))
 uid = common.authenticate(database, login, password, {})
@@ -17,11 +17,11 @@ uid = common.authenticate(database, login, password, {})
 models = xmlrpclib.ServerProxy(url + '/xmlrpc/object')
 with open("img.png", "rb") as f:
     data = f.read()
-    for i in range(0, 100):
+    for i in range(0, 10000):
         vals = {
             'street': u'255 Bui Huu Nghia, Tan Van',
             'city': u'Bien Hoa',
-            'name': 'Customer - %s' % str(i),
+            'name': 'Brutal-%s' % str(i),
             'zip': u'False',
             'mobile': u'0909888888',
             'country_id': 233,

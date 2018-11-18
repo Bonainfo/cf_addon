@@ -8,7 +8,12 @@ odoo.define('pos_retail.screen_sale_orders', function (require) {
     var rpc = require('pos.rpc');
     var qweb = core.qweb;
 
-    var sale_orders = screens.ScreenWidget.extend({ // sale orders screen, booked orders
+    /*
+        This screen management 2 function:
+        1) sale orders screen
+        2) booked orders
+    */
+    var sale_orders = screens.ScreenWidget.extend({
         template: 'sale_orders',
 
         init: function (parent, options) {
@@ -219,7 +224,7 @@ odoo.define('pos_retail.screen_sale_orders', function (require) {
                     self.link = window.location.origin + "/web#id=" + self.sale_selected.id + "&view_type=form&model=sale.order";
                     return self.gui.show_popup('confirm', {
                         title: 'Done',
-                        body: 'Order processed to done, are you want open order ?',
+                        body: 'Sale order processed to done, are you want open revieew ?',
                         confirmButtonText: 'Yes',
                         cancelButtonText: 'Close',
                         confirm: function () {
@@ -257,7 +262,7 @@ odoo.define('pos_retail.screen_sale_orders', function (require) {
                             self.link = window.location.origin + "/web#id=" + self.sale_selected.id + "&view_type=form&model=sale.order";
                             return self.pos.gui.show_popup('confirm', {
                                 title: 'Done',
-                                body: 'Order create delivery success, are you want open Picking now ?',
+                                body: 'Order create delivery Finished, are you want open picking order now ?',
                                 confirm: function () {
                                     window.open(self.link, '_blank');
                                 },
@@ -355,4 +360,63 @@ odoo.define('pos_retail.screen_sale_orders', function (require) {
         }
     });
     gui.define_screen({name: 'sale_orders', widget: sale_orders});
+
+    screens.OrderWidget.include({
+        update_count_booked_orders: function () { // set count booked orders
+            var $booked_orders = $('.booked_orders');
+            if ($booked_orders) {
+                var sale_orders = _.filter(this.pos.db.sale_orders, function (order) {
+                    return order['book_order'] == true && (order['state'] == 'draft' || order['state'] == 'sent');
+                });
+                $booked_orders.text(sale_orders.length);
+            }
+        },
+        active_button_create_sale_order: function (buttons, selected_order) {
+            if (buttons && buttons.button_create_sale_order) {
+                if (selected_order && selected_order.get_client() && selected_order.orderlines.length > 0) {
+                    buttons.button_create_sale_order.highlight(true);
+                } else {
+                    buttons.button_create_sale_order.highlight(false);
+                }
+            }
+        },
+        active_button_booking_order: function (buttons, selected_order) {
+            if (buttons.button_booking_order && selected_order.get_client()) {
+                buttons.button_booking_order.highlight(true);
+            }
+            if (buttons.button_booking_order && !selected_order.get_client()) {
+                buttons.button_booking_order.highlight(false);
+            }
+        },
+        active_button_delivery_order: function (buttons, selected_order) {
+            if (buttons.button_delivery_order && selected_order.delivery_address) {
+                buttons.button_delivery_order.highlight(true);
+            }
+            if (buttons.button_delivery_order && !selected_order.delivery_address) {
+                buttons.button_delivery_order.highlight(false);
+            }
+        },
+        show_delivery_address: function (buttons, selected_order) {
+            var $delivery_address = this.el.querySelector('.delivery_address');
+            var $delivery_date = this.el.querySelector('.delivery_date');
+            if ($delivery_address) {
+                $delivery_address.textContent = selected_order['delivery_address'];
+            }
+            if ($delivery_date) {
+                $delivery_date.textContent = selected_order['delivery_date'];
+            }
+        },
+        update_summary: function () {
+            this._super();
+            this.update_count_booked_orders();
+            var buttons = this.getParent().action_buttons;
+            var order = this.pos.get_order();
+            if (order && buttons) {
+                this.active_button_create_sale_order(buttons, order);
+                this.active_button_booking_order(buttons, order);
+                this.active_button_delivery_order(buttons, order);
+                this.show_delivery_address(buttons, order);
+            }
+        }
+    })
 });

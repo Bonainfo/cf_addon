@@ -7,24 +7,24 @@ __logger = logging.getLogger(__name__)
 
 start_time = time.time()
 
-database = 'v11_pos_dev'
+database = 'v10_pos_dev'
 login = 'admin'
 password = '1'
-url = 'http://localhost:8011'
+url = 'http://localhost:8010'
 
 common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(url))
 uid = common.authenticate(database, login, password, {})
 
 models = xmlrpclib.ServerProxy(url + '/xmlrpc/object')
 
-with open("img.png", "rb") as f:
+with open("cafe.png", "rb") as f:
     data = f.read()
-    for i in range(0, 100):
+    for i in range(0, 10000):
         vals = {
             'list_price': i,
             'description': u'description',
-            'display_name': 'Product - %s' % str(i),
-            'name': 'Product : %s' % str(i),
+            'display_name': 'Capuchino/%s' % str(i),
+            'name': 'Capuchino/%s' % str(i),
             'pos_categ_id': 1,
             'to_weight': u'True',
             'image': data.encode("base64")

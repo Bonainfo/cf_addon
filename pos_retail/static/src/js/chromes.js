@@ -9,18 +9,25 @@ odoo.define('pos_retail.chromes', function (require) {
 
     chrome.Chrome.include({
         build_widgets: function () {
+            var self = this;
             this._super();
             if (this.pos.config.allow_lock_screen) {
                 this.pos.default_screen = this.gui.default_screen;
                 this.pos.startup_screen = this.gui.startup_screen;
-                this.gui.set_startup_screen('login_page');
-                this.gui.set_default_screen('login_page');
+                setTimeout(function () {
+                    self.pos.gui.show_popup('popup_lock_page', {
+                        title: 'Locked',
+                        body: 'Use pos security pin for unlock'
+                    });
+                }, 500);
+
+
             }
         }
     });
 
-    var CountItemWidget = chrome.StatusWidget.extend({
-        template: 'CountItemWidget',
+    var button_list_widget = chrome.StatusWidget.extend({
+        template: 'button_list_widget',
         init: function () {
             this._super(arguments[0], {});
             this.show = true;
@@ -52,12 +59,12 @@ odoo.define('pos_retail.chromes', function (require) {
     chrome.Chrome.include({
         build_widgets: function () {
             this.widgets = _.filter(this.widgets, function (widget) {
-                return widget['name'] != 'count_item_widget';
+                return widget['name'] != 'button_list_widget';
             })
             this.widgets.push(
                 {
-                    'name': 'count_item_widget',
-                    'widget': CountItemWidget,
+                    'name': 'button_list_widget',
+                    'widget': button_list_widget,
                     'append': '.pos-branding',
                 }
             );
@@ -69,7 +76,9 @@ odoo.define('pos_retail.chromes', function (require) {
     chrome.OrderSelectorWidget.include({
         deleteorder_click_handler: function (event, $el) {
             if (this.pos.config.validate_remove_order) {
-                return this.pos.gui.show_popup('password', {
+                return this.pos.gui.show_popup('ask_password', {
+                    title: 'Blocked',
+                    body: 'Please input pos pass pin for unlock',
                     confirm: function (value) {
                         var pin;
                         if (this.pos.config.manager_validate) {
@@ -81,7 +90,7 @@ odoo.define('pos_retail.chromes', function (require) {
                         if (value != pin) {
                             return this.pos.gui.show_popup('confirm', {
                                 title: 'Wrong',
-                                body: 'Password not correct, please check pos secuirty pin',
+                                body: 'Password not correct, please check pos security pin',
                             })
                         } else {
                             var self = this;
@@ -89,12 +98,12 @@ odoo.define('pos_retail.chromes', function (require) {
                             if (!order) {
                                 return;
                             } else if (!order.is_empty()) {
-                                this.gui.show_popup('confirm', {
+                                this.pos.gui.show_popup('confirm', {
                                     'title': _t('Destroy Current Order ?'),
                                     'body': _t('You will lose any data associated with the current order'),
                                     confirm: function () {
                                         self.pos.delete_current_order();
-                                    }
+                                    },
                                 });
                             } else {
                                 this.pos.delete_current_order();
@@ -117,7 +126,7 @@ odoo.define('pos_retail.chromes', function (require) {
             if (this.pos.config.is_customer_screen) {
                 $('.pos .order-selector').css('display', 'none');
             }
-        },
+        }
     });
 
     chrome.HeaderButtonWidget.include({
@@ -126,13 +135,37 @@ odoo.define('pos_retail.chromes', function (require) {
             this._super();
             if (this.action) {
                 this.$el.click(function () {
-                    self.action();
                     if (self.pos.config.close_session) {
                         session.rpc("/web/session/destroy", {});
                         window.open("/web/login", "_self");
                     }
+                    if (self.pos.config.validate_close_session) {
+                        return self.pos.gui.show_popup('ask_password', {
+                            title: 'Blocked',
+                            body: 'Please input pos pass pin for close session',
+                            confirm: function (value) {
+                                var pin;
+                                if (this.pos.config.manager_validate) {
+                                    var user_validate = this.pos.user_by_id[this.pos.config.manager_user_id[0]];
+                                    pin = user_validate['pos_security_pin']
+                                } else {
+                                    pin = this.pos.user.pos_security_pin
+                                }
+                                if (value != pin) {
+                                    return this.pos.gui.show_popup('confirm', {
+                                        title: 'Wrong',
+                                        body: 'Password not correct, please check pos security pin'
+                                    })
+                                } else {
+                                    return this.pos.gui.close();
+                                }
+                            }
+                        })
+                    } else {
+                        self.action();
+                    }
                 });
             }
-        },
+        }
     })
 });

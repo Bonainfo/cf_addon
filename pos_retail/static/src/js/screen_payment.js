@@ -217,7 +217,7 @@ odoo.define('pos_retail.screen_payment', function (require) {
                                 context: {}
                             }).then(function (rate_id) {
                                 return self.pos.gui.show_popup('confirm', {
-                                    title: 'Success',
+                                    title: 'Finished',
                                     body: 'Update rate done'
                                 })
                             }).then(function () {
@@ -343,8 +343,8 @@ odoo.define('pos_retail.screen_payment', function (require) {
                             }).then(function (voucher) {
                                 if (voucher == -1) {
                                     return self.gui.show_popup('confirm', {
-                                        title: 'Wrong',
-                                        body: 'Code used before or code have not exist or code expired date',
+                                        title: 'Warning',
+                                        body: 'Voucher code used before or code doest not exist',
                                     });
                                 } else {
                                     var current_order = self.pos.get('selectedOrder');
@@ -365,6 +365,12 @@ odoo.define('pos_retail.screen_payment', function (require) {
                                         } else {
                                             amount = current_order.get_total_with_tax() / 100 * voucher.value;
                                         }
+                                        if (amount <= 0) {
+                                            return self.pos.gui.show_popup('confirm', {
+                                                title: 'Warning',
+                                                body: 'Voucher limited value',
+                                            });
+                                        }
                                         // remove old paymentline have journal is voucher
                                         var paymentlines = current_order.paymentlines;
                                         for (var i = 0; i < paymentlines.models.length; i++) {
@@ -379,13 +385,20 @@ odoo.define('pos_retail.screen_payment', function (require) {
                                             cashregister: voucher_register,
                                             pos: self.pos
                                         });
-                                        voucher_paymentline.set_amount(amount);
+                                        var due = current_order.get_due();
+                                        if (amount >= due) {
+                                            voucher_paymentline.set_amount(due);
+                                        } else {
+                                            voucher_paymentline.set_amount(amount);
+                                        }
+                                        voucher_paymentline['voucher_id'] = voucher['id'];
+                                        voucher_paymentline['voucher_code'] = voucher['code'];
                                         current_order.paymentlines.add(voucher_paymentline);
-                                        current_order.trigger('change', current_order)
+                                        current_order.trigger('change', current_order);
                                         self.render_paymentlines();
                                         self.$('.paymentline.selected .edit').text(self.format_currency_no_symbol(amount));
                                         return self.pos.gui.show_popup('confirm', {
-                                            title: 'Success',
+                                            title: 'Finished',
                                             body: 'Add voucher with amount ' + amount,
                                         });
                                     } else {
@@ -688,6 +701,12 @@ odoo.define('pos_retail.screen_payment', function (require) {
                         } else {
                             amount = current_order.get_total_with_tax() / 100 * voucher.value;
                         }
+                        if (amount <= 0) {
+                            return self.pos.gui.show_popup('confirm', {
+                                title: 'Warning',
+                                body: 'Voucher limited value',
+                            });
+                        }
                         // remove old paymentline have journal is voucher
                         var paymentlines = current_order.paymentlines;
                         for (var i = 0; i < paymentlines.models.length; i++) {
@@ -702,15 +721,19 @@ odoo.define('pos_retail.screen_payment', function (require) {
                             cashregister: voucher_register,
                             pos: self.pos
                         });
-                        voucher_paymentline.set_amount(amount);
+                        voucher_paymentline['voucher_id'] = voucher['id'];
+                        voucher_paymentline['voucher_code'] = voucher['code'];
+                        var due = current_order.get_due();
+                        if (amount >= due) {
+                            voucher_paymentline.set_amount(due);
+                        } else {
+                            voucher_paymentline.set_amount(amount);
+                        }
+                        voucher_paymentline['voucher_id'] = voucher['id'];
                         current_order.paymentlines.add(voucher_paymentline);
-                        current_order.trigger('change', current_order)
+                        current_order.trigger('change', current_order);
                         self.render_paymentlines();
                         self.$('.paymentline.selected .edit').text(self.format_currency_no_symbol(amount));
-                        return self.pos.gui.show_popup('confirm', {
-                            title: 'Success',
-                            body: 'Add voucher with amount ' + amount,
-                        });
                     } else {
                         return self.pos.gui.show_popup('confirm', {
                             title: 'Warning',

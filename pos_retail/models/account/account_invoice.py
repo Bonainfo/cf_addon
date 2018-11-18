@@ -82,6 +82,8 @@ class account_invoice(models.Model):
 class account_invoice_line(models.Model):
     _inherit = "account.invoice.line"
 
+    pos_line_id = fields.Many2one('pos.order.line', 'Pos line', readonly=1)
+
     def get_data(self):
         cache_obj = self.env['pos.cache.database']
         fields_sale_load = cache_obj.get_fields_by_model(self._inherit)

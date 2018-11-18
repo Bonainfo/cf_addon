@@ -3,6 +3,8 @@ from odoo import api, fields, models, _
 import ast
 import logging
 from odoo.exceptions import UserError
+import base64
+import json
 
 _logger = logging.getLogger(__name__)
 
@@ -19,7 +21,7 @@ class pos_config(models.Model):
     _inherit = "pos.config"
 
     user_id = fields.Many2one('res.users', 'Assigned to')
-    config_access_right = fields.Boolean('Config access right', default=0)
+    config_access_right = fields.Boolean('Config access right', default=1)
     allow_discount = fields.Boolean('Change discount', default=1)
     allow_qty = fields.Boolean('Change quantity', default=1)
     allow_price = fields.Boolean('Change price', default=1)
@@ -33,7 +35,7 @@ class pos_config(models.Model):
 
     allow_lock_screen = fields.Boolean('Lock screen',
                                        default=0,
-                                       help='If checked, please go to user set pos pin')
+                                       help='When pos sessions start, cashiers required open POS viva pos pass pin (Setting/Users)')
 
     display_point_receipt = fields.Boolean('Display point / receipt')
     loyalty_id = fields.Many2one('pos.loyalty', 'Loyalty Program',
@@ -44,9 +46,10 @@ class pos_config(models.Model):
                                      'config_id',
                                      'promotion_id',
                                      string='Promotion programs')
+    promotion_manual_select = fields.Boolean('Promotion manual choice', default=0)
 
-    create_purchase_order = fields.Boolean('Create PO', default=1)
-    create_purchase_order_required_signature = fields.Boolean('Required signature', default=1)
+    create_purchase_order = fields.Boolean('Create PO', default=0)
+    create_purchase_order_required_signature = fields.Boolean('Required signature', default=0)
     purchase_order_state = fields.Selection([
         ('confirm_order', 'Auto confirm'),
         ('confirm_picking', 'Auto delivery'),
@@ -55,39 +58,38 @@ class pos_config(models.Model):
         help='This is state of purchase order will process to',
         default='confirm_invoice')
 
-    sync_sale_order = fields.Boolean('Sync sale orders', default=1)
-    sale_order = fields.Boolean('Create Sale order', default=1)
-    sale_order_auto_confirm = fields.Boolean('Auto confirm', default=1)
-    sale_order_auto_invoice = fields.Boolean('Auto paid', default=1)
-    sale_order_auto_delivery = fields.Boolean('Auto delivery', default=1)
+    sync_sale_order = fields.Boolean('Sync sale orders', default=0)
+    sale_order = fields.Boolean('Create Sale order', default=0)
+    sale_order_auto_confirm = fields.Boolean('Auto confirm', default=0)
+    sale_order_auto_invoice = fields.Boolean('Auto paid', default=0)
+    sale_order_auto_delivery = fields.Boolean('Auto delivery', default=0)
 
     pos_orders_management = fields.Boolean('POS order management', default=0)
     pos_order_period_return_days = fields.Float('Return period days',
                                                 help='this is period time for customer can return order',
                                                 default=30)
-    display_return_days_receipt = fields.Boolean('Display return days receipt', default=1)
+    display_return_days_receipt = fields.Boolean('Display return days receipt', default=0)
 
-    sync_pricelist = fields.Boolean('Sync prices list', default=1)
+    sync_pricelist = fields.Boolean('Sync prices list', default=0)
 
-    display_onhand = fields.Boolean('Show qty available product', default=1,
-                                    help='Display quantity on hand all products on pos screen')
+    display_onhand = fields.Boolean('Show qty available product', default=0, help='Display quantity on hand all products on pos screen')
     allow_order_out_of_stock = fields.Boolean('Allow out-of-stock', default=0,
                                               help='If checked, allow cashier can add product have out of stock')
     allow_of_stock_approve_by_admin = fields.Boolean('Approve allow of stock', help='Allow manager approve allow of stock')
 
-    print_voucher = fields.Boolean('Create voucher', default=1)
-    scan_voucher = fields.Boolean('Scan voucher', default=1)
-    expired_days_voucher = fields.Integer('Expired days of voucher', default=30)
+    print_voucher = fields.Boolean('Create voucher', default=0)
+    scan_voucher = fields.Boolean('Scan voucher', default=0)
+    expired_days_voucher = fields.Integer('Expired days of voucher', default=30, help='Total days keep voucher can use, if out of period days from create date, voucher will expired')
 
-    sync_multi_session = fields.Boolean('Sync multi session', default=1)
+    sync_multi_session = fields.Boolean('Sync multi session', default=0)
     bus_id = fields.Many2one('pos.bus', string='Branch/store')
-    display_person_add_line = fields.Boolean('Display information line', default=1,
+    display_person_add_line = fields.Boolean('Display information line', default=0,
                                              help="When you checked, on pos order lines screen, will display information person created order (lines) Eg: create date, updated date ..")
 
-    quickly_payment = fields.Boolean('Quickly payment', default=1)
-    internal_transfer = fields.Boolean('Internal transfer', default=1,
+    quickly_payment = fields.Boolean('Quickly payment', default=0)
+    internal_transfer = fields.Boolean('Internal transfer', default=0,
                                        help='Go Inventory and active multi warehouse and location')
-    internal_transfer_auto_validate = fields.Boolean('Internal transfer auto validate', default=1)
+    internal_transfer_auto_validate = fields.Boolean('Internal transfer auto validate', default=0)
 
     discount = fields.Boolean('Global discount', default=0)
     discount_ids = fields.Many2many('pos.global.discount',
@@ -101,19 +103,19 @@ class pos_config(models.Model):
     slogan = fields.Char('Slogan', help='This is message will display on screen of customer')
     image_ids = fields.One2many('pos.config.image', 'config_id', 'Images')
 
-    tooltip = fields.Boolean('Tooltip', default=1)
-    discount_limit = fields.Boolean('Discount limit', default=1)
+    tooltip = fields.Boolean('Product tooltip', default=0)
+    discount_limit = fields.Boolean('Discount limit', default=0)
     discount_limit_amount = fields.Float('Discount limit amount', default=10)
 
-    multi_currency = fields.Boolean('Multi currency', default=1)
-    multi_currency_update_rate = fields.Boolean('Update rate', default=1)
+    multi_currency = fields.Boolean('Multi currency', default=0)
+    multi_currency_update_rate = fields.Boolean('Update rate', default=0)
 
     notify_alert = fields.Boolean('Notify alert',
                                   help='Turn on/off notification alert on POS sessions.',
-                                  default=1)
-    return_products = fields.Boolean('Return products',
-                                     help='Check if you need cashiers can return products from customers and dont care name of pos order',
-                                     default=1)
+                                  default=0)
+    return_products = fields.Boolean('Return orders',
+                                     help='Allow cashier return orders, return products',
+                                     default=0)
     receipt_without_payment_template = fields.Selection([
         ('none', 'None'),
         ('display_price', 'Display price'),
@@ -130,6 +132,7 @@ class pos_config(models.Model):
 
     validate_payment = fields.Boolean('Validate payment')
     validate_remove_order = fields.Boolean('Validate remove order')
+    validate_change_minus = fields.Boolean('Validate pressed +/-')
     validate_quantity_change = fields.Boolean('Validate quantity change')
     validate_price_change = fields.Boolean('Validate price change')
     validate_discount_change = fields.Boolean('Validate discount change')
@@ -139,45 +142,45 @@ class pos_config(models.Model):
 
     print_user_card = fields.Boolean('Print user card')
 
-    product_operation = fields.Boolean('Product Operation', default=1)
+    product_operation = fields.Boolean('Product Operation', default=0, help='Allow cashiers add pos categories and products on pos screen')
     quickly_payment_full = fields.Boolean('Quickly payment full')
     quickly_payment_full_journal_id = fields.Many2one('account.journal', 'Payment mode',
                                                       domain=[('journal_user', '=', True)])
-    daily_report = fields.Boolean('Daily report', default=1)
-    note_order = fields.Boolean('Note order', default=1)
-    note_orderline = fields.Boolean('Note order line', default=1)
-    signature_order = fields.Boolean('Signature order', default=1)
-    quickly_buttons = fields.Boolean('Quickly Actions', default=1)
-    display_amount_discount = fields.Boolean('Display amount discount', default=1)
+    daily_report = fields.Boolean('Daily report', default=0)
+    note_order = fields.Boolean('Note order', default=0)
+    note_orderline = fields.Boolean('Note order line', default=0)
+    signature_order = fields.Boolean('Signature order', default=0)
+    quickly_buttons = fields.Boolean('Quickly Actions', default=0)
+    display_amount_discount = fields.Boolean('Display amount discount', default=0)
 
 
 
     booking_orders = fields.Boolean('Booking orders', default=0)
     booking_orders_required_cashier_signature = fields.Boolean('Book order required sessions signature',
                                                                help='Checked if need required pos seller signature',
-                                                               default=1)
-    booking_orders_alert = fields.Boolean('Alert when new order coming', default=1)
+                                                               default=0)
+    booking_orders_alert = fields.Boolean('Alert when new order coming', default=0)
     delivery_orders = fields.Boolean('Delivery orders',
                                      help='Pos clients can get booking orders and delivery orders',
-                                     default=1)
-    booking_orders_display_shipping_receipt = fields.Boolean('Display shipping on receipt', default=1)
+                                     default=0)
+    booking_orders_display_shipping_receipt = fields.Boolean('Display shipping on receipt', default=0)
 
 
 
-    display_tax_orderline = fields.Boolean('Display tax orderline', default=1)
-    display_tax_receipt = fields.Boolean('Display tax receipt', default=1)
-    display_fiscal_position_receipt = fields.Boolean('Display fiscal position on receipt', default=1)
+    display_tax_orderline = fields.Boolean('Display tax orderline', default=0)
+    display_tax_receipt = fields.Boolean('Display tax receipt', default=0)
+    display_fiscal_position_receipt = fields.Boolean('Display fiscal position on receipt', default=0)
 
-    display_image_orderline = fields.Boolean('Display image order line', default=1)
-    display_image_receipt = fields.Boolean('Display image receipt', default=1)
+    display_image_orderline = fields.Boolean('Display image order line', default=0)
+    display_image_receipt = fields.Boolean('Display image receipt', default=0)
     duplicate_receipt = fields.Boolean('Duplicate Receipt')
-    print_number = fields.Integer('Print number', help='How many number receipt need to print at printer ?', default=2)
+    print_number = fields.Integer('Print number', help='How many number receipt need to print at printer ?', default=0)
 
-    lock_session = fields.Boolean('Lock session', default=1)
-    category_wise_receipt = fields.Boolean('Category wise receipt', default=1)
+    lock_session = fields.Boolean('Lock session', default=0)
+    category_wise_receipt = fields.Boolean('Category wise receipt', default=0)
 
     management_invoice = fields.Boolean('Management Invoice', default=0)
-    add_credit = fields.Boolean('Add credit', default=1,
+    add_credit = fields.Boolean('Add credit', default=0,
                                 help='When cashiers Add credit note on invoice, auto add credit amount to customers')
     invoice_journal_ids = fields.Many2many(
         'account.journal',
@@ -187,21 +190,21 @@ class pos_config(models.Model):
         'Accounting Invoice Journal',
         domain=[('type', '=', 'sale')],
         help="Accounting journal use for create invoices.")
-    send_invoice_email = fields.Boolean('Send email invoice', help='Help cashier send invoice to email of customer', default=1)
-    lock_print_invoice_on_pos = fields.Boolean('Lock print invoice', help='Lock print pdf invoice when clicked button invoice', default=1)
+    send_invoice_email = fields.Boolean('Send email invoice', help='Help cashier send invoice to email of customer', default=0)
+    lock_print_invoice_on_pos = fields.Boolean('Lock print invoice', help='Lock print pdf invoice when clicked button invoice', default=0)
     pos_auto_invoice = fields.Boolean('Auto create invoice',
                                       help='Automatic create invoice if order have client',
                                       default=0)
-    receipt_invoice_number = fields.Boolean('Add invoice on receipt', help='Show invoice number on receipt header', default=1)
-    receipt_customer_vat = fields.Boolean('Add vat customer on receipt', help='Show customer VAT(TIN) on receipt header', default=1)
-    auto_register_payment = fields.Boolean('Auto invocie register payment', default=1)
+    receipt_invoice_number = fields.Boolean('Add invoice on receipt', help='Show invoice number on receipt header', default=0)
+    receipt_customer_vat = fields.Boolean('Add vat customer on receipt', help='Show customer VAT(TIN) on receipt header', default=0)
+    auto_register_payment = fields.Boolean('Auto invocie register payment', default=0)
 
-    fiscal_position_auto_detect = fields.Boolean('Fiscal position auto detect', default=1)
+    fiscal_position_auto_detect = fields.Boolean('Fiscal position auto detect', default=0)
 
-    display_sale_price_within_tax = fields.Boolean('Display sale price within tax', default=1)
-    display_cost_price = fields.Boolean('Display product cost price', default=1)
-    display_product_ref = fields.Boolean('Display product ref', default=1)
-    multi_location = fields.Boolean('Multi location', default=1)
+    display_sale_price_within_tax = fields.Boolean('Display sale price within tax', default=0)
+    display_cost_price = fields.Boolean('Display product cost price', default=0)
+    display_product_ref = fields.Boolean('Display product ref', default=0)
+    multi_location = fields.Boolean('Multi location', default=0)
     product_view = fields.Selection([
         ('box', 'Box view'),
         ('list', 'List view'),
@@ -211,47 +214,56 @@ class pos_config(models.Model):
     customer_default_id = fields.Many2one('res.partner', 'Customer default')
     medical_insurance = fields.Boolean('Medical insurance', default=0)
     discount_each_line = fields.Boolean('Discount each line')
-    manager_validate = fields.Boolean('Allow manager approve discount')
-    manager_user_id = fields.Many2one('res.users', 'Manager approve discount')
-    set_guest = fields.Boolean('Set guest', default=1)
-    reset_sequence = fields.Boolean('Reset sequence order', default=1)
-    update_tax = fields.Boolean('Modify tax', default=1, help='Cashier can change tax of order line')
+    manager_validate = fields.Boolean('Manager can validate')
+    manager_user_id = fields.Many2one('res.users', 'Manager validate')
+    set_guest = fields.Boolean('Set guest', default=0)
+    reset_sequence = fields.Boolean('Reset sequence order', default=0)
+    update_tax = fields.Boolean('Modify tax', default=0, help='Cashier can change tax of order line')
     subtotal_tax_included = fields.Boolean('Show Tax-Included Prices', help='When checked, subtotal of line will display amount have tax-included')
-    cash_out = fields.Boolean('Cash out', default=1)
-    cash_in = fields.Boolean('Cash in', default=1)
-    min_length_search = fields.Integer('Min character length search', default=3)
-    single_screen = fields.Boolean('Single screen', help='Made order left page display on payment, customers', default=1)
-    keyboard_event = fields.Boolean('Keyboard event', default=0)
-    multi_variant = fields.Boolean('Multi variant', default=0)
-    switch_user = fields.Boolean('Switch user', default=0)
+    cash_out = fields.Boolean('Cash out', default=0, help='Allow cashiers take money out')
+    cash_in = fields.Boolean('Cash in', default=0, help='Allow cashiers input money in')
+    min_length_search = fields.Integer('Min character length search', default=3, help='Allow auto suggestion items when cashiers input on search box')
+    review_receipt_before_paid = fields.Boolean('Review receipt before paid', help='Show receipt before paid order', default=1)
+    keyboard_event = fields.Boolean('Keyboard event', default=0, help='Allow cashiers use shortcut keyboard')
+    multi_variant = fields.Boolean('Multi variant', default=0, help='Allow cashiers change variant of order lines on pos screen')
+    switch_user = fields.Boolean('Switch user', default=0, help='Allow cashiers switch to another cashier')
     change_unit_of_measure = fields.Boolean('Change unit of measure', default=0, help='Allow cashiers change unit of measure of order lines')
     print_last_order = fields.Boolean('Print last receipt', default=0, help='Allow cashiers print last receipt')
     close_session = fields.Boolean('Close session', help='When cashiers click close pos, auto log out of system', default=0)
-    display_image_product = fields.Boolean('Display image product', default=1)
-    printer_on_off = fields.Boolean('On/Off printer', help='Help cashier turn on/off printer viva posbox', default=1)
+    display_image_product = fields.Boolean('Display image product', default=1, help='Allow hide/display product images on pos screen')
+    printer_on_off = fields.Boolean('On/Off printer', help='Help cashier turn on/off printer viva posbox', default=0)
 
     opt_out = fields.Boolean('Opt out', default=0)
     sms_opt_out = fields.Boolean('Sms opt out', default=0)
     call_opt_out = fields.Boolean('Call opt out', default=0)
-    check_duplicate_email = fields.Boolean('Check duplicate email', default=1)
-    check_duplicate_phone = fields.Boolean('Check duplicate phone', default=1)
+    check_duplicate_email = fields.Boolean('Check duplicate email', default=0)
+    check_duplicate_phone = fields.Boolean('Check duplicate phone', default=0)
     hide_country = fields.Boolean('Hide country', default=0)
     hide_barcode = fields.Boolean('Hide barcode', default=0)
     hide_tax = fields.Boolean('Hide tax', default=0)
-    hide_pricelist = fields.Boolean('Hide pricelist', default=0)
-    hide_supplier = fields.Boolean('Hide pricelist', default=1)
+    hide_pricelist = fields.Boolean('Hide pricelists', default=0)
+    hide_supplier = fields.Boolean('Hide suppiers', default=1)
     auto_remove_line = fields.Boolean('Auto remove line',
                                       default=1,
                                       help='When cashier set quantity of line to 0, line auto remove not keep line with qty is 0')
+    chat = fields.Boolean('Chat message', default=0, help='Allow chat, discuss between pos sessions')
+    add_tags = fields.Boolean('Add tags line', default=0, help='Allow cashiers add tags to order lines')
+    add_notes = fields.Boolean('Add notes line', default=0, help='Allow cashiers add notes to order lines')
+    add_sale_person = fields.Boolean('Add sale person', default=0)
+    logo = fields.Binary('Logo of store')
+    paid_full = fields.Boolean('Allow paid full', default=0, help='Allow cashiers click one button, do payment full order')
+    paid_partial = fields.Boolean('Allow partial payment', default=0, help='Allow cashiers do partial payment')
+    backup = fields.Boolean('Backup/Restore orders', default=0, help='Allow cashiers backup and restore orders on pos screen')
+    backup_orders = fields.Text('Backup orders')
+    change_logo = fields.Boolean('Change logo', default=1, help='Allow cashiers change logo of shop on pos screen')
 
-    load_cache = fields.Boolean('Load cache', default=0)
 
     @api.multi
     def remove_database(self):
+        _logger.info('begin remove_database')
         self.env.cr.execute("DELETE FROM pos_cache_database")
-        self.env['pos.bus'].sudo().search([]).write({
-            'cache': None
-        })
+        self.env.cr.commit()
+        _logger.info('end remove_database')
         return {
             'type': 'ir.actions.act_url',
             'url': '/pos/web/',
@@ -259,18 +271,8 @@ class pos_config(models.Model):
         }
 
     @api.multi
-    def refresh_cache(self):
-        _logger.info('begin refresh_cache()')
-        pos_database_parameter = self.env['ir.config_parameter'].sudo().get_param('pos_database_parameter')
-        for config in self:
-            if not config.bus_id:
-                raise UserError('Your pos config have not setup Branch/store')
-            if pos_database_parameter:
-                pos_database_parameter = ast.literal_eval(pos_database_parameter)
-                _logger.info('end refresh_cache()')
-                return self.env['pos.cache.database'].refresh_cache(config.bus_id, pos_database_parameter, config.id)
-            else:
-                return False
+    def refresh_stocks(self):
+        return self.env['stock.location'].refresh_stocks()
 
     @api.onchange('lock_print_invoice_on_pos')
     def _onchange_lock_print_invoice_on_pos(self):
@@ -304,12 +306,16 @@ class pos_config(models.Model):
     def write(self, vals):
         if vals.get('allow_discount', False) or vals.get('allow_qty', False) or vals.get('allow_price', False):
             vals['allow_numpad'] = True
+        if vals.get('expired_days_voucher', None) and vals.get('expired_days_voucher') < 0:
+            raise UserError('Expired days of voucher could not smaller than 0')
         return super(pos_config, self).write(vals)
 
     @api.model
     def create(self, vals):
         if vals.get('allow_discount', False) or vals.get('allow_qty', False) or vals.get('allow_price', False):
             vals['allow_numpad'] = True
+        if vals.get('expired_days_voucher', 0) < 0:
+            raise UserError('Expired days of voucher could not smaller than 0')
         return super(pos_config, self).create(vals)
 
     def init_wallet_journal(self):

@@ -83,9 +83,9 @@ odoo.define('pos_retail.screen_invoices', function (require) {
                         var invoice = self.pos.db.invoice_by_id[ui['item']['value']];
                         if (invoice) {
                             self.display_invoice_details(invoice);
+                        } else {
+                            self.clear_search();
                         }
-                        self.clear_search();
-
                     }
                 }
             });
@@ -99,8 +99,12 @@ odoo.define('pos_retail.screen_invoices', function (require) {
         },
 
         display_invoice_details: function (invoice) {
-            this.invoice_selected = invoice;
             var self = this;
+            this.invoice_selected = invoice;
+            setTimeout(function () {
+                self.$('.searchbox input')[0].value = '';
+                self.$('.searchbox input').focus();
+            }, 500);
             var contents = this.$('.invoice-details-contents');
             contents.empty();
             invoice.link = window.location.origin + "/web#id=" + invoice.id + "&view_type=form&model=account.invoice";

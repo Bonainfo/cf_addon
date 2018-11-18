@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 class product_quantity_pack(models.Model):
     _name = 'product.quantity.pack'
     _rec_name = 'barcode'
+    _description = "Allow pos sale product pack/combo"
 
     product_tmpl_id = fields.Many2one('product.template', 'Product template', required=1)
     public_price = fields.Float('Price', required=1)

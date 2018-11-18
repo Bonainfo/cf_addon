@@ -2,14 +2,9 @@
     <data noupdate="0">
 
         <record id="pos_bus1" model="pos.bus">
-            <field name="name">Shop 1</field>
+            <field name="name">Store demo</field>
         </record>
 
-        <record id="pos_bus2" model="pos.bus">
-            <field name="name">Shop 2</field>
-        </record>
-
-        <!-- session 01 -->
         <record id="pos_partner_01" model="res.partner">
             <field name="name">Ipad 01</field>
             <field name="company_id" ref="base.main_company"/>
@@ -63,68 +58,8 @@
             <field name="pos_config_id" ref="pos_config_02"/>
         </record>
 
-        <!-- session 03 -->
-        <record id="pos_partner_03" model="res.partner">
-            <field name="name">Ipad 03</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="email">ip3@mail.com</field>
-        </record>
-
-        <record id="pos_user_03" model="res.users">
-            <field name="partner_id" ref="pos_partner_03"/>
-            <field name="login">ip3@mail.com</field>
-            <field name="password">ip3</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(4, ref('base.group_user')), (4,ref('point_of_sale.group_pos_manager')), (4, ref('sales_team.group_sale_manager')), (4, ref('purchase.group_purchase_manager')), (4, ref('mrp.group_mrp_manager'))]"/>
-            <field name="pos_security_pin">33</field>
-        </record>
-
-        <record id="pos_config_03" model="pos.config">
-            <field name="name">Ipad 03</field>
-            <field name="bus_id" ref="pos_bus2"/>
-            <field name="sync_multi_session">True</field>
-        </record>
-
-        <record id="pos_user_03" model="res.users">
-            <field name="pos_config_id" ref="pos_config_03"/>
-        </record>
-
-        <!-- session 04 -->
-        <record id="pos_partner_04" model="res.partner">
-            <field name="name">Ipad 04</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="customer" eval="False"/>
-            <field name="email">ip4@mail.com</field>
-        </record>
-
-        <record id="pos_user_04" model="res.users">
-            <field name="partner_id" ref="pos_partner_04"/>
-            <field name="login">ip4@mail.com</field>
-            <field name="password">ip4</field>
-            <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(4, ref('base.group_user')), (4,ref('point_of_sale.group_pos_manager')), (4, ref('sales_team.group_sale_manager')), (4, ref('purchase.group_purchase_manager')), (4, ref('mrp.group_mrp_manager'))]"/>
-            <field name="pos_security_pin">44</field>
-        </record>
-
-        <record id="pos_config_04" model="pos.config">
-            <field name="name">Ipad 04</field>
-            <field name="bus_id" ref="pos_bus2"/>
-            <field name="sync_multi_session">True</field>
-        </record>
-
-        <record id="pos_user_04" model="res.users">
-            <field name="pos_config_id" ref="pos_config_04"/>
-        </record>
-
-        <!-- session admin -->
-        <record id="point_of_sale.pos_config_main" model="pos.config">
-            <field name="sync_multi_session">True</field>
-            <field name="bus_id" ref="pos_bus1"/>
-        </record>
-
         <!-- session customer screen -->
-        <record id="pos_partner_05" model="res.partner">
+        <record id="pos_partner_03" model="res.partner">
             <field name="name">Customer Screen</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="customer" eval="False"/>

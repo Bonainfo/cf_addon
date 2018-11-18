@@ -11,5 +11,6 @@ class account_payment(models.Model):
     @api.model
     def create(self, vals):
         payment = super(account_payment, self).create(vals)
-        _logger.info(vals)
+        if vals.get('communication', False):
+            _logger.info('paid order: %s' % vals.get('communication'))
         return payment

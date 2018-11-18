@@ -70,6 +70,7 @@
                 <form string="Loyalties">
                     <header>
                         <field name="state" widget="statusbar" clickable="true"/>
+                        <button name="active_all_pos" string="Active all pos" type="object" groups="point_of_sale.group_pos_manager" class="btn-primary"/>
                     </header>
                     <sheet>
                         <h1>

@@ -30,6 +30,10 @@ class pos_voucher(models.Model):
         ('special_customer', 'Special Customer'),
     ], string='Method', default='general')
     use_date = fields.Datetime('Use date')
+    user_id = fields.Many2one('res.users', 'Create user', readonly=1)
+    source = fields.Char('Source document')
+    pos_order_line_id = fields.Many2one('pos.order.line', 'Pos order line', readonly=1)
+    use_history_ids = fields.One2many('pos.voucher.use.history', 'voucher_id', string='Histories used', readonly=1)
 
     @api.model
     def create(self, vals):
@@ -97,3 +101,11 @@ class pos_voucher(models.Model):
             return -1
         else:
             return vouchers.read([])[0]
+
+class pos_voucher_use_history(models.Model):
+    _name = "pos.voucher.use.history"
+    _description = "Histories use voucher of customer"
+
+    voucher_id = fields.Many2one('pos.voucher', required=1, string='Voucher')
+    value = fields.Float('Value used', required=1)
+    used_date = fields.Datetime('Used date', required=1)

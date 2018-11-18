@@ -57,7 +57,7 @@ odoo.define('pos_retail.model', function (require) {
                         ],
                         domain: [],
                         loaded: function (self, pricelist_items) {
-                             _.each(pricelist_items, function (item) {
+                            _.each(pricelist_items, function (item) {
                                 var pricelist = self.pricelist_by_id[item.pricelist_id[0]];
                                 if (pricelist) {
                                     pricelist.items.push(item);
@@ -69,8 +69,9 @@ odoo.define('pos_retail.model', function (require) {
 
                             });
                         }
-                    }, 
-                )
+                    }
+                );
+                // v10 dont merge
                 var wait_pricelist = this.get_model('product.pricelist');
                 wait_pricelist.ids = [];
                 wait_pricelist.fields = [];
@@ -86,7 +87,7 @@ odoo.define('pos_retail.model', function (require) {
                     });
                 };
             }
-            if (this.server_version == 11 || this.server_version == 12) {
+            if ([11, 12].indexOf(this.server_version) != -1) {
                 var wait_pricelist = this.get_model('product.pricelist');
                 var _wait_super_loaded = wait_pricelist.loaded;
                 wait_pricelist.loaded = function (self, pricelists) {
@@ -156,7 +157,7 @@ odoo.define('pos_retail.model', function (require) {
                 _wait_super_currency_loaded(self, currencies);
                 self.currency_by_id = {};
                 self.currencies = currencies;
-                var i = 0
+                var i = 0;
                 while (i < currencies.length) {
                     self.currency_by_id[currencies[i].id] = currencies[i];
                     i++
@@ -169,6 +170,7 @@ odoo.define('pos_retail.model', function (require) {
                         cashregister['rate'] = currency['rate']
                     }
                 }
+                self.company_currency = currencies[1]; // some addons have not that
             };
             var pos_category_model = this.get_model('pos.category');
             var _super_pos_category_loaded = pos_category_model.loaded;
@@ -244,7 +246,7 @@ odoo.define('pos_retail.model', function (require) {
                 'is_company',
                 'opt_out',
                 'sms_opt_out',
-                'call_opt_out',
+                'call_opt_out'
             );
             if (this.server_version == 10) {
                 partner_model.fields.push('property_product_pricelist')
@@ -266,6 +268,10 @@ odoo.define('pos_retail.model', function (require) {
             this.get('orders').bind('change add remove', function (order) {
                 self.trigger('update:table-list');
             });
+            var wait_res_company = this.get_model('res.company');
+            wait_res_company.fields.push(
+                'logo'
+            );
 
         },
         add_new_order: function () {
@@ -629,6 +635,9 @@ odoo.define('pos_retail.model', function (require) {
             return _super_PosModel._save_to_server.call(this, orders, options);
         },
         push_order: function (order, opts) {
+            /*
+                    Method push pos order and saving to backend database
+             */
             var self = this;
             var pushed = _super_PosModel.push_order.apply(this, arguments);
             if (!order) {
@@ -653,41 +662,47 @@ odoo.define('pos_retail.model', function (require) {
                 var line = order.orderlines.models[i];
                 var product = line.product;
                 if (product.type == 'product') {
-                    product_need_update_onhand.push(product.id)
+                    product_need_update_onhand.push(product.product_tmpl_id)
                 }
             }
             var location = this.get_location();
             if (product_need_update_onhand.length && location) {
-                return rpc.query({
-                    model: 'pos.cache.database',
-                    method: 'get_stock_datas',
-                    args: [location['id'], product_need_update_onhand],
-                    context: {}
-                }).then(function (datas) {
-                    var products = self.database['product.product'];
-                    for (var i = 0; i < products.length; i++) {
-                        var product = products[i];
-                        if (datas[product.id]) {
-                            var qty_available = datas[product.id];
-                            product['qty_available'] = qty_available;
-                            self.trigger('sync:product', product)
+                location_id = location.id;
+                setTimeout(function () {
+                    rpc.query({
+                        model: 'pos.cache.database',
+                        method: 'get_stock_datas',
+                        args: [location_id, product_need_update_onhand],
+                        context: {}
+                    }).then(function (datas) {
+                        var products = self.database['product.product'];
+                        for (var i = 0; i < products.length; i++) {
+                            var product = products[i];
+                            if (datas[product.id] != undefined) {
+                                var qty_available = datas[product.id];
+                                product['qty_available'] = qty_available;
+                                if (!(product['product_tmpl_id'] instanceof Array)) {
+                                    product['product_tmpl_id'] = [product['product_tmpl_id'], product['display_name']];
+                                }
+                                self.trigger('sync:product', product)
+                            }
                         }
-                    }
-                })
+                    })
+                }, 2000);
             }
             return pushed;
         },
         get_balance: function (client) {
-            var balance = round_pr(client.balance, this.currency.rounding)
+            var balance = round_pr(client.balance, this.currency.rounding);
             return (Math.round(balance * 100) / 100).toString()
         },
         get_wallet: function (client) {
-            var wallet = round_pr(client.wallet, this.currency.rounding)
+            var wallet = round_pr(client.wallet, this.currency.rounding);
             return (Math.round(wallet * 100) / 100).toString()
         },
         add_return_order: function (order, lines) {
-            var partner_id = order['partner_id']
-            var return_order_id = order['id']
+            var partner_id = order['partner_id'];
+            var return_order_id = order['id'];
             var order = new models.Order({}, {pos: this});
             order['is_return'] = true;
             order['return_order_id'] = return_order_id;
@@ -705,7 +720,7 @@ odoo.define('pos_retail.model', function (require) {
                 var line_return = lines[i];
                 var price = line_return['price_unit'];
                 var quantity = 0;
-                var product = this.db.get_product_by_id(line_return.product_id[0])
+                var product = this.db.get_product_by_id(line_return.product_id[0]);
                 var line = new models.Orderline({}, {pos: this, order: order, product: product});
                 line['is_return'] = true;
                 if (line_return.plus_point) { // loyalty point back
@@ -1286,22 +1301,95 @@ odoo.define('pos_retail.model', function (require) {
             }
         }, {
             model: 'pos.config',
-            fields: ['id', 'user_id', 'bus_id'],
-            condition: function (self) {
-                if (self.config.bus_id) {
-                    return true
-                } else {
-                    return false
-                }
-            },
+            fields: [],
             domain: function (self) {
-                return [['bus_id', '=', self.config.bus_id[0]], ['id', '!=', self.config.id]]
+                return []
             },
-            loaded: function (self, pos_configs) {
-                self.pos_configs = pos_configs;
+            loaded: function (self, configs) {
+                self.config_by_id = {};
+                self.configs = configs;
+                for (var i = 0; i < configs.length; i++) {
+                    var config = configs[i];
+                    self.config_by_id[config['id']] = config;
+                }
+                if (self.config_id) {
+                    var config = _.find(configs, function (config) {
+                        return config['id'] == self.config_id
+                    });
+                    if (config) {
+                        var user = self.user_by_id[config.user_id[0]]
+                        if (user) {
+                            self.set_cashier(user);
+                        }
+                    }
+                }
+
             }
-        },
+        }
     ]);
+    // validate click change minus
+    var _super_NumpadState = models.NumpadState.prototype;
+    models.NumpadState = models.NumpadState.extend({
+        switchSign: function () {
+            self.posmodel.switchSign = this;
+            if (self.posmodel.config.validate_change_minus) {
+                return self.posmodel.gui.show_popup('ask_password', {
+                    title: 'Pos pass pin ?',
+                    body: 'Please use pos security pin for unlock',
+                    confirm: function (value) {
+                        var pin;
+                        if (self.posmodel.config.manager_validate) {
+                            var user_validate = self.posmodel.user_by_id[this.pos.config.manager_user_id[0]];
+                            pin = user_validate['pos_security_pin']
+                        } else {
+                            pin = self.posmodel.user.pos_security_pin
+                        }
+                        if (value != pin) {
+                            return self.posmodel.gui.show_popup('confirm', {
+                                title: 'Wrong',
+                                body: 'Pos security pin not correct'
+                            })
+                        } else {
+                            return _super_NumpadState.switchSign.apply(this.pos.switchSign, arguments);
+                        }
+                    }
+                });
+            } else {
+                return _super_NumpadState.switchSign.apply(this, arguments);
+            }
+        }
+    });
+
+    var _super_Paymentline = models.Paymentline.prototype;
+    models.Paymentline = models.Paymentline.extend({
+        init_from_JSON: function (json) {
+            var res = _super_Paymentline.init_from_JSON.apply(this, arguments);
+            if (json.voucher_id) {
+                this.voucher_id = json.voucher_id
+            }
+            if (json.voucher_code) {
+                this.voucher_code = json.voucher_code
+            }
+            return res
+        },
+        export_as_JSON: function () {
+            var json = _super_Paymentline.export_as_JSON.apply(this, arguments);
+            if (this.voucher_id) {
+                json['voucher_id'] = this.voucher_id;
+            }
+            if (this.voucher_code) {
+                json['voucher_code'] = this.voucher_code;
+            }
+            return json
+        },
+        export_for_printing: function () {
+            var datas = _super_Paymentline.export_for_printing.apply(this, arguments);
+            if (this.voucher_code) {
+                datas['voucher_code'] = this.voucher_code
+            }
+            return datas
+        },
+    });
 
     try {
         var _super_Product = models.Product.prototype;

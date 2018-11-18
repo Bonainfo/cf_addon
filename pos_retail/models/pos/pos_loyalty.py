@@ -4,6 +4,7 @@ from odoo import fields, api, models, api, _
 
 class pos_loyalty_category(models.Model):
     _name = "pos.loyalty.category"
+    _description = "Customer loyalty type"
 
     name = fields.Char('Name', required=1)
     code = fields.Char('Code', required=1)
@@ -14,6 +15,7 @@ class pos_loyalty_category(models.Model):
 
 class pos_loyalty(models.Model):
     _name = "pos.loyalty"
+    _description = "Loyalties program"
 
     name = fields.Char('Name', required=1)
     rule_ids = fields.One2many('pos.loyalty.rule', 'loyalty_id', 'Rules')
@@ -35,10 +37,18 @@ class pos_loyalty(models.Model):
             res.update({'product_loyalty_id': products[0].id})
         return res
 
+    @api.multi
+    def active_all_pos(self):
+        configs = self.env['pos.config'].search([])
+        for loyalty in self:
+            configs.write({'loyalty_id': loyalty.id})
+        return True
+
 
 class pos_loyalty_rule(models.Model):
     _name = "pos.loyalty.rule"
     _rec_name = 'loyalty_id'
+    _description = "Loyalties rule plus points"
 
     name = fields.Char('Name', required=1)
     active = fields.Boolean('Active', default=1)
@@ -69,6 +79,7 @@ class pos_loyalty_rule(models.Model):
 
 class pos_loyalty_reward(models.Model):
     _name = "pos.loyalty.reward"
+    _description = "Loyalties rule redeem points"
 
     name = fields.Char('Name', required=1)
     active = fields.Boolean('Active', default=1)

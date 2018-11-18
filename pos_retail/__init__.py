@@ -12,5 +12,6 @@ def _auto_clean_cache_when_installed(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
     caches = env['pos.cache.database'].search([])
     caches.unlink()
+    _logger.info('!!!!!!! Removed caches !!!!!!!')
     _logger.info('!!!!!!! THANKS FOR PURCHASED MODULE !!!!!!!')
 
