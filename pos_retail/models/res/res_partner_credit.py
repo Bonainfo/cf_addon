@@ -3,6 +3,7 @@ from odoo import api, fields, models, tools, _
 
 class res_partner_credit(models.Model):
     _name = "res.partner.credit"
+    _description = "Customer credit"
 
     name = fields.Char('Name', required=1)
     amount = fields.Float('Amount', required=1)
