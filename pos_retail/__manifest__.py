@@ -1,6 +1,6 @@
 {
     'name': "POS Retail",
-    'version': '10.5.7.0',
+    'version': '10.5.7.3',
     'category': 'Point of Sale',
     'author': 'TL Technology',
     'live_test_url': 'http://posodoo.com/web/signup',
@@ -26,6 +26,7 @@
         'reports/pos_tracking_client.xml',
         'reports/pos_sale_analytic.xml',
         'reports/report_pos_order.xml',
+        # 'reports/pos_statement.xml',
         'datas/schedule.xml',
         'datas/email_template.xml',
         'datas/customer.xml',

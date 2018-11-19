@@ -187,9 +187,6 @@ odoo.define('pos_retail.order', function (require) {
             if (this.invoice_journal_id) {
                 json.invoice_journal_id = this.invoice_journal_id;
             }
-            if (this.voucher_id) {
-                json.voucher_id = parseInt(this.voucher_id);
-            }
             if (this.note) {
                 json.note = this.note;
             }

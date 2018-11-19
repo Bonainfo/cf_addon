@@ -16,10 +16,52 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
             this._super(options);
             var contents = this.$('.create_product');
             contents.scrollTop(0);
-            $('.confirm').click(function () {
-                self.click_confirm();
+            this.$('.confirm').click(function () {
+                var fields = {};
+                var validate;
+                $('.category_input').each(function (idx, el) {
+                    fields[el.name] = el.value || false;
+                });
+                if (!fields.name) {
+                    self.wrong_input('#name');
+                    validate = false;
+                } else {
+                    self.passed_input('#name');
+                }
+                if (validate == false) {
+                    return;
+                }
+                if (this.uploaded_picture) {
+                    fields.image = this.uploaded_picture.split(',')[1];
+                }
+                if (fields['parent_id']) {
+                    fields['parent_id'] = parseInt(fields['parent_id'])
+                }
+                return rpc.query({
+                    model: 'pos.category',
+                    method: 'create',
+                    args: [fields]
+                }).then(function (category_id) {
+                    console.log('{category_id} created : ' + category_id);
+                    return self.pos.gui.show_popup('confirm', {
+                        title: 'Done',
+                        body: 'Created new category'
+                    })
+                }, function (type, err) {
+                    if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
+                        self.pos.gui.show_popup('confirm', {
+                            title: err.data.name,
+                            body: err.data.message,
+                        })
+                    } else {
+                        self.pos.gui.show_popup('confirm', {
+                            title: 'Error',
+                            body: 'Odoo connection fail, could not save'
+                        })
+                    }
+                });
             });
-            $('.cancel').click(function () {
+            this.$('.cancel').click(function () {
                 self.click_cancel();
             });
             contents.find('.image-uploader').on('change', function (event) {
@@ -90,14 +132,57 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
         template: 'popup_create_product',
         show: function (options) {
             var self = this;
+            var validate;
             this.uploaded_picture = null;
             this._super(options);
             var contents = this.$('.create_product');
             contents.scrollTop(0);
-            $('.confirm').click(function () {
-                self.click_confirm();
+            this.$('.confirm').click(function () {
+                var fields = {};
+                $('.product_input').each(function (idx, el) {
+                    fields[el.name] = el.value || false;
+                });
+                if (!fields.name) {
+                    self.wrong_input('#name');
+                    validate = false;
+                } else {
+                    self.passed_input('#name');
+                }
+                if (validate == false) {
+                    return;
+                }
+                if (this.uploaded_picture) {
+                    fields.image = this.uploaded_picture.split(',')[1];
+                }
+                if (fields['pos_categ_id']) {
+                    fields['pos_categ_id'] = parseInt(fields['pos_categ_id'])
+                }
+                self.gui.close_popup();
+                return rpc.query({
+                    model: 'product.product',
+                    method: 'create',
+                    args: [fields]
+                }).then(function (product_id) {
+                    console.log('{product_id} created : ' + product_id);
+                    return self.pos.gui.show_popup('confirm', {
+                        title: 'Done',
+                        body: 'Created new product'
+                    })
+                }, function (type, err) {
+                    if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
+                        self.pos.gui.show_popup('confirm', {
+                            title: err.data.name,
+                            body: err.data.message
+                        })
+                    } else {
+                        self.pos.gui.show_popup('confirm', {
+                            title: 'Error',
+                            body: 'Odoo connection fail, could not save'
+                        })
+                    }
+                });
             });
-            $('.cancel').click(function () {
+            this.$('.cancel').click(function () {
                 self.click_cancel();
             });
             contents.find('.image-uploader').on('change', function (event) {

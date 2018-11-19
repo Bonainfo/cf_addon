@@ -71,10 +71,10 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             if (model == 'pos.category') {
                 this.pos.syncing_category(data)
             }
-            if (model && (data['deleted'] == false || !data['deleted'])) {
+            if (model && (data.deleted == false || !data.deleted)) {
                 indexed_db.write(model, [data]);
             }
-            if (model && data['deleted'] == true) {
+            if (model && data.deleted == true) {
                 indexed_db.unlink(model, data);
             }
         }

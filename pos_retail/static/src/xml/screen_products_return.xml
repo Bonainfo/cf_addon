@@ -13,7 +13,7 @@
                                         <div class="card-content">
                                             <div class="row">
                                             </div>
-                                            <div class="card-footer text-center" style="border-top: none">
+                                            <div class="form-footer text-center" style="border-top: none">
                                                 <div class="btn btn-warning back"  style="float:left">
                                                     <i class="fa fa-angle-left"/> Back
                                                 </div>

@@ -37,6 +37,7 @@ class account_bank_statement_line(models.Model):
         else:
             return super(account_bank_statement_line, self).fast_counterpart_creation()
 
+    @api.model
     def create(self, vals):
         # -----------------------------
         # if amount > 0: this is mean customer use credit payment pos order

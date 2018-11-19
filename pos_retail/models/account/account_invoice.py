@@ -57,10 +57,10 @@ class account_invoice(models.Model):
         return True
 
     @api.model
-    def pos_register_amount(self, invoice_id, pay_amount):
+    def pos_register_amount(self, invoice_id, journal_id, pay_amount):
         invoice = self.env['account.invoice'].browse(invoice_id)
         if invoice.residual > 0:
-            return invoice.pay_and_reconcile(invoice.journal_id, pay_amount=pay_amount)
+            return invoice.pay_and_reconcile(journal_id, pay_amount)
         else:
             return False
 

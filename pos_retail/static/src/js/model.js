@@ -681,7 +681,7 @@ odoo.define('pos_retail.model', function (require) {
                             if (datas[product.id] != undefined) {
                                 var qty_available = datas[product.id];
                                 product['qty_available'] = qty_available;
-                                if (!(product['product_tmpl_id'] instanceof Array)) {
+                                if (!(product['product_tmpl_id'] instanceof Array)) { // v10 required, very important
                                     product['product_tmpl_id'] = [product['product_tmpl_id'], product['display_name']];
                                 }
                                 self.trigger('sync:product', product)
@@ -1047,18 +1047,6 @@ odoo.define('pos_retail.model', function (require) {
                 }
             }
         }, {
-            model: 'pos.voucher',
-            fields: ['code', 'value', 'apply_type', 'method', 'use_date'],
-            domain: [['state', '=', 'active']],
-            context: {'pos': true},
-            loaded: function (self, vouchers) {
-                self.vouchers = vouchers;
-                self.voucher_by_id = {};
-                for (var x = 0; x < vouchers.length; x++) {
-                    self.voucher_by_id[vouchers[x].id] = vouchers[x];
-                }
-            }
-        }, {
             model: 'pos.order',
             condition: function (self) {
                 return self.config.pos_orders_management;
@@ -1358,37 +1346,6 @@ odoo.define('pos_retail.model', function (require) {
                 return _super_NumpadState.switchSign.apply(this, arguments);
             }
         }
-    });
-
-    var _super_Paymentline = models.Paymentline.prototype;
-    models.Paymentline = models.Paymentline.extend({
-        init_from_JSON: function (json) {
-            var res = _super_Paymentline.init_from_JSON.apply(this, arguments);
-            if (json.voucher_id) {
-                this.voucher_id = json.voucher_id
-            }
-            if (json.voucher_code) {
-                this.voucher_code = json.voucher_code
-            }
-            return res
-        },
-        export_as_JSON: function () {
-            var json = _super_Paymentline.export_as_JSON.apply(this, arguments);
-            if (this.voucher_id) {
-                json['voucher_id'] = this.voucher_id;
-            }
-            if (this.voucher_code) {
-                json['voucher_code'] = this.voucher_code;
-            }
-            return json
-        },
-        export_for_printing: function () {
-            var datas = _super_Paymentline.export_for_printing.apply(this, arguments);
-            if (this.voucher_code) {
-                datas['voucher_code'] = this.voucher_code
-            }
-            return datas
-        },
     });
 
     try {

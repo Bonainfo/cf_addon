@@ -28,7 +28,7 @@
                                             <input class="form-control category_input" name="sequence"/>
                                         </div>
                                         <div class="form-group label-floating">
-                                            <span class='label voucher-label'>Category</span>
+                                            <span class='label voucher-label'>Parent category</span>
                                             <select class='form-control voucher-select category_input' name='parent_id'>
                                                 <option value=''>None</option>
                                                 <t t-foreach='widget.pos.categories' t-as='category'>
@@ -38,10 +38,12 @@
                                                 </t>
                                             </select>
                                         </div>
-                                        <div class="form-footer text-right">
-                                            <div class="checkbox pull-right">
-                                                <span class="control-button btn  cancel">Close</span>
-                                                <span class="control-button btn btn-rose btn-fill confirm"><i class="fa fa-plus"/>Create</span>
+                                        <div class="form-footer text-center">
+                                            <div class="btn btn-success pull-right confirm">
+                                                Create
+                                            </div>
+                                            <div class="btn btn-danger pull-left cancel">
+                                                Close
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +58,7 @@
 
     <t t-name="popup_create_product">
         <div class="modal-dialog">
-            <div class="popup touch-scrollable scrollable-y" style="height: 60%">
+            <div class="popup touch-scrollable scrollable-y" style="height: 80%">
                 <p class="title"><t t-esc="widget.title"/></p>
                 <div class="content">
                     <div class="container-fluid">
@@ -75,7 +77,7 @@
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Name<span class="voucher-form-required"> (*)</span></span>
-                                            <input class="form-control product_input" name="name" required="true" />
+                                            <input class="form-control product_input" id="name" name="name" required="true" />
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Internal ref</span>
@@ -112,10 +114,12 @@
                                                 </t>
                                             </select>
                                         </div>
-                                        <div class="form-footer text-right">
-                                            <div class="checkbox pull-right">
-                                                <span class="control-button btn  cancel">Close</span>
-                                                <span class="control-button btn btn-rose btn-fill confirm"><i class="fa fa-plus"/>Create</span>
+                                        <div class="form-footer text-center">
+                                            <div class="btn btn-success pull-right confirm">
+                                                Create
+                                            </div>
+                                            <div class="btn btn-danger pull-left cancel">
+                                                Close
                                             </div>
                                         </div>
                                     </div>
@@ -142,8 +146,8 @@
                         <div class="table-responsive">
                             <div class='body'>
                             </div>
-                            <div class="card-footer text-center">
-                                <div class="btn btn-danger close">
+                            <div class="form-footer text-center">
+                                <div class="btn btn-danger pull-right close">
                                      Close
                                 </div>
                             </div>

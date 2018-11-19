@@ -34,6 +34,7 @@ class pos_voucher(models.Model):
     source = fields.Char('Source document')
     pos_order_line_id = fields.Many2one('pos.order.line', 'Pos order line', readonly=1)
     use_history_ids = fields.One2many('pos.voucher.use.history', 'voucher_id', string='Histories used', readonly=1)
+    number = fields.Char('Number', required=1)
 
     @api.model
     def create(self, vals):
@@ -53,7 +54,7 @@ class pos_voucher(models.Model):
     @api.model
     def create_voucher(self, vals):
         _logger.info('{create_voucher}: %s' % vals)
-        datas_response = []
+        vouchers = []
         today = datetime.today()
         products = self.env['product.product'].search([('name', '=', 'Voucher service')])
         for i in range(0, vals['total_available']):
@@ -61,6 +62,7 @@ class pos_voucher(models.Model):
             if vals.get('special_customer', None) == 'special_customer':
                 customer_id = vals.get('customer_id', None)
             voucher_vals = {
+                'number': vals.get('number'),
                 'apply_type': vals.get('apply_type', ''),
                 'value': vals.get('value', 0),
                 'method': vals.get('method'),
@@ -82,7 +84,8 @@ class pos_voucher(models.Model):
                 apply_type = 'Fixed Amount'
             else:
                 apply_type = 'Percent (%)'
-            datas_response.append({
+            vouchers.append({
+                'number': voucher.number,
                 'code': code,
                 'partner_name': voucher.customer_id.name if voucher.customer_id else '',
                 'method': method,
@@ -91,12 +94,12 @@ class pos_voucher(models.Model):
                 'end_date': voucher.end_date,
                 'id': voucher.id,
             })
-        return datas_response
+        return vouchers
 
     @api.model
     def get_voucher_by_code(self, code):
         vouchers = self.env['pos.voucher'].search(
-            [('code', '=', code), ('end_date', '>=', fields.Datetime.now()), ('state', '=', 'active')])
+            ['|', ('code', '=', code), ('number', '=', code), ('end_date', '>=', fields.Datetime.now()), ('state', '=', 'active')])
         if not vouchers:
             return -1
         else:

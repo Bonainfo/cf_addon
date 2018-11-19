@@ -46,153 +46,17 @@ odoo.define('pos_retail.screen_product_list', function (require) {
             // -------------------------------
             this.$('.add_customer').click(function () { // quickly add customer
                 self.pos.gui.show_popup('popup_create_customer', {
-                    title: 'Add customer',
-                    confirm: function () {
-                        var fields = {};
-                        $('.partner_input').each(function (idx, el) {
-                            fields[el.name] = el.value || false;
-                        });
-                        if (!fields.name) {
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Error',
-                                body: 'A Partner name is required'
-                            });
-                        }
-                        if (this.uploaded_picture) {
-                            fields.image = this.uploaded_picture.split(',')[1];
-                        }
-                        if (fields['partner_type'] == 'customer') {
-                            fields['customer'] = true;
-                        }
-                        if (fields['partner_type'] == 'vendor') {
-                            fields['supplier'] = true;
-                        }
-                        if (fields['partner_type'] == 'customer_and_vendor') {
-                            fields['customer'] = true;
-                            fields['supplier'] = true;
-                        }
-                        if (fields['property_product_pricelist']) {
-                            fields['property_product_pricelist'] = parseInt(fields['property_product_pricelist'])
-                        }
-                        return rpc.query({
-                            model: 'res.partner',
-                            method: 'create',
-                            args: [fields]
-                        }).then(function (partner_id) {
-                            console.log('{partner_id} created : ' + partner_id);
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Done',
-                                body: 'Created new partner'
-                            })
-                        }, function (type, err) {
-                            if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: err.data.name,
-                                    body: err.data.message,
-                                })
-                            } else {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: 'Error',
-                                    body: 'Odoo connection fail, could not save'
-                                })
-                            }
-                        });
-
-                    }
+                    title: 'Add customer'
                 })
             });
             this.$('.add_product').click(function () { // quickly add product
                 self.pos.gui.show_popup('popup_create_product', {
                     title: 'Add product',
-                    confirm: function () {
-                        var fields = {};
-                        $('.product_input').each(function (idx, el) {
-                            fields[el.name] = el.value || false;
-                        });
-                        if (!fields.name) {
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Error',
-                                body: 'A Product name is required'
-                            });
-                        }
-                        if (this.uploaded_picture) {
-                            fields.image = this.uploaded_picture.split(',')[1];
-                        }
-                        if (fields['pos_categ_id']) {
-                            fields['pos_categ_id'] = parseInt(fields['pos_categ_id'])
-                        }
-                        return rpc.query({
-                            model: 'product.product',
-                            method: 'create',
-                            args: [fields]
-                        }).then(function (product_id) {
-                            console.log('{product_id} created : ' + product_id);
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Done',
-                                body: 'Created new product'
-                            })
-                        }, function (type, err) {
-                            if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: err.data.name,
-                                    body: err.data.message,
-                                })
-                            } else {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: 'Error',
-                                    body: 'Odoo connection fail, could not save'
-                                })
-                            }
-                        });
-
-                    }
                 })
             });
             this.$('.add_pos_category').click(function () { // quickly add product
                 self.pos.gui.show_popup('popup_create_pos_category', {
-                    title: 'Add product',
-                    confirm: function () {
-                        var fields = {};
-                        $('.category_input').each(function (idx, el) {
-                            fields[el.name] = el.value || false;
-                        });
-                        if (!fields.name) {
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Error',
-                                body: 'Category name is required'
-                            });
-                        }
-                        if (this.uploaded_picture) {
-                            fields.image = this.uploaded_picture.split(',')[1];
-                        }
-                        if (fields['parent_id']) {
-                            fields['parent_id'] = parseInt(fields['parent_id'])
-                        }
-                        return rpc.query({
-                            model: 'pos.category',
-                            method: 'create',
-                            args: [fields]
-                        }).then(function (category_id) {
-                            console.log('{category_id} created : ' + category_id);
-                            return self.pos.gui.show_popup('confirm', {
-                                title: 'Done',
-                                body: 'Created new category'
-                            })
-                        }, function (type, err) {
-                            if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: err.data.name,
-                                    body: err.data.message,
-                                })
-                            } else {
-                                self.pos.gui.show_popup('confirm', {
-                                    title: 'Error',
-                                    body: 'Odoo connection fail, could not save'
-                                })
-                            }
-                        });
-
-                    }
+                    title: 'Add category'
                 })
             });
             this.$('.quickly_payment').click(function () { // quickly payment

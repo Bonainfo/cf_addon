@@ -2,16 +2,6 @@
 <templates id="template" xml:space="preserve">
 
     <t t-extend="ClientListScreenWidget">
-        <t t-jquery="span[class*='button back']" t-operation="replace">
-            <span class='button back' style="background: none">
-                <img src="/pos_retail/static/src/icons/back.png" class="button_logo"/>
-            </span>
-        </t>
-        <t t-jquery="span[class*='new-customer']" t-operation="replace">
-            <span class='button new-customer' style="background: rgb(230,230,230);top: 1px; border-radius: 5px">
-                Add Customer
-            </span>
-        </t>
         <t t-jquery="span[class*='new-customer']" t-operation="after">
             <t t-if="!widget.pos.config.hide_supplier">
                 <span class='button only_customer not_highlight' style="left: 10%;border-color: whitesmoke;background: rgb(230,230,230);top: 1px; border-radius: 5px">

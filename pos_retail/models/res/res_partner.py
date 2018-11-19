@@ -12,8 +12,8 @@ class res_partner(models.Model):
     wallet = fields.Float(digits=(16, 4),
                           compute='_compute_wallet', string='Wallet amount', help='This wallet amount of customer')
 #    credit = fields.Float(digits=(16, 4),
-#                         compute='_compute_debit_credit_balance', string='Credit')
-#   debit = fields.Float(digits=(16, 4),
+#                          compute='_compute_debit_credit_balance', string='Credit')
+#    debit = fields.Float(digits=(16, 4),
 #                         compute='_compute_debit_credit_balance', string='Debit')
     balance = fields.Float(digits=(16, 4),
                            compute='_compute_debit_credit_balance', string='Balance', store=True)
@@ -106,8 +106,11 @@ class res_partner(models.Model):
     def write(self, vals):
         res = super(res_partner, self).write(vals)
         for partner in self:
-            if partner and partner.id != None:
+            if partner and partner.id != None and partner.active:
                 partner.sync()
+            if partner.active == False:
+                data = partner.get_data()
+                self.env['pos.cache.database'].remove_record(data)
         return res
 
     @api.multi

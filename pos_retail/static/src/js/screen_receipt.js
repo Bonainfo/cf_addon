@@ -186,7 +186,7 @@ odoo.define('pos_retail.screen_receipt', function (require) {
                     domain: [['ean13', '=', order['ean13']]],
                     fields: ['invoice_id'],
                 }).then(function (orders) {
-                    if (orders.length > 0) {
+                    if (orders.length > 0 && orders[0]['invoice_id'] && orders[0]['invoice_id'][1]) {
                         var invoice_number = orders[0]['invoice_id'][1].split(" ")[0];
                         self.pos.get_order()['invoice_number'] = invoice_number;
                         console.log('PRINT WEB INV NUM ' + invoice_number);

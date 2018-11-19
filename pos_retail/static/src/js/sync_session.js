@@ -7,6 +7,24 @@ odoo.define('pos_retail.synchronization', function (require) {
     var core = require('web.core');
     var _t = core._t;
     var session = require('web.session');
+    var screens = require('point_of_sale.screens');
+
+    var button_sync_orders = screens.ActionButtonWidget.extend({
+        template: 'button_sync_orders',
+        init: function (parent, options) {
+            this._super(parent, options);
+        },
+        button_click: function () {
+            this.gui.show_popup('popup_sync_orders', {})
+        }
+    });
+    screens.define_action_button({
+        'name': 'button_sync_orders',
+        'widget': button_sync_orders,
+        'condition': function () {
+            return this.pos.configs && this.pos.configs.length > 1 && this.pos.config.sync_multi_session;
+        }
+    });
 
     exports.pos_bus = Backbone.Model.extend({
         initialize: function (pos) {

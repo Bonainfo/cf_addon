@@ -14,7 +14,7 @@
                         <div class="table-responsive">
                             <div class='body'>
                             </div>
-                            <div class="card-footer text-center">
+                            <div class="form-footer text-center">
                                 <div class="btn btn-success confirm">
                                     <i class="fa fa-check"/> Add promotions
                                 </div>

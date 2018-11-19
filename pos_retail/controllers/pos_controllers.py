@@ -16,9 +16,9 @@ class dataset(DataSet):
 
     @http.route('/pos/api_first_install', type='json', auth="user")
     def api_first_install(self, model, fields=[], offset=0, limit=False, domain=[], sort=None):
-        record_ids = request.env[model].search(domain, order=sort, limit=limit, offset=offset)
-        datas = record_ids.read(fields)
-        request.env['pos.cache.database'].insert_data(datas, model, True)
+        record_ids = request.env[model].sudo().search(domain, order=sort, limit=limit, offset=offset)
+        datas = record_ids.sudo().read(fields)
+        request.env['pos.cache.database'].sudo().insert_data(datas, model, True)
         return datas
 
 class pos_controller(PosController):
@@ -62,6 +62,12 @@ class pos_controller(PosController):
             'sale.order': {},
             'sale.order.line': {},
         }
+        first_install = request.env['ir.config_parameter'].sudo().get_param('pos_retail_first_install')
+        _logger.info(first_install)
+        if not first_install:
+            request.env.cr.execute("DELETE FROM pos_cache_database")
+            request.env.cr.commit()
+            request.env['ir.config_parameter'].sudo().set_param('pos_retail_first_install', 'Done')
         session_info['currency_id'] = request.env.user.company_id.currency_id.id
         model_list = {
             'product.pricelist': 'product_pricelist',

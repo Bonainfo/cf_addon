@@ -1,13 +1,9 @@
 odoo.define('pos_retail.buttons', function (require) {
-
     var screens = require('point_of_sale.screens');
     var core = require('web.core');
     var _t = core._t;
-    var rpc = require('pos.rpc');
     var qweb = core.qweb;
     var WebClient = require('web.AbstractWebClient');
-
-
 
     var button_combo = screens.ActionButtonWidget.extend({ // combo button
         template: 'button_combo',
@@ -1040,7 +1036,7 @@ odoo.define('pos_retail.buttons', function (require) {
                 var order = this.pos.get_order();
                 order.trigger('change', order);
             }, this);
-        },
+        }
     });
 
     screens.define_action_button({
@@ -1048,23 +1044,6 @@ odoo.define('pos_retail.buttons', function (require) {
         'widget': button_turn_onoff_printer,
         'condition': function () {
             return this.pos.config.printer_on_off;
-        },
-    });
-
-    var button_sync_orders = screens.ActionButtonWidget.extend({
-        template: 'button_sync_orders',
-        init: function (parent, options) {
-            this._super(parent, options);
-        },
-        button_click: function () {
-            this.gui.show_popup('popup_sync_orders', {})
-        }
-    });
-    screens.define_action_button({
-        'name': 'button_sync_orders',
-        'widget': button_sync_orders,
-        'condition': function () {
-            return this.pos.configs && this.pos.configs.length > 1;
         }
     });
 });

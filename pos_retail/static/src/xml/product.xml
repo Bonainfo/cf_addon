@@ -426,7 +426,7 @@
                                 </t>
                             </div>
                             <div class="text_logo">
-                                Add customer
+                                Add client
                             </div>
                         </span>
                         <t t-if="widget.pos.config.product_operation">
@@ -435,7 +435,7 @@
                                     <img src="/pos_retail/static/src/icons/categories.png" class="right_pane_logo"/>
                                 </div>
                                 <div class="text_logo">
-                                    Add category
+                                    Add categ
                                 </div>
                             </span>
                             <span class="quickly_icon add_product">
@@ -465,7 +465,7 @@
                                     </t>
                                 </div>
                                 <div class="text_logo">
-                                    Quickly payment
+                                    Quickly paid
                                 </div>
                             </span>
                         </t>
@@ -481,7 +481,7 @@
                                     </t>
                                 </div>
                                 <div class="text_logo">
-                                    Lock screen
+                                    Lock
                                 </div>
                             </span>
                         </t>
@@ -496,7 +496,7 @@
                                 </t>
                             </div>
                             <div class="text_logo">
-                                Sale report
+                                Report
                             </div>
                         </span>
                         <t t-if="widget.pos.config.receipt_without_payment_template != 'none'">
@@ -511,7 +511,7 @@
                                     </t>
                                 </div>
                                 <div class="text_logo">
-                                    Print bill
+                                    Bill
                                 </div>
                             </span>
                         </t>
@@ -520,7 +520,7 @@
                                 <img src="/pos_retail/static/src/icons/trash.png" class="right_pane_logo"/>
                             </div>
                             <div class="text_logo">
-                                Remove blank orders
+                                Remove orders
                             </div>
                         </span>
                     </t>

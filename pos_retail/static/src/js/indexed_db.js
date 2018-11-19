@@ -23,6 +23,7 @@ odoo.define('pos_retail.indexedDB', function (require) {
                 db.createObjectStore('res.partner', {keyPath: "id"});
                 db.createObjectStore('account.invoice', {keyPath: "id"});
                 db.createObjectStore('account.invoice.line', {keyPath: "id"});
+                db.createObjectStore('pos.category', {keyPath: "id"});
                 db.createObjectStore('pos.order', {keyPath: "id"});
                 db.createObjectStore('pos.order.line', {keyPath: "id"});
                 db.createObjectStore('sale.order', {keyPath: "id"});

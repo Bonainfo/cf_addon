@@ -6,7 +6,8 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
     var utils = require('web.utils');
     var round_pr = utils.round_precision;
     var _t = core._t;
-    //var field_utils = require('web.field_utils'); // v11 only. Do not merge
+    var qweb = core.qweb;
+    //var field_utils = require('web.field_utils'); //v10 have not field_utils, dont merge (*** important ***)
 
     screens.OrderWidget.include({
         init: function (parent, options) {

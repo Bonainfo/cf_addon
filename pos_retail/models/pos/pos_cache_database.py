@@ -116,6 +116,7 @@ class pos_cache_database(models.Model):
         all_fields = self.env[model].fields_get()
         version_info = odoo.release.version_info[0]
         if version_info == 12:
+            write_date = write_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
             if all_fields:
                 for data in datas:
                     for field, value in data.items():

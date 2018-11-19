@@ -63,6 +63,8 @@
             <script type="text/javascript" src="/pos_retail/static/src/js/backup_orders.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/shop_logo.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/indexed_db.js"/>
+            <script type="text/javascript" src="/pos_retail/static/src/js/session.js"/>
+            <link rel="stylesheet" href="/pos_retail/static/src/css/session.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/core.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/synchronization.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/dock.css" />

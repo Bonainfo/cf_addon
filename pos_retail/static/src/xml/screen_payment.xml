@@ -11,7 +11,7 @@
                     <t t-if="cashregister.journal.pos_method_type == 'default' or cashregister.journal.pos_method_type == 'return'">
                         <span class="product left_button button_text paymentmethod" t-att-data-id="cashregister.journal_id[0]">
                             <div class="button_icon">
-                                <img src="/pos_retail/static/src/icons/payment.png" class="right_pane_logo"/>
+                                <img src="/pos_retail/static/src/icons/payment.png" class="pos_logo"/>
                             </div>
                             <t t-esc="cashregister.journal_id[1]" />
                             <t t-if="widget.pos.config.keyboard_event">
@@ -43,8 +43,13 @@
     <t t-name="journal_list">
         <div class='paymentmethods'>
             <t t-foreach="widget.pos.journals" t-as="journal">
-                <span class="product left_button journal" t-att-journal-id="journal['id']"  t-att-data-id="journal['id']">
-                    <t t-esc="journal['name']" />
+                <span class='product left_button journal' t-att-journal-id="journal['id']"  t-att-data-id="journal['id']">
+                    <div class="button_icon">
+                        <img src="/pos_retail/static/src/icons/payment.png" class="pos_logo"/>
+                    </div>
+                    <div class="product-name button_text">
+                        <t t-esc="journal['name']"/>
+                    </div>
                 </span>
             </t>
         </div>
@@ -76,7 +81,7 @@
             <section style="padding-top: 15px">
                 <span class='product left_button button_text button back'>
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/back.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/back.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Back
@@ -90,7 +95,7 @@
                 <t t-if="widget.pos.config.paid_full">
                     <span class='product left_button button_text button paid_full'>
                         <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/payment_full.png" class="right_pane_logo"/>
+                            <img src="/pos_retail/static/src/icons/payment_full.png" class="pos_logo"/>
                         </div>
                         <div class="product-name button_text">
                             Paid full
@@ -105,7 +110,7 @@
                 <t t-if="widget.pos.config.paid_partial">
                     <span class='product left_button button_text button paid_partial'>
                         <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/partial_payment.png" class="right_pane_logo"/>
+                            <img src="/pos_retail/static/src/icons/partial_payment.png" class="pos_logo"/>
                         </div>
                         <div class="product-name button_text">
                             Partial pay
@@ -119,7 +124,7 @@
                 </t>
                 <span class='product left_button button_text button next'>
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/next.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/next.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Validate
@@ -135,11 +140,11 @@
         <t t-jquery=".right-content" t-operation="append">
             <t t-if="widget.quickly_datas and widget.quickly_datas.length > 0">
                 <section class='payment-buttons' style="width: 100%">
-                    <p class="label" style="text-align: center;margin-left: 20px; color: black; font-weight: bold">Quickly add money</p>
+                    <p class="label" style="text-align: left;margin-left: 20px; color: black; font-weight: bold">Quickly add money</p>
                     <t t-foreach="widget.quickly_datas" t-as="quickly">
                         <span class="product left_button quickly-payment" t-att-data-id="quickly.id">
                             <div class="button_icon">
-                                <img src="/pos_retail/static/src/icons/cashin.png" class="right_pane_logo"/>
+                                <img src="/pos_retail/static/src/icons/cashin.png" class="pos_logo"/>
                             </div>
                             <t t-esc="widget.format_currency(quickly.amount)"/>
                         </span>
@@ -232,7 +237,7 @@
                 <t t-if="widget.pos.config.send_invoice_email">
                     <span t-attf-class='product left_button send_invoice_email #{ widget.pos.get_order().is_email_invoice() ? "highlight" : ""} '>
                         <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/email.png" class="right_pane_logo"/>
+                            <img src="/pos_retail/static/src/icons/email.png" class="pos_logo"/>
                         </div>
                         <div class="product-name button_text">
                             Mail invoice
@@ -248,7 +253,7 @@
                 <t t-if="widget.pos.bus_locations.length > 0">
                     <span class="product left_button add_team">
                         <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/team.png" class="right_pane_logo"/>
+                            <img src="/pos_retail/static/src/icons/team.png" class="pos_logo"/>
                         </div>
                         <div class="product-name button_text">
                             <t t-if="!widget.pos.get_bus_location()">
@@ -274,7 +279,7 @@
                 </t>
                 <span class="product left_button signature_order">
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/signature.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/signature.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Sign order
@@ -288,7 +293,7 @@
                 </span>
                 <span class="product left_button add_note">
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/note.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/note.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Change note
@@ -300,26 +305,12 @@
                         </t>
                     </div>
                 </span>
-                <span class="product left_button input_voucher">
-                    <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/voucher.png" class="right_pane_logo"/>
-                    </div>
-                    <div class="product-name button_text">
-                        Voucher
-                        <t t-if="widget.pos.config.keyboard_event">
-                            <span class="button_key">
-                                <i class="fa fa-keyboard"></i>
-                                v
-                            </span>
-                        </t>
-                    </div>
-                </span>
             </t>
         </t>
         <t t-jquery="div[class*='js_set_customer']" t-operation="replace">
             <span class="product left_button js_set_customer">
                 <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/users.png" class="right_pane_logo"/>
+                    <img src="/pos_retail/static/src/icons/users.png" class="pos_logo"/>
                 </div>
                 <div class="product-name js_customer_name button_text">
                     <t t-if="widget.pos.get_client()">
@@ -347,7 +338,7 @@
             <t t-if="widget.pos.config.add_credit and widget.pos.get_order()">
                 <span t-attf-class='product left_button add_credit #{ widget.pos.get_order().is_add_credit() ? "btn-success" : ""} '>
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/credit_card.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/credit_card.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Add credit
@@ -362,7 +353,7 @@
             </t>
             <span class="product left_button add_wallet">
                 <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/wallet.png" class="right_pane_logo"/>
+                    <img src="/pos_retail/static/src/icons/wallet.png" class="pos_logo"/>
                 </div>
                 <div class="product-name button_text">
                     Add wallet
@@ -379,7 +370,7 @@
             <t t-if='widget.pos.get_order()'>
                 <span t-attf-class='product left_button js_invoice #{ widget.pos.get_order().is_to_invoice() ? "highlight" : ""} '>
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/invoice.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/invoice.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Invoice
@@ -393,7 +384,7 @@
                 </span>
                 <span t-attf-class='product left_button js_auto_register_payment #{ widget.pos.get_order().is_auto_register_payment() ? "highlight" : ""} '>
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/note.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/note.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Auto reconcile
@@ -411,7 +402,7 @@
             <t t-if='widget.pos.config.tip_product_id'>
                 <span class="product left_button js_tip">
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/tip.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/tip.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Tip
@@ -423,7 +414,7 @@
             <t t-if='widget.pos.config.iface_cashdrawer'>
                 <span class="product left_button js_cashdrawer">
                     <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/open_cashbox.png" class="right_pane_logo"/>
+                        <img src="/pos_retail/static/src/icons/open_cashbox.png" class="pos_logo"/>
                     </div>
                     <div class="product-name button_text">
                         Open Cashbox

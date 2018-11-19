@@ -93,9 +93,9 @@ class product_product(models.Model):
     def write(self, vals):
         res = super(product_product, self).write(vals)
         for product in self:
-            if product and product.id != None and product.sale_ok and product.available_in_pos:
+            if product and product.id != None and product.sale_ok and product.available_in_pos and product.active:
                 product.sync()
-            if product.available_in_pos == False:
+            if product.available_in_pos == False or product.active == False:
                 data = product.get_data()
                 self.env['pos.cache.database'].remove_record(data)
         return res

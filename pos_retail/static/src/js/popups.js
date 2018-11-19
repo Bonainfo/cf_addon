@@ -155,16 +155,20 @@ odoo.define('pos_retail.popups', function (require) {
         },
 
         click_confirm: function () {
+            var validate;
             var self = this;
             var fields = {};
             this.$('.internal_transfer_field').each(function (idx, el) {
                 fields[el.id] = el.value || false;
             });
             if (!fields['scheduled_date']) {
-                return this.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Please input scheduled date'
-                });
+                self.wrong_input('#scheduled_date');
+                validate = false;
+            } else {
+                self.passed_input('#scheduled_date');
+            }
+            if (validate == false) {
+                return;
             }
             var order = this.pos.get_order();
             var length = order.orderlines.length;
@@ -176,7 +180,7 @@ odoo.define('pos_retail.popups', function (require) {
                 move_type: fields['move_type'],
                 note: fields['note'],
                 move_lines: [],
-                scheduled_date: fields['scheduled_date'],
+                scheduled_date: fields['scheduled_date']
             };
             for (var i = 0; i < length; i++) {
                 var line = order.orderlines.models[i];
@@ -184,14 +188,14 @@ odoo.define('pos_retail.popups', function (require) {
                 if (product['uom_po_id'] == undefined || !product['uom_po_id']) {
                     return this.pos.gui.show_popup('confirm', {
                         title: 'Error',
-                        body: product['display_name'] + ' not set purchase unit, could not create PO',
+                        body: product['display_name'] + ' not set purchase unit, could not create PO'
                     });
                 }
                 if (product['type'] == 'service') {
                     return this.pos.gui.show_popup('confirm', {
                         title: 'Error',
                         body: product['display_name'] + ' type is service, please remove line',
-                        confirmButtonText: 'Yes',
+                        confirmButtonText: 'Yes'
                     });
                 }
                 if (product['type'] != 'service' && product['uom_po_id'] != undefined) {
@@ -226,7 +230,7 @@ odoo.define('pos_retail.popups', function (require) {
                     return self.pos.query_backend_fail(type, error);
                 });
             }
-        },
+        }
     });
 
     gui.define_popup({name: 'popup_internal_transfer', widget: popup_internal_transfer});
@@ -434,6 +438,7 @@ odoo.define('pos_retail.popups', function (require) {
                 self.gui.close_popup();
             });
             this.$('.confirm').click(function () {
+                var validate;
                 var fields = {};
                 self.$('.booking_field').each(function (idx, el) {
                     fields[el.name] = el.value || false;
@@ -441,32 +446,32 @@ odoo.define('pos_retail.popups', function (require) {
                 var $pricelist_id = $('#pricelist_id').val();
                 var pricelist_id = parseInt($pricelist_id);
                 if (typeof pricelist_id != 'number' || isNaN(pricelist_id)) {
-                    return self.gui.show_popup('confirm', {
-                        title: 'Warning',
-                        body: 'Please select price list',
-                    });
+                    self.wrong_input('#pricelist_id');
+                    validate = false;
+                } else {
+                    self.passed_input('#pricelist_id');
                 }
                 var order = self.pos.get_order();
                 if (self.signed == false && self.pos.config.booking_orders_required_cashier_signature == true) {
-                    return self.gui.show_popup('confirm', {
-                        title: 'Warning',
-                        body: 'Please signature on popup',
-                    });
+                    self.wrong_input('.pos_signature');
+                    validate = false;
+                } else {
+                    self.passed_input('.pos_signature');
                 }
-                var payment_partial_amount = parseFloat(fields['payment_partial_amount'])
+                var payment_partial_amount = parseFloat(fields['payment_partial_amount']);
                 var $payment_partial_journal_id = $('#payment_partial_journal_id').val();
                 var payment_partial_journal_id = parseInt($payment_partial_journal_id);
                 if (payment_partial_amount > 0 && (typeof payment_partial_journal_id != 'number' || isNaN(payment_partial_journal_id))) {
                     return self.gui.show_popup('confirm', {
                         title: 'Warning',
-                        body: 'Please select payment journal',
+                        body: 'Please select payment journal'
                     });
                 }
                 if (payment_partial_amount < 0) {
-                    return self.gui.show_popup('confirm', {
-                        title: 'Warning',
-                        body: 'Partial payment amount could not smaller than 0',
-                    });
+                    self.wrong_input('#payment_partial_amount');
+                    validate = false;
+                } else {
+                    self.passed_input('#payment_partial_amount');
                 }
                 if (isNaN(payment_partial_amount)) {
                     payment_partial_amount = 0
@@ -475,10 +480,10 @@ odoo.define('pos_retail.popups', function (require) {
                 var $payment_method_id = $('#payment_method_id').val();
                 var payment_method_id = parseInt($payment_method_id);
                 if (payment_partial_amount > 0 && !payment_method_id) {
-                    return self.gui.show_popup('confirm', {
-                        title: 'Warning',
-                        body: 'Please select payment method',
-                    });
+                    self.wrong_input('#payment_partial_amount');
+                    validate = false;
+                } else {
+                    self.passed_input('#payment_partial_amount');
                 }
                 var so_val = order.export_as_JSON();
                 var value = {
@@ -510,6 +515,9 @@ odoo.define('pos_retail.popups', function (require) {
                         discount: line.discount,
                         product_uom: product.uom_id[0],
                     }])
+                }
+                if (validate == false) {
+                    return;
                 }
                 if (payment_partial_amount > 0 && payment_partial_journal_id) {
                     var payment = {
@@ -561,7 +569,6 @@ odoo.define('pos_retail.popups', function (require) {
                 }).fail(function (type, error) {
                     return self.pos.query_backend_fail(type, error);
                 });
-
             })
         }
     });
@@ -582,7 +589,7 @@ odoo.define('pos_retail.popups', function (require) {
             if (this.client['property_payment_term_id'] == undefined) {
                 return self.gui.show_popup('confirm', {
                     title: 'Warning',
-                    body: 'POS retail version is old version, please go to Application of your browse, delete your database and reload POS',
+                    body: 'POS retail version is old version, please go to Application of your browse, delete your database and reload POS'
                 });
             }
             this._super(options);
@@ -599,7 +606,7 @@ odoo.define('pos_retail.popups', function (require) {
             var self = this;
             this._super();
             this.$('.confirm').click(function () {
-                self.pos.gui.close_popup();
+                var validate;
                 var fields = {};
                 self.$('.sale_order_field').each(function (idx, el) {
                     fields[el.name] = el.value || false;
@@ -614,10 +621,13 @@ odoo.define('pos_retail.popups', function (require) {
                 }
                 var order = self.pos.get_order();
                 if (self.signed == false && self.pos.config.booking_orders_required_cashier_signature == true) {
-                    return self.gui.show_popup('confirm', {
-                        title: 'Warning',
-                        body: 'Please signature',
-                    });
+                    self.wrong_input('.pos_signature');
+                    validate = false;
+                } else {
+                    self.passed_input('.pos_signature');
+                }
+                if (validate == false) {
+                    return;
                 }
                 var pricelist = order['pricelist'];
                 if (!pricelist) {
@@ -673,27 +683,14 @@ odoo.define('pos_retail.popups', function (require) {
                 var sale_order_auto_confirm = self.pos.config.sale_order_auto_confirm;
                 var sale_order_auto_invoice = self.pos.config.sale_order_auto_invoice;
                 var sale_order_auto_delivery = self.pos.config.sale_order_auto_delivery;
-                self.pos.gui.show_popup('confirm', {
-                    title: 'Waiting',
-                    body: 'Order need few seconds create',
-                });
+                self.pos.gui.close_popup();
                 return rpc.query({
                     model: 'sale.order',
                     method: 'pos_create_sale_order',
                     args: [value, sale_order_auto_confirm, sale_order_auto_invoice, sale_order_auto_delivery]
                 }).then(function (result) {
-                    self.pos.get_order().destroy();
-                    var link = window.location.origin + "/web#id=" + result.id + "&view_type=form&model=sale.order";
-                    self.link = link;
-                    return self.pos.gui.show_popup('confirm', {
-                        title: 'Are you want open sale order ?',
-                        body: result.name + ' just created',
-                        confirm: function () {
-                            var sale_selected = self.pos.db.sale_order_by_id[result.id];
-                            self.pos.sale_selected = sale_selected;
-                            window.open(self.link, '_blank');
-                        },
-                    })
+                    console.log('result of create sale order: ' + result)
+                    return self.pos.get_order().destroy();
 
                 }).fail(function (type, error) {
                     return self.pos.query_backend_fail(type, error);
@@ -1226,6 +1223,7 @@ odoo.define('pos_retail.popups', function (require) {
     });
     gui.define_popup({name: 'popup_cross_selling', widget: popup_cross_selling});
 
+    // register payment for invoice
     var popup_invoice_register_payment = PopupWidget.extend({
         template: 'popup_invoice_register_payment',
         show: function (options) {
@@ -1246,36 +1244,37 @@ odoo.define('pos_retail.popups', function (require) {
 
         },
         click_confirm: function () {
-            this.pos.gui.close_popup();
-            this.pos.gui.show_popup('confirm', {
-                title: 'Waiting',
-                body: 'You request register amount invoice sending to odoo backend, please wait',
-            });
+            var validate;
             var self = this;
             var pay_amount = parseFloat(this.$('#residual').val());
+            var journal_id = parseFloat(this.$('#journal_id').val());
             self.pay_amount = pay_amount;
             var invoice = this.options.invoice;
-            if (typeof pay_amount != 'number' || isNaN(pay_amount)) {
-                return self.gui.show_popup('confirm', {
-                    title: 'Error',
-                    body: 'Register amount required is float or integer',
-                });
+            if (typeof pay_amount != 'number' || isNaN(pay_amount) || pay_amount <= 0) {
+                self.wrong_input('#residual');
+                validate = false;
+            } else {
+                self.passed_input('.period_days');
             }
+            if (validate == false) {
+                return;
+            }
+            this.pos.gui.close_popup();
             return rpc.query({
                 model: 'account.invoice',
                 method: 'pos_register_amount',
                 args:
-                    [invoice.id, pay_amount]
+                    [invoice.id, journal_id, pay_amount]
             }).then(function (status) {
                 if (status == false) {
                     return self.gui.show_popup('confirm', {
                         title: 'Warning',
-                        body: invoice.number + ' is paid, could not register more ',
+                        body: invoice.number + ' is paid, could not register more'
                     });
                 } else {
                     return self.gui.show_popup('confirm', {
-                        title: 'Finished',
-                        body: invoice.number + ' registered amount ' + self.pay_amount + ' finished'
+                        title: 'Done',
+                        body: invoice.number + 'just registered amount ' + self.pay_amount
                     });
                 }
 
@@ -1499,10 +1498,63 @@ odoo.define('pos_retail.popups', function (require) {
             this._super(options);
             var contents = this.$('.create_partner');
             contents.scrollTop(0);
-            $('.confirm').click(function () {
-                self.click_confirm();
+            this.$('.confirm').click(function () {
+                var validate;
+                var fields = {};
+                $('.partner_input').each(function (idx, el) {
+                    fields[el.name] = el.value || false;
+                });
+                if (!fields.name) {
+                    self.wrong_input('#name');
+                    validate = false;
+                } else {
+                    self.passed_input('#name');
+                }
+                if (validate == false) {
+                    return;
+                }
+                if (this.uploaded_picture) {
+                    fields.image = this.uploaded_picture.split(',')[1];
+                }
+                if (fields['partner_type'] == 'customer') {
+                    fields['customer'] = true;
+                }
+                if (fields['partner_type'] == 'vendor') {
+                    fields['supplier'] = true;
+                }
+                if (fields['partner_type'] == 'customer_and_vendor') {
+                    fields['customer'] = true;
+                    fields['supplier'] = true;
+                }
+                if (fields['property_product_pricelist']) {
+                    fields['property_product_pricelist'] = parseInt(fields['property_product_pricelist'])
+                }
+                self.pos.gui.close_popup();
+                return rpc.query({
+                    model: 'res.partner',
+                    method: 'create',
+                    args: [fields]
+                }).then(function (partner_id) {
+                    console.log('{partner_id} created : ' + partner_id);
+                    return self.pos.gui.show_popup('confirm', {
+                        title: 'Done',
+                        body: 'Created new partner'
+                    })
+                }, function (type, err) {
+                    if (err.code && err.code == 200 && err.data && err.data.message && err.data.name) {
+                        self.pos.gui.show_popup('confirm', {
+                            title: err.data.name,
+                            body: err.data.message,
+                        })
+                    } else {
+                        self.pos.gui.show_popup('confirm', {
+                            title: 'Error',
+                            body: 'Odoo connection fail, could not save'
+                        })
+                    }
+                });
             });
-            $('.cancel').click(function () {
+            this.$('.cancel').click(function () {
                 self.click_cancel();
             });
             contents.find('.image-uploader').on('change', function (event) {
@@ -1698,6 +1750,16 @@ odoo.define('pos_retail.popups', function (require) {
                 this.pos.trigger('back:order'); // trigger again add keyboard
             }
         },
+        wrong_input: function (element) {
+            this.$(element).css({
+                'box-shadow': '0px 0px 0px 1px rgb(236, 5, 5) inset'
+            });
+        },
+        passed_input: function (element) {
+            this.$(element).css({
+                'box-shadow': '0px 0px 0px 1px rgb(34, 206, 3) inset'
+            })
+        }
     });
 
     var popup_select_tax = PopupWidget.extend({
@@ -2089,7 +2151,7 @@ odoo.define('pos_retail.popups', function (require) {
             var self = this;
             this._super(options);
             var configs = [];
-            for (var i=0; i < this.pos.configs.length; i++) {
+            for (var i = 0; i < this.pos.configs.length; i++) {
                 var config = this.pos.configs[i];
                 if (!config.user_id || !config.sync_multi_session || !config.bus_id || !this.pos.config.bus_id) {
                     continue;

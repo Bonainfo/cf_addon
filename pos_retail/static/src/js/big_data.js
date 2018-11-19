@@ -224,7 +224,6 @@ odoo.define('pos_retail.big_data', function (require) {
             }
             var tmp = {};
             var fields = model.fields;
-
             function load_data(min_id, max_id) {
                 var domain = [['id', '>=', min_id], ['id', '<', max_id]];
                 var context = {}
@@ -386,6 +385,8 @@ odoo.define('pos_retail.big_data', function (require) {
                             result_data['deleted'] = result['deleted'];
                             if (self.server_version != 12) {
                                 self.sync_backend.sync_with_backend(result_data);
+                            } else {
+                                self.sync_with_backend(result_data);
                             }
                         }
                     });

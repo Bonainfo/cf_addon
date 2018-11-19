@@ -256,14 +256,13 @@ class pos_config(models.Model):
     backup = fields.Boolean('Backup/Restore orders', default=0, help='Allow cashiers backup and restore orders on pos screen')
     backup_orders = fields.Text('Backup orders')
     change_logo = fields.Boolean('Change logo', default=1, help='Allow cashiers change logo of shop on pos screen')
+    management_session = fields.Boolean('Management session', default=0)
 
 
     @api.multi
     def remove_database(self):
-        _logger.info('begin remove_database')
         self.env.cr.execute("DELETE FROM pos_cache_database")
         self.env.cr.commit()
-        _logger.info('end remove_database')
         return {
             'type': 'ir.actions.act_url',
             'url': '/pos/web/',

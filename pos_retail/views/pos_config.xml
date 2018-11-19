@@ -8,21 +8,18 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='picking_type_id']" position="attributes">
                     <attribute name="required">1</attribute>
-                    <attribute name="groups">point_of_sale.group_pos_manager</attribute>
                 </xpath>
                 <xpath expr="//sheet" position="inside">
                     <notebook>
                         <page string="Retail Management">
+                            <!-- v10 dont merge logo -->
+                            <group>
+                                <field name="logo" widget="image" class="oe_avatar"/>
+                            </group>
+                            <!-- /////////////////// -->
                             <div id="pos_retail">
+                                <separator string="Sync between sessions"/>
                                 <group>
-                                    <group>
-                                        <field name="change_logo"/>
-                                    </group>
-                                    <group>
-                                        <field name="logo" widget="image" class="oe_avatar" attrs="{'invisible': [('change_logo', '=', False)]}"/>
-                                    </group>
-                                </group>
-                                <group string="Sync between sessions">
                                     <group id="sync_multi_session">
                                         <field name="sync_multi_session"/>
                                         <field name="notify_alert" attrs="{'invisible': [('sync_multi_session', '=', False)]}"/>
@@ -190,7 +187,6 @@
                                         <field name="lock_session"/>
                                         <field name="receipt_without_payment_template"/>
                                         <field name="quickly_payment"/>
-                                        <field name="quickly_buttons"/>
                                         <field name="quickly_payment_full"/>
                                         <field name="quickly_payment_full_journal_id"
                                                attrs="{'invisible': [('quickly_payment_full', '=', False)], 'required' : [('quickly_payment_full', '=', True)]}"/>
