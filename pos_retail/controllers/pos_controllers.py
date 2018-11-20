@@ -112,6 +112,7 @@ class pos_bus(BusController):
         channels = list(channels)
         channels.append((request.db, 'pos.sync.data', request.uid))
         channels.append((request.db, 'pos.bus', request.uid))
+        channels.append((request.db, 'pos.indexed_db', request.uid))
         return super(pos_bus, self)._poll(dbname, channels, last, options)
 
     @http.route('/pos/update_order/status', type="json", auth="public")

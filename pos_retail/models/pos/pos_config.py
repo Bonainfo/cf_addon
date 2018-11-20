@@ -261,6 +261,12 @@ class pos_config(models.Model):
 
     @api.multi
     def remove_database(self):
+        sessions = self.env['pos.session'].search([])
+        for session in sessions:
+            self.env['bus.bus'].sendmany(
+                [[(self.env.cr.dbname, 'pos.indexed_db', session.user_id.id), json.dumps({
+                    'db': self.env.cr.dbname
+                })]])
         self.env.cr.execute("DELETE FROM pos_cache_database")
         self.env.cr.commit()
         return {

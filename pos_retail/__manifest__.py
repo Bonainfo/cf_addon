@@ -1,6 +1,6 @@
 {
-    'name': "POS Retail",
-    'version': '10.5.7.3',
+    'name': "POS All In One Futures",
+    'version': '10.5.7.4',
     'category': 'Point of Sale',
     'author': 'TL Technology',
     'live_test_url': 'http://posodoo.com/web/signup',
