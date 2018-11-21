@@ -11,13 +11,13 @@ class res_partner(models.Model):
 
     wallet = fields.Float(digits=(16, 4),
                           compute='_compute_wallet', string='Wallet amount', help='This wallet amount of customer')
-    credit = fields.Float(digits=(16, 4),
-                          compute='_compute_debit_credit_balance', string='Credit')
-    debit = fields.Float(digits=(16, 4),
-                         compute='_compute_debit_credit_balance', string='Debit')
-    balance = fields.Float(digits=(16, 4),
-                           compute='_compute_debit_credit_balance', string='Balance', store=True)
-    limit_debit = fields.Float('Limit debit')
+#    credit = fields.Float(digits=(16, 4),
+#                          compute='_compute_debit_credit_balance', string='Credit')
+#    debit = fields.Float(digits=(16, 4),
+#                         compute='_compute_debit_credit_balance', string='Debit')
+#    balance = fields.Float(digits=(16, 4),
+#                           compute='_compute_debit_credit_balance', string='Balance', store=True)
+#    limit_debit = fields.Float('Limit debit')
     credit_history_ids = fields.One2many('res.partner.credit', 'partner_id', 'Credit log')
 
     pos_loyalty_point = fields.Float(compute="_get_point", string='Point')
