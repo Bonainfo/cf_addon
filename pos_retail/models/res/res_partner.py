@@ -51,16 +51,7 @@ class res_partner(models.Model):
     @api.depends('credit_history_ids')
     def _compute_debit_credit_balance(self):
         for partner in self:
-            partner.credit = 0
-            partner.debit = 0
-            partner.balance = 0
-            credits = partner.credit_history_ids
-            for credit in credits:
-                if credit.type == 'plus':
-                    partner.credit += credit.amount
-                if credit.type == 'redeem':
-                    partner.debit += credit.amount
-            partner.balance = partner.credit + partner.limit_debit - partner.debit
+            partner.balance = partner.credit - partner.debit
         return True
 
     @api.multi
