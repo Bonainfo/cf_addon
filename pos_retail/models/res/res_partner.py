@@ -16,7 +16,7 @@ class res_partner(models.Model):
     #debit = fields.Float(digits=(16, 4),
     #                     compute='_compute_debit_credit_balance', string='Debit')
     balance = fields.Float(digits=(16, 4),
-                           compute='_compute_debit_credit_balance', string='Balance', store=True)
+                           compute='_compute_debit_credit_balance', string='Balance')
     limit_debit = fields.Float('Limit debit')
     credit_history_ids = fields.One2many('res.partner.credit', 'partner_id', 'Credit log')
 
