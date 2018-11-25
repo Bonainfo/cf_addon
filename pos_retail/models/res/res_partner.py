@@ -52,7 +52,7 @@ class res_partner(models.Model):
     def _compute_debit_credit_balance(self):
         for partner in self:
             partner.balance = partner.credit - partner.debit
-        return True
+       
 
     @api.multi
     def _compute_wallet(self):
