@@ -48,11 +48,10 @@ class res_partner(models.Model):
                 partner.pos_loyalty_point -= order.redeem_point
 
     @api.multi
-    @api.depends('credit', 'debit')
+    @api.depends('balance', 'credit', 'debit')
     def _compute_debit_credit_balance(self):
         for partner in self:
             partner.balance = partner.credit - partner.debit
-       
 
     @api.multi
     def _compute_wallet(self):
