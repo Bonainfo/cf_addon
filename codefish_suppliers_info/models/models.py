@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 
+
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
@@ -13,4 +14,4 @@ class ProductSupplierinfo(models.Model):
     @api.depends('standard_price', 'qty_available')
     def _value_pc(self):
         for line in self:
-            line.total = line.standard_price + line.qty_available
+            line.total = line.standard_price * line.qty_available
