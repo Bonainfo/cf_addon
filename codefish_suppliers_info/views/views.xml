@@ -9,6 +9,7 @@
               <field name="product_name" position="after">
                 <field name="standard_price"/>
                 <field name="qty_available"/>
+                <field name="total"/>
 
               </field>
             </field>
