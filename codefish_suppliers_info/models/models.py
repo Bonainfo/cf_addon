@@ -12,5 +12,5 @@ class ProductSupplierinfo(models.Model):
     @api.multi
     @api.depends('standard_price', 'qty_available')
     def _value_pc(self):
-        for record in self:
-            record.total = record.standard_price + record.qty_available
+        for line in self:
+            line.total = line.standard_price + line.qty_available
