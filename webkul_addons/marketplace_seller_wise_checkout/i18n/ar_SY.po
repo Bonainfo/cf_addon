@@ -1,0 +1,303 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* marketplace_seller_wise_checkout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 07:27+0000\n"
+"PO-Revision-Date: 2018-09-20 07:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_orders_followup
+msgid "<i class=\"fa fa-check-square-o\"/> Approved by Seller"
+msgstr "<i class=\"fa fa-check-square-o\"/> Approved by Seller"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_orders_followup
+msgid "<i class=\"fa fa-clock-o\"/> Waiting for Seller Approval"
+msgstr "<i class=\"fa fa-clock-o\"/> Waiting for Seller Approval"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_mycart_header
+msgid "<i class=\"fa fa-shopping-cart\"/>\n"
+"                    My Cart"
+msgstr "<i class=\"fa fa-shopping-cart\"/>\n"
+"                    My Cart"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_orders_followup
+msgid "<i class=\"fa fa-times\"/> Cancelled by Seller"
+msgstr "<i class=\"fa fa-times\"/> Cancelled by Seller"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_orders_followup
+msgid "<i class=\"fa fa-truck\"/> Shipped by Seller"
+msgstr "<i class=\"fa fa-truck\"/> Shipped by Seller"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart
+msgid "<span class=\"fa fa-long-arrow-left\"/>\n"
+"                                <span class=\"hidden-xs\">Continue Shopping</span>\n"
+"                                <span class=\"visible-xs-inline\">Continue</span>"
+msgstr "&amp;nbsp;<span class=\"fa fa-long-arrow-left\"/><span class=\"hidden-xs\"> الرجوع و مواصلة التسوق</span>\n"
+"                                <span class=\"visible-xs-inline\">Continue</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_continue_shopping
+msgid "<span class=\"fa fa-long-arrow-left\"/>\n"
+"                <span class=\"hidden-xs\">Continue Shopping</span>\n"
+"                <span class=\"visible-xs-inline\">Continue</span>"
+msgstr "<span class=\"fa fa-long-arrow-left\"/>\n"
+"                <span class=\"hidden-xs\">Continue Shopping</span>\n"
+"                <span class=\"visible-xs-inline\">Continue</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart
+msgid "<span class=\"hidden-xs\">Process Checkout</span>\n"
+"                                <span class=\"visible-xs-inline\">Checkout</span>\n"
+"                                <span class=\"fa fa-long-arrow-right\"/>"
+msgstr "<span class=\"hidden-xs\">Process Checkout</span>\n"
+"                                <span class=\"visible-xs-inline\">Checkout</span>\n"
+"                                <span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+msgid "<span class=\"o_label\">Approved</span>"
+msgstr "<span class=\"o_label\">Approved</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+msgid "<span class=\"o_label\">New</span>"
+msgstr "<span class=\"o_label\">New</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+msgid "<span>New</span>"
+msgstr "<span>جديد</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+msgid "<span>View</span>"
+msgstr "<span>عرض</span>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_kanban_view
+msgid "<strong>Seller : </strong>"
+msgstr "<strong>Seller : </strong>"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+msgid "All"
+msgstr "الكل"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_payment
+msgid "Apply"
+msgstr "التقدم"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Approve"
+msgstr "تصديق"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+#: selection:sale.order,mp_order_state:0
+msgid "Approved"
+msgstr "Approved"
+
+#. module: marketplace_seller_wise_checkout
+#: selection:sale.order,mp_order_state:0
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_payment
+msgid "Coupon Code"
+msgstr "رمز الكوبون"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Delivered Quantity"
+msgstr "الكمية المسلمه"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Delivery"
+msgstr "الشحن"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_payment
+msgid "Have a promo code? Fill in this field and apply."
+msgstr "Have a promo code? Fill in this field and apply."
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Invoiced Quantity"
+msgstr "الكميات المفوترة"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.actions.act_window,name:marketplace_seller_wise_checkout.mp_checkout_orders_action
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Marketplace Sale Order"
+msgstr "Marketplace Sale Order"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_tree_view
+msgid "Marketplace Status"
+msgstr "Marketplace Status"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.actions.act_window,name:marketplace_seller_wise_checkout.wk_seller_all_sale_order_action
+#: model:ir.actions.act_window,name:marketplace_seller_wise_checkout.wk_seller_approved_sale_order_action
+#: model:ir.actions.act_window,name:marketplace_seller_wise_checkout.wk_seller_new_sale_order_action
+msgid "Mp Sale Order"
+msgstr "Mp Sale Order"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model.fields,field_description:marketplace_seller_wise_checkout.field_sale_order_mp_order_state
+msgid "Mp order state"
+msgstr "Mp order state"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_wk_seller_product_template_kanban
+#: selection:sale.order,mp_order_state:0
+msgid "New"
+msgstr "جديد"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.menu,name:marketplace_seller_wise_checkout.mp_checkout_orders_menu
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Order Lines"
+msgstr "سطور الأوامر"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_tree_view
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.view_order_tree
+msgid "Order Number"
+msgstr "رقم الطلب"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Ordered Qty"
+msgstr "الكميات المطلوبة"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Ordered Quantity"
+msgstr "الكميات المطلوبة"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_popover
+msgid "Product from"
+msgstr "منتجات"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_popover
+msgid "Qty:"
+msgstr "Qty:"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model,name:marketplace_seller_wise_checkout.model_sale_order
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_tree_view
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Sales Order Lines"
+msgstr "سطور أوامر المبيعات"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.view_order_tree
+msgid "Sales Orders"
+msgstr "أوامر البيع"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model.fields,field_description:marketplace_seller_wise_checkout.field_sale_order_marketplace_seller_id
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.inherit_view_sales_order_filter
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_tree_view
+msgid "Seller"
+msgstr "Seller"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Setup default terms and conditions in your company settings."
+msgstr "Setup default terms and conditions in your company settings."
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "Ship Now"
+msgstr "Ship Now"
+
+#. module: marketplace_seller_wise_checkout
+#: selection:sale.order,mp_order_state:0
+msgid "Shipped"
+msgstr "Shipped"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart
+msgid "Shopping Cart"
+msgstr "عربة التسوق"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model,name:marketplace_seller_wise_checkout.model_stock_move
+msgid "Stock Move"
+msgstr "حركة المخزون"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_payment
+msgid "This promo code is not available"
+msgstr "This promo code is not available"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_tree_view
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.view_order_tree
+msgid "Total Tax Included"
+msgstr "المجموع مع الضرائب"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_popover
+msgid "View Cart ("
+msgstr "View Cart ("
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model,name:marketplace_seller_wise_checkout.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_lines
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_popover
+msgid "Your cart is empty!"
+msgstr "عربة التسوق الخاصة بك فارغة!"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_payment
+msgid "code..."
+msgstr "رمز..."
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_orders_form_view
+msgid "days"
+msgstr "أيام"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.ui.view,arch_db:marketplace_seller_wise_checkout.mp_checkout_inherit_cart_popover
+msgid "items)"
+msgstr "items)"
+
+#. module: marketplace_seller_wise_checkout
+#: model:ir.model,name:marketplace_seller_wise_checkout.model_marketplace_dashboard
+msgid "marketplace.dashboard"
+msgstr "marketplace.dashboard"
+

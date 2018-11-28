@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        <record id="mp_phar_details_inherit_res_partner_formview" model="ir.ui.view">
+            <field name="name">pharmacy.details.res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="distributor_page" string="My Distributors and Vendors">
+                        <separator string="Marketplace Distributors Account ID"/>
+                        <field name="pharmacy_account_detail_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="pharmacist_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

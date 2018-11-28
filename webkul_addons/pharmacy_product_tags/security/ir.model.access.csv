@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mp_manger_pharmacy_tag,MP.Manger.Pharmacy.Tag,model_pharmacy_product_tag,odoo_marketplace.marketplace_manager_group,1,1,1,1
+mp_officer_pharmacy_tag,MP.officer.Pharmacy.Tag,model_pharmacy_product_tag,odoo_marketplace.marketplace_officer_group,1,1,1,0
+public_pharmacy_tag,Public.Pharmacy.Tag,model_pharmacy_product_tag,,1,0,0,0

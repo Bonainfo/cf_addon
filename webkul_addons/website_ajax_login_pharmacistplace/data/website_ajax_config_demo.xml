@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="website" id="website.default_website">
+            <field name="wk_allow_signup">True</field>
+            <field name="website_odoo_login" eval="True"/>
+            <field name="website_facebook_login" eval="False"/>
+            <field name="website_gmail_login" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

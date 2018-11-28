@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Footer menu group records -->        
+        <record id="data_footer_menu_group_info" model="footer.menu.group">
+            <field name="name">Info</field>
+            <field name="sequence" eval="1"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <record id="data_footer_menu_group_find_product" model="footer.menu.group">
+            <field name="name">Find Products</field>
+            <field name="sequence" eval="2"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <record id="data_footer_menu_group_help" model="footer.menu.group">
+            <field name="name">Help</field>
+            <field name="sequence" eval="3"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <record id="data_footer_menu_group_distributor" model="footer.menu.group">
+            <field name="name">Distributor</field>
+            <field name="sequence" eval="4"/>
+        </record>
+
+        <!-- Footer menu link records -->
+        <record id="data_footer_menu_link_home" model="footer.menu.link">
+            <field name="name">Home</field>
+            <field name="sequence" eval="1"/>
+            <field name="url"></field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_info"/>
+        </record>
+
+        <record id="data_footer_menu_link_contact_us" model="footer.menu.link">
+            <field name="name">Contact Us</field>
+            <field name="sequence" eval="2"/>
+            <field name="url">/page/contactus</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_info"/>
+        </record>
+
+        <record id="data_footer_menu_link_about_us" model="footer.menu.link">
+            <field name="name">About Us</field>
+            <field name="sequence" eval="3"/>
+            <field name="url">/page/aboutus</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_info"/>
+        </record>
+
+        <record id="data_footer_menu_link_shop" model="footer.menu.link">
+            <field name="name">Shop</field>
+            <field name="sequence" eval="6"/>
+            <field name="url">/shop</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_find_product"/>
+        </record>
+
+        <!-- <record id="data_footer_menu_link_site_map" model="footer.menu.link">
+            <field name="name">Site Map</field>
+            <field name="sequence" eval="6"/>
+            <field name="url">/shop</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_find_product"/>
+        </record> -->
+
+        <record id="data_footer_menu_link_signup" model="footer.menu.link">
+            <field name="name">Register</field>
+            <field name="sequence" eval="6"/>
+            <field name="url">/web/signup</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="data_footer_menu_group_help"/>
+        </record>
+
+    </data>
+</odoo>

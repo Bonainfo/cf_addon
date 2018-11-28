@@ -1,0 +1,17 @@
+div.simpleName{
+    color: inherit;
+    font-family: inherit;
+}
+
+.coll_page_name_div{
+    background-color: #f7f9fc;
+    /* margin-left: 3%; */
+    /* display: table; */
+    height: 300px;
+    width: 30%;
+}
+
+.rtl .coll_page_name_div{
+    margin-right: 3%;
+    margin-left: 0;
+}

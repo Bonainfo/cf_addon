@@ -1,0 +1,483 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-06 09:33+0000\n"
+"PO-Revision-Date: 2018-09-06 13:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Arabic (Syria)\n"
+"Language: ar-SY\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Loco-Source-Locale: ar_EG\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Parser: loco_parse_po"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "<i class=\"fa fa-fw fa-arrow-right\"/>Tutorial"
+msgstr "<i class=\"fa fa-fw fa-arrow-right\"/>Tutorial"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_ajax_address
+msgid "<small> or </small>"
+msgstr "<small> أو </small>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+msgid "<span class=\"fa fa-facebook\"/> LOGIN WITH FACEBOOK"
+msgstr "<span class=\"fa fa-facebook\"/>الدخول عبر فيسبوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid "<span class=\"fa fa-facebook\"/> Sign in with Facebook"
+msgstr "<span class=\"fa fa-facebook\"/>التسجيل بإستخدام فيسبوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+msgid "<span class=\"fa fa-google\"/> LOGIN WITH GOOGLE"
+msgstr "<span class=\"fa fa-google\"/>الدخول عبر جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid "<span class=\"icon-google-plus\"/> Sign in with Google"
+msgstr "<span class=\"icon-google-plus\"/> التسجيل بإستخدام جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+msgid "<span class=\"icon-odoo\"/> LOGIN WITH ODOO"
+msgstr "<span class=\"icon-odoo\"/> LOGIN WITH odoo"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                    <span style=\"white-"
+"space: nowrap;\">Reset Password</span>\n"
+"                                                </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                    <span style=\"white-"
+"space: nowrap;\">إعادة ضبط كلمة المرور</span>\n"
+"                                                </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                    <span style=\"white-"
+"space: nowrap;\">SIGN IN</span>\n"
+"                                                </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                    <span style=\"white-"
+"space: nowrap;\">تسجيل الدخول</span>\n"
+"                                                </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                <span style=\"white-space: "
+"nowrap;\">Signup</span>\n"
+"                                            </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                                <span style=\"white-space: "
+"nowrap;\">تسجيل حساب جديد</span>\n"
+"                                            </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\"> "
+"SIGN IN </span>\n"
+"                                </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\"> "
+"تسجيل الدخول </span>\n"
+"                                </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\"> "
+"Signup </span>\n"
+"                                </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\"> "
+"سجل حساب جديد </span>\n"
+"                                </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_reset_password
+msgid ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\">"
+"Reset Password</span>\n"
+"                                </span>"
+msgstr ""
+"<span style=\"font-size: 30px;\" class=\"pp-brand-info\">\n"
+"                                    <span style=\"white-space: nowrap;\">"
+"إعادة ضبط كلمة المرور</span>\n"
+"                                </span>"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Ajax Form"
+msgstr "Ajax Form"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Allow Sign UP"
+msgstr "Allow Sign UP"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_auth_signup_uninvited
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_auth_signup_uninvited
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_auth_signup_uninvited
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_wk_allow_signup
+msgid "Allow Sign-UP"
+msgstr "Allow Sign-UP"
+
+#. module: website_ajax_login_pharmacistplace
+#: code:addons/website_ajax_login_pharmacistplace/controller/controller.py:145
+#, python-format
+msgid "An email has been sent with credentials to reset your password"
+msgstr "An email has been sent with credentials to reset your password"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Assistant Pharmacist"
+msgstr "مساعد صيدلي"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_reset_password
+#:  
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid "Back to Login"
+msgstr "العودة لصفحة الدخول"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Block UI"
+msgstr "Block UI"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "CONFIRM"
+msgstr "تأكيد"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Confirm Password"
+msgstr "أكّد كلمة المرور"
+
+#. module: website_ajax_login_pharmacistplace
+#: code:addons/website_ajax_login_pharmacistplace/controller/controller.py:147
+#, python-format
+msgid "Could not reset your password"
+msgstr "لا يمكن إعادة تعيين كلمة المرور الخاصة بك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_wk_block_ui
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_wk_block_ui
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_wk_block_ui
+msgid "Don't allow user to close the Ajax Pop Up form without login."
+msgstr "Don't allow user to close the Ajax Pop Up form without login."
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_reset_password
+msgid "Enter your registered email address"
+msgstr "أدخل عنوان البريد الإلكتروني المسجل الخاص بك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Facebook"
+msgstr "فيس بوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_facebook_client_id
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_facebook_client_id
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_facebook_client_id
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_website_facebook_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_website_facebook_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_website_facebook_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_website_facebook_login
+msgid "Facebook Login"
+msgstr "الدخول عبر فيسبوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login
+msgid "Forgot Password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_website_gmail_login
+msgid "Gmail Login"
+msgstr "الدخول عبر Gmail"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Google"
+msgstr "جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_google_client_id
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_google_client_id
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_google_client_id
+msgid "Google Client ID"
+msgstr "Google Client ID"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_website_gmail_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_website_gmail_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_website_gmail_login
+msgid "Google Login"
+msgstr "الدخول عبر جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "I Accept"
+msgstr "موافق"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Job Title"
+msgstr "المسمى الوظيفي"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "LOGIN"
+msgstr "تسجيل الدخول"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_ajax_address
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Mobile Number"
+msgstr "رقم الهاتف المحمول"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Name"
+msgstr "الاسم"
+
+#. module: website_ajax_login_pharmacistplace
+#: code:addons/website_ajax_login_pharmacistplace/controller/controller.py:140
+#, python-format
+msgid "No login provided."
+msgstr "يرجى تسجيل بيانات الدخول."
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_website_odoo_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_website_odoo_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_website_odoo_login
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_website_odoo_login
+msgid "Odoo Login"
+msgstr "odoo تسجيل الدخول"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+#:  
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login
+msgid "Password"
+msgstr "كلمة المرور"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Pharmacist"
+msgstr "صيدلاني"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Pharmacy Manager"
+msgstr "مدير الصيدلة"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Pharmacy Name"
+msgstr "إسم الصيدلية"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Pharmacy Owner"
+msgstr "صاحب صيدلية"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_fields
+msgid "Pharmacy Student"
+msgstr "طالب بكلية الصيدلة"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_cart_recovery_settings_show_ajax_form_always
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_config_settings_show_ajax_form_always
+#:  
+#: model:ir.model.fields,field_description:website_ajax_login_pharmacistplace.field_website_recently_viewed_setting_show_ajax_form_always
+msgid "Pop Up Ajax form if user not logged in, on every web page."
+msgstr "Pop Up Ajax form if user not logged in, on every web page."
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "Remember me"
+msgstr "تذكرنى"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "SIGN UP"
+msgstr "سجل حساب جديد"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Sign UP"
+msgstr "سجل حساب جديد"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Sign UP With Facebook"
+msgstr "اشترك عبر حساب فايسبوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Sign UP With Google"
+msgstr "إشترك عبر جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Sign UP With Odoo"
+msgstr "اشترك مع odoo"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login
+#:  model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_ajax_address
+msgid "Sign Up"
+msgstr "سجل حساب جديد"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+#:  
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid "SignUp with Facebook"
+msgstr "إشترك عبر فيسبوك"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+#:  
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup
+msgid "SignUp with Google"
+msgstr "اشترك مع جوجل"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_auth_oauth_login
+msgid "SignUp with Odoo"
+msgstr "تسجيل الدخول مع odoo"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom
+msgid "Terms &amp; Conditions"
+msgstr "الشروط و الأحكام"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.custom 
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_reset_password
+#:  
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login
+msgid "Username or Email"
+msgstr "إسم المستخدم أو البريد الالكتروني"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "Web Access"
+msgstr "Web Access"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model,name:website_ajax_login_pharmacistplace.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "eg 123-xyz.apps.googleusercontent.com"
+msgstr "eg 123-xyz.apps.googleusercontent.com"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.ui.view,arch_db:website_ajax_login_pharmacistplace.wk_inherit_website_acess
+msgid "eg.345848211540994"
+msgstr "eg.345848211540994"
+
+#. module: website_ajax_login_pharmacistplace
+#: model:ir.model,name:website_ajax_login_pharmacistplace.model_website_config_settings
+msgid "website.config.settings"
+msgstr "website.config.settings"

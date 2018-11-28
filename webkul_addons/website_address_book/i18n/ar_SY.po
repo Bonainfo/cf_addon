@@ -1,0 +1,210 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_address_book
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 09:02+0000\n"
+"PO-Revision-Date: 2018-09-20 09:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_addr_kanban
+msgid "<i class=\"fa fa-check\"/> Selected"
+msgstr "<i class=\"fa fa-check\"/> Selected"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_addr_kanban
+msgid "<i class=\"fa fa-check\"/> Ship to this address"
+msgstr "<i class=\"fa fa-check\"/> Ship to this address"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.address_book_inherit_checkout
+#: model:ir.ui.view,arch_db:website_address_book.wk_my_home_address_book
+msgid "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"/> Add an address"
+msgstr "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"/> Add an address"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.address_book_my_home_sale
+msgid "<span class=\"fa fa-address-book\"/>\n"
+"					<span> Manage Address Book</span>"
+msgstr "<span class=\"fa fa-address-book\"/>\n"
+"					<span> Manage Address Book</span>"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "<span class=\"fa fa-long-arrow-left\"/> Back"
+msgstr "<span class=\"fa fa-long-arrow-left\"/> Back"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+msgid "<span class=\"fa fa-long-arrow-left\"/><span> Back </span>"
+msgstr "<span class=\"fa fa-long-arrow-left\"/><span> Back </span>"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+msgid "<span>Add </span><span class=\"fa fa-long-arrow-right\"/>"
+msgstr "<span>Add </span><span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "<span>Next </span><span class=\"fa fa-long-arrow-right\"/>"
+msgstr "<span>Next </span><span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+msgid "<span>Save </span>"
+msgstr "<span>Save </span>"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Address"
+msgstr "العنوان"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_my_home_address_book
+msgid "Address Book"
+msgstr "Address Book"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.address_book_inherit_checkout
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Billing Address"
+msgstr "Billing Address"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_my_home_address_book
+msgid "Billing Addresses"
+msgstr "Billing Addresses"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "City"
+msgstr "المدينة"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Company Name"
+msgstr "اسم الشركة"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Country"
+msgstr "الدولة"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Country..."
+msgstr "الدولة..."
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_addr_kanban
+#: model:ir.ui.view,arch_db:website_address_book.wk_address_kanban
+msgid "Edit this address"
+msgstr "Edit this address"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: website_address_book
+#: code:addons/website_address_book/controllers/main.py:184
+#, python-format
+msgid "Invalid Email! Please enter a valid email address."
+msgstr "Invalid Email! Please enter a valid email address."
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Name"
+msgstr "الاسم"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Phone"
+msgstr "الهاتف"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+msgid "Return to address book"
+msgstr "Return to address book"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_my_home_address_book
+msgid "Return to home page"
+msgstr "Return to home page"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_addr_kanban
+msgid "Select this address"
+msgstr "Select this address"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Shipping Address"
+msgstr "عنوان الشحن"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.wk_my_home_address_book
+msgid "Shipping Addresses"
+msgstr "Shipping Addresses"
+
+#. module: website_address_book
+#: code:addons/website_address_book/controllers/main.py:199
+#, python-format
+msgid "Some required fields are empty."
+msgstr "Some required fields are empty."
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "State / Province"
+msgstr "المحافظة"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "State / Province..."
+msgstr "الدولة / المنطقة..."
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Street 2"
+msgstr "Street 2"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Street <span class=\"hidden-xs\"> and Number</span>"
+msgstr "العنوان التفصيلي"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "TIN / VAT"
+msgstr "TIN / VAT"
+
+#. module: website_address_book
+#: model:ir.ui.view,arch_db:website_address_book.my_address
+#: model:ir.ui.view,arch_db:website_address_book.my_invocie_address
+msgid "Zip Code"
+msgstr "الرمز البريدي"
+

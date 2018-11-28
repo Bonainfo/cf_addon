@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <template id="pp_inherit_order_total" inherit_id="website_sale_offer.inherit_order_total" name="Show Global Discount Amount">
+            <div id="order_global_discount" position="attributes">
+                <attribute name="style"> padding: 0px 15px 0px 15px;</attribute>
+            </div>
+            <xpath expr="//div[@id='order_global_discount']/span[1]" position="attributes">
+                <attribute name="style">text-align: left;padding:5px 0px 5px 0px</attribute>
+            </xpath>
+            <xpath expr="//div[@id='order_global_discount']/span[2]" position="attributes">
+                <attribute name="style">text-align: left;padding:5px 0px 5px 0px</attribute>
+            </xpath>
+        </template>
+
+        <template id="pp_sale_offer_code_in_total" inherit_id="website_sale_offer.sale_offer_code_in_total" name="Show Global Discount Amount">
+            <xpath expr="//div[@t-if='website_sale_order.applied_sale_offer_id']" position="attributes">
+                <attribute name="class">row</attribute>
+            </xpath>
+        </template>
+
+        <template id="pp_single_page_cart_review" inherit_id="website_single_page_checkout.single_page_cart_review" name="Show Global Discount Amount">
+            <xpath expr="//th[last()]" position="before">
+                <th class="text-center" width="100">Discount</th>
+            </xpath>
+            <xpath expr="//td[last()]" position="before">
+                <td class="text-center">
+                    <strong t-field="line.discount"/>
+                    <strong t-if="line.discount > 0">
+                        %
+                    </strong>
+                </td>
+            </xpath>
+            <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+                <attribute name="t-if">not line.discount</attribute>
+            </xpath>
+            <xpath expr="//span[@t-field='line.price_unit']" position="after">
+                <span t-if="line.discount > 0" t-esc="line.price_unit - (compute_currency(line.product_id.lst_price) - line.product_id.website_price )" t-options='{
+                    "widget": "monetary",
+                    "from_currency": "website_sale_order.pricelist_id.currency_id",
+                    "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                }'/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

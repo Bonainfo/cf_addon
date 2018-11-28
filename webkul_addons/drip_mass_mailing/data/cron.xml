@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+  <data>
+    <record id="drip_mailing_cron" model="ir.cron">
+            <field name="name">Drip Mass Mailing</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="'mail.mass_mailing.list'" name="model"/>
+            <field eval="'send_drip_mailing'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+  </data>
+</odoo>

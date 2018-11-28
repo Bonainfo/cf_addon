@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+
+        <template id="pp_city_in_details" inherit_id="website_portal.details">
+            <xpath expr="//input[@name='city']/.." position="replace">
+                <div t-attf-class="form-group #{error.get('pp_city_id') and 'has-error' or ''} col-lg-6">
+                    <label class="control-label" for="pp_city_id">City</label>
+                    <select name="pp_city_id" class="form-control">
+                        <option value="">City...</option>
+                        <t t-foreach="pp_cities or []" t-as="pp_city">
+                            <option t-att-value="pp_city.id" t-att-selected="pp_city.id == int(pp_city_id) if pp_city_id else pp_city.id == partner.pp_city_id.id">
+                                <t t-esc="pp_city.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+            <xpath expr="//label[@for='zipcode']" position="replace">
+                <label class="control-label" for="zipcode">Postal Code</label>
+            </xpath>
+            <xpath expr="//label[@for='state_id']" position="replace">
+                <label class="control-label label-optional" for="state_id">Governorate</label>
+            </xpath>
+            <xpath expr="//select[@name='country_id']/t/option" position="replace">
+                <t t-set="egypt_country_id" t-value='website.get_default_pp_country()'/>
+                <option t-att-value="country.id" t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id if partner.country_id else True if country == egypt_country_id else False">
+                    <t t-esc="country.name" />
+                </option>
+            </xpath>
+        </template>
+
+        <template id="pp_city_in_theme_pp_portal_my_account" inherit_id="theme_pharmacistplace.theme_pharmacistplace_portal_my_account">
+            <xpath expr="//input[@name='city']/.." position="replace">
+                <div t-attf-class="form-group #{error.get('pp_city_id') and 'has-error' or ''} col-lg-6">
+                    <label class="control-label" for="pp_city_id">City</label>
+                    <select name="pp_city_id" class="form-control">
+                        <option value="">City...</option>
+                        <t t-foreach="pp_cities or []" t-as="pp_city">
+                            <option t-att-value="pp_city.id" t-att-selected="pp_city.id == int(pp_city_id) if pp_city_id else pp_city.id == partner.pp_city_id.id">
+                                <t t-esc="pp_city.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+            <xpath expr="//label[@for='state_id']" position="replace">
+                <label class="control-label label-optional" for="state_id">Governorate</label>
+            </xpath>
+            <xpath expr="//select[@name='country_id']/t/option" position="replace">
+                <t t-set="egypt_country_id" t-value='website.get_default_pp_country()'/>
+                <option t-att-value="country.id" t-att-selected="country.id == int(country_id) if country_id else country.id == partner.country_id.id if partner.country_id else True if country == egypt_country_id else False ">
+                    <t t-esc="country.name" />
+                </option>
+            </xpath>
+        </template>
+
+        <!-- inherit Website sale -->
+        
+        <template id="pp_city_in_shop_address" inherit_id="website_sale.address">
+            <xpath expr="//input[@name='city']/.." position="replace">
+                <div t-attf-class="form-group #{error.get('pp_city_id') and 'has-error' or ''} col-md-6 div_country">
+                    <t t-set="user_city" t-value="request.env.user.pp_city_id"/>
+                    <label class="control-label" for="pp_city_id">City</label>
+                    <select id="pp_city_id" name="pp_city_id" class="form-control">
+                        <option value="">City...</option>
+                        <t t-foreach="request.env['pp.city'].sudo().search([])" t-as="city">
+                            <option t-att-value="city.id" t-att-selected="city.id == (user_city and user_city.id or -1)">
+                                <t t-esc="city.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+            <xpath expr="//label[@for='zip'][1]" position="replace">
+                <label class="control-label label-optional" for="zip">Postal Code</label>
+            </xpath>
+            <xpath expr="//label[@for='zip'][last()]" position="replace">
+                <label class="control-label label-optional" for="zip">Postal Code</label>
+            </xpath>
+            <xpath expr="//label[@for='state_id']" position="replace">
+                <label class="control-label label-optional" for="state_id">Governorate</label>
+            </xpath>
+            <xpath expr="//select[@name='country_id']/t/option" position="replace">
+                <t t-set="egypt_country_id" t-value='website.get_default_pp_country()'/>
+                <option t-att-value="c.id" t-att-selected="c.id == (country and country.id or -1) or True if c == egypt_country_id else False" class="wk_country_checkout">
+                    <t t-esc="c.name" />
+                </option>
+            </xpath>
+        </template>
+
+        <!-- Inherit Single page checkout -->
+
+        <template id="pp_city_website_single_page_checkout" inherit_id="website_single_page_checkout.single_step_add_address">
+            <xpath expr="//input[@name='wk_city']/.." position="replace">
+                <div t-attf-class="form-group  col-sm-8 wk_has_error" id="wk_div_city">
+                    <t t-set="user_city" t-value="request.env.user.pp_city_id"/>
+                    <label class="control-label" for="city">City</label>
+                    <select id="wk_city" name="wk_city" class="form-control">
+                        <option value="">City...</option>
+                        <t t-foreach="request.env['pp.city'].sudo().search([])" t-as="city">
+                            <option t-att-value="city.id" t-att-selected="city.id == (user_city and user_city.id or -1)">
+                                <t t-esc="city.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+            <xpath expr="//label[@for='zip']" position="replace">
+                <label class="control-label label-optional" for="zip">Postal Code</label>
+            </xpath>
+            <xpath expr="//label[@for='state_id']" position="replace">
+                <label class="control-label label-optional" for="state_id">Governorate</label>
+            </xpath>
+            <xpath expr="//select[@name='country_id']/t/option" position="replace">
+                <t t-set="egypt_country_id" t-value='website.get_default_pp_country()'/>
+                <option t-att-value="c.id" t-att-selected="c.id == (country and country.id or -1) or True if c == egypt_country_id else False" class="wk_country_checkout">
+                    <t t-esc="c.name" />
+                </option>
+            </xpath>
+        </template>
+
+        <!-- Pharmacy details inherit -->
+
+        <template id="pp_city_in_pharmacy_account_registration_form" inherit_id="marketplace_pharmacist_details.pharmacy_account_registration_form">
+            <xpath expr="//input[@name='city']/.." position="replace">
+                <div class="col-md-6 mb16">
+                    <label class="text-muted" for="city">City</label>
+                    <select id="pp_city_id" name="pp_city_id" class="form-control" required="1" t-att-readonly="'1' if partner.parent_id and partner.parent_id.pp_city_id else None">
+                        <option value="">City...</option>
+                        <t t-foreach="request.env['pp.city'].sudo().search([])" t-as="city">
+                            <option t-att-value="city.id" t-att-selected="city.id == (partner.parent_id and partner.parent_id.pp_city_id.id or -1)">
+                                <t t-esc="city.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+            <xpath expr="//select[@name='country_id']/t/option" position="replace">
+                <t t-set="country" t-value="partner.country_id if partner.country_id else False"/>
+                <t t-set="egypt_country_id" t-value='website.get_default_pp_country()'/>
+                <option t-att-value="c.id" t-att-selected="True if country and country.id == c.id else True if not country and egypt_country_id and egypt_country_id.id == c.id else False">
+                    <t t-esc="c.name" />
+                </option>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

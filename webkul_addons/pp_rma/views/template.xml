@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+
+		<template id="pp_wk_portal_my_home_menu_rma" inherit_id="rma.wk_portal_my_home_menu_rma">
+			<xpath expr="//a[@href='/my/rma']/.." position="replace">
+				<li t-att-class="'active' if rma_active else ''">
+					<a href="/my/rma" class="pp-brand-info">
+						<span class="fa fa-dropbox"/>
+						<span>Returns</span>
+						<i class="pull-right fa fa-angle-right"/>
+					</a>
+				</li>
+			</xpath>
+		</template>
+
+		<template id="pp_rma_wk_rma_records" inherit_id="rma.wk_rma_records">
+			<xpath expr="//h3[hasclass('page-header')]" position="replace">
+				<h1 class="mb32 hidden-md hidden-lg hidden-xl">Your Return Items</h1>
+				<div style="display:flex;margin-top: 10px;" class="mb32 hidden-sm hidden-xs">
+					<div style="width: 36%;">
+						<t t-call="theme_pharmacistplace.three_hr_lines_left_part"/>
+					</div>
+					<div style="width: 28%;text-align: center;padding: 10px;">
+						<span style="font-size: 22px;color: #272866;padding: 3px;font-weight: bold;">
+							Your Return Items
+						</span>
+					</div>
+					<div style="width: 36%;">
+						<t t-call="theme_pharmacistplace.three_hr_lines_right_part"/>
+					</div>
+				</div>
+			</xpath>
+		</template>
+
+		<template id="pp_rma_rma_followup" inherit_id="rma.rma_followup">
+			<t t-call="website.layout" position="attributes">
+				<attribute name="t-call">website_portal.portal_layout</attribute>
+			</t>
+		</template>
+
+    </data>
+</odoo>

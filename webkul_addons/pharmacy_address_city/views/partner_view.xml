@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <record id="pp_city_in_partner_form_view" model="ir.ui.view">
+        <field name="name">pp.city.in.partner.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" style="width:38%" options="{'no_open': True}"/>
+            </field>
+            <xpath expr="//notebook//form/sheet//field[@name='city']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook//form/sheet//field[@name='city']" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact')]}" style="width:38%" options="{'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pp_city_in_partner_address_form_view" model="ir.ui.view">
+        <field name="name">pp.city.in.partner.address.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_address_form"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" style="width:38%" options="{'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="pp_city_in_partner_private_form_view" model="ir.ui.view">
+        <field name="name">pp.city.in.partner.private.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" style="width:38%" options="{'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="pp_city_in_customer_form_view_for_marketplace" model="ir.ui.view">
+        <field name="name">pp.city.in.customer.form.view.for.marketplace</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="odoo_marketplace.customer_form_view_for_marketplace"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" style="width:38%" options="{'no_open': True}"/>
+            </field>
+            <xpath expr="//notebook//form/sheet//field[@name='city']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook//form/sheet//field[@name='city']" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact')]}" style="width:38%" options="{'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pp_city_in_wk_seller_form_view" model="ir.ui.view">
+        <field name="name">pp.city.in.wk.seller.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="odoo_marketplace.wk_seller_form_view"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" style="width:38%" options="{'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="pp_city_in_mp_pharmacist_id_details_form_view" model="ir.ui.view">
+        <field name="name">pp.city.in.mp_pharmacist_id_details_form_view</field>
+        <field name="model">pharmacist.id.details</field>
+        <field name="inherit_id" ref="marketplace_pharmacist_details.mp_pharmacist_id_details_form_view"/>
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Governorate</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="city" position="after">
+                <field name="pp_city_id" placeholder="City" class="o_address_city" style="width:38%" options="{'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="base.action_country_state" model="ir.actions.act_window">
+        <field name="name">Governorate</field>
+    </record>
+    <menuitem string="Governorates" action="base.action_country_state" id="sales_team.menu_country_state_partner" parent="sales_team.menu_localisation" sequence="2" groups="base.group_no_one"/>
+
+</odoo>

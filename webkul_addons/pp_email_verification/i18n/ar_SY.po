@@ -1,0 +1,228 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* email_verification
+#	* pp_email_verification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-05 10:57+0000\n"
+"PO-Revision-Date: 2018-11-05 10:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: email_verification
+#: model:mail.template,body_html:email_verification.wk_email_verification_email_template_id
+msgid "\n"
+"\n"
+"        <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; color: rgb(34, 34, 34); background-color: #FFF;\">\n"
+"        <div style=\"text-align:center;width:70%;margin-left:15%\">\n"
+"            <p style=\"color: rgb(99, 74, 165); font-size: 22px;\"> ${object.company_id.name} Account Verification Email</p>\n"
+"            <p class=\"text-epsilon\" style=\"font-size: 18px;\">Congratulations!! ${object.name}, your account has been created successfully and you are only few seconds away from verifying your account. To verify your account click on the button.</p>\n"
+"            <div class=\"btn btn-danger btn-lg\"><a href=\"${object.get_verification_url()}\"><b>Verify Your Account</b></a></div>\n"
+"        </div>\n"
+"       </div> \n"
+"\n"
+"            "
+msgstr "\n"
+"\n"
+"        <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; color: rgb(34, 34, 34); background-color: #FFF;\">\n"
+"        <div style=\"text-align:center;width:70%;margin-left:15%\">\n"
+"            <p style=\"color: rgb(99, 74, 165); font-size: 22px;\"> ${object.company_id.name} Account Verification Email</p>\n"
+"            <p class=\"text-epsilon\" style=\"font-size: 18px;\">تهانينا!! ${object.name}, تم إنشاء حسابك بنجاح ولم يتبق سوى بضع ثوانٍ من التحقق من حسابك. للتحقق من حسابك ، انقر فوق الزر.</p>\n"
+"            <div class=\"btn btn-danger btn-lg\"><a href=\"${object.get_verification_url()}\"><b>تحقق من حسابك</b></a></div>\n"
+"        </div>\n"
+"       </div> \n"
+"\n"
+"            "
+
+#. modules: email_verification, pp_email_verification
+#: model:ir.ui.view,arch_db:email_verification.layout
+#: model:ir.ui.view,arch_db:pp_email_verification.pp_email_layout
+msgid "<span>The account is not verified yet, you need to verify your account before proceeding further. If you want to re-send link </span>"
+msgstr "<span>لم يتم التحقق من الحساب بعد ، فأنت بحاجة إلى التحقق من حسابك قبل المضي قدمًا. إذا كنت ترغب في إعادة إرسال الرابط </span>"
+
+#. modules: email_verification, pp_email_verification
+#: model:ir.ui.view,arch_db:email_verification.layout
+#: model:ir.ui.view,arch_db:pp_email_verification.pp_email_layout
+msgid "<span>The account is not verified yet, you need to verify your account before proceeding further. The link sent to your email has been expired, for sending a new link  </span>"
+msgstr "<span>لم يتم التحقق من الحساب بعد ، فأنت بحاجة إلى التحقق من حسابك قبل المضي قدمًا. انتهت صلاحية الرابط المرسل إلى بريدك الإلكتروني ، لإرسال رابط جديد  </span>"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "<strong>A password reset has been requested for this user. An email containing the following link has been sent:</strong>"
+msgstr "<strong>تم طلب إعادة تعيين كلمة المرور لهذا المستخدم. تم إرسال رسالة بريد إلكتروني تحتوي على الرابط التالي:</strong>"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "<strong>An invitation email containing the following subscription link has been sent:</strong>"
+msgstr "تم إرسال دعوة عبر البريد الإلكتروني تحتوي على رابط الاشتراك التالية:"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "<strong>Verification email has been sent to this user. </strong>"
+msgstr "<strong>تم إرسال بريد إلكتروني للتحقق إلى هذا المستخدم. </strong>"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "<strong>Verify the email of this user manually.</strong>"
+msgstr "<strong>تحقق من البريد الإلكتروني لهذا المستخدم يدويًا.</strong>"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.config_email_verification_and_guest_checkout_id
+msgid "Apply"
+msgstr "التقدم"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.config_email_verification_and_guest_checkout_id
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.wizard_message_form
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: email_verification
+#: model:ir.actions.act_window,name:email_verification.action_email_verification_and_guest_checkout
+#: model:ir.ui.view,arch_db:email_verification.email_verification_and_guest_checkout_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.restricted_checkout_inherited_checkout
+msgid "Confirm <span class=\"fa fa-long-arrow-right\"/>"
+msgstr "تؤكد <span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_create_uid
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_create_date
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_display_name
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.config_email_verification_and_guest_checkout_id
+#: model:mail.template,subject:email_verification.wk_email_verification_email_template_id
+msgid "Email Verification"
+msgstr "تأكيد بواسطة البريد الالكتروني"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_id
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: email_verification
+#: model:ir.model.fields,help:email_verification.field_email_verification_config_restrict_unverified_users
+msgid "If enabled unverified users can not proceed to checkout untill they verify their emails"
+msgstr "في حالة تمكين المستخدمين الذين لم يتم التحقق منهم ، لا يمكنهم المتابعة حتى الخروج من الحساب ، يمكنهم التحقق من رسائل البريد الإلكتروني الخاصة بهم"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config___last_update
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_write_uid
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_write_date
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_wizard_message_text
+msgid "Message"
+msgstr "الرسالة"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "Re-send Email"
+msgstr "إعادة إرسال البريد الإلكتروني"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_restrict_unverified_users
+msgid "Restrict Unverified Users From Checkout"
+msgstr "تقييد المستخدمين غير المحققين من الخروج"
+
+#. module: email_verification
+#: code:addons/email_verification/models/email_verification.py:97
+#: code:addons/email_verification/models/email_verification.py:113
+#, python-format
+msgid "Summary"
+msgstr "ملخص"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_email_verification_config_token_validity
+msgid "Token Validity In Days"
+msgstr "صلاحية الرمز في أيام"
+
+#. module: email_verification
+#: model:ir.model.fields,field_description:email_verification.field_res_users_wk_token_verified
+msgid "Token Verified"
+msgstr "تم التحقق من الرمز المميز"
+
+#. module: email_verification
+#: model:ir.model,name:email_verification.model_res_users
+msgid "Users"
+msgstr "المستخدمون"
+
+#. module: email_verification
+#: model:ir.model.fields,help:email_verification.field_email_verification_config_token_validity
+msgid "Validity of the token in days sent in email. If validity is 0 it means infinite."
+msgstr "صلاحية الرمز في الأيام المرسلة بالبريد الإلكتروني. إذا كانت الصلاحية هي 0 فهذا يعني أنه لا نهائي."
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.res_users_form_view_1
+msgid "Verify Manually"
+msgstr "تحقق يدويًا"
+
+#. module: email_verification
+#: model:ir.model,name:email_verification.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. modules: email_verification, pp_email_verification
+#: model:ir.ui.view,arch_db:email_verification.layout
+#: model:ir.ui.view,arch_db:pp_email_verification.pp_email_layout
+msgid "click here"
+msgstr "انقر هنا"
+
+#. module: email_verification
+#: model:ir.model,name:email_verification.model_email_verification_config
+msgid "email.verification.config"
+msgstr "email.verification.config"
+
+#. module: email_verification
+#: model:ir.ui.view,arch_db:email_verification.config_email_verification_and_guest_checkout_id
+msgid "or"
+msgstr "أو"
+
+#. module: email_verification
+#: model:ir.actions.act_window,name:email_verification.wizard_message_action
+#: model:ir.model,name:email_verification.model_wizard_message
+msgid "wizard.message"
+msgstr "wizard.message"
+

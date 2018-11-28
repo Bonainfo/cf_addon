@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+
+        <template id="product_pharma_tag_on_product_page" inherit_id="theme_pharmacistplace.theme_pharmacistplace_product" name="Show Product Manufacturer">
+            <xpath expr="//div[@id='product_category']" position="after">
+                <t t-set="pharmacy_tag_ids" t-value="product.pharmacy_tag_ids"/>
+                <t t-if="pharmacy_tag_ids">
+                    <div id="product_manufacture">
+                        <span class="text-muted" style="font-style:Bold">Tags: </span>
+                        <t t-foreach="pharmacy_tag_ids" t-as="tag">
+                            <span class="pp-text-primary" t-field="tag.name"/>
+                            <span t-if="len(pharmacy_tag_ids) > 1 and not pharmacy_tag_ids[-1] == tag" class="pp-text-primary">, </span>
+                        </t>
+                    </div>
+                </t>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

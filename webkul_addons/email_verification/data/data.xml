@@ -1,0 +1,10 @@
+<odoo>
+	<data noupdate="1">
+            <function id="send_email_on_signup_id" model="ir.values" name="set_default"
+            eval="('email.verification.config', 'send_email_on_signup', True)"/>
+            <function id="restrict_unverified_users_id" model="ir.values" name="set_default"
+            eval="('email.verification.config', 'restrict_unverified_users', True)"/>
+            <function id="token_validity_id" model="ir.values" name="set_default"
+            eval="('email.verification.config', 'token_validity', 2)"/>
+    </data>
+</odoo>

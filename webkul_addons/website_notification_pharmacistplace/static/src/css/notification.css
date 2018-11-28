@@ -1,0 +1,50 @@
+.pp-bg-primary-light{
+    background-color: #e7f7f4;
+}
+
+.notification-popover{
+    font-family: 'FSAlbert Regular', sans-serif;
+    font-size: 12px;
+    width: 276px;
+    /* left: 92px !important; */
+}
+
+.notification-popover .popover-content{
+    padding: 10px 14px 0px 14px;
+}
+
+.notification_div {
+    border-bottom: 1px solid #cccccc;
+}
+
+.notification_ul>li:nth-child(even) .notification_div {
+    background-color: #e7f7f4;
+    border-bottom: 1px solid #cccccc;
+}
+
+.notification_ul>li:last-child .notification_div {
+    border-bottom: none;
+}
+
+/* .my_notification_div:nth-child(even) {
+    background-color: #e7f7f4;
+} */
+
+.my_notification_div{
+    border: 1px solid #cccccc;
+}
+
+#notification_li sup {
+    font-family: 'FSAlbert Regular', sans-serif;
+    position: absolute;
+    padding: 2px 4px;
+    /* border: 1px solid white; */
+    left: 3px;
+    top: 7px;
+    font-size: 12px;
+    background-color: #de015e;
+    /* padding: 0em 0.3em; */
+    font-size: 0.7em;
+    color: white;
+    font-weight: lighter;
+}

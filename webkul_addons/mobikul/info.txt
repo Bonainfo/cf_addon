@@ -1,0 +1,40 @@
+
+# cancel_title = fields.Char('Cancel Title', translate=True)
+# cancel_body = fields.Text('Cancel Body', translate=True)
+# deliver_title = fields.Char('Deliver Title', translate=True)
+# deliver_body = fields.Text('Deliver Body', translate=True)
+
+
+<field name="notification_body" colspan="4" placeholder="Body" attrs="{'invisible': [('condition', 'in', ['orderstate','none',False,])], 'required': [('condition', 'in', ['signup','orderplaced'])]}"/>
+<field name="cancel_title" colspan="4" placeholder="Cancel Title"
+  attrs="{
+  'invisible':
+  ['|',
+  ('condition', 'in', ['signup','none',False,'orderplaced']),
+  ('state_cond', 'in', ['orderdeliver','none',False])],
+  'required': ['&amp;',('condition', 'in', ['orderstate']),('state_cond', 'in', ['ordercancel'])]
+  }"/>
+<field name="cancel_body" colspan="4" placeholder="Cancel Body"
+  attrs="{
+  'invisible':
+   ['|',
+   ('condition', 'in', ['signup','none',False,'orderplaced']),
+   ('state_cond', 'in', ['orderdeliver','none',False])],
+   'required': ['&amp;',('condition', 'in', ['orderstate']),('state_cond', 'in', ['ordercancel'])]
+   }"/>
+<field name="deliver_title" colspan="4" placeholder="Delivery Title"
+  attrs="{
+  'invisible':
+  ['|',
+  ('condition', 'in', ['signup','none',False,'orderplaced']),
+  ('state_cond', 'in', ['ordercancel','none',False])],
+  'required': ['&amp;',('condition', 'in', ['orderstate']),('state_cond', 'in', ['orderdeliver'])]
+  }"/>
+<field name="deliver_body" colspan="4" placeholder="Delivery Body"
+  attrs="{
+  'invisible':
+  ['|',
+  ('condition', 'in', ['signup','none',False,'orderplaced']),
+  ('state_cond', 'in', ['ordercancel','none',False])],
+  'required': ['&amp;',('condition', 'in', ['orderstate']),('state_cond', 'in', ['orderdeliver'])]
+  }"/>

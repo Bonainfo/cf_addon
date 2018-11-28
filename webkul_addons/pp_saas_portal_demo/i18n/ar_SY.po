@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pp_saas_portal_demo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-24 04:37+0000\n"
+"PO-Revision-Date: 2018-10-24 04:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<i class=\"fa fa-pie-chart\" aria-hidden=\"true\"/>\n"
+"							<span>\n"
+"								Statistics\n"
+"							</span>"
+msgstr "<i class=\"fa fa-pie-chart\" aria-hidden=\"true\"/>\n"
+"							<span>\n"
+"								الإحصاء\n"
+"							</span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_theme_pharmacistplace_portal_layout
+msgid "<span class=\"fa fa-cogs\"/>\n"
+"						<span>Instances</span>\n"
+"						<span class=\"pull-right fa fa-angle-right\"/>"
+msgstr "<span class=\"fa fa-cogs\"/>\n"
+"						<span>الحالات</span>\n"
+"						<span class=\"pull-right fa fa-angle-right\"/>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_theme_pharmacistplace_layout
+msgid "<span class=\"pull-left\"> My Smart Pharmacy </span>\n"
+"								<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 14px;\"/>"
+msgstr "<span class=\"pull-left\"> صيدلي الذكية </span>\n"
+"								<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 14px;\"/>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_theme_pharmacistplace_portal_layout
+msgid "<span class=\"pull-left\"> My Smart Pharmacy </span>\n"
+"						<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 20px;\"/>"
+msgstr "<span class=\"pull-left\"> صيدلي الذكية </span>\n"
+"						<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 20px;\"/>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_theme_pharmacistplace_layout
+msgid "<span class=\"pull-left\"> Upgrade Smart Pharmacy </span>\n"
+"								<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 14px;\"/>"
+msgstr "<span class=\"pull-left\"> ترقية الصيدلة الذكية </span>\n"
+"								<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 14px;\"/>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_theme_pharmacistplace_portal_layout
+msgid "<span class=\"pull-left\"> Upgrade Smart Pharmacy </span>\n"
+"						<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 20px;\"/>"
+msgstr "<span class=\"pull-left\"> ترقية الصيدلة الذكية </span>\n"
+"						<i class=\"fa fa-angle-right pull-right\" style=\"font-size: 20px;\"/>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<span class=\"pull-right\"> Valid Until </span>"
+msgstr "<span class=\"pull-right\"> صالح حتى </span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.pp_saas_portal_my_instances
+msgid "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"							Your Instances\n"
+"						</span>"
+msgstr "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"							مثيلاتك\n"
+"						</span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<span>\n"
+"								Current number of users: \n"
+"							</span>"
+msgstr "<span>\n"
+"								العدد الحالي من المستخدمين: \n"
+"							</span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<span>\n"
+"								Database Storage usage(MB): \n"
+"							</span>"
+msgstr "<span>\n"
+"								استخدام تخزين قاعدة البيانات(MB): \n"
+"							</span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<span>\n"
+"								File Storage usage(MB): \n"
+"							</span>"
+msgstr "<span>\n"
+"								استخدام تخزين الملفات(MB): \n"
+"							</span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.saas_instances_kanban
+msgid "<span> Instance Name </span>"
+msgstr "<span> اسم المثيل </span>"
+
+#. module: pp_saas_portal_demo
+#: model:ir.model,name:pp_saas_portal_demo.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: pp_saas_portal_demo
+#: model:ir.ui.view,arch_db:pp_saas_portal_demo.pp_saas_portal_my_instances
+msgid "Your Instances"
+msgstr "مثيلاتك"
+

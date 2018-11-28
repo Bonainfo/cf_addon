@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+
+<odoo>
+
+	<template id="wk_address_kanban" name="Kanban address for address book">
+		<form action="/my/newaddress" method="POST" class='hide'>
+			<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+			<input type="hidden" name="partner_id" t-att-value="contact.id" />
+			<input type='submit'/>
+		</form>
+		<form action="/my/address" method="post" class=''>
+			<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+			<input type="hidden" name="partner_id" t-att-value="contact.id" />
+			<t t-if='billing'>
+				<input type="hidden" name="addr_mode" t-att-value="('edit', 'billing')" />
+			</t>
+			<t t-if='shipping'>
+				<input type="hidden" name="addr_mode" t-att-value="('edit', 'shipping')" />
+			</t>
+			<a class='a-submit btn btn-link pull-right fa fa-edit no-decoration' title="Edit this address">
+			</a>
+		</form>
+		<div t-att-class="'panel panel-default'">
+			<div class='panel-body' style='min-height: 130px;'>
+				<t t-esc="contact" t-options="dict(widget='contact', fields=['name', 'address'], no_marker=True)"/>
+			</div>
+		</div>
+	</template>
+
+	<template id="wk_my_home_address_book" name="My Address Book">
+		<t t-call="website.layout">
+			<t t-set="additional_title">Address Book</t>
+			<t t-set="no_footer">1</t>
+			<div id="wrap">
+				<div class="container oe_website_sale">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 address_list">
+							<div class="row">
+								<div class="col-md-12">
+									<div>
+										<a href="/my/home" class="fa fa-home fa-2x pull-right" title="Return to home page"/>
+										<h2 class="page-header mt8">Billing Addresses</h2>
+									</div>
+								</div>
+							</div>
+							<div class="row all_shipping">
+								<div class="col-md-12">
+									<div class="row mt8">
+										<div class="col-sm-12 col-md-12 address_list">
+											<form action="/my/address" method="post" class=''>
+												<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+												<input type="hidden" name="partner_id" t-att-value="partner_id.id" />
+												<input type="hidden" name="addr_mode" t-att-value="('new', 'billing')" />
+												<a class='a-submit btn btn-default mb16 btn-block'>
+													<i class="fa fa-plus-square" aria-hidden="true"></i> Add an address
+												</a>
+											</form>
+										</div>
+										<t t-foreach="billings" t-as="bill">
+											<div class="col-sm-12 col-md-6 address_list">
+												<t t-call="website_address_book.wk_address_kanban">
+													<t t-set='contact' t-value="bill"/>
+													<t t-set='readonly' t-value="bool(len(billings)==1)"/>
+													<t t-set='billing' t-value="bool(1)"/>
+												</t>
+											</div>
+										</t>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<h2 class="page-header mt16 mb4">Shipping Addresses</h2>
+								</div>
+							</div>
+							<div class="row all_shipping">
+								<div class="col-md-12">
+									<div class="row mt8">
+										<div class="col-sm-12 col-md-12 address_list">
+											<form action="/my/address" method="post" class=''>
+												<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+												<input type="hidden" name="addr_mode" t-att-value="('new', 'shipping')" />
+												<input type="hidden" name="partner_id" t-att-value="partner_id.id" />
+												<a class='a-submit btn btn-default mb16 btn-block'>
+													<i class="fa fa-plus-square" aria-hidden="true"></i> Add an address
+												</a>
+											</form>
+										</div>
+										<t t-foreach="shippings" t-as="ship">
+											<div class="col-sm-12 col-md-6 address_list">
+												<t t-call="website_address_book.wk_address_kanban">
+													<t t-set='contact' t-value="ship"/>
+													<t t-set='readonly' t-value="bool(len(shippings)==1)"/>
+													<t t-set='shipping' t-value="bool(1)"/>
+												</t>
+											</div>
+										</t>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+	<template id="my_address" name="Address Management">
+		<t t-call="website.layout">
+			<t t-set="additional_title">Address</t>
+			<t t-set="no_footer">1</t>
+			<div id="wrap">
+				<div class="container oe_website_sale">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 address_list">
+							<div class="row">
+								<div class="col-md-12">
+									<div>
+										<a  href="/my/addressbook" 
+												class="btn btn-primary pull-right mb32" title="Return to address book">
+											<span class="fa fa-long-arrow-left" /><span> Back </span>
+										</a>
+										<t t-if="mode[1] == 'billing'">
+											<h2 class="page-header mt8 ml16">Billing Address
+											</h2>
+										</t>
+										<t t-if="mode[1] == 'shipping'">
+											<h2 class="page-header mt8 ml16">Shipping Address </h2>
+										</t>
+										<form name="/my/newaddress" method="post" class="checkout_autoformat">
+											<div t-attf-class="form-group #{error.get('name') and 'has-error' or ''} col-md-12 div_name">
+												<label class="control-label" for="name">Name</label>
+												<input  type="text" name="name" class="form-control" 
+																t-att-value="'name' in checkout and checkout['name']" />
+											</div>
+											<div class="clearfix" />
+											<t t-if="mode[1] == 'billing'">
+												<div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-md-6" id="div_email">
+													<label class="control-label" for="email">Email</label>
+													<input  type="email" name="email" class="form-control" 
+																	t-att-value="'email' in checkout and checkout['email']" />
+												</div>
+											</t>
+											<div t-attf-class="form-group #{error.get('phone') and 'has-error' or ''} col-md-6" id="div_phone">
+												<label class="control-label" for="phone">Phone</label>
+												<input  type="tel" name="phone" class="form-control" 
+																t-att-value="'phone' in checkout and checkout['phone']" />
+											</div>
+											<div class="clearfix" />
+											<t t-if="mode == ('new', 'billing')">
+												<div t-attf-class="form-group col-md-6">
+													<label class="form-group #{error.get('company_name') and 'has-error' or ''} col-md-6" for="company_name">
+														Company Name
+													</label>
+													<input  type="text" name="company_name" class="form-control" 
+																	t-att-value="'company_name' in checkout and checkout['company_name']" />
+												</div>
+												<div t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-md-6 div_vat">
+													<label class="control-label font-weight-normal label-optional" for="vat">
+														TIN / VAT
+													</label>
+													<input  type="text" name="vat" class="form-control"
+																	t-att-value="'vat' in checkout and checkout['vat']" />
+												</div>
+											</t>
+											<div class="clearfix" />
+											<div t-attf-class="form-group #{error.get('street') and 'has-error' or ''} col-md-12 div_street">
+												<label class="control-label" for="street">
+													Street <span class="hidden-xs"> and Number</span>
+												</label>
+												<input  type="text" name="street" class="form-control" 
+																t-att-value="'street' in checkout and checkout['street']" />
+											</div>
+											<div t-attf-class="form-group #{error.get('street2') and 'has-error' or ''} col-md-12 div_street2">
+												<label class="control-label label-optional" for="street2">Street 2</label>
+												<input  type="text" name="street2" class="form-control" 
+																t-att-value="'street2' in checkout and checkout['street2']" />
+											</div>
+											<div class="clearfix" />
+											<t  t-set='zip_city' 
+													t-value='country and [x for x in country.get_address_fields() if x in ["zip", "city"]] or ["city", "zip"]'/>
+											<t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')">
+												<div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+													<label class="control-label label-optional" for="zip">Zip Code</label>
+													<input  type="text" name="zip" class="form-control" 
+																	t-att-value="'zip' in checkout and checkout['zip']" />
+												</div>
+											</t>
+											<div t-attf-class="form-group #{error.get('city') and 'has-error' or ''} col-sm-8 div_city">
+												<label class="control-label" for="city">City</label>
+												<input  type="text" name="city" class="form-control" 
+																t-att-value="'city' in checkout and checkout['city']" />
+											</div>
+											<t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')">
+												<div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-sm-4 div_zip">
+													<label class="control-label label-optional" for="zip">Zip Code</label>
+													<input  type="text" name="zip" class="form-control" 
+																	t-att-value="'zip' in checkout and checkout['zip']" />
+												</div>
+											</t>
+											<div class="clearfix" />
+											<div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''} col-md-6 div_country">
+												<label class="control-label" for="country_id">Country</label>
+												<select id="country_id" name="country_id" class="form-control">
+													<option value="">Country...</option>
+													<t t-foreach="countries" t-as="c">
+														<option t-att-value="c.id" 
+																		t-att-selected="c.id == (country and country.id or -1)">
+															<t t-esc="c.name" />
+														</option>
+													</t>
+												</select>
+											</div>
+											<div  t-attf-class="form-group #{error.get('state_id') and 'has-error' or ''} col-md-6 div_state" 
+														t-att-style="(not country or not country.state_ids) and 'display: none'">
+												<label class="control-label" for="state_id">State / Province</label>
+												<select name="state_id" class="form-control" data-init="1">
+													<option value="">State / Province...</option>
+													<t t-foreach="country and country.state_ids or []" t-as="s">
+														<option t-att-value="s.id" 
+																		t-att-selected="s.id == ('state_id' in checkout and country and checkout['state_id'] != '' and int(checkout['state_id']))">
+															<t t-esc="s.name" />
+														</option>
+													</t>
+												</select>
+											</div>
+
+											<input  type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+											<input  type="hidden" name="submitted" value="1" />
+											<input  type="hidden" name="partner_id" t-att-value="partner_id or '0'" />
+											<input  type="hidden" name="callback" t-att-value="callback" />
+											<input  type="hidden" name="addr_mode" t-att-value="mode" />
+											<div class="clearfix"/>
+											<div style='padding: 0 15px'>
+												<a class="btn btn-primary pull-right mb32 a-submit a-submit-disable a-submit-loading">
+													<t t-if="mode[0] == 'new'">
+														<span>Add </span><span class="fa fa-long-arrow-right" />
+													</t>
+													<t t-if="mode[0] == 'edit'">
+														<span>Save </span>
+													</t>
+												</a>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+
+</odoo>

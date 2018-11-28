@@ -1,0 +1,744 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_collectional_page
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 09:07+0000\n"
+"PO-Revision-Date: 2018-09-20 09:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "---Select Operator---"
+msgstr "---Select Operator---"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "---Select Product Field---"
+msgstr "---Select Product Field---"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_group_carousel
+msgid "<i class=\"fa fa-chevron-left fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Previous</span>"
+msgstr "<i class=\"fa fa-chevron-left fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Previous</span>"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_group_carousel
+msgid "<i class=\"fa fa-chevron-right fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Next</span>"
+msgstr "<i class=\"fa fa-chevron-right fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Next</span>"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_active
+msgid "Active"
+msgstr "نشط"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,help:website_collectional_page.field_website_collectional_group_collectional_page_ids
+msgid "Add collection pages in this collection group"
+msgstr "Add collection pages in this collection group"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,help:website_collectional_page.field_website_collectional_page_template_ids
+msgid "Add products on which this collection"
+msgstr "Add products on which this collection"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,condition_match:0
+msgid "All Conditions"
+msgstr "All Conditions"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,condition_match:0
+msgid "Any Condition"
+msgstr "Any Condition"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Apply"
+msgstr "التقدم"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,help:website_collectional_page.field_product_condition_field
+msgid "Associated field in the product form."
+msgstr "Associated field in the product form."
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,option:0
+msgid "Automatically select products based on conditions"
+msgstr "Automatically select products based on conditions"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_website_published
+msgid "Available in the website"
+msgstr "Available in the website"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Banner"
+msgstr "Banner"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Banner should be of size 1110 X 250 for a perfect view."
+msgstr "Banner should be of size 1110 X 250 for a perfect view."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_block_pos
+msgid "Block Position"
+msgstr "Block Position"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_boolean
+msgid "Boolean"
+msgstr "Boolean"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_char
+msgid "Char"
+msgstr "Char"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Choose Products"
+msgstr "Choose Products"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,page_type:0
+msgid "Collection Banner Only"
+msgstr "Collection Banner Only"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_group_id
+#: model:ir.ui.menu,name:website_collectional_page.menu_website_collectional_group
+msgid "Collection Group"
+msgstr "Collection Group"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Collection Menu Setting"
+msgstr "Collection Menu Setting"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_collectional_id
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_collectional_page_ids
+#: model:ir.ui.menu,name:website_collectional_page.menu_website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_formview
+msgid "Collection Page"
+msgstr "Collection Page"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_collectional_page_label
+msgid "Collection Page Link Label"
+msgstr "Collection Page Link Label"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,page_type:0
+msgid "Collection Products"
+msgstr "Collection Products"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_name
+msgid "Condition Name"
+msgstr "Condition Name"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_product_condition_ids
+msgid "Condition(s)"
+msgstr "Condition(s)"
+
+#. module: website_collectional_page
+#: model:ir.actions.act_window,name:website_collectional_page.website_collectional_condition_action
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Conditions"
+msgstr "الشروط"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.wk_website_collectional_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:46
+#, python-format
+msgid "Consumable"
+msgstr "Consumable"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_create_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_create_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_create_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_create_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_create_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_create_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_create_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_create_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Custom Url"
+msgstr "Custom Url"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_description
+msgid "Description"
+msgstr "الوصف"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Description..."
+msgstr "Description..."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_display_block
+msgid "Display Block"
+msgstr "Display Block"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Display Info Block"
+msgstr "Display Info Block"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_display_name
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_display_name
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_display_name
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_display_name
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_page_type
+msgid "Display On Website"
+msgstr "Display On Website"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Display info block on banner"
+msgstr "Display info block on banner"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_group_type
+msgid "Display on website"
+msgstr "Display on website"
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:219
+#, python-format
+msgid "Entered value is not valid."
+msgstr "Entered value is not valid."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_field_type
+msgid "Field Type"
+msgstr "نوع الحقل"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_float
+msgid "Float"
+msgstr "عشري"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_html
+msgid "Html"
+msgstr "Html"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_id
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_id
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_id
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_id
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_image
+msgid "Image"
+msgstr "الصورة"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Info Block Position"
+msgstr "Info Block Position"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_integer
+msgid "Integer"
+msgstr "Integer"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Label for collectional page on which all collections will be shown."
+msgstr "Label for collectional page on which all collections will be shown."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator___last_update
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition___last_update
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group___last_update
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page___last_update
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_write_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_write_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_write_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_write_uid
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_write_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_write_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_write_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_write_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,block_pos:0
+msgid "Left"
+msgstr "Left"
+
+#. module: website_collectional_page
+#: model:res.groups,name:website_collectional_page.collectional_user_access
+msgid "Manage Collection Pages"
+msgstr "Manage Collection Pages"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,option:0
+msgid "Manually select products"
+msgstr "Manually select products"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_many2many
+msgid "Many2many"
+msgstr "Many2many"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_many2one
+msgid "Many2one"
+msgstr "Many2one"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Meta Description can be 160 characters long."
+msgstr "Meta Description can be 160 characters long."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Meta Description should not be more than 160 characters."
+msgstr "Meta Description should not be more than 160 characters."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Meta Description..."
+msgstr "Meta Description..."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_meta_description
+msgid "Meta description"
+msgstr "Meta description"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_page_title
+msgid "Meta title"
+msgstr "Meta title"
+
+#. module: website_collectional_page
+#: selection:website.collectional.group,group_type:0
+msgid "Multi Collection Carousel"
+msgstr "Multi Collection Carousel"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_n_groups
+msgid "No Collections Published Yet"
+msgstr "No Collections Published Yet"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.wk_collection_product_view_website_sale
+msgid "No product defined."
+msgstr "لم يتم العثور على أي منتج."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_group_carousel
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_group_simple
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_page_banner
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_page_product
+#: model:ir.ui.view,arch_db:website_collectional_page.wk_collection_product_view_website_sale
+msgid "Not found"
+msgstr "Not found"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_operator
+msgid "Operator"
+msgstr "المعامل"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_operator_formview
+msgid "Operator Applicable on"
+msgstr "Operator Applicable on"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_name
+msgid "Operator Name"
+msgstr "Operator Name"
+
+#. module: website_collectional_page
+#: model:ir.model,name:website_collectional_page.model_condition_operator
+msgid "Operator Wil Use In Condition"
+msgstr "Operator Wil Use In Condition"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_operator_formview
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_operator_treeview
+msgid "Operators"
+msgstr "Operators"
+
+#. module: website_collectional_page
+#: model:ir.actions.act_window,name:website_collectional_page.website_collectional_page_operator_action
+msgid "Operators For  Collection Page"
+msgstr "Operators For  Collection Page"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_option
+msgid "Option"
+msgstr "خيار"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Page Title..."
+msgstr "Page Title..."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Parameters For Conditions"
+msgstr "Parameters For Conditions"
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:341
+#, python-format
+msgid "Please add atleast one collection."
+msgstr "Please add atleast one collection."
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:237
+#, python-format
+msgid "Please add some products to publish this Collection Page."
+msgstr "Please add some products to publish this Collection Page."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Price:"
+msgstr "السعر:"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_treeview
+msgid "Product 360 View Images"
+msgstr "Product 360 View Images"
+
+#. module: website_collectional_page
+#: model:ir.model,name:website_collectional_page.model_product_condition
+msgid "Product Condition"
+msgstr "Product Condition"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_field
+msgid "Product Field"
+msgstr "Product Field"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Product Review"
+msgstr "Product Review"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_template_ids
+msgid "Products"
+msgstr "المنتجات"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_condition_match
+msgid "Products must match"
+msgstr "Products must match"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_formview
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Publish On Website"
+msgstr "Publish On Website"
+
+#. module: website_collectional_page
+#: selection:website.collectional.group,state:0
+#: selection:website.collectional.page,state:0
+msgid "Published"
+msgstr "Published"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_published_date
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_publish_date
+msgid "Published Date"
+msgstr "Published Date"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Refresh Product List"
+msgstr "Refresh Product List"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Remove All Products"
+msgstr "Remove All Products"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page,block_pos:0
+msgid "Right"
+msgstr "Right"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "SEO Meta Information"
+msgstr "SEO Meta Information"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Select position where to display block on banner."
+msgstr "Select position where to display block on banner."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_formview
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Select the type of display on website."
+msgstr "Select the type of display on website."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Select where to show menu for collections"
+msgstr "Select where to show menu for collections"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Select whether to display information block on banner or not."
+msgstr "Select whether to display information block on banner or not."
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Selected Products"
+msgstr "Selected Products"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Selected Products On Conditions"
+msgstr "Selected Products On Conditions"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_selection
+msgid "Selection"
+msgstr "Selection"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Selet where to display the collection menu in website"
+msgstr "Selet where to display the collection menu in website"
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:46
+#, python-format
+msgid "Service"
+msgstr "Service"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_group_carousel
+msgid "Shop Now"
+msgstr "Shop Now"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_config_show_collectional_menu
+msgid "Show Collection Menu"
+msgstr "Show Collection Menu"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page.config,show_collectional_menu:0
+msgid "Show in footer"
+msgstr "Show in footer"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page.config,show_collectional_menu:0
+msgid "Show in header"
+msgstr "Show in header"
+
+#. module: website_collectional_page
+#: selection:website.collectional.page.config,show_collectional_menu:0
+msgid "Show in header and footer"
+msgstr "Show in header and footer"
+
+#. module: website_collectional_page
+#: selection:website.collectional.group,group_type:0
+msgid "Single Collection Carousel"
+msgstr "Single Collection Carousel"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_group_state
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_state
+msgid "State"
+msgstr "المحافظة"
+
+#. module: website_collectional_page
+#: code:addons/website_collectional_page/models/website_collectional_page.py:47
+#, python-format
+msgid "Stockable Product"
+msgstr "Stockable Product"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_operator
+msgid "Symbol/Char"
+msgstr "Symbol/Char"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_text
+msgid "Text"
+msgstr "النّص"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.wk_collection_product_view_website_sale
+msgid "This collection page is not published yet."
+msgstr "This collection page is not published yet."
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_name
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Title"
+msgstr "اللقب"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_product_count
+msgid "Total Products:"
+msgstr "Total Products:"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_url
+msgid "URL"
+msgstr "العنوان الإلكتروني (URL)"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_formview
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Unpublish On Website"
+msgstr "Unpublish On Website"
+
+#. module: website_collectional_page
+#: selection:website.collectional.group,state:0
+#: selection:website.collectional.page,state:0
+msgid "Unpublished"
+msgstr "Unpublished"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_website_collectional_page_url_handler
+msgid "Url Handler"
+msgstr "Url Handler"
+
+#. module: website_collectional_page
+#: sql_constraint:website.collectional.page:0
+msgid "Url Handler must be unique for every collection !"
+msgstr "Url Handler must be unique for every collection !"
+
+#. module: website_collectional_page
+#: model:res.groups,comment:website_collectional_page.collectional_user_access
+msgid "User will be able to access collectinal module"
+msgstr "User will be able to access collectinal module"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_product_condition_value
+msgid "Value"
+msgstr "القيمة"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Variants"
+msgstr "تنوعات"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_page_banner
+#: model:ir.ui.view,arch_db:website_collectional_page.collections_page_product
+msgid "View More"
+msgstr "View More"
+
+#. module: website_collectional_page
+#: model:ir.model,name:website_collectional_page.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: website_collectional_page
+#: model:ir.actions.act_window,name:website_collectional_page.website_collectional_group_action
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_formview
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_group_treeview
+msgid "Website Collection Group"
+msgstr "Website Collection Group"
+
+#. module: website_collectional_page
+#: model:ir.actions.act_window,name:website_collectional_page.action_website_collectional_page_conf
+#: model:ir.actions.act_window,name:website_collectional_page.website_collectional_page_action
+#: model:ir.model,name:website_collectional_page.model_website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_formview
+msgid "Website Collection Page"
+msgstr "Website Collection Page"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.website_collectional_page_view
+msgid "Website Collectional Page"
+msgstr "Website Collectional Page"
+
+#. module: website_collectional_page
+#: model:ir.model.fields,field_description:website_collectional_page.field_condition_operator_wk_one2many
+msgid "one2many"
+msgstr "one2many"
+
+#. module: website_collectional_page
+#: model:ir.ui.view,arch_db:website_collectional_page.wk_collection_product_view_website_sale
+msgid "pagination form-inline"
+msgstr "pagination form-inline"
+
+#. module: website_collectional_page
+#: model:ir.model,name:website_collectional_page.model_website_collectional_group
+msgid "website.collectional.group"
+msgstr "website.collectional.group"
+
+#. module: website_collectional_page
+#: model:ir.model,name:website_collectional_page.model_website_collectional_page_config
+msgid "website.collectional.page.config"
+msgstr "website.collectional.page.config"
+

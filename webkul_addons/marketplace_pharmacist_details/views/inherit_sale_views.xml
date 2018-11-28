@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+		<record id="mp_pharmacy_details_inherit_view_order_form" model="ir.ui.view">
+			<field name="name">sale.order.form.inherit.pharmacy.details</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_confirm']" position="attributes">
+					<attribute name="context">{'check_pharmacy_id':1}</attribute>
+				</xpath>
+				<xpath expr="//form/sheet//field[@name='marketplace_seller_id']" position="after">
+					<field name="pharmacy_id" options="{'no_create_edit':True}"
+						attrs="{'invisible': [('marketplace_seller_id','=',	False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="mp_pharmacy_details_inherit_invoice_form" model="ir.ui.view">
+			<field name="name">account.invoice.form.inherit.pharmacy.details</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form/sheet//field[@name='team_id']" position="after">
+					<field name="id"/>
+					<field name="pharmacy_id" options="{'no_create_edit':True}"
+						attrs="{'invisible': ['!',('id','=',False),('pharmacy_id','=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="mp_details_inherit_mp_checkout_orders_form_view" model="ir.ui.view">
+			<field name="name">sale.order.form.mp.details.inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="marketplace_seller_wise_checkout.mp_checkout_orders_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='confirmation_date']" position="after">
+					<field name="pharmacy_id" options="{'no_create_edit':True}" readonly="1"/>
+				</xpath>
+				<xpath expr="//button[@name='button_seller_approve_order']" position="attributes">
+					<attribute name="context">{'check_pharmacy_id':1}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+    </data>
+</odoo>

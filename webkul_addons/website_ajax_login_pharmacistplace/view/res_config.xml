@@ -1,0 +1,59 @@
+<odoo>
+	<data>
+		<record id="wk_inherit_website_acess" model="ir.ui.view">
+		<field name="name">website ajax login</field>
+		<field name="model">website.config.settings</field>
+		<field name="inherit_id" ref="website.view_website_config_settings"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='social']" position="after">
+				<group string="Web Access">
+					<label for="auth_signup_uninvited" string=" Sign UP"/>
+					<div>
+						<field name="auth_signup_uninvited" class="oe_inline" />
+						<label for="auth_signup_uninvited" string="Allow Sign UP"/>
+					</div>
+					<label for="website_odoo_login" string="Odoo"/>
+					<div name="language_ids" class="oe_inline">
+						<field name="website_odoo_login" class="oe_inline" widget="link"/>
+						<label for="website_odoo_login" string="Sign UP With Odoo"/>
+					</div>
+					<label for="website_facebook_login" string="Facebook"/>
+					<div name="language_ids" class="oe_inline">
+						<field name="website_facebook_login" class="oe_inline"/>
+						<label for="website_facebook_login" string="Sign UP With Facebook"/>
+						<group attrs="{'invisible':[('website_facebook_login','=',False)]}" >
+                            <group>
+							    <field name="facebook_client_id" class="oe_inline" placeholder="eg.345848211540994"/>
+                            </group>
+                            <group/>
+                            <a href="https://webkul.com/blog/how-to-generate-facebook-app-id/" target="_blank" class="oe_link"><i class="fa fa-fw fa-arrow-right"></i>Tutorial</a>
+						</group>
+					</div>
+					<label for="website_gmail_login" string="Google"/>
+					<div>
+						<field name="website_gmail_login" class="oe_inline"/>
+						<label for="website_gmail_login" string="Sign UP With Google"/>
+						<group   attrs="{'invisible':[('website_gmail_login','=',False)]}" >
+                            <group>
+							    <field name="google_client_id" class="oe_inline" placeholder="eg 123-xyz.apps.googleusercontent.com"/>
+                            </group>
+                            <group/>
+                            <a href="https://www.odoo.com/documentation/user/online/general/auth/google.html" target="_blank" class="oe_link"><i class="fa fa-fw fa-arrow-right"></i>Tutorial</a>
+						</group>
+					</div>
+					<label for="show_ajax_form_always" string="Ajax Form"/>
+					<div>
+						<field name="show_ajax_form_always" class="oe_inline" />
+						<label for="show_ajax_form_always"/>
+					</div>
+					<label for="wk_block_ui" string="Block UI"/>
+					<div name="language_ids" class="oe_inline">
+						<field name="wk_block_ui" class="oe_inline" widget="link"/>
+						<label for="wk_block_ui"/>
+					</div>
+				</group>
+			</xpath>
+		</field>
+		</record>
+	</data>
+</odoo>

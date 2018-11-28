@@ -1,0 +1,31 @@
+
+/*--------------------------
+ Common Font
+---------------------------*/
+body {
+    font-size: 14px;
+    color: #333333;
+    font-family: 'FSAlbert Regular', sans-serif;
+    line-height: 24px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* .avg-rating-cir .ab {
+    background-image: linear-gradient(450deg, transparent 50%, rgb(39, 40, 102) 50%),
+    linear-gradient(90deg, rgb(39, 40, 102) 50%, transparent 50%) !important;
+}
+
+.recommendation-cir .ab {
+    background-image: linear-gradient(450deg, transparent 50%, rgb(18, 174, 142) 50%),
+    linear-gradient(90deg, rgb(18, 174, 142) 50%, transparent 50%) !important;
+} */
+
+.review-tiles .fa-thumbs-up{
+    color:rgb(39, 40, 102);
+}
+
+.rating-bar-star{
+    height: 130px;
+    width: 130px;
+}

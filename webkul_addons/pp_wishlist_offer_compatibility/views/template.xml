@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+
+        <!-- <template id="assets_frontend_show_mp_t_and_c" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/marketplace_theme_pharmacistplace_compatibility/static/src/js/product_search.js"></script>
+            </xpath>
+        </template> -->
+
+		<template id="pp_wlo_wishlist_list_template" inherit_id="website_wishlist.wishlist_list_template">
+			<xpath expr="//th[4]" position="before">
+				<th width="100">Discount &amp; Bonus</th>
+			</xpath>
+			<xpath expr="//td[5]" position="before">
+				<td class="pp-align-middle">
+					<div class="">
+						<span class="bonus_icon_info"/>
+						<span class="pp-brand-info" style="vertical-align: super;">
+							<t t-esc="int(line.template_id.max_percentage_bonus)"/> % Bonus
+						</span>
+					</div>
+					<div class="">
+						<span class="pp_discount_icon_primary" style="margin: 0px;"/>
+						<span class="pp-brand-primary" style="vertical-align: super;">
+							<t t-esc="int(line.template_id.pharmacy_discount)"/> % Off
+						</span>                            
+					</div>
+				</td>
+			</xpath>
+		</template>
+
+		<template id="pp_wlo_wishlist_grid_view_template" inherit_id="website_wishlist.wishlist_grid_view_template">
+			<xpath expr="//div[hasclass('pp_border_muted')]//a" position="before">
+				<div style="display:flex; border-bottom:none;max-height: 50px;overflow: hidden;" class="">
+                    <t t-set="max_percentage_bonus" t-value="line.template_id.max_percentage_bonus"/>
+					<t t-set="pharmacy_discount" t-value="line.template_id.pharmacy_discount"/>					
+                    <div t-if="max_percentage_bonus" t-att-style="'width:50%;border-right: 1px solid white;' if max_percentage_bonus and pharmacy_discount else 'width:100%;'" class="pp-bg-info pp_product_name">
+                        <div class="t-cell-middle">
+                            <span class="bonus_icon"/>
+                            <span class="pp-text-white" style="vertical-align: super;">
+                                <t t-esc="int(max_percentage_bonus)"/> % Bonus
+                            </span>
+                        </div>
+                    </div>
+                    <div t-if="pharmacy_discount" t-att-style="'width:50%' if max_percentage_bonus and pharmacy_discount else 'width:100%;'" class="pp-bg-primary pp_product_name">
+                        <div class="t-cell-middle">
+                            <span class="pp-text-white" style="vertical-align: super;">
+                                <t t-esc="int(pharmacy_discount)"/> % Off
+                            </span>                            
+                            <span class="pp_discount_icon"/>
+                        </div>
+                    </div>
+                </div>
+			</xpath>
+		</template>
+
+		<template id="pp_inherit_prod_line_to_show_discount" inherit_id="theme_pharmacistplace.theme_pharmacistplace_cart_lines" name="Product Cart Lines">
+            <xpath expr="//i[hasclass('fa-2x')]" position="attributes">
+                <attribute name="t-if">not line.is_complemantory_line</attribute>
+            </xpath>
+        </template>
+		
+    </data>
+</odoo>

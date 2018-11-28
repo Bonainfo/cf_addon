@@ -1,0 +1,9 @@
+--web_cat-id-8---mob_cat-id-29-----
+ ==web_cat.name-u'Speakers'--===--mob_cat-name-u'Speakers'-====
+ --web_cat-parent-u'Devices'---mob_cat-parent-u'Devices'-----
+
+
+_logger.info("--web_cat-id-%r---mob_cat-id-%r-----", web_cat.id, web_cat.mobikul_cat_id.id)
+_logger.info("==web_cat.name-%r--===--mob_cat-name-%r-====",web_cat.name,web_cat.mobikul_cat_id.name,)
+_logger.info("--web_cat-parent-%r---mob_cat-parent-%r-----", web_cat.parent_id.name, web_cat.mobikul_cat_id.parent_id.name)
+_logger.info("=============================")

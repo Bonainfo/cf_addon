@@ -1,0 +1,22 @@
+<odoo>
+
+<!-- <template id="my_account_link" name="Link to frontend portal" inherit_id="website.layout">
+   <xpath expr="//*[@id='products']" position="inside">
+
+         <li><a href="/affiliate/">Affiliate</a></li>
+
+     </xpath>
+   </template> -->
+
+<template id="my_affiliate_link" name="Link to My Affiliate Account" inherit_id="website.layout" priority="100">
+
+    <xpath expr="//li[@id='o_logout']" position="before">
+    	<t t-if="user_id.partner_id.is_affiliate">
+    		 <li><a href="/affiliate/about" role="menuitem">My Affiliate</a></li>
+       	</t>
+
+    </xpath>
+
+</template>
+
+  </odoo>

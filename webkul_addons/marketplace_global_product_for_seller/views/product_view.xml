@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    
+    <record id="wk_product_template_inherit_global_product" model="ir.ui.view">
+        <field name="name">Add Global Product Filter</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_search_view_website"/>
+        <field name="arch" type="xml">
+            <filter name="published" position="after">
+                <filter string="Unpublished" name="unpublished" domain="[('website_published', '=', False)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="wk_pt_inherit_global_nonglobal_filter" model="ir.ui.view">
+        <field name="name">Add Global/NonGlobal Product Filter</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="pricelist_id" position="after">
+                <separator/>
+                <filter string="Global" name="global" domain="[('is_global_product', '=', True)]"/>
+                <filter string="Non-Global" name="non_global" domain="[('is_global_product', '=', False)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="wk_mp_pt_inherit_global_nonglobal_filter" model="ir.ui.view">
+        <field name="name">Add Global/NonGlobal Product Filter</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="odoo_marketplace.wk_product_template_seller_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <separator/>
+                <filter string="Global" name="global" domain="[('is_global_product', '=', True)]"/>
+                <filter string="Non-Global" name="non_global" domain="[('is_global_product', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="publish_all_product_template_server_action" model="ir.actions.server">
+        <field name="name">Publish All</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.publish_all_product()
+        </field>
+    </record>
+
+    <record id="publish_all_product_template_action_binding" model="ir.values">
+        <field name="model_id" ref="product.model_product_template" />
+        <field name="name">Publish All Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.template</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('publish_all_product_template_server_action'))" />
+    </record>
+
+    <record id="unpublish_all_product_template_server_action" model="ir.actions.server">
+        <field name="name">Unpublish All</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.unpublish_all_product()
+        </field>
+    </record>
+
+    <record id="unpublish_all_product_template_action_binding" model="ir.values">
+        <field name="model_id" ref="product.model_product_template" />
+        <field name="name">Unpublish All Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.template</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('unpublish_all_product_template_server_action'))" />
+    </record>
+
+    <record id="publish_all_product_product_server_action" model="ir.actions.server">
+        <field name="name">Publish All</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.publish_all_product()
+        </field>
+    </record>
+
+    <record id="publish_all_product_product_action_binding" model="ir.values">
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="name">Publish All Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.product</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('publish_all_product_product_server_action'))" />
+    </record>
+
+    <record id="unpublish_all_product_product_server_action" model="ir.actions.server">
+        <field name="name">Unpublish All</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.unpublish_all_product()
+        </field>
+    </record>
+
+    <record id="unpublish_all_product_product_action_binding" model="ir.values">
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="name">Unpublish All Products</field>
+        <field name="key2">client_action_multi</field>
+        <field name="key">action</field>
+        <field name="model">product.product</field>
+        <field name="value" eval="'ir.actions.server,' + str(ref('unpublish_all_product_product_server_action'))" />
+    </record>
+
+</odoo>

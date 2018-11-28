@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_footer_menu_group_public,footer_menu_group,model_footer_menu_group,,1,1,1,0
+access_footer_menu_link_public,footer_menu_link,model_footer_menu_link,,1,1,1,0
+

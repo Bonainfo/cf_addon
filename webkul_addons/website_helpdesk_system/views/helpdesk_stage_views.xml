@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="helpdesk_stage_search" model="ir.ui.view">
+        <field name="name">Stage - Search</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="arch" type="xml">
+            <search string="Stage Search">
+                <field name="name"/>
+                <field name="sequence"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="helpdesk_stage_tree" model="ir.ui.view">
+        <field name="name">helpdesk.stage.tree</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Stages">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_stage_form" model="ir.ui.view">
+        <field name="name">helpdesk.stage.form</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Stage">
+                <group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="fold"/>
+                    </group>
+                </group>
+                <separator string="Requirements"/>
+                <field name="requirements" nolabel="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_stage_action" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="res_model">helpdesk.stage</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="helpdesk_stage_tree"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click to set a new stage in your support pipeline.
+          </p><p>
+            Stages allow support to easily track how a specific ticket
+            is positioned in the support cycle.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_helpdesk_stage_act"
+        name="Stages"
+        sequence="20"
+        action="helpdesk_stage_action"
+        parent="menu_helpdesk_config"/>
+
+    <record id="helpdesk_categories_search" model="ir.ui.view">
+        <field name="name">Category - Search</field>
+        <field name="model">helpdesk.category</field>
+        <field name="arch" type="xml">
+            <search string="Category Search">
+                <field name="name"/>
+                <field name="sequence"/>
+                <field name="default_team_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="helpdesk_category_tree" model="ir.ui.view">
+        <field name="name">helpdesk.category.tree</field>
+        <field name="model">helpdesk.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories">
+                <field name="sequence" widget="handle"/>
+                <!-- <field name="name"/> -->
+                <field name="display_name" />
+                <field name="default_team_id"/>
+                <field name="manager_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_category_form" model="ir.ui.view">
+        <field name="name">helpdesk.category.form</field>
+        <field name="model">helpdesk.category</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Category">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Topic....."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="default_team_id"/>
+                            <field name="create_uid" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="manager_id"/>
+                            
+                            
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" >
+                            <field name="description" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_category_action" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">helpdesk.category</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="helpdesk_category_tree"/>
+    </record>
+
+    <menuitem
+        id="menu_helpdesk_category_action"
+        name="Categories"
+        sequence="20"
+        action="helpdesk_category_action"
+        parent="menu_helpdesk_config"/>
+
+    <record id="helpdesk_topic_search" model="ir.ui.view">
+        <field name="name">Topic - Search</field>
+        <field name="model">helpdesk.topic</field>
+        <field name="arch" type="xml">
+            <search string="Topic Search">
+                <field name="name"/>
+                <field name="sequence"/>
+                <field name="category_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="helpdesk_topic_tree" model="ir.ui.view">
+        <field name="name">helpdesk.topic.tree</field>
+        <field name="model">helpdesk.topic</field>
+        <field name="arch" type="xml">
+            <tree string="Topics">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_topic_form" model="ir.ui.view">
+        <field name="name">helpdesk.topic.form</field>
+        <field name="model">helpdesk.topic</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Topics">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Topic....."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="create_uid" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="create_date"/>
+                            
+                            
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" >
+                            <field name="description" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="helpdesk_topic_action" model="ir.actions.act_window">
+        <field name="name">Topics</field>
+        <field name="res_model">helpdesk.topic</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="helpdesk_topic_tree"/>
+    </record>
+
+    <menuitem
+        id="menu_helpdesk_topic_action"
+        name="Topics"
+        sequence="21"
+        action="helpdesk_topic_action"
+        parent="menu_helpdesk_config"/>
+
+
+</odoo>

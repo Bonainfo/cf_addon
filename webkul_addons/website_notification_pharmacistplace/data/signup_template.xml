@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="pp_website_signup_email_template" model="mail.template">
+            <field name="name">Signup Email Template</field>
+            <field name="email_from">${(object.company_id.partner_id.email or '')|safe}</field>
+            <field name="subject">${('Welcome to '+ object.company_id.name or '')|safe}</field>
+            <field name="email_to">${(object.email or '')|safe}</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html">
+                <![CDATA[
+            <style>
+                body {
+                background-color:#F2F2F2;
+                }
+            </style>
+            
+            <div style="margin-top:18px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size:19px; font-weight:bold; color:#666666;">
+            Thanks for Sign Up. Welcome to our company.
+            </div>
+                ]]>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

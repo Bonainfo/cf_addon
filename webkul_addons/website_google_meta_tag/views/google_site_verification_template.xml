@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <template id="google_site_verification_meta_tag_in_layout" inherit_id="website.layout">
+            <meta name="generator" position="before">
+                <meta name="google-site-verification" content="AphdXlxtqH87UT2hUOcYfyXzw49UCHDm1iquLhbJXVE"/>
+
+				<!-- We should make our website no indexed to avoid adding us to search engine results by crawlers -->
+				<meta name="robots" content="noindex, nofollow"/>
+
+				<!-- Google Tag Manager -->
+				<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','dataLayer','GTM-P6K8S99');</script>
+				<!-- End Google Tag Manager -->
+            </meta>
+        </template>
+
+		<template id="google_tag_manager" inherit_id="website.layout" priority="1">
+			<xpath expr="//div[@id='wrapwrap']" position="before">
+				<!-- Google Tag Manager (noscript) -->
+				<noscript>
+					<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6K8S99" height="0" width="0" style="display:none;visibility:hidden">
+					</iframe>
+				</noscript>
+				<!-- End Google Tag Manager (noscript) -->
+			</xpath>
+		</template>
+    </data>
+</odoo>

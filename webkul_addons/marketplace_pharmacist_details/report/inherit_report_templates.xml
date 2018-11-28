@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="mp_details_inherit_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div name="pharmacy_id" t-if="doc.marketplace_seller_id and doc.pharmacy_id" class="col-xs-3">
+                <strong>Pharmacy Id:</strong>
+                <p><span t-field="doc.marketplace_seller_id.name"/> (<span t-field="doc.pharmacy_id.pharmacist_id"/>)</p>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

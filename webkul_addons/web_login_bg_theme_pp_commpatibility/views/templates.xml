@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+
+        <template id="pp_website_login_back_assets_frontend" inherit_id="website.assets_frontend" name="PP website login">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="web_login_bg_theme_pp_commpatibility/static/src/css/login.css" />
+            </xpath>
+        </template>
+
+        <template id="upd_view_signup_page" inherit_id="website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup">
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']" position="attributes">
+                <attribute name="class"> mt32 hidden-xs col-md-offset-1 col-md-10 pull-center</attribute>
+            </xpath>
+        </template>
+
+        <template id="upd_view_reset_passw_page" inherit_id="website_ajax_login_pharmacistplace.pp_ajax_login_inherit_reset_password">
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']/div/div[2]" position="attributes">
+                <attribute name="style"> width: 86%;text-align: center;padding:10px;</attribute>
+            </xpath>
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']/.." position="attributes">
+                <attribute name="style">     padding-left: 4%;padding-right: 4%;</attribute>
+            </xpath>
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']" position="attributes">
+                <attribute name="class"> mt32 hidden-xs col-md-12 pull-center</attribute>
+            </xpath>
+        </template>
+
+        <template id="upd_view_login_page" inherit_id="website_ajax_login_pharmacistplace.pp_ajax_login_inherit_web_login">
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']/div/div[2]" position="attributes">
+                <attribute name="style"> width:80%;text-align: center;padding:10px;</attribute>
+            </xpath>
+            <xpath expr="//div[@class='mt32 hidden-xs col-md-offset-4 col-md-4 pull-center']" position="attributes">
+                <attribute name="class"> mt16 mb16 hidden-xs col-md-offset-1 col-md-10 pull-center</attribute>
+            </xpath>
+        </template>
+
+        <template id="search_view_upd_theme_pharmacistplace" inherit_id="theme_pharmacistplace.theme_pharmacistplace_layout">
+            <xpath expr="//button[@class='btn btn-primary oe_search_button']" position="attributes">
+                <attribute name="style"> padding:9px 12px;</attribute>
+            </xpath>
+        </template>
+
+        <template inherit_id="theme_pharmacistplace.theme_pharmacistplace_show_sign_in" id="upd_sigun_up_button_view">
+            <xpath expr="//a[@t-attf-href='/web/signup?{{ keep_query() }}']/button" position="attributes">
+                <attribute name="style">margin: 4px 0px;border-color:#ffffff;width: 80px;</attribute>
+            </xpath>
+        </template>
+
+        <template inherit_id="website_ajax_login_pharmacistplace.pp_ajax_login_inherit_signup" id="upd_sigun_page_fb_gmail_button_view">
+            <xpath expr="//div[@class='mt16 col-md-offset-4 col-md-4 pull-center']" position="attributes">
+                <attribute name="class">mt16 col-md-12 pull-center</attribute>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

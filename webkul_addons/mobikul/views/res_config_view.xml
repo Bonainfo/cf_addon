@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    	<record id="mobikul_app_config_settings" model="ir.ui.view">
+        <field name="name">Settings</field>
+        <field name="model">mobikul.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure Mobikul-App" class="oe_form_configuration">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <div>
+                    <field name="mobikul_app" invisible="1"/>
+                    <div name="mobikul">
+                        <b><field name="app_name" readonly="1"/></b>
+                        <button type="object" name="open_mobikul_conf" string="Configuration" class="oe_inline oe_link" icon="fa-cogs"/>
+                    </div>
+                </div>
+                <group name="order" string="Order">
+                    <label string="Default Sales Team" for="salesteam_id" />
+                    <div class="oe_inline">
+                        <field name="salesteam_id" required="1"/>
+                    </div>
+                    <label string="Default Salesperson" for="salesperson_id" />
+                    <div  class="oe_inline">
+                        <field name="salesperson_id"/>
+                    </div>
+                </group>
+                <group name="pricelist" string="Pricelist/Currency">
+                    <label string="Default Pricelist" for="pricelist_id" />
+                    <div class="oe_inline">
+                        <field name="pricelist_id" required="1"/>
+                    </div>
+                    <label string="Default Currency" for="currency_id" />
+                    <div  class="oe_inline">
+                        <field name="currency_id" readonly="1"/>
+                    </div>
+                </group>
+                <group name="language" string="Language">
+                    <label string="Default Language" for="default_lang" />
+                    <div class="oe_inline">
+                        <field name="default_lang" required="1"/>
+                    </div>
+                </group>
+                <group name="extra" string="Pharmacist Place Extra Features">
+                    <label string="Limit Products per page" for="product_limit" />
+                    <div class="oe_inline">
+                        <field name="product_limit" required="1"/>
+                    </div>
+                    <label for="id" string="App access"/>
+                        <div>
+                            <div >
+                                <field name="mobikul_allow_guest" class="oe_inline"/>
+                                <label for="mobikul_allow_guest"/>
+                            </div>
+                            <div >
+                                <field name="mobikul_reset_password" class="oe_inline"/>
+                                <label for="mobikul_reset_password"/>
+                            </div>
+                            <div>
+                                <field name="mobikul_signup" class="oe_inline"/>
+                                <label for="mobikul_signup"/>
+                            </div>
+                            <div attrs="{'invisible':[('mobikul_signup','=',False)]}">
+                                <label for="mobikul_signup_template_user_id"/>
+                                <field name="mobikul_signup_template_user_id" class="oe_inline"
+                                    attrs="{'required': [('mobikul_signup', '=', True)]}"
+                                    domain="['|',('active','=',0),('active','=',1)]"/>
+                            </div>
+                            <div attrs="{'invisible':[('mobikul_signup','=',False)]}">
+                                <label for="module_email_verification"/>
+                                <field name="module_email_verification" class="oe_inline"/>
+                            </div>
+                        </div>
+                    <label for="id" string="Social Login"/>
+                        <div>
+                            <div>
+                                <field name="module_auth_oauth" readonly="1"/>
+                                <label for="module_auth_oauth" />
+                            </div>
+                            <div attrs="{'invisible':[('module_auth_oauth','=',False)]}">
+                                <field name="mobikul_gmail_signin" class="oe_inline" readonly="1"/>
+                                <label for="mobikul_gmail_signin"/>
+                            </div>
+                            <div attrs="{'invisible':[('module_auth_oauth','=',False)]}">
+                                <field name="mobikul_facebook_signin" class="oe_inline" readonly="1"/>
+                                <label for="mobikul_facebook_signin"/>
+                            </div>
+                            <div attrs="{'invisible':[('module_auth_oauth','=',False)]}">
+                                <field name="mobikul_twitter_signin" class="oe_inline" readonly="1"/>
+                                <label for="mobikul_twitter_signin"/>
+                            </div>
+                        </div>
+
+                    </group>
+                    <a href="https://mobikul.com/features/sign-in-via-social-accounts/" >(A paid feature)</a>
+                    <group name="addon" string="Other Addons">
+                        <!-- <label for="id" string="Allow Website Wishlist"/>
+                        <div>
+                            <div >
+                                <field name="module_website_wishlist"/>
+                                <label for="module_website_wishlist"/>
+                            </div>
+                        </div> -->
+
+                        <label for="id" string="Allow Website Review"/>
+                        <div>
+                            <div >
+                                <field name="module_wk_review"/>
+                                <label for="module_wk_review"/>
+                            </div>
+                        </div>
+                        <label for="id" string="Allow Marketplace"/>
+                        <div>
+                            <div >
+                                <field name="module_odoo_marketplace"/>
+                                <label for="module_odoo_marketplace"/>
+                            </div>
+                        </div>
+
+                    </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobikul_config_setting_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">mobikul.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+</odoo>

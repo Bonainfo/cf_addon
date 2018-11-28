@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="mp_pharmacy_details_checkout_theme_assets_frontend" inherit_id="website.assets_frontend" >
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/mp_seller_wise_checkout_theme_compatibility/static/src/js/mp_pharmacist_details_theme.js"/>
+            <link rel="stylesheet" href="/mp_seller_wise_checkout_theme_compatibility/static/src/css/mp_pharmacist_details_theme.css" />
+        </xpath>
+    </template>
+
+    <template id="inherit_theme_pharmacistplace_cart" inherit_id="theme_pharmacistplace.theme_pharmacistplace_cart">
+        <xpath expr="//a[@href='/shop']" position="attributes">
+            <attribute name="t-att-style">'display:None;' if continue_shopping else ''</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop']" position="attributes">
+            <attribute name="t-att-style">'display:None;' if continue_shopping else ''</attribute>
+        </xpath>
+
+        <xpath expr="//a[@t-if='not optional_products and website_sale_order and website_sale_order.website_order_line']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="compatibility_inherit_theme_pharmacistplace_continue_shopping" inherit_id="marketplace_pharmacist_details.inherit_theme_pharmacistplace_continue_shopping">
+        <xpath expr="//a[@href='/shop/distributor_activate']" position="replace">
+            <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line"
+                class="btn btn-info pull-right mb8"
+                t-att-href="'/shop/distributor_activate?seller=%s' % (website_sale_order.sudo().marketplace_seller_id.id) if website_sale_order.sudo().marketplace_seller_id else '/shop/checkout'">
+                <span class="">Process Checkout</span>
+                <span class="fa fa-shopping-cart" />
+            </a>
+        </xpath>
+    </template>
+
+    <template id="theme_continue_shopping_add_condition" inherit_id="theme_pharmacistplace.theme_pharmacistplace_continue_shopping">
+        <xpath expr="//a[@href='/shop']" position="before">
+            <t t-if="seller_so_ids" t-set="seller_so" t-value="seller_so_ids.filtered(lambda o: len(o.website_order_line)>0)"/>
+            <t t-else="" t-set="seller_so" t-value="False"/>
+            <t t-set="website_so" t-value="True if website_sale_order and website_sale_order.website_order_line else False"/>
+        </xpath>
+        <xpath expr="//a[@href='/shop']" position="attributes">
+            <attribute name="t-if">website_so or not website_so and not seller_so</attribute>
+        </xpath>
+    </template>
+
+    <template id="theme_confirmation_page_another_order" inherit_id="theme_pharmacistplace.theme_pharmacistplace_cart_done">
+        <xpath expr="//a[@id='another_order']" position="before">
+            <t t-set="website_sale_order" t-value="request.env['sale.order'].sudo().browse(int(request.session.get('admin_so'))).exists() if request.session.get('admin_so') else False" />
+            <t t-if="website_sale_order" t-set="website_sale_order" t-value="website_sale_order.filtered(lambda o: len(o.website_order_line)>0)"/>
+            <t t-set="seller_so_ids" t-value="request.website._get_all_seller_sale_order_ids()"/>
+            <t t-if="seller_so_ids" t-set="seller_so" t-value="seller_so_ids.filtered(lambda o: len(o.website_order_line)>0)"/>
+        </xpath>
+        <xpath expr="//a[@id='another_order']" position="attributes">
+            <attribute name="t-att-href">'/shop/cart' if website_sale_order or seller_so_ids else '/shop'</attribute>
+        </xpath>
+    </template>
+
+    <template id="theme_pharmacistplace_distributor_list" name="Distruibutor List">
+        <t t-call="website_portal.portal_layout">
+            <div class="col-md-offset-1 col-md-10 mb8 hidden-xs">
+                <div style="display:flex;">
+                    <div style="width:30%;">
+                        <t t-call="theme_pharmacistplace.three_hr_lines_left_part"/>
+                    </div>
+                    <div style="width:40%;text-align: center;padding:10px">
+                        <span style="font-size: 24px;" class="pp-brand-info">
+                            <span style="white-space: nowrap;"> Your Distributor List </span>
+                        </span>
+                    </div>
+                    <div style="width:30%;">
+                        <t t-call="theme_pharmacistplace.three_hr_lines_right_part"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-md-10">
+                <!-- <t t-if="not distributor_list">
+                    <p>There are currently no distributors for your account.</p>
+                </t> -->
+                <t t-if="distributor_list">
+                    <t t-foreach="distributor_list" t-as="distributor">
+                        <div class="form-row row">
+                            <div class="col-md-6 mb16">
+                                <label class="text-muted" for="distributor_name">Distributor</label>
+                                <input type="text" class="form-control" name="distributor_name" placeholder="Distributor Name"
+                                    t-att-value="distributor.marketplace_seller_id.sudo().name"
+                                    required="1" readonly="1"/>
+                            </div>
+                            <div class="form-group col-md-6 mb16">
+                                <label class="control-label text-muted" for="distributor_id">Pharmacy ID</label>
+                                <div class="input-group input-group-dist-list">
+                                    <input type="text" class="form-control" name="distributor_id" placeholder="Pharmacy ID"
+                                        t-att-value="distributor.pharmacist_id if distributor.pharmacist_id else None"
+                                        required="1" t-att-readonly="'1' if distributor.pharmacist_id else None"/>
+                                    <span class="input-group-addon pp_detail_btn">
+                                        <i t-if="not distributor.pharmacist_id" class="fa fa-history pp-brand-primary" style="font-size:20px;"></i>
+                                        <i t-if="distributor.pharmacist_id" class="fa fa-check pp-brand-primary" style="font-size:20px;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+                    <form class="needs-validation" action="/create/pharmacy/account" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="name" t-att-value="request.env.user.partner_id.name"/>
+                        <input type="hidden" name="redirect_distruibutor_list" t-att-value="1"/>
+                        <div class="form-row row">
+                            <div class="col-md-6 mb16">
+                                <label class="text-muted" for="marketplace_seller_id">Distributor</label>
+                                <select class="form-control" name="marketplace_seller_id" id="marketplace_seller_id" required="1">
+                                    <option value="" selected="1" disabled="1">--Select--</option>
+                                    <t t-foreach="phar_distributor_list" t-as="phar_distributor">
+                                        <option t-att-value="phar_distributor.id"><span t-esc="phar_distributor.name"/></option>
+                                    </t>
+                                </select>
+                                <div class="distributor_error_msg" style="top: -5px;height:12px;"/>
+                            </div>
+                            <div class="form-group col-md-6 mb8">
+                                <label class="control-label text-muted" for="search_distributor_id">Pharmacy ID</label>
+                                <div class="input-group input-group-dist-list">
+                                    <input type="text" class="form-control" name="search_distributor_id" id="search_distributor_id" placeholder="Pharmacy ID"/>
+                                    <span class="input-group-addon pp_detail_search_btn" style="">
+                                        <div class="fa fa-search btn btn-primary" id="search_pharmacy_id"/>
+                                    </span>
+                                </div>
+                                <div class="search_pharmacy_error_msg" style="top: -5px;height:12px;"/>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="col-md-4 mb16">
+                                <button class="fa fa-plus btn btn-primary" style="font-family: inherit;" type="submit"> Add New </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div t-if="pager" class="o_portal_pager text-center">
+                        <t t-call="website.pager"/>
+                    </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="pp_inherit_portal_my_orders_for_mp_state" inherit_id="website_portal_sale.portal_my_orders">
+        <xpath expr="//t//table/thead/tr[1]/th[last()]" position="before">
+            <th> State </th>
+        </xpath>
+        <xpath expr="//t//table/t[@t-foreach='orders']/tr/td[last()]" position="before">
+
+            <td><span t-field="order.mp_order_state"/></td>
+        </xpath>
+    </template>
+
+</odoo>

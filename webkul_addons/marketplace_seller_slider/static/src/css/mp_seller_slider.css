@@ -1,0 +1,18 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : https://store.webkul.com/license.html/ */
+
+/*Media query for seller profile mobile view*/
+@media screen and (max-width: 768px) {
+    .mp_seller_banner .carousel-indicators li{
+        height: 7px!important;
+        width: 7px!important;
+    }
+    .mp_seller_banner .carousel-indicators .active{
+        height: 8px!important;
+        width: 8px!important;
+    }
+    .mp_seller_banner > #myCarousel .fa-2x{
+        font-size: 1em!important;
+    }
+}

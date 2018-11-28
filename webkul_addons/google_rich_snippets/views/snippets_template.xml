@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL: https://store.webkul.com/license.html/ -->
+
+<odoo>
+	<data>
+		<template id="snippet_breadcrumb" name="Google Breadcrumb Snippets">
+			<script type="application/ld+json">
+				{
+				"@context": "http://schema.org",
+				"@type": "BreadcrumbList",
+				"itemListElement": [{
+					"@type": "ListItem",
+					"position": 1,
+					"item": {
+					"@id": "<t t-esc="keep(category=0)" />",
+					"name": "Products"
+					}
+				},
+				<t t-if="category">
+					{
+						"@type": "ListItem",
+						"position": 2,
+						"item": {
+						"@id": "<t t-esc="keep('/shop/category/%s' % slug(category), category=0)" />",
+						"name": "<t t-esc="category.name" />"
+						}
+					},
+				</t>
+				{
+					"@type": "ListItem",
+					"position": <t t-if="category">3</t><t t-if="not category">2</t>,
+					"item": {
+					"@id": "",
+					"name": "<t t-esc="product.name" />"
+					}
+				}]
+				}
+			</script>
+		</template>
+
+		<template id="snippet_organization" name="Google Product Snippets">
+			<script type="application/ld+json">
+				{
+					"@context": "http://schema.org",
+					"@type": "Organization",
+					"name": "<t t-esc="res_company.name" />",
+					"url": "<t t-esc="request.httprequest.url_root" />",
+					"address": {
+						"@type": "PostalAddress",
+						"streetAddress" : "<t t-esc="res_company.street" />, <t t-esc="res_company.street2" />",
+						"addressLocality" : "<t t-esc="res_company.city" />",
+						"addressRegion" : "<t t-esc="res_company.state_id.name" />",
+						"postalCode" : "<t t-esc="res_company.zip" />",
+						"addressCountry" : "<t t-esc="res_company.country_id.code" />"
+					}
+					<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_logo_enable', False) == True">
+						,"logo": "<t t-esc="request.httprequest.url_root+'logo.png'" />"
+					</t>
+					<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_contact_enable', False) == True">
+					,"contactPoint" : [{
+						"@type" : "ContactPoint",
+						"email" : "<t t-esc="res_company.email" />",
+						"telephone" : "<t t-esc="res_company.phone" />",
+						"contactType" : "Customer Service"
+					}]
+					</t>
+					<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_social_enable', False) == True">
+					,"sameAs": [
+						"<t t-esc="website.social_facebook" />",
+						"<t t-esc="website.social_twitter" />",
+						"<t t-esc="website.social_linkedin" />",
+						"<t t-esc="website.social_youtube" />",
+						"<t t-esc="website.social_googleplus" />"
+					]
+					</t>
+				}
+			</script>
+		</template>
+
+		<template id="snippet_website" name="Google Website Snippets">
+			<script type="application/ld+json">
+				{
+					"@context" : "https://schema.org",
+					"@type" : "WebSite",
+					"url" : "<t t-esc="request.httprequest.url_root" />"
+					<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_searchbox_enable', False) == True">
+					,"potentialAction" : {
+						"@type" : "SearchAction",
+						"target" : "<t t-esc="request.httprequest.url_root" />shop?search={search_term_string}",
+						"query-input" : "required name=search_term_string"
+					}
+					</t>
+				}
+			</script>
+		</template>
+
+		<template id="snippet_carousels" name="Google Carousels Snippets">
+			<script type="application/ld+json">
+				{
+					"@context":"http://schema.org",
+					"@type":"ItemList",
+					"itemListElement":[
+						<t t-set="position" t-value="1"/>
+						<t t-set="product_count" t-value="len(products)"/>
+						<t t-foreach="products" t-as="product">
+							{
+								"@type":"ListItem",
+								"position":<t t-esc="position" />,
+								"url":"<t t-esc="request.httprequest.url_root" /><t t-esc="keep('shop/product/%s' % slug(product))" />"
+							}
+							<t t-if="position != product_count">,</t>
+							<t t-set="position" t-value="position+1"/>
+						</t>
+					]
+				}
+			</script>
+		</template>
+
+		<template id="snippet_product" inherit_id="website_sale.product" name="Product Snippets">
+			<xpath expr="//div[@id='wrap']" position="after">
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_breadcrumb_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_breadcrumb" />
+				</t>
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_organization_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_organization" />
+				</t>
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_website_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_website" />
+				</t>
+			</xpath>
+			<xpath expr="//div[@id='wrap']" position="inside">
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_rating_enable', False) == True">
+					<t t-set="rating_data" t-value="product.rating_ids.filtered(lambda rating:rating.rating > 0).mapped('rating')" />
+					<t t-if="len(rating_data)">
+						<span itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating" style="display:none;">
+							<span itemprop="ratingValue"><t t-esc="round((sum(rating_data)/len(rating_data))*2)/2" /></span>
+							<span itemprop="reviewCount"><t t-esc="len(rating_data)" /></span>
+						</span>
+					</t>
+				</t>
+			</xpath>
+		</template>
+
+		<template id="product_price" inherit_id="website_sale.product_price" name="Product Snippets">
+			<xpath expr="//div/h4" position="inside">
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_stock_enable', False) == True">
+					<t t-if="product.availability == 'in_stock'">
+						<link itemprop="availability" href="http://schema.org/InStock"/>
+					</t>
+				</t>
+			</xpath>
+		</template>
+
+		<template id="snippet_shop" inherit_id="website_sale.products" name="Products Snippets">
+			<xpath expr="//div[@id='wrap']" position="before">
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_organization_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_organization" />
+				</t>
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_website_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_website" />
+				</t>
+				<t t-if="request.env['ir.values'].sudo().get_default('rich.snippets.config', 'is_carousels_enable', False) == True">
+					<t t-call="google_rich_snippets.snippet_carousels" />
+				</t>
+			</xpath>
+		</template>
+
+	</data>
+</odoo>

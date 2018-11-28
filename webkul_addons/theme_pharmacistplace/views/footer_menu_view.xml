@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pp_footer_menu_group_form" model="ir.ui.view">
+        <field name="name">footer.menu.group.form</field>
+        <field name="model">footer.menu.group</field>
+        <field name="arch" type="xml">
+            <form string="Footer menu group">
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="toggle_website_published" type="object" class="oe_stat_button" icon="fa-globe">
+                            <field name="website_published" widget="website_button"/>
+                        </button>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <label for="name"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Footer Menu Group Name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pp_footer_menu_link_form" model="ir.ui.view">
+        <field name="name">footer.menu.link.form</field>
+        <field name="model">footer.menu.link</field>
+        <field name="arch" type="xml">
+            <form string="Footer menu link">
+                <sheet>
+                    <div class="oe_button_box">
+                        <button name="toggle_website_published" type="object" class="oe_stat_button" icon="fa-globe">
+                            <field name="website_published" widget="website_button"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <div class="">
+                            <label for="name"/>
+                        </div>
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="Footer Menu Link Name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="url"/>                    
+                        <field name="footer_menu_group_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pp_footer_menu_group_tree" model="ir.ui.view">
+        <field name="name">footer.menu.group.tree</field>
+        <field name="model">footer.menu.group</field>
+        <field name="arch" type="xml">
+            <tree string="Footer menu group">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pp_footer_menu_link_tree" model="ir.ui.view">
+        <field name="name">footer.menu.link.tree</field>
+        <field name="model">footer.menu.link</field>
+        <field name="arch" type="xml">
+            <tree string="Footer menu link">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="footer_menu_group_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_footer_menu_group" model="ir.actions.act_window">
+        <field name="name">Footer Menu Group</field>
+        <field name="res_model">footer.menu.group</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_footer_menu_link" model="ir.actions.act_window">
+        <field name="name">Footer Menu Links</field>
+        <field name="res_model">footer.menu.link</field>
+        <field name="view_mode">form</field>
+        <field name="view_mode">tree,form</field>        
+    </record>
+
+    <menuitem id="menu_website_footer_menu" parent="website.menu_website_global_configuration" name="Website Footer Menu"/>
+    <menuitem id="menu_website_footer_menu_group" parent="menu_website_footer_menu" name="Menu Groups" action="action_footer_menu_group"/>
+    <menuitem id="menu_website_footer_menu_link" parent="menu_website_footer_menu" name="Menu Links" action="action_footer_menu_link"/>
+</odoo>

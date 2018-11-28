@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wk_website_product_price_range_config_form" model="ir.ui.view">
+            <field name="name">Website Product Price Range Setting</field>
+            <field name="model">website.product.price.range.setting</field>
+            <field name="arch" type="xml">
+                <form class="oe_form_configuration">
+                    <group>
+                        <label for="product_range_start" />
+                        <div name="product_range_start">
+                            <div class="oe_inline">
+                                <field name="product_range_start"/>
+                            </div>
+                        </div>
+                        <label for="product_range_end" />
+                        <div name="product_range_end">
+                            <div class="oe_inline">
+                                <field name="product_range_end"/>
+                            </div>
+                        </div>
+                    </group>
+                    <footer>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="button" name="cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wk_price_range_action_config" model="ir.actions.act_window">
+            <field name="name">Website Product Price Range Setting</field>
+            <field name="res_model">website.product.price.range.setting</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id = "website_wk_price_range_installer_todo" model = "ir.actions.todo">
+            <field name = "action_id" ref = "website_product_price_range.action_wk_price_range_action_config"/>
+            <field name = "sequence">20</field>
+            <field name = "type">automatic</field>
+        </record>
+    </data>
+</odoo>

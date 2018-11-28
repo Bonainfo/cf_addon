@@ -1,0 +1,46 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : https://store.webkul.com/license.html/ */
+
+.input-group.input-group-dist-list input.form-control {
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+}
+
+.input-group-dist-list .input-group-addon {
+    border-radius: 4px;
+    border: 0px;
+    background-color: transparent;
+    padding-left: 25px;
+}
+
+.pp_detail_btn{
+    padding-top:0;
+    padding-left:15px;
+    padding-right:0px;
+}
+
+.pp_detail_search_btn {
+    padding-left: 6px !important;
+    padding-top:0 !important;
+    padding-right:0px !important;
+}
+
+/* RTL Support */
+
+.rtl .pp_detail_btn {
+    border-left-width: 0px !important;
+    padding-right: 15px !important;
+    padding: 9px;
+}
+
+.rtl .pp_detail_search_btn {
+    border-left-width: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 15px !important;
+}
+
+.rtl .pp_detail_btn > i {
+    margin-right: 10px;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wk_addons_website_product_price_range_config" model="ir.ui.view">
+            <field name="name">Addons Setting</field>
+            <field name="model">webkul.website.addons</field>
+            <field name="inherit_id" ref="website_webkul_addons.config_webkul_website_addons_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//td[@name='module_website_product_price_range']" position="replace">
+                    <td>  <button type="action" name="%(website_product_price_range.action_wk_price_range_action_config)d" string="Configuration" class="oe_link oe_inline"></button></td>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+
+		<template id="pp_website_issue_portal_layout" inherit_id="website_project_issue.portal_layout">
+			<xpath expr="//a[@href='/my/issues']/.." position="replace">
+				<li t-att-class="(page_name == 'issue' or issue) and 'active' or ''">
+					<a href="/my/issues" class="pp-brand-info">
+						<span class="fas fa-bug"/>
+						<span>Issues</span>
+						<i class="pull-right fa fa-angle-right"/>
+					</a>
+				</li>
+			</xpath>
+		</template>
+
+		<template id="pp_website_my_issues" inherit_id="website_project_issue.my_issues">
+			<xpath expr="//h3[hasclass('page-header')]" position="attributes">
+				<attribute name="class">pp-brand-info</attribute>
+			</xpath>
+		</template>
+
+		<template id="pp_website_my_issues_issue" inherit_id="website_project_issue.my_issues_issue">
+			<t t-call="website.layout" position="attributes">
+				<attribute name="t-call">website_portal.portal_layout</attribute>
+			</t>
+		</template>
+
+    </data>
+</odoo>

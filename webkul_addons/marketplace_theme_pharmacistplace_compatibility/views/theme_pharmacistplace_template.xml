@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+        <template id="mp_pp_inherit_footer_custom" inherit_id="theme_pharmacistplace.footer_custom" name="Footer">
+            <xpath expr="//span[@id='pp_pharmacies_count']" position="attributes">
+                <attribute name="t-att-data-count">website.sudo().get_mp_config_settings_values().get('pharmacies_count', 0)</attribute>
+            </xpath>
+            <xpath expr="//span[@id='pp_distributor_count']" position="attributes">
+                <attribute name="t-att-data-count">website.sudo().get_mp_config_settings_values().get('distributor_count', 0)</attribute>
+            </xpath>
+        </template>       
+
+    </data>
+</odoo>

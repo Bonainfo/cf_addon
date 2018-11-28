@@ -1,0 +1,80 @@
+<openerp>
+    <data noupdate="0">
+        <record id="saas_portal_sale.email_template_create_saas" model="mail.template">
+            <field name="name">Send SaaS creation page link to partner</field>
+            <field name="email_from">${(object.user_id.email or object.company_id.email or 'care@pharmacistplace.com')|safe}</field>
+            <field name="subject">Welcome to Pharmacist</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+            <table style="border-spacing:0px;padding: 20px; background-color: #f0f0f0; border-collapse: separate;" summary="o_mail_notification" width="100%" cellpadding="0" border="0" bgcolor="#f0f0f0">
+                <tbody>
+                    <tr>
+                        <td valign="middle" align="center">
+                            <p>
+                                <img style="border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-style:none;border-left-color:currentcolor;border-bottom-style:none;border-bottom-color:currentcolor;border-right-style:none;border-right-color:currentcolor;border-top-style:none;border-top-color:currentcolor;padding: 5px; margin: 0px; height: auto; width: 100px;" src="https://www.pharmacistplace.com/web/image/1483/Logo-small.png" alt="Pharmacist Place">
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="min-width: 590px;" align="center">
+                            <table style="border-spacing:0px;min-width: 590px; background-color: rgb(018,174,142); padding: 10px; border-collapse:separate;" width="590" cellpadding="0" border="0" bgcolor="#875A7B">
+                                <tbody>
+                                    <tr>
+                                        <td valign="middle" align="center">
+                                            <p>
+                                                <span style="font-family: Work Sans, Calibri, sans-serif; font-size: 20px; color: white; font-weight: bold;">
+                                                    Welcome to your Smart Pharmacy
+                                                    <br>
+                                                </span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="min-width: 590px;" align="center">
+                            <table style="border-spacing:0px;min-width: 590px; background-color: #ffffff; padding: 20px; border-collapse: separate;" width="590" cellpadding="0" border="0" bgcolor="#ffffff">
+                                <tbody>
+                                    <tr>
+                                        <td style="font-family: Arial,Helvetica,sans-serif; color: #555; font-size: 14px;" valign="top">
+                                            <strong> Dear Dr ${object.partner_id.name}</strong>
+                                            <br>
+                                            <br>Thanks for joining, we are excited to have you on-board.
+                                            <br>
+                                            <strong>10,000 pharmacies</strong> are using our smart solution.
+                                            <br>
+                                            <br>
+
+                                            <a title="" href="https://www.pharmacistplace.com/page/start?plan_id=${object.invoice_line_ids[0].product_id.saas_plan_id.id if object.invoice_line_ids and object.invoice_line_ids[0].product_id.saas_plan_id else ''}" data-original-title="">
+                                                <img class="pull-left" style="border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-style:none;border-left-color:currentcolor;border-bottom-style:none;border-bottom-color:currentcolor;border-right-style:none;border-right-color:currentcolor;border-top-style:none;border-top-color:currentcolor;width: 190px; height: 39px; border: 0px;" title="" src="https://www.pharmacistplace.com/web/image/1484/button.png" data-original-title="" align="middle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <p>
+                            <br>Powered by 
+                            <a href="https://www.pharmacistplace.com">
+                                <span style="color: #000080;">Pharmacist</span>
+                                <span style="color: #339966;">Place</span>
+                            </a>.
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>&nbsp;</p>
+            ]]></field>
+        </record>
+
+    </data>
+</openerp>

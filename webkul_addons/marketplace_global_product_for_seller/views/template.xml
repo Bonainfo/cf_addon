@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+        <template id="pp_other_sellers_info_in_product" inherit_id="marketplace_product_price_comparison.other_sellers_info_in_product" name="Other Sellers On Product Page">
+            <xpath expr="//t[@t-if='product.seller_product_ids or product.global_product_tmpl_id']" position="replace">
+            </xpath>
+        </template>
+
+        <template id="pp_wk_product_other_seller_link" inherit_id="marketplace_product_price_comparison.wk_product_other_seller_link" name="Other Sellers On Product Page">
+            <xpath expr="//section" position="attributes">
+                <attribute name="class">container pp-brand-info</attribute>
+            </xpath>
+        </template>
+
+        <template id="pp_other_sellers_info_in_product2" inherit_id="website_sale.product" active="True" name="Product Other Seller">
+			<xpath expr="//form[@class='js_add_cart_variants']/..//div/.." position="inside">
+                <t t-if="product.seller_product_ids or product.global_product_tmpl_id" >
+					<t t-call="marketplace_product_price_comparison.wk_product_other_seller_link"/>
+				</t>
+            </xpath>
+		</template>
+    </data>
+</odoo>

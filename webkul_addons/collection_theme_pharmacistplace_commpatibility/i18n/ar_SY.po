@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* collection_theme_pharmacistplace_commpatibility
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 07:18+0000\n"
+"PO-Revision-Date: 2018-09-20 07:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: collection_theme_pharmacistplace_commpatibility
+#: model:ir.ui.view,arch_db:collection_theme_pharmacistplace_commpatibility.pp_seller_collec_template
+msgid "Collections"
+msgstr "Collections"
+
+#. module: collection_theme_pharmacistplace_commpatibility
+#: model:ir.ui.view,arch_db:collection_theme_pharmacistplace_commpatibility.pp_seller_collec_template
+msgid "Return &amp; Shipping policy"
+msgstr "Return &amp; Shipping policy"
+
+#. module: collection_theme_pharmacistplace_commpatibility
+#: model:ir.ui.view,arch_db:collection_theme_pharmacistplace_commpatibility.pp_seller_collec_template
+msgid "Return policy"
+msgstr "Return policy"
+
+#. module: collection_theme_pharmacistplace_commpatibility
+#: model:ir.ui.view,arch_db:collection_theme_pharmacistplace_commpatibility.pp_seller_collec_template
+msgid "Shipping policy"
+msgstr "Shipping policy"
+
+#. module: collection_theme_pharmacistplace_commpatibility
+#: model:ir.ui.view,arch_db:collection_theme_pharmacistplace_commpatibility.pp_collections_page_product
+msgid "View More"
+msgstr "View More"
+

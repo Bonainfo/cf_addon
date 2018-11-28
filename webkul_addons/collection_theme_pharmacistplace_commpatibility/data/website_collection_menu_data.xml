@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Footer menu link records -->
+        <record id="data_footer_menu_link_collections" model="footer.menu.link">
+            <field name="name">Product Collections</field>
+            <field name="sequence" eval="11"/>
+            <field name="url">/collections</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="theme_pharmacistplace.data_footer_menu_group_find_product"/>
+        </record>
+
+    </data>
+</odoo>

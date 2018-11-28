@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* marketplace_seller_slider
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 07:27+0000\n"
+"PO-Revision-Date: 2018-09-20 07:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: marketplace_seller_slider
+#: model:ir.ui.view,arch_db:marketplace_seller_slider.add_image_carousel_in_seller_profile_page
+#: model:ir.ui.view,arch_db:marketplace_seller_slider.add_image_carousel_in_seller_shop_page
+msgid "<i class=\"fa fa-chevron-left fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Previous</span>"
+msgstr "<i class=\"fa fa-chevron-left fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Previous</span>"
+
+#. module: marketplace_seller_slider
+#: model:ir.ui.view,arch_db:marketplace_seller_slider.add_image_carousel_in_seller_profile_page
+#: model:ir.ui.view,arch_db:marketplace_seller_slider.add_image_carousel_in_seller_shop_page
+msgid "<i class=\"fa fa-chevron-right fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Next</span>"
+msgstr "<i class=\"fa fa-chevron-right fa-2x\" aria-hidden=\"true\"/>\n"
+"                            <span class=\"sr-only\">Next</span>"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_banner_images
+msgid "Banner images"
+msgstr "Banner images"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_create_uid
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_create_date
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,help:marketplace_seller_slider.field_seller_banner_image_sequence
+msgid "Determine the display order"
+msgstr "حدد ترتيب العرض"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_display_name
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_id
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard___last_update
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_write_uid
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_write_date
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: marketplace_seller_slider
+#: model:ir.model,name:marketplace_seller_slider.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_partner_id
+msgid "Partner id"
+msgstr "Partner id"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_image
+msgid "Profile Banner"
+msgstr "Profile Banner"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_res_partner_seller_banner_ids
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_res_users_seller_banner_ids
+#: model:ir.ui.view,arch_db:marketplace_seller_slider.seller_banners_in_seller_profile_view
+msgid "Profile Slider Images"
+msgstr "Profile Slider Images"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_partner_id
+msgid "Seller"
+msgstr "Seller"
+
+#. module: marketplace_seller_slider
+#: model:ir.model,name:marketplace_seller_slider.model_seller_shop
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_banner_images_wizard_shop_id
+msgid "Seller Shop"
+msgstr "Seller Shop"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_sequence
+msgid "Sequence"
+msgstr "مسلسل"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_shop_id
+msgid "Shop"
+msgstr "Shop"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_shop_shop_banner_ids
+msgid "Shop Slider Images"
+msgstr "Shop Slider Images"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_in_carousel
+msgid "Show in Slider"
+msgstr "Show in Slider"
+
+#. module: marketplace_seller_slider
+#: model:ir.model.fields,field_description:marketplace_seller_slider.field_seller_banner_image_url
+msgid "URL"
+msgstr "العنوان الإلكتروني (URL)"
+
+#. module: marketplace_seller_slider
+#: model:ir.model,name:marketplace_seller_slider.model_banner_images_wizard
+msgid "banner.images.wizard"
+msgstr "banner.images.wizard"
+
+#. module: marketplace_seller_slider
+#: model:ir.model,name:marketplace_seller_slider.model_seller_banner_image
+msgid "seller.banner.image"
+msgstr "seller.banner.image"
+

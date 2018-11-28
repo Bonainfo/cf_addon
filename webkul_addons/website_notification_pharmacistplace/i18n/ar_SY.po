@@ -1,0 +1,140 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_notification_pharmacistplace
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 09:09+0000\n"
+"PO-Revision-Date: 2018-09-20 09:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: ar_SY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_notification_pharmacistplace
+#: model:mail.template,body_html:website_notification_pharmacistplace.pp_website_signup_email_template
+msgid "\n"
+"                \n"
+"            <style>\n"
+"                body {\n"
+"                background-color:#F2F2F2;\n"
+"                }\n"
+"            </style>\n"
+"            \n"
+"            <div style=\"margin-top:18px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size:19px; font-weight:bold; color:#666666;\">\n"
+"            Thanks for Sign Up. Welcome to our company.\n"
+"            </div>\n"
+"                \n"
+"            "
+msgstr "\n"
+"                \n"
+"            <style>\n"
+"                body {\n"
+"                background-color:#F2F2F2;\n"
+"                }\n"
+"            </style>\n"
+"            \n"
+"            <div style=\"margin-top:18px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size:19px; font-weight:bold; color:#666666;\">\n"
+"            شكرا لتسجيلك. اهلا وسهلا بكم في شركتنا.\n"
+"            </div>\n"
+"                \n"
+"            "
+
+#. module: website_notification_pharmacistplace
+#: model:mail.template,subject:website_notification_pharmacistplace.pp_website_signup_email_template
+msgid "${('Welcome to '+ object.company_id.name or '')|safe}"
+msgstr "${('مرحبا بك في '+ object.company_id.name or '')|safe}"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.pp_portal_my_notifictaion_menu
+msgid "<span class=\"fa fa-bell\"/>\n"
+"                    <span>Notifications</span>\n"
+"                    <i class=\"pull-right fa fa-angle-right\"/>"
+msgstr "<span class=\"fa fa-bell\"/>\n"
+"                    <span>إخطارات</span>\n"
+"                    <i class=\"pull-right fa fa-angle-right\"/>"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.portal_my_notifications
+msgid "<span class=\"pp-brand-info\" style=\"font-weight:bold\">Subject: </span>"
+msgstr "<span class=\"pp-brand-info\" style=\"font-weight:bold\">Subject: </span>"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.portal_my_notifications
+msgid "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"                        Your Notifications\n"
+"                    </span>"
+msgstr "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"                        التنبيهات الواردة\n"
+"                    </span>"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.model,name:website_notification_pharmacistplace.model_mail_message
+msgid "Message"
+msgstr "الرسالة"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.website_notification_popover
+msgid "My Account"
+msgstr "حسابي"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_compose_message_is_notification_read
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_mail_is_notification_read
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_message_is_notification_read
+msgid "Notification Read"
+msgstr "Notification Read"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.model,name:website_notification_pharmacistplace.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.pp_portal_my_notifictaion_badge
+msgid "There are currently no notification your account."
+msgstr "لا يوجد حاليا أي إخطار بحسابك."
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.portal_my_notifications
+msgid "There are currently no notifications your account."
+msgstr "لا يوجد حاليا أي إخطار بحسابك."
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.website_notification_popover
+msgid "There is no new notification."
+msgstr "لا يوجد إشعار جديد."
+
+#. module: website_notification_pharmacistplace
+#: model:ir.model,name:website_notification_pharmacistplace.model_res_users
+msgid "Users"
+msgstr "المستخدمون"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.website_notification_popover
+msgid "View All"
+msgstr "عرض الكل"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.website_notification_popover
+msgid "View All Notifications"
+msgstr "عرض جميع الإشعارات"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_compose_message_is_website_notification
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_mail_is_website_notification
+#: model:ir.model.fields,field_description:website_notification_pharmacistplace.field_mail_message_is_website_notification
+msgid "Website Notification"
+msgstr "إخطار موقع الويب"
+
+#. module: website_notification_pharmacistplace
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.portal_my_notifications
+#: model:ir.ui.view,arch_db:website_notification_pharmacistplace.pp_portal_my_notifictaion_badge
+msgid "Your Notifications"
+msgstr "التنبيهات الواردة"
+

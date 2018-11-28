@@ -1,0 +1,71 @@
+.tile1-header {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 24px;
+    color: #000000;
+    text-align: center;
+    background-color: unset;
+    margin-bottom: 8px;
+    color: rgb(18, 174, 142);
+}
+
+.star-rating{
+    line-height: initial !important;
+}
+
+#btn-create-review,
+#recommend-no,
+#recommend-yes{
+    border-radius: unset;
+}
+
+/* Removed as ticket #73869 */
+.seller-profile-pic{
+    border: 2px solid #A4A4A4;
+    height: 184px;
+    width: 184px;
+}
+
+/* .seller_page_product_grid{
+
+} */
+
+.seller_product{
+    padding: 0px 30px;
+
+}
+
+#recommend-yes,
+#recommend-no {
+    margin: 0px 4px;
+}
+
+.review-tiles{
+    box-shadow: none !important;
+    /* border: 2px solid; */
+}
+#contact_us_tab li>i{
+    margin-right: 4px;
+}
+#contact_us_tab .fa-mobile {
+    transform: scale(1);
+    font-size: 2em;
+}
+
+.badge{
+    font-family: inherit;
+}
+
+#vacant_div{
+    float: right;
+}
+
+/* RTL Support */
+
+.rlt .rating-stars{
+    direction: ltr;    
+}
+
+.rtl #selle_pic_name_add a[href*='/seller/profile/']{
+    float: none !important;
+}

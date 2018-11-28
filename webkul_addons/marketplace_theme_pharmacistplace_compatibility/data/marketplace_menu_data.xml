@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Footer menu group records -->
+        <record id="theme_pharmacistplace.data_footer_menu_group_distributor" model="footer.menu.group">
+            <field name="website_published" eval="True"/>
+        </record>
+        
+        <!-- Footer menu link records -->
+        <record id="data_footer_menu_link_seller_signup" model="footer.menu.link">
+            <field name="name">Register Now</field>
+            <field name="sequence" eval="11"/>
+            <field name="url">/seller</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="theme_pharmacistplace.data_footer_menu_group_distributor"/>
+        </record>
+        <!-- <record id="data_footer_menu_link_about_us" model="footer.menu.link">
+            <field name="name">About Us</field>
+            <field name="sequence" eval="12"/>
+            <field name="url">/page/aboutus</field>
+            <field name="website_published" eval="True"/>
+            <field name="footer_menu_group_id" ref="theme_pharmacistplace.data_footer_menu_group_distributor"/>
+        </record> -->
+    </data>
+</odoo>

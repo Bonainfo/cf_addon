@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+		<record id="pp_mp_checkout_orders_form_view" model="ir.ui.view">
+			<field name="name">sale.order.form.inherit.checkout</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="marketplace_seller_wise_checkout.mp_checkout_orders_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//form" position="attributes">
+					<attribute name="edit">1</attribute>
+				</xpath>
+				<field name="order_line" position="attributes">
+					<attribute name="create">0</attribute>
+					<attribute name="readonly">0</attribute>
+				</field>
+			</field>
+		</record>
+
+		<record id="pp_mp_checkout_inherit_wk_seller_sol_form_view" model="ir.ui.view">
+			<field name="name">seller.product.sale.order.form</field>
+			<field name="model">sale.order.line</field>
+			<field name="inherit_id" ref="odoo_marketplace.wk_seller_product_order_line_form_view"/>
+			<field name="arch" type="xml">
+				<field name="product_id" position="attributes">
+					<attribute name="readonly">1
+					</attribute>
+				</field>
+				<field name="product_uom_qty" position="attributes">
+					<attribute name="readonly">0
+					</attribute>
+				</field>
+			</field>
+		</record>
+    </data>
+</odoo>

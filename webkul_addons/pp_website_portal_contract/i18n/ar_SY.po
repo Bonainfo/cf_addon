@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pp_website_portal_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-24 04:33+0000\n"
+"PO-Revision-Date: 2018-10-24 04:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pp_website_portal_contract
+#: model:ir.ui.view,arch_db:pp_website_portal_contract.pp_contract_theme_pharmacistplace_portal_layout
+msgid "<span class=\"fa fa-paperclip\"/>\n"
+"						<span>Contracts</span>\n"
+"						<span class=\"pull-right fa fa-angle-right\"/>"
+msgstr "<span class=\"fa fa-paperclip\"/>\n"
+"						<span>انكماش</span>\n"
+"						<span class=\"pull-right fa fa-angle-right\"/>"
+
+#. module: pp_website_portal_contract
+#: model:ir.ui.view,arch_db:pp_website_portal_contract.pp_saas_portal_my_contracts
+msgid "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"							Your Contracts\n"
+"						</span>"
+msgstr "<span style=\"font-size: 22px;color: #272866;padding: 3px;font-weight: bold;\">\n"
+"							Your انكماش\n"
+"						</span>"
+
+#. module: pp_website_portal_contract
+#: model:ir.ui.view,arch_db:pp_website_portal_contract.pp_saas_portal_my_contracts
+msgid "Your Contracts"
+msgstr "العقود الخاصة بك"
+

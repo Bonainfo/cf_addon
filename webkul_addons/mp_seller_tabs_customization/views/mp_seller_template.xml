@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_frontend_mp_seller_tabs" name="seller tabs assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/mp_seller_tabs_customization/static/src/css/mp_seller_tabs.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+
+    <record id="inherit_mp_checkout_orders_form_view_for_website_offer" model="ir.ui.view">
+        <field name="name">sale.order.form.website.offer</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="marketplace_seller_wise_checkout.mp_checkout_orders_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form//field[@name='tax_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="amount_tax" position="after">
+                <field name="global_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+            </field>
+            <xpath expr="//field[@name='amount_tax']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page/field[@name='order_line']" position="after">
+                <div>
+                    <label for="applied_sale_offer_id"/>
+                    <field name="applied_sale_offer_id" readonly="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_marketplace_picking_stock_modified_form_view_for_checkout" model="ir.ui.view">
+        <field name="name">Marketplace Stock Picking Mp Order Checkout</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="odoo_marketplace.marketplace_picking_stock_modified_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='force_assign']" position="attributes">
+                <attribute name="groups">odoo_marketplace.marketplace_seller_group</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

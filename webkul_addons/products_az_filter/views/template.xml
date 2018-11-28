@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_frontend" inherit_id="website.assets_frontend" name="products_az_filter">
+		<xpath expr="." position="inside">
+			<link rel='stylesheet' href='/products_az_filter/static/src/css/products_az_filter.css'/>
+		</xpath>
+	</template>
+	<template id="products" name="Product A-Z Filter" inherit_id="website_sale.products"  active="True" customize_show="True" >
+		<xpath expr="//div[@class='container oe_website_sale']/div[@class='products_pager']" position="after">
+			<div class = "horizontal_category" >
+			<div class="row">
+				<div class="col-md-12 mb8">
+				<center>
+					<t t-set ="alphabets"  t-value="website.get_alphabets()"/>
+					<span>
+						<t t-foreach='alphabets' t-as='alphabet'>
+								<a
+								t-att-class="'anchor_alphabet'+' bg-primary' if alphabet in alphabet_list else 'anchor_alphabet'"
+								t-att-id="'#link%s'%(alphabet)"
+								t-att-href="keep('/shop'+ ('/category/'+slug(category)) if category else None, search=0,alphabet=alphabet)">
+							<span class='alphabet_text'><t t-esc='alphabet'/></span>
+							</a>
+						</t>
+					</span>
+
+				</center>
+				</div>
+			</div>
+			</div>
+		</xpath>
+	</template>
+
+</odoo>

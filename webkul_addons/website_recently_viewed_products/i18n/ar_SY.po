@@ -1,0 +1,192 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_recently_viewed_products
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 09:11+0000\n"
+"PO-Revision-Date: 2018-09-20 09:11+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: ar_SY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_recently_viewed_products
+#: code:addons/website_recently_viewed_products/models/recently_viewed_config.py:38
+#, python-format
+msgid "'Save Maximum Viewed Product' value should not less than the 'Show Number of Product(s)' value !!"
+msgstr "'Save Maximum Viewed Product' value should not less than the 'Show Number of Product(s)' value !!"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.website_recently_viewed_product_page
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.website_recently_viewed_products_page
+msgid "<span class=\"three_line_label pp-brand-primary\">\n"
+"                        Recently\n"
+"                    </span>\n"
+"                    <span class=\"three_line_label pp-brand-info\">\n"
+"                        Viewed\n"
+"                    </span>\n"
+"                    <span class=\"three_line_label pp-brand-primary\">\n"
+"                        Products\n"
+"                    </span>"
+msgstr "<span class=\"three_line_label pp-brand-primary\">\n"
+"                        مؤخرا\n"
+"                    </span>\n"
+"                    <span class=\"three_line_label pp-brand-info\">\n"
+"                        شوهد\n"
+"                    </span>\n"
+"                    <span class=\"three_line_label pp-brand-primary\">\n"
+"                        منتجات\n"
+"                    </span>"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.view_website_recently_viewed_product
+msgid "Apply"
+msgstr "التقدم"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.view_website_recently_viewed_product
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.wk_addons_website_stock_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_create_uid
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_create_date
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_display_name
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_id
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: website_recently_viewed_products
+#: code:addons/website_recently_viewed_products/models/recently_viewed_config.py:32
+#, python-format
+msgid "Invaild value for 'Save Maximum Viewed Product' !!"
+msgstr "Invaild value for 'Save Maximum Viewed Product' !!"
+
+#. module: website_recently_viewed_products
+#: code:addons/website_recently_viewed_products/models/recently_viewed_config.py:35
+#, python-format
+msgid "Invaild value for 'Show Number of Product(s)' !!"
+msgstr "Invaild value for 'Show Number of Product(s)' !!"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting___last_update
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_write_uid
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_write_date
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_product_id
+msgid "Product"
+msgstr "منتج"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_res_users_recently_viewed_products
+msgid "Recently Viewed Product"
+msgstr "المنتجات التي تم عرضها مؤخرًا"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.res_users_recentaly_viewed_products_view
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.website_recently_viewed_product_page
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.website_recently_viewed_products_page
+msgid "Recently Viewed Products"
+msgstr "المنتجات التي تم عرضها مؤخرًا"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.view_website_recently_viewed_product
+msgid "Recently Viewed Setting"
+msgstr "الإعدادات التي تمت مشاهدتها مؤخرًا"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_wk_maximum_product
+msgid "Save Maximum Viewed Product(s)"
+msgstr "Save Maximum Viewed Product(s)"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_website_recently_viewed_setting_wk_show_product
+msgid "Show Number of Product(s)"
+msgstr "Show Number of Product(s)"
+
+#. module: website_recently_viewed_products
+#: model:ir.model,name:website_recently_viewed_products.model_res_users
+msgid "Users"
+msgstr "المستخدمون"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_view_date
+msgid "View Date"
+msgstr "View Date"
+
+#. module: website_recently_viewed_products
+#: model:ir.model,name:website_recently_viewed_products.model_website
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: website_recently_viewed_products
+#: model:ir.actions.act_window,name:website_recently_viewed_products.action_website_recently_viewed_product
+msgid "Website Recently Viewed Setting"
+msgstr "Website Recently Viewed Setting"
+
+#. module: website_recently_viewed_products
+#: model:ir.ui.view,arch_db:website_recently_viewed_products.view_website_recently_viewed_product
+msgid "or"
+msgstr "أو"
+
+#. module: website_recently_viewed_products
+#: model:ir.model.fields,field_description:website_recently_viewed_products.field_wk_recently_view_ref_id
+msgid "user"
+msgstr "user"
+
+#. module: website_recently_viewed_products
+#: model:ir.model,name:website_recently_viewed_products.model_webkul_website_addons
+msgid "webkul.website.addons"
+msgstr "webkul.website.addons"
+
+#. module: website_recently_viewed_products
+#: model:ir.model,name:website_recently_viewed_products.model_website_recently_viewed_setting
+msgid "website.recently.viewed.setting"
+msgstr "website.recently.viewed.setting"
+
+#. module: website_recently_viewed_products
+#: model:ir.model,name:website_recently_viewed_products.model_wk_recently_view
+msgid "wk.recently.view"
+msgstr "wk.recently.view"
+

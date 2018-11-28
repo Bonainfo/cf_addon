@@ -1,0 +1,161 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* marketplace_seller_collection_page
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 07:25+0000\n"
+"PO-Revision-Date: 2018-09-20 07:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_mp_settings_form_for_collection
+msgid "Allow Seller Collection"
+msgstr "Allow Seller Collection"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model.fields,field_description:marketplace_seller_collection_page.field_res_partner_allow_seller_for_collection
+#: model:ir.model.fields,field_description:marketplace_seller_collection_page.field_res_users_allow_seller_for_collection
+msgid "Allow Seller to Make Product Collections"
+msgstr "Allow Seller to Make Product Collections"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_mp_settings_form_for_collection
+msgid "Allow Seller to create Product Collections."
+msgstr "Allow Seller to create Product Collections."
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_wk_seller_form_for_collection
+msgid "Allow Seller to make Collections"
+msgstr "Allow Seller to make Collections"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_wk_seller_form_for_collection
+msgid "Click to Allow"
+msgstr "Click to Allow"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_wk_seller_form_for_collection
+msgid "Click to Deny"
+msgstr "Click to Deny"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.menu,name:marketplace_seller_collection_page.mp_seller_collection_group_menu
+msgid "Collection Group"
+msgstr "Collection Group"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.menu,name:marketplace_seller_collection_page.mp_seller_collection_page_menu
+msgid "Collection Page"
+msgstr "Collection Page"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.menu,name:marketplace_seller_collection_page.mp_seller_collection_main_menu
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.seller_collec_template
+msgid "Collections"
+msgstr "Collections"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model.fields,field_description:marketplace_seller_collection_page.field_marketplace_config_settings_group_allow_seller_for_collection
+msgid "Enable to allow Seller to Make Product Collections"
+msgstr "Enable to allow Seller to Make Product Collections"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_wk_seller_form_for_collection
+msgid "Enable to allow seller to make collections of products."
+msgstr "Enable to allow seller to make collections of products."
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_group_filter
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_page_filter
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: marketplace_seller_collection_page
+#: model:res.groups,name:marketplace_seller_collection_page.group_for_mp_collections
+msgid "Marketplace Seller Collections "
+msgstr "Marketplace Seller Collections "
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collections
+msgid "No Collections Published Yet"
+msgstr "No Collections Published Yet"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collections
+msgid "No Collections Yet"
+msgstr "No Collections Yet"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model,name:marketplace_seller_collection_page.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_group_filter
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_page_filter
+msgid "Published"
+msgstr "منشور"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_group_filter
+msgid "Search Collection Group"
+msgstr "Search Collection Group"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_page_filter
+msgid "Search Collection Page"
+msgstr "Search Collection Page"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model.fields,field_description:marketplace_seller_collection_page.field_website_collectional_group_marketplace_seller_id
+#: model:ir.model.fields,field_description:marketplace_seller_collection_page.field_website_collectional_page_marketplace_seller_id
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_group_filter_at_officer_end
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_page_filter_at_officer_end
+msgid "Seller"
+msgstr "Seller"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_mp_settings_form_for_collection
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.inherit_wk_seller_form_for_collection
+msgid "Seller Collections Settings"
+msgstr "Seller Collections Settings"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.actions.act_window,name:marketplace_seller_collection_page.mp_seller_collection_group_action
+msgid "Sellers Collection Group"
+msgstr "Sellers Collection Group"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.actions.act_window,name:marketplace_seller_collection_page.mp_seller_collection_page_action
+msgid "Sellers Collection Pages"
+msgstr "Sellers Collection Pages"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_group_filter
+#: model:ir.ui.view,arch_db:marketplace_seller_collection_page.mp_seller_collection_page_filter
+msgid "Unpublished"
+msgstr "Unpublished"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model,name:marketplace_seller_collection_page.model_website_collectional_page
+msgid "Website Collection Page"
+msgstr "Website Collection Page"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model,name:marketplace_seller_collection_page.model_marketplace_config_settings
+msgid "marketplace.config.settings"
+msgstr "marketplace.config.settings"
+
+#. module: marketplace_seller_collection_page
+#: model:ir.model,name:marketplace_seller_collection_page.model_website_collectional_group
+msgid "website.collectional.group"
+msgstr "website.collectional.group"
+

@@ -1,0 +1,26 @@
+.groucho {
+    position: relative;
+    font-family: 'Sanchez', serif;
+}
+.groucho footer {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 0.6em;
+    font-weight: 700;
+    float: right;
+}
+.groucho footer:before{
+    content: '\2015'; 
+
+}
+.groucho footer:after{
+    content: '\201D';
+    position: absolute;
+    top: 0.28em;
+    right: 0;
+    font-size: 6em;
+    font-style: italic;
+    z-index: -1;
+}
+blockquote {
+    margin-bottom: 3em;
+  }

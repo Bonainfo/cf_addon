@@ -1,0 +1,19 @@
+.anchor_alphabet{
+    /*background-color: #0084ad;*/
+    /*color: #fff;*/
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 2.5em;
+    /*padding: 0 20px;*/
+    padding: 0 10px;
+
+    text-align: center;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px
+}
+/*.alphabet_text{
+    padding: 5px;
+}*/

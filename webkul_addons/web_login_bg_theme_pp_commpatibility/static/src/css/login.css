@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+main .oe_website_login_container {
+  width: 425px!important;
+}
+
+main .oe_login_form {
+  margin: auto!important;
+}
+
+.ajax-signup-hr-text:after {
+    left: 154px!important;
+}
+
+@media screen and (max-width: 600px) {
+    main .oe_website_login_container {
+      width: 350px!important;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    main .oe_website_login_container {
+      width: 350px!important;
+    }
+}

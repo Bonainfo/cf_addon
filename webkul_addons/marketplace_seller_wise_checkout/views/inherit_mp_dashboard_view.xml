@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+		<record id="wk_seller_all_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Mp Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('marketplace_seller_id','!=',False),('mp_order_state','in',['new','approved','shipped','cancel'])]</field>
+		   <field
+			   name="view_ids"
+			   eval="[
+			   (5, 0, 0),
+			   (0, 0, {'sequence': 1, 'view_mode': 'kanban', 'view_id': ref('mp_checkout_orders_kanban_view')}),
+			   (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('mp_checkout_orders_form_view')}),
+			   (0, 0, {'sequence': 3, 'view_mode': 'tree', 'view_id': ref('mp_checkout_orders_tree_view')}),
+		   ]"/>
+        </record>
+
+		<record id="wk_seller_new_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Mp Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('marketplace_seller_id','!=',False),('mp_order_state','in',['new'])]</field>
+		   <field
+			   name="view_ids"
+			   eval="[
+			   (5, 0, 0),
+			   (0, 0, {'sequence': 1, 'view_mode': 'kanban', 'view_id': ref('mp_checkout_orders_kanban_view')}),
+			   (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('mp_checkout_orders_form_view')}),
+			   (0, 0, {'sequence': 3, 'view_mode': 'tree', 'view_id': ref('mp_checkout_orders_tree_view')}),
+		   ]"/>
+        </record>
+
+		<record id="wk_seller_approved_sale_order_action" model="ir.actions.act_window">
+            <field name="name">Mp Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('marketplace_seller_id','!=',False),('mp_order_state','in',['approved'])]</field>
+		   <field
+			   name="view_ids"
+			   eval="[
+			   (5, 0, 0),
+			   (0, 0, {'sequence': 1, 'view_mode': 'kanban', 'view_id': ref('mp_checkout_orders_kanban_view')}),
+			   (0, 0, {'sequence': 2, 'view_mode': 'form', 'view_id': ref('mp_checkout_orders_form_view')}),
+			   (0, 0, {'sequence': 3, 'view_mode': 'tree', 'view_id': ref('mp_checkout_orders_tree_view')}),
+		   ]"/>
+        </record>
+
+		<record id="inherit_wk_seller_product_template_kanban" model="ir.ui.view">
+			<field name="name">marketplace.dashboard.mp.checkout.inherit</field>
+			<field name="model">marketplace.dashboard</field>
+			<field name="inherit_id" ref="odoo_marketplace.wk_seller_product_template_kanban"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[hasclass('o_kanban_manage_reports')][3]" position="replace">
+					<div class="o_kanban_card_manage_section o_kanban_manage_reports" t-if="record.state.raw_value =='order'">
+						<div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_view">
+							<div class="o_kanban_card_manage_title">
+								<span>View</span>
+							</div>
+							<div>
+								<a name="%(marketplace_seller_wise_checkout.wk_seller_all_sale_order_action)d" type="action">All</a>
+							</div>
+						</div>
+						<div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_new">
+							<div class="o_kanban_card_manage_title">
+								<span>New</span>
+							</div>
+							<div>
+								<a name="%(marketplace_seller_wise_checkout.wk_seller_new_sale_order_action)d" type="action">New</a>
+							</div>
+							<div>
+								<a name="%(marketplace_seller_wise_checkout.wk_seller_approved_sale_order_action)d" type="action">Approved</a>
+							</div>
+						</div><div t-if="widget.editable" class="o_project_kanban_colorpicker" style="padding-top:100px;">
+							<ul class="oe_kanban_colorpicker" data-field="color"/>
+						</div>
+					</div>
+				</xpath>
+				<xpath expr="//div[hasclass('o_project_kanban_boxes')][3]" position="replace">
+					<div class="o_project_kanban_boxes" style="width:22%" t-if="record.state.raw_value =='order'">
+						<div  class="o_project_kanban_box">
+							<a name="%(marketplace_seller_wise_checkout.wk_seller_new_sale_order_action)d" type="action">
+								<span class="o_value"><t t-esc="record.count_product_pending.value"/></span>
+								<span class="o_label">New</span>
+							</a>
+						</div>
+						<a class="o_project_kanban_box" name="%(marketplace_seller_wise_checkout.wk_seller_approved_sale_order_action)d" type="action">
+							<span class="o_value"><t t-esc="record.count_product_approved.value"/></span>
+							<span class="o_label">Approved</span>
+						</a>
+					</div>
+				</xpath>
+			</field>
+		</record>
+
+    </data>
+</odoo>

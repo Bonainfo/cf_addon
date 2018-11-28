@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data noupdate="0">
+
+		<record model="ir.ui.view" id="website_sale.reduction_code">
+			<field name="active">False</field>
+			<field name="customize_show">False</field>
+		</record>
+		<record model="ir.ui.menu" id="odoo_marketplace.wk_seller_dashboard_menu3_sub_menu2">
+			<field name="sequence">1</field>
+			<field name="name">Orders</field>
+			<field name="action" ref="marketplace_seller_wise_checkout.mp_checkout_orders_action"/>
+		</record>
+
+    </data>
+</odoo>

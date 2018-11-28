@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <data>
+
+        <template id="assets_frontend_manufacturer_filter" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/pharmacy_company_filter/static/src/js/filter.js"></script>
+            </xpath>
+        </template>
+
+        <template id="product_manufacturer_on_product_page" inherit_id="theme_pharmacistplace.theme_pharmacistplace_product" name="Show Product Manufacturer">
+            <xpath expr="//div[@id='product_barcode']" position="before">
+                <t t-set="manufacture" t-value="product.sudo().manufacture"/>
+                <t t-if="manufacture">
+                    <div id="product_manufacture">
+                        <span class="text-muted" style="font-style:Bold">Manufactured By: </span>
+                        <span class="pp-text-primary" t-field="manufacture.name"/>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="pp_pharma_company_filter" inherit_id="website_sale.products" active="False" customize_show="True" name="Pharma Company Filters" priority="20">
+			<xpath expr="//div[@id='products_grid_before']" position="inside">
+				<!-- <form class="js_attributes" method="get"> -->
+					<!-- <input type="hidden" name="search" t-att-value="search" /> -->
+                    <div>
+                        <ul class="nav nav-pills nav-stacked mb16" id="filter_pharma_company" style="border: 1px solid #e1e1e1;    border-color: #e1e1e1;    border-radius: 5px;">
+                            <li class="flt_heading pp-brand-info" style="font-weight: bold;    font-size: 16px;border-bottom: 1px solid #e1e1e1;    padding: 10px 15px;    margin-bottom: 10px;">
+                                <span class="pp-brand-info">
+                                    Pharma Companies
+                                </span>
+                            </li>
+
+                            <li style="padding: 0px 15px;">
+                                <div t-if="set_pharma_company_filter">
+                                    <t t-foreach="set_pharma_company_filter" t-as="manufacturer">
+                                        <div style="border: 1px solid #8080804f;padding: 5px 10px;" class="mb8">
+                                            <input type="hidden" name="pharma_company" t-att-value="manufacturer.id"/>
+                                            <span class="pp-brand-info"><t t-esc="manufacturer.name"/></span>
+                                            <span class="remove-manufacturer fa fa-times pull-right" style="font-size: 15px;margin-top: 5px;cursor: pointer;color: #8e8f8f;"></span>
+                                        </div>
+                                    </t>
+                                </div>
+                                    <div class="input-group mb16 mt8">
+                                        <textarea rows="1" cols="20" class="form-control" id="find_pharma_company" placeholder="Find Pharma Company" autocomplete="off" style="resize: none;white-space: nowrap;overflow-x: hidden;"/>
+                                        <div id="set_pharma_company" t-att-data-set-pharma-company-list="set_pharma_company_filter.ids if set_pharma_company_filter else None"/>
+                                        <ul class="dropdown-menu pharma-company-list" style="margin: 0;width: 100%;padding: 3px 10px;">
+                                        </ul>
+                                        <span class="input-group-btn">
+                                            <button type="submit" id="add_pharma_company" class="btn btn-primary">ADD</button>
+                                        </span>
+                                    </div>
+                            </li>							
+                        </ul>
+                    </div>
+				<!-- </form> -->
+			</xpath>
+			<xpath expr="//div[@id='products_grid_before']" position="attributes">
+				<attribute name="class">col-md-3 hidden-xs</attribute>
+			</xpath>
+			<xpath expr="//div[@id='products_grid']" position="attributes">
+				<attribute name="class">col-md-9</attribute>
+			</xpath>
+		</template>
+    </data>
+</odoo>
+
+

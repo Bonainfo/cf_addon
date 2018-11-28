@@ -1,0 +1,201 @@
+<odoo>
+  <data>
+    <template id="affiliate" name="Affiliate">
+      <t t-call="website.layout">
+          <t t-set="title">My Affilaite</t>
+
+
+          <!-- <t t-if="not website.user_id == user_id ">
+              <t t-if="not user_id.partner_id.is_affiliate">
+                <span id="aff_req_btn">
+                    <p class="alert alert-warning">
+                        <span >
+                          Do you want to become an Affiliate ?
+                        </span>
+                        <span id="yes_later" style="position:absolute;right:5%">
+                          <button t-att-id="'yes_btn_uid_%s'%(user_id.id)" >now</button>
+                          <button id="later_button">later</button>
+                        </span>
+                    </p>
+                </span>
+              </t>
+          </t> -->
+
+                  <p class="alert alert-danger" t-if="error">
+                      <t t-esc="error"/>
+                    </p>
+
+                    <p class="alert alert-success" t-if="success">
+                        <t t-esc="success"/>
+                      </p>
+
+                  <div class='affiliate_banner'>
+                    <div style="height:400px">
+                      <t t-if="banner_image">
+                        <img t-attf-src="data:image/jpg;base64,{{ banner_image }}" style="position: absolute;top:0px;height: 100%;width: 100%;"/>
+                      </t>
+                      <t t-if="not banner_image">
+                        <img src="/affiliate_management/static/src/img/cover-banner.jpg" style="position: absolute;top:0px;height: 100%;width: 100%;"/>
+                      </t>
+                        <div class="banner_detail">
+                              <div class="banner_text">
+                                <t t-if="banner_title">
+                                     <t t-esc="banner_title"/>
+                                </t>
+                                <t t-if="not banner_title">
+                                     Welcome To Affiliate Program
+                                </t>
+                               </div>
+                               <br/>
+
+                              <div style="color: white;">
+                                <div class="row" style="text-align:center;">
+
+                                   <img src="/affiliate_management/static/src/img/icon-check.svg"/>
+                                    Generate Links &amp; Banners &#160;&#160;
+                                   <img src="/affiliate_management/static/src/img/icon-check.svg"/>
+                                    Root Traffic To "<t t-esc="website_name"/>"&#160;&#160;
+                                    <img src="/affiliate_management/static/src/img/icon-check.svg"/>
+                                     Earn commission
+                                </div>
+                              </div>
+
+
+                                <t t-if="website.user_id == user_id ">
+                                  <t t-if="enable_signup">
+                                        <div class="aff_box" >
+                                              <form role="form" class="form-inline">
+                                                <!-- <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/> -->
+                                                  <input type="email" name="email" t-att-value="login" id="register_login" class="form-control signup_input" required="required" autofocus="autofocus" placeholder="Enter Your Email" style="width:450px;height:50px;font-size: 18px;"/>
+                                              <button type="submit" id="join-btn" class="btn btn-success" style="width:250px;height:50px;">JOIN NOW FOR FREE</button>
+                                              </form>
+                                        </div>
+                                  </t>
+                                </t>
+
+                                <t t-if="not website.user_id == user_id ">
+                                  <t t-if="not user_id.partner_id.is_affiliate and ( not request.env['affiliate.request'].sudo().checkRequestExists(user_id))">
+                                    <div id="aff_req_btn" style="padding: 25px;">
+                                      <center>
+                                       <button  t-att-id="'yes_btn_uid_%s'%(user_id.id)" class="btn btn-success" style="width:177px;height:47px;" >JOIN NOW FOR FREE</button>
+                                     </center>
+                                    </div>
+                                  </t>
+                               </t>
+                                 <!-- message for the initial state -->
+                                <div class="alert_msg_banner" >
+                                  <center>
+                                      <span style="color:white">
+                                        <img src='/affiliate_management/static/src/img/Icon_tick.png' />
+                                        Your Request has been submitted sucessfully. Soon you will be notify by   email.
+                                      </span>
+                                    </center>
+                                </div>
+                              <!-- message for pending state -->
+                            <t t-if="request.env['affiliate.request'].sudo().checkRequeststate(user_id) == 'pending'">
+                              <div class="alert_msg_banner_1" >
+                                <center>
+                                      <span style="color:white">
+                                        <img src='/affiliate_management/static/src/img/alert.png' />
+                                        Your application is currently being reviewed, soon you will receive an Approval confirmation mail and thereafter you will able to access your Affiliate account on our website.
+                                      </span>
+                                      <div>
+                                        <a href='/shop' class='btn btn-success' style='width:177px;height:37px;position:relative;top: 20px;' >Continue Shopping</a>
+                                      </div>
+                                    </center>
+                                </div>
+                            </t>
+                            <!-- message for cancel stage -->
+                            <t t-if="request.env['affiliate.request'].sudo().checkRequeststate(user_id) == 'cancel'">
+                              <div class="alert_msg_banner_1" >
+                                <center>
+                                      <span style="color:white">
+                                        <img src='/affiliate_management/static/src/img/error.png' />
+                                        Sorry to say! your request to became an affiliate for us is rejected by Admin.
+                                      </span>
+                                      <div>
+                                        <a href='/shop' class='btn btn-success' style='width:177px;height:37px;position:relative;top: 40px;' >Continue Shopping</a>
+                                      </div>
+                                    </center>
+                                </div>
+                            </t>
+
+
+                            <t t-if="request.env['affiliate.request'].sudo().search([('user_id','=',user_id.id)]).state == 'aproove'">
+                              <div >
+                                <center>
+                                     <div>
+                                        <a href='/affiliate/about' class='btn btn-success' style='width:177px;height:37px;position:relative;top: 40px;' >View My Affiliate Account</a>
+                                      </div>
+
+
+                                    </center>
+                                </div>
+                            </t>
+
+
+                        </div>
+
+                    </div>
+                  </div>
+                      <div class="row" style="background-color: #dee0e2; text-align: center;">
+
+                              <div class="col-md-offset-2 col-md-8">
+                                <div style="padding:20px">
+                                  <h3>About Our Affiliate Program</h3>
+                                  Affiliate Management is a program where you can earn commission just by advertising our products on your website/blog .
+                                    Commission will be earned by you everytime when a user makes a purchase by visiting us through you (means through the product link which you publish on your website/blog).
+                                    There is zero cost involvement in joining the affiliate program which makes it distinct, low risk and high reward marketing and sales strategy as compared to others.
+                                </div>
+
+                              </div>
+
+                      </div>
+                      <div class="row" >
+
+                              <div class="col-md-offset-2 col-md-8">
+                                <div style="padding:20px">
+                                  <center>
+                                    <h3>How Does it Work?</h3>
+                                  </center>
+                                  <t t-raw="work_title"/>
+                                </div>
+                                  <div class=" col-md-8">
+                                     <t t-raw="work_text"/>
+                                  </div>
+                              </div>
+                      </div>
+
+                      <div class="row" style="text-align: left;">
+
+                                <div class="col-md-offset-3 col-md-4" style="padding:35px">
+                                  <h3>Stats Management</h3>
+                                  With our Affiliate Program, one will able to instantly see all the information related to his earnings from Pay Per Sale and Pay Per Click, which would be highly valuable in making decisions. Reports generated by our Stats Management saves time and gives a more clear picture of your Affiliate Program profit and loss and what to focus on in order to maximize your profit.
+                                </div>
+                                <img src="/affiliate_management/static/src/img/icon-stats-management.svg" class="col-md-2" style="height: 180px;style=padding:35px"/>
+
+
+                      </div>
+
+                      <div class="row" id="affilaite_tool" style="text-align: left;" >
+
+                              <img src="/affiliate_management/static/src/img/icon-affiliate-tools.svg" class="col-md-offset-3 col-md-2" style="height: 180px;style=padding:35px"/>
+
+
+                                <div class="col-md-4" style="padding:35px">
+                                  <h3>Affiliate Tool</h3>
+                                 Through our specially designed Affiliate Tools namely “Affiliate Link Generator” and “Product Link Generator” user can easliy manage his affiliate program.
+                                  Through our tools, its easy to build  the affiliate product links and banners and earn money.</div>
+
+
+                      </div>
+
+                      <div id="affilaite_faq" >
+                      </div>
+
+                      <div id="affilaite_testimonial" >
+                      </div>
+      </t>
+    </template>
+  </data>
+</odoo>

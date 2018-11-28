@@ -1,0 +1,115 @@
+
+#sidebarCollapse.active, #sidebarCollapse_mob.active {
+    background-image: url('/theme_pharmacistplace/static/src/icon/Menu-Close.png');
+    /* transform: rotate(90deg); */
+    transition: all 0.3s;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.srink_wrapwrap{
+    padding-right: 300px;
+}
+
+#wrapwrap,
+#oe_main_menu_navbar {
+    transition: all .3s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* background-color: #111; */
+    overflow-x: hidden;
+    transition: all .3s;
+    padding-top: 4px;
+    z-index: 10000;
+    background: white;
+}
+
+#sidebar.active {
+    width: 300px;
+    margin-right: 0;
+    right: 0;
+    border-left: 1px solid #cccccc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px 0px;
+    font-size: 1.1em;
+    display: block;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar li {
+    border-bottom: 1px solid #cccccc;
+}
+
+#sidebar li:last-child {
+    border-bottom: none;
+}
+#sidebar li a.social-media-link{
+    padding: 10px;
+}
+#sidebar li:first-child a.social-media-link {
+    padding: 10px 10px 10px 0px;
+}
+#sidebar ul#sidebar_socail_links li {
+    border-bottom: none;
+}
+
+#menu_hide_arrow{
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    background-color: white;
+    padding: 0px 15px;
+    display: none;
+    cursor: pointer;
+}
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .sidebar{
+        border: none;
+    }
+    .stop_page_scroll {
+        overflow: hidden;
+    }
+
+    .srink_wrapwrap{
+        padding: 0;
+
+    }
+    #sidebar.active{
+        width: 100%
+    }
+}

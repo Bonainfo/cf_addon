@@ -1,0 +1,155 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<odoo>
+        <record id="view_affiliate_config_form" model="ir.ui.view">
+            <field name="name">affiliate.res.config.view</field>
+            <field name="model">affiliate.config.setting</field>
+            <field name="arch" type="xml">
+                <form  class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                     <group string="Affiliate Program">
+                        <group>
+                            <label for="id" string="Affiliate Program"/>
+                            <div>
+                              <div>
+                                <button type="object" name="open_program" string="Configure your Affiliate Program data" class="oe_link btn-link"/>
+
+                                <div invisible="1">
+                                    <label for="affiliate_program_id"/> 
+                                    <field name="affiliate_program_id" class="oe_inline" readonly="1" />
+                                 </div>
+
+
+                             </div>
+                            </div>
+                            <field name="enable_ppc" />
+                            <field name="unique_ppc_traffic" />
+                            <field name="auto_approve_request" string="Automatic Approve Request"/>
+                            <field name="aff_product_id" string="Affiliate product (optional)" />
+
+
+
+
+                        </group>
+
+                        <nextline/>
+                            <group col='2'>
+
+                                <group>
+                                     <field name="ppc_maturity"/>
+                                   </group>
+                                <group>
+                                    <field name="ppc_maturity_period" nolabel="1" />
+                                  </group>
+
+
+                            </group>
+                            <nextline/>
+                            <group col='2'>
+
+                                <group>
+                                     <field name="cookie_expire"/>
+                                   </group>
+                                <group>
+                                    <field name="cookie_expire_period" nolabel="1" />
+                                  </group>
+
+
+                            </group>
+
+                    </group>
+
+
+                    <group string="Payment Configuration">
+                      <group >
+
+
+                          <label for="payment_day"/>
+                          <div>
+
+                                <field name="payment_day" class="oe_inline"/>
+                                    <span >
+                                      Day of Every Month
+                                    </span>
+
+                          </div>
+                         <label for="minimum_amt"/>
+                          <div>
+                                   <field name="minimum_amt" class="oe_inline"/>&#x2063;
+                                    <span >
+                                      <field name="currency_id" readonly="1" class="oe_inline" />
+                                    </span>
+
+                          </div>
+                        </group>
+                      </group>
+
+
+
+                      <group string="Email Configuration">
+                        <group >
+
+                                 <field name="welcome_mail_template" />
+                                <field name="Invitation_mail_template" />
+
+                                <field name="reject_mail_template" />
+                        </group>
+                      </group>
+
+                    <group string="Affiliate Website">
+                            <group >
+                              <field name="enable_signup"/>
+                              <field name="enable_login"/>
+                              <field name="enable_forget_pwd"/>
+
+
+
+                               <label for="affiliate_banner_id" string="Affiliate Banner"/>
+                           <div>
+                               <div>
+                                   <button type="object" name="open_banner" string="Configure your Affiliate Banner" class="oe_link btn-link"/>
+
+                                   <div invisible="1">
+                                       <label for="affiliate_banner_id"/> -
+                                       <field name="affiliate_banner_id" class="oe_inline" readonly="1" />
+                                    </div>
+
+
+                               </div>
+                           </div>
+
+
+                            </group>
+                          </group>
+
+                          <group string="Affiliate Program How Does It Work">
+                                     <field name="work_title" />
+                                     <field name="work_text" />
+                          </group>
+
+                          <group string="Affiliate Program Terms and Conditions">
+                             <field name="term_condition" string="Terms and Conditions"/>
+                          </group>
+
+                    <div>
+                        <span>(*) This configuration is related to the company you're logged into.</span>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="affiliate_config_form_action" model="ir.actions.act_window">
+            <field name="name">Affiliate Program Config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">affiliate.config.setting</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+
+        <menuitem id="setting_submenu_root" name="Settings" parent="configuration_submenu_root"
+            sequence="0" action="affiliate_config_form_action"
+            groups="base.group_system,affiliate_management.affiliate_security_manager_group"/>
+</odoo>

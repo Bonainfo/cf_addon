@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Notification">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/website_notification_pharmacistplace/static/src/css/notification.css" />
+            <script type="text/javascript" src="/website_notification_pharmacistplace/static/src/js/notification.js"></script>
+        </xpath>
+    </template>
+
+    <template id="theme_pharmacistplace_notification_bell" inherit_id="theme_pharmacistplace.theme_pharmacistplace_layout" name="Website Notification">
+        <xpath expr="//li[@id='language_selector_li']" position="after">
+            <li class="remove_li_border" t-if="website.user_id != user_id" id="notification_li">
+                <a class="fa fa-bell pp-text-white" style="padding: 10px 15px;line-height: 20px;margin-left: 10px;cursor: pointer;">
+                    <t t-set="notification_count" t-value="len(request.env.user.partner_id.with_context(unread=True).get_notifications())"/>
+                    <sup t-if="notification_count" class="badge">
+                        <t t-if="notification_count &lt;10" t-esc="notification_count"/>
+                        <t t-if="notification_count &gt;9">
+                            <span>9+</span>
+                        </t>                        
+                    </sup>
+                </a>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="website_notification_popover" name="Notification Popover">
+        <!-- <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="well well-lg">
+            No new notification!
+        </div> -->
+        <!-- <t t-if="website_sale_order and website_sale_order.website_order_line"> -->
+            <div class="row" style="max-height: 330px;overflow: auto;">
+                <ul style="padding:0px;" class="notification_ul">
+                    <p class="col-md-12 col-sm-12 col-xs-12 pp-brand-info" style="border-bottom:1px solid #cccccc;margin: 0px;padding: 0px 10px;font-weight: bold;">
+                        <span t-if="not all_message">
+                            There is no new notification.
+                        </span>
+                        <span t-if="all_message">
+                            My Account
+                        </span>
+                    </p>
+                    <t t-foreach="all_message" t-as="notification">
+                        <li style="list-style: none;">
+                            <div class="col-md-12 col-sm-12 col-xs-12 notification_div" style="padding: 5px 10px;">
+                                <div class="pp-brand-primary" style="display: flex;">
+                                    <span class="fa fa-male fa-2x" style="padding-top: 5px;">
+                                    </span>
+                                    <span style="padding: 5px 0px 5px 10px;display: block;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
+                                        <!-- Testing notification for testing purpose. -->
+                                        <t t-esc="notification.subject"/>
+                                    </span>
+                                </div>
+                                <div>
+                                    <small class="pull-right notification_date" t-esc="notification.create_date" style="font-size: 80%;"/>
+                                </div>        
+                            </div>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <a href="/my/notifications" title="View All Notifications"> 
+                <div class="text-center row pp-brand-info" style='padding: 10px;border-top:1px solid #cccccc;'>
+                    View All
+                </div>
+            </a>
+        <!-- </t> -->
+    </template>
+
+    <template id="pp_portal_my_notifictaion_menu" name="Portal Notification : Website Notification" inherit_id="website_portal_sale.portal_my_home_menu_sale">
+        <xpath expr="//ul[contains(@class,'o_portal_submenu')]" position="inside">
+            <li t-att-class="'active' if notification_active else ''">
+                <a href="/my/notifications" class="pp-brand-info">
+                    <span class="fa fa-bell"/>
+                    <span>Notifications</span>
+                    <i class="pull-right fa fa-angle-right"/>
+                </a>
+            </li>
+        </xpath>
+    </template>
+    <template id="pp_portal_my_notifictaion_badge" name="Portal My Home : Website Notification" inherit_id="website_portal_sale.portal_my_home_sale" priority="25">
+        <xpath expr="//div[contains(@class,'o_my_home_content')]" position="inside">
+            <h3 class="page-header">
+                <a href="/my/notifications">
+                    Your Notifications
+                    <small class="ml8">
+                        <t t-if="notifications">
+                            <span class='badge'>
+                                <t t-esc="len(notifications)"/>
+                            </span>
+                        </t>
+                        <t t-if="not notifications">
+                            There are currently no notification your account.
+                        </t>
+                    </small>
+                </a>
+            </h3>
+        </xpath>
+    </template>
+
+    <template id="portal_my_notifications" name="Website Notification">
+        <t t-call="website_portal.portal_layout">
+            <h1 class="mb32 hidden-md hidden-lg hidden-xl">Your Notifications</h1>
+            <div style="display:flex;margin-top: 10px;" class="mb32 hidden-sm hidden-xs">
+                <div style="width: 35%;">
+                    <t t-call="theme_pharmacistplace.three_hr_lines_left_part"/>
+                </div>
+                <div style="width: 30%;text-align: center;padding: 10px;">
+                    <span style="font-size: 22px;color: #272866;padding: 3px;font-weight: bold;">
+                        Your Notifications
+                    </span>
+                </div>
+                <div style="width: 35%;">
+                    <t t-call="theme_pharmacistplace.three_hr_lines_right_part"/>
+                </div>
+            </div>
+            <t t-if="not notifications">
+                <p>There are currently no notifications your account.</p>
+            </t>
+            <t t-if="notifications">
+                <t t-foreach="notifications" t-as="msg">
+                    <div class="col-md-12 col-sm-12 col-xs-12 my_notification_div mb16" style="padding: 5px 10px;">
+                        <div style="display:inline">
+                            <div class="pull-right badge">
+                                <small class="pull-right my_notification_date" t-esc="msg.create_date" style="font-size: 80%;"/>
+                            </div>
+                            <div class="pp-brand-primary">
+                                <span class="pp-brand-info" style="font-weight:bold">Subject: </span>
+                                <span t-esc="msg.subject"/>
+                            </div>
+                        </div>
+                        <div class="" style="max-height: 200px;overflow: auto;">
+                            <span t-raw="msg.body"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data noupdate="1">
+
+        <record id="seller_write_access_in_order_line_rule" model="ir.rule">
+	        <field name="name">Seller order line write only </field>
+	        <field name="model_id" ref="sale.model_sale_order_line"/>
+	        <!-- <field name="domain_force">[('marketplace_seller_id.id','=',user.partner_id.id)]</field> -->
+	        <field name="groups" eval="[(4, ref('odoo_marketplace.marketplace_seller_group'))]"/>
+            <field name="read">1</field>
+            <field name="write">1</field>
+            <field name="create">0</field>
+            <field name="delete">0</field>
+	    </record>
+
+    </data>
+</odoo>

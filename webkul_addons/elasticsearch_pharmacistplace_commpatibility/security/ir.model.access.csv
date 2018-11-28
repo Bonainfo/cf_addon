@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+seller_access_odoo_elastic_record_mapping,elastic_record_mapping_seller_access,odoo_elasticsearch.model_elastic_record_mapping,,1,0,0,0

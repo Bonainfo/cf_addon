@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="mobikul_app_config_settingsInherit" model="ir.ui.view">
+    <field name="name">Mobikul Settings Inherit</field>
+     <field name="model">mobikul.config.settings</field>
+     <field name="inherit_id" ref="mobikul.mobikul_app_config_settings"/>
+     <field name="arch" type="xml">
+        <xpath expr="//form/group[@name='addon']" position="inside">
+          <label for="id" string="Allow Seller Wise Checkout"/>
+            <div>
+                <div >
+                    <field name="module_marketplace_seller_wise_checkout"/>
+                    <label for="module_marketplace_seller_wise_checkout"/>
+                </div>
+            </div>
+        </xpath>
+     </field>
+  </record>
+
+</odoo>

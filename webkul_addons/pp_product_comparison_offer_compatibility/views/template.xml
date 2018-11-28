@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+	
+		<template id="compatibe_pp_wk_mp_product_other_seller_page" inherit_id="pp_product_comparison_compatibility.pp_wk_mp_product_other_seller_page">
+			<xpath expr="//th[4]" position="before">
+				<th width="100">Discount &amp; Bonus</th>
+			</xpath>
+			<xpath expr="//td[5]" position="before">
+				<td class="pp-align-middle">
+					<div class="">
+						<span class="bonus_icon_info"/>
+						<span class="pp-brand-info" style="vertical-align: super;">
+							<t t-esc="int(other_seller_product.max_percentage_bonus)"/> % Bonus
+						</span>
+					</div>
+					<div class="">
+						<span class="pp_discount_icon_primary" style="margin: 0px;"/>
+						<span class="pp-brand-primary" style="vertical-align: super;">
+							<t t-esc="int(other_seller_product.pharmacy_discount)"/> % Off
+						</span>                            
+					</div>
+				</td>
+			</xpath>
+		</template>
+		
+    </data>
+</odoo>

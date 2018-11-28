@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+
+<odoo>
+    <record id="pharmacy_tag_inherit_wk_seller_product_template_form_view" model="ir.ui.view">
+        <field name="name">seller.product.template.pharmacy.tags</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="odoo_marketplace.wk_seller_product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="pharmacy_tag_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="pharmacy_tag_inherit_mp_product_product_form_view" model="ir.ui.view">
+        <field name="name">seller.product.product.pharmacy.tags</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="odoo_marketplace.mp_product_product_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="pharmacy_tag_ids" widget="many2many_tags"/></field>
+        </field>
+    </record>
+
+    <record id="pp_product_pharmacy_tag_action" model="ir.actions.act_window">
+        <field name="name">Pharmacy Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pharmacy.product.tag</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="pp_product_pharmacy_tag_mp_menu" name="Product Pharmacy Tags" parent="odoo_marketplace.wk_seller_dashboard_menu8" action="pp_product_pharmacy_tag_action" groups="odoo_marketplace.marketplace_officer_group"/>
+
+    <!-- <menuitem id="pp_product_pharmacy_tag_sale_menu" name="Product Pharmacy Tags" parent="odoo_marketplace.wk_seller_dashboard_menu8" action="pp_product_pharmacy_tag_action" groups="odoo_marketplace.marketplace_officer_group"/> -->
+
+</odoo>

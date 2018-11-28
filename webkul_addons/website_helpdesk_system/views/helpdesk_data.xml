@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="helpdesk.stage" id="stage_help1">
+        <field name="name">New</field>
+        <field name="sequence">1</field>
+    </record>
+    <record model="helpdesk.stage" id="stage_help2">
+        <field name="name">InProgress</field>
+        <field name="sequence">2</field>
+    </record>
+    <record model="helpdesk.stage" id="stage_help3">
+        <field name="name">Solved</field>
+        <field name="fold" eval="False"/>
+        <field name="sequence">70</field>
+    </record>
+    <record model="helpdesk.stage" id="stage_help4">
+        <field name="name">Canceled</field>
+        <field name="fold" eval="True"/>
+        <field name="sequence">80</field>
+    </record>
+</odoo>

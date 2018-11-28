@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* pp_product_comparison_offer_compatibility
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 07:56+0000\n"
+"PO-Revision-Date: 2018-09-20 07:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pp_product_comparison_offer_compatibility
+#: model:ir.ui.view,arch_db:pp_product_comparison_offer_compatibility.compatibe_pp_wk_mp_product_other_seller_page
+msgid "% Bonus"
+msgstr "% Bonus"
+
+#. module: pp_product_comparison_offer_compatibility
+#: model:ir.ui.view,arch_db:pp_product_comparison_offer_compatibility.compatibe_pp_wk_mp_product_other_seller_page
+msgid "% Off"
+msgstr "% Off"
+
+#. module: pp_product_comparison_offer_compatibility
+#: model:ir.ui.view,arch_db:pp_product_comparison_offer_compatibility.compatibe_pp_wk_mp_product_other_seller_page
+msgid "Discount &amp; Bonus"
+msgstr "الخصومات"
+

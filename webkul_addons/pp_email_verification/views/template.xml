@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+	<data>
+
+		<template id="pp_email_layout" inherit_id="theme_pharmacistplace.theme_pharmacistplace_layout" name="Main layout">
+			<xpath expr="//header//div[hasclass('navbar-pharmacistplace')]" position="after">
+				<div class="alert alert-warning text-center" t-if="website.check_email_is_validated() == 'unverified'">
+					<span>The account is not verified yet, you need to verify your account before proceeding further. If you want to re-send link </span>
+					<a style="cursor:pointer" t-attf-href="/resend/email">click here</a>.            
+				</div>
+				<div class="alert alert-warning text-center" t-if="website.check_email_is_validated() == 'expired'">
+					<span>The account is not verified yet, you need to verify your account before proceeding further. The link sent to your email has been expired, for sending a new link  </span>
+					<a style="cursor:pointer" t-attf-href="/resend/email">click here</a>.            
+				</div>
+			</xpath>
+		</template>
+
+		<template id="pp_email_single_page_checkout" inherit_id="website_single_page_checkout.single_page_checkout" >
+			<xpath expr="//div[hasclass('oe_sale_acquirer_button')]" position="attributes">
+				<attribute name="t-att-class">'oe_sale_acquirer_button hidden disabled_payment_div' if env.uid!=env.ref('base.public_user').id and website.check_email_is_validated() in ['unverified','expired'] else  'oe_sale_acquirer_button hidden'</attribute>
+			</xpath>
+			<xpath expr="//div[hasclass('oe_sale_acquirer_button')]/.." position="after">
+				<div class="alert alert-warning text-center" t-if="website.check_email_is_validated() == 'unverified'" >
+					<span>
+						The account is not verified yet, you need to verify your account before proceeding further.
+						<p> 
+							If you want to re-send link 
+							<a style="cursor:pointer" t-attf-href="/resend/email">click here</a>.
+						</p>
+					</span>
+				</div>
+			</xpath>
+		</template>
+
+		
+    </data>
+</odoo>

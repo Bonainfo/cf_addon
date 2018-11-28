@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <template id="theme_pharmacistplace_products_az_filter" inherit_id="products_az_filter.products">
+            <xpath expr="//div[hasclass('horizontal_category')]" position="replace">
+            </xpath>            
+        </template>
+
+        <template id="pp_products_az_filter_theme_pharmacistplace_sort" inherit_id="theme_pharmacistplace.theme_pharmacistplace_sort">
+            <xpath expr="//t[@t-if='not order_by_value']/span" position="replace">
+                <!-- <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> -->
+                <span>Alphabet</span>
+            </xpath>
+            <xpath expr="//div[hasclass('dropdown_sorty_by')]" position="after">
+                <div class="col-md-9 horizontal_category hidden-xs" style="background:#eeeeee;border-radius: 0px 4px 4px 0px;padding: 10px 0px;">
+                    <center>
+                        <t t-set ="alphabets"  t-value="website.get_alphabets()"/>
+                        <span>
+                            <t t-foreach='alphabets' t-as='alphabet'>
+                                <a
+                                t-att-class="'anchor_alphabet' + ' ' +'pp-bg-info' if alphabet in alphabet_list else 'anchor_alphabet'"
+                                t-att-id="'#link%s'%(alphabet)"
+                                t-att-href="keep('/shop'+ ('/category/'+slug(category)) if category else None, search=0,alphabet=alphabet)" style="padding: 0 5px;font-size:inherit;line-height: 2.3em;color: #272866;">
+                                    <span t-att-class="'alphabet_text' + ' ' + 'pp-label-white' if alphabet in alphabet_list else 'pp-label-primary'"><t t-esc='alphabet'/></span>
+                                </a>
+                            </t>
+                        </span>
+                    </center>
+                </div>
+            </xpath>            
+        </template>
+    </data>
+</odoo>

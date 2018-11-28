@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/marketplace_pharmacist_details/static/src/css/details.css" />
+        </xpath>
+    </template>
+
+    <template id="inherit_theme_pharmacistplace_wizard_checkout" inherit_id="theme_pharmacistplace.theme_pharmacistplace_wizard_checkout">
+        <xpath expr="//ul//li[@id='step15']" position="attributes">
+            <attribute name="t-if"> request.website._hide_distributor_activator_step()</attribute>
+        </xpath>
+        <xpath expr="//ul//hr[hasclass('pp_hr')][2]" position="attributes">
+            <attribute name="t-if"> request.website._hide_distributor_activator_step()</attribute>
+        </xpath>
+    </template>
+
+    <template id="distributor_activate" name="Distributor Activate">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <t t-call="theme_pharmacistplace.header_three_for_breadcrumb">
+                    <t t-set="pp_step" t-value="15"/>
+                </t>
+                <div class="container oe_website_sale">
+                    <t t-call="website_sale.wizard_checkout">
+                        <t t-set="step" t-value="15"/>
+                    </t>
+                    <div class="mb32 hidden-xs" style="">
+                        <div style="display:flex;">
+                            <div style="width:38%">
+                                <t t-call="theme_pharmacistplace.three_hr_lines_left_part"/>
+                            </div>
+                            <div style="width:24%;text-align: center;padding:10px">
+                                <span style="font-size: 30px;" class="pp-brand-info">
+                                    <span t-if="marketplace_seller_id" t-esc="marketplace_seller_id.name"></span>
+                                    <span t-if="not marketplace_seller_id">Distributor Name</span>
+                                </span>
+                            </div>
+                            <div style="width:38%">
+                                <t t-call="theme_pharmacistplace.three_hr_lines_right_part"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oe_structure">
+                        <!-- <div class="col-md-offset-2 col-md-8"> -->
+                        <div class="row mb64 mt32">
+                            <div class="col-md-6 right-border">
+                                <div class="mt16 mb16 padding40">
+                                    <span class="pp-brand-info mb8" style="display:block; font-weight: 600;">
+                                        Have you id account, please add this in below field
+                                    </span>
+                                    <!-- <label for="pharmacy_account_id" class="text-muted"> Add Pharmacy Id</label>
+                                    <input type="text" class="" name="pharmacy_account_id" id="pharmacy_account_id"/> -->
+                                    <span for="pharmacy_account_id" class="text-muted"> Add Pharmacy Id</span>
+                                    <div class="input-group mt4 col-md-8">
+                                        <input type="text" class="form-control" placeholder="Pharmacy Id" name="pharmacy_account_id" id="pharmacy_account_id"/>
+                                        <span class="input-group-btn" style="padding-left:10px;">
+                                            <button id="pharmacy_account_search" class="btn btn-primary" type="submit">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <span for="pharmacy_account_id" class="text-danger"></span>
+                                    <div class="" style="display:None;">
+                                        <a href="/shop/checkout" class="btn btn-primary">
+                                            <span>
+                                                Process Checkout <i class="fa fa-shopping-cart"/>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mt16 mb16 padding40">
+                                    <span class="pp-brand-info" style="display:block; font-weight: 600;">
+                                        If you have no id account, please create a registration request
+                                    </span>
+                                    <p>
+                                        Your account details will be send to "<span t-if="marketplace_seller_id" t-esc="marketplace_seller_id.name"></span>
+                                        <span t-if="not marketplace_seller_id">Distributor Name</span>"
+                                    </p>
+                                    <div class="text-center">
+                                        <!-- ~~~~~~~~~~~~~~~~~ Warning modal if Pharmacy Account already exist ~~~~~~~~~~~~~~~~~ -->
+                                        <div id="PharmacyIdExistModal" class="modal fade" role="dialog">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content submit_customer_quote_modal">
+                                              <div class="modal-header">
+                                                <h4 style="color:#823838;">
+                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"> Warning </i>
+                                                </h4>
+                                              </div>
+                                              <div class="modal-body" style="color:black;">
+                                                    <h4 t-if="pharmacy_account and pharmacy_account.pharmacist_id">
+                                                        There is already an account for this seller.
+                                                    </h4>
+                                                    <h4 t-else="">
+                                                        A request for this seller is already pending. You cannot create a new request.
+                                                    </h4>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button id="login_modal_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <a href="/shop/checkout" class="btn btn-primary">
+                                                    <span>
+                                                        Process Checkout <i class="fa fa-shopping-cart"/>
+                                                    </span>
+                                                </a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <a id="pharmacy_account_create" t-att-href="'#' if pharmacy_account else '/pharmacy/account'"
+                                            class="btn btn-primary btn-full-xs" t-att-data-toggle="'modal' if pharmacy_account else None"
+                                            t-att-data-target="'#PharmacyIdExistModal' if pharmacy_account else None">
+                                            <span>
+                                                Create New Account
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="inherit_theme_pharmacistplace_continue_shopping" inherit_id="theme_pharmacistplace.new_cart_amount_total">
+        <xpath expr="//div[@id='new_cart_total_right_btn_div']/a[@href='/shop/checkout']" position="attributes">
+            <attribute name="href">/shop/distributor_activate</attribute>
+        </xpath>
+    </template>
+
+    <template id="theme_pharmacistplace_wizard_checkout_pharmacy_details" inherit_id="theme_pharmacistplace.theme_pharmacistplace_wizard_checkout">
+        <xpath expr="//li[@id='step15']//a[@href='/shop/cart']" position="attributes">
+            <attribute name="href">/shop/distributor_activate</attribute>
+        </xpath>
+    </template>
+
+</odoo>

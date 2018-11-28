@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="city_record_1" model="pp.city">
+            <field name="name">Al Minufiyah</field>
+        </record>
+
+		<record id="city_record_2" model="pp.city">
+            <field name="name">Al Qalyubiyah</field>
+        </record>
+
+		<record id="city_record_3" model="pp.city">
+            <field name="name">Ash Sharqiyah</field>
+        </record>
+
+		<record id="city_record_4" model="pp.city">
+            <field name="name">Kafr ash Shaykh</field>
+        </record>
+
+		<record id="city_record_5" model="pp.city">
+            <field name="name">Al Gharbiyah</field>
+        </record>
+
+		<record id="city_record_6" model="pp.city">
+            <field name="name">Al Isma`iliyah</field>
+        </record>
+
+		<record id="city_record_7" model="pp.city">
+            <field name="name">Ad Daqahliyah</field>
+        </record>
+
+		<record id="city_record_8" model="pp.city">
+            <field name="name">Dumyat</field>
+        </record>
+
+		<record id="city_record_9" model="pp.city">
+            <field name="name">Matruh</field>
+        </record>
+
+		<record id="city_record_10" model="pp.city">
+            <field name="name">Matruh</field>
+        </record>
+
+		<record id="city_record_11" model="pp.city">
+            <field name="name">Matruh</field>
+        </record>
+
+		<record id="city_record_12" model="pp.city">
+            <field name="name">Matruh</field>
+        </record>
+
+		<record id="city_record_13" model="pp.city">
+            <field name="name">Al Buhayrah</field>
+        </record>
+
+		<record id="city_record_14" model="pp.city">
+            <field name="name">Al Minya</field>
+        </record>
+
+		<record id="city_record_15" model="pp.city">
+            <field name="name">Al Minya</field>
+        </record>
+
+		<record id="city_record_16" model="pp.city">
+            <field name="name">Al Minya</field>
+        </record>
+
+		<record id="city_record_17" model="pp.city">
+            <field name="name">Bani Suwayf</field>
+        </record>
+
+		<record id="city_record_18" model="pp.city">
+            <field name="name">Kafr ash Shaykh</field>
+        </record>
+
+		<record id="city_record_19" model="pp.city">
+            <field name="name">Al Wadi at Jadid</field>
+        </record>
+
+		<record id="city_record_20" model="pp.city">
+            <field name="name">Al Wadi at Jadid</field>
+        </record>
+
+		<record id="city_record_21" model="pp.city">
+            <field name="name">Qina</field>
+        </record>
+
+		<record id="city_record_22" model="pp.city">
+            <field name="name">Qina</field>
+        </record>
+
+		<record id="city_record_23" model="pp.city">
+            <field name="name">Suhaj</field>
+        </record>
+
+		<record id="city_record_24" model="pp.city">
+            <field name="name">Suhaj</field>
+        </record>
+
+		<record id="city_record_25" model="pp.city">
+            <field name="name">Al Bahr al Ahmar</field>
+        </record>
+
+		<record id="city_record_26" model="pp.city">
+            <field name="name">Al Bahr al Ahmar</field>
+        </record>
+
+		<record id="city_record_27" model="pp.city">
+            <field name="name">Janub Sina'</field>
+        </record>
+
+		<record id="city_record_28" model="pp.city">
+            <field name="name">Shamal Sina'</field>
+        </record>
+
+		<record id="city_record_29" model="pp.city">
+            <field name="name">Al Jizah</field>
+        </record>
+
+		<record id="city_record_30" model="pp.city">
+            <field name="name">Matruh</field>
+        </record>
+
+		<record id="city_record_31" model="pp.city">
+            <field name="name">Al Minya</field>
+        </record>
+
+		<record id="city_record_32" model="pp.city">
+            <field name="name">Aswan</field>
+        </record>
+
+		<record id="city_record_33" model="pp.city">
+            <field name="name">Al Wadi at Jadid</field>
+        </record>
+
+		<record id="city_record_34" model="pp.city">
+            <field name="name">Al Bahr al Ahmar</field>
+        </record>
+
+		<record id="city_record_35" model="pp.city">
+            <field name="name">As Suways</field>
+        </record>
+
+		<record id="city_record_36" model="pp.city">
+            <field name="name">Bur Sa`id</field>
+        </record>
+
+		<record id="city_record_37" model="pp.city">
+            <field name="name">Al Fayyum</field>
+        </record>
+
+		<record id="city_record_38" model="pp.city">
+            <field name="name">Aswan</field>
+        </record>
+
+		<record id="city_record_39" model="pp.city">
+            <field name="name">Asyut</field>
+        </record>
+
+		<record id="city_record_40" model="pp.city">
+            <field name="name">Qina</field>
+        </record>
+
+		<record id="city_record_41" model="pp.city">
+            <field name="name">Al Iskandariyah</field>
+        </record>
+
+		<record id="city_record_42" model="pp.city">
+            <field name="name">Al Qahirah</field>
+        </record>
+	</data>
+</odoo>

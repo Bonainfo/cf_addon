@@ -1,0 +1,550 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_daily_deals
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 09:07+0000\n"
+"PO-Revision-Date: 2018-09-20 09:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "<span attrs=\"{'invisible':[('base', '!=', 'list_price')]}\">Public Price  -  </span>\n"
+"                                                <span attrs=\"{'invisible':[('base', '!=', 'standard_price')]}\">Cost  -  </span>\n"
+"                                                <span attrs=\"{'invisible':[('base', '!=', 'pricelist')]}\">Other Pricelist  -  </span>"
+msgstr "<span attrs=\"{'invisible':[('base', '!=', 'list_price')]}\">Public Price  -  </span>\n"
+"                                                <span attrs=\"{'invisible':[('base', '!=', 'standard_price')]}\">Cost  -  </span>\n"
+"                                                <span attrs=\"{'invisible':[('base', '!=', 'pricelist')]}\">Other Pricelist  -  </span>"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_actual_price
+msgid "Actual Amount"
+msgstr "Actual Amount"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_conf_view
+msgid "Apply"
+msgstr "التقدم"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_banner
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Banner"
+msgstr "Banner"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,item_to_show:0
+#: selection:website.deals,item_to_show:0
+msgid "Banner Only"
+msgstr "Banner Only"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_product_pricelist_item_actual_price
+msgid "Base price to compute the customer price. Sometimes called the catalog price."
+msgstr "Base price to compute the customer price. Sometimes called the catalog price."
+
+#. module: website_daily_deals
+#: selection:website.deals,deal_after_expiration:0
+msgid "Blur"
+msgstr "Blur"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,item_to_show:0
+#: selection:website.deals,item_to_show:0
+msgid "Both"
+msgstr "Both"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_conf_view
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+#: selection:website.deals,state:0
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_wk_pricelist
+msgid "Choose a pricelist, all the deal products will be added in that pricelist.(A default Deal pricelist will be created.)"
+msgstr "Choose a pricelist, all the deal products will be added in that pricelist.(A default Deal pricelist will be created.)"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Compute Price"
+msgstr "Compute Price"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.wk_website_daily_deals_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_my_deals_m2o
+msgid "Corresponding Deal"
+msgstr "Corresponding Deal"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_create_uid
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_create_date
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Customize Website View"
+msgstr "Customize Website View"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,unit_of_time:0
+#: selection:website.deals,unit_of_time:0
+msgid "Days"
+msgstr "Days"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Deal Info"
+msgstr "Deal Info"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.header
+msgid "Deals &amp; Offers"
+msgstr "Deals &amp; Offers"
+
+#. module: website_daily_deals
+#: model:ir.ui.menu,name:website_daily_deals.menu_id_website_daily_deals
+msgid "Deals and Offers"
+msgstr "Deals and Offers"
+
+#. module: website_daily_deals
+#: selection:website.deals,deal_after_expiration:0
+msgid "Delete"
+msgstr "Delete"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_description
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Description"
+msgstr "الوصف"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_product_pricelist_item_website_sequence
+msgid "Determine the display order in the Website E-commerce"
+msgstr "تحديد ترتيب العرض في موقع التجارة الإلكترونية"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_discounted_amount
+msgid "Discounted Amount"
+msgstr "Discounted Amount"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_discounted_price
+msgid "Discounted Price"
+msgstr "Discounted Price"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_display_name
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_show_message_before_expiry
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_show_message_before_expiry
+msgid "Do you want to show a message before the expiry date of the deal, if yes then set this true."
+msgstr "Do you want to show a message before the expiry date of the deal, if yes then set this true."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_show_message_after_expiry
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_show_message_after_expiry
+msgid "Do you want to show the message after the expiry date of the deal."
+msgstr "Do you want to show the message after the expiry date of the deal."
+
+#. module: website_daily_deals
+#: selection:website.deals,state:0
+msgid "Draft"
+msgstr "Draft"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_end_date
+msgid "End Date"
+msgstr "تاريخ الإنتهاء"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,display_products_as:0
+#: selection:website.deals,display_products_as:0
+msgid "Grid"
+msgstr "Grid"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,unit_of_time:0
+#: selection:website.deals,unit_of_time:0
+msgid "Hours"
+msgstr "Hours"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_interval_before
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_interval_before
+msgid "How much time before the expiry date you want to display the message."
+msgstr "How much time before the expiry date you want to display the message."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_display_products_as
+msgid "How to display Products in Website"
+msgstr "How to display Products in Website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_display_products_as
+msgid "How to display Products on Website"
+msgstr "How to display Products on Website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_id
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: website_daily_deals
+#: selection:website.deals,state:0
+msgid "In Progress"
+msgstr "In Progress"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf___last_update
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_write_uid
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_write_date
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Max. Margin"
+msgstr "حد أقصى للهامش"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_message_after_expiry
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_message_after_expiry
+msgid "Message After Expiry"
+msgstr "Message After Expiry"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_message_before_expiry
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_message_before_expiry
+msgid "Message before Expiry"
+msgstr "Message before Expiry"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Messages and Notifications"
+msgstr "Messages and Notifications"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Min. Margin"
+msgstr "الحد الأدنى"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,unit_of_time:0
+#: selection:website.deals,unit_of_time:0
+msgid "Minutes"
+msgstr "Minutes"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,unit_of_time:0
+#: selection:website.deals,unit_of_time:0
+msgid "Months"
+msgstr "Months"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_product_pricelist_item_my_deals_m2o
+msgid "My Deals"
+msgstr "My Deals"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "New Price ="
+msgstr "السعر الجديد ="
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.show_deal_products
+msgid "OFF"
+msgstr "OFF"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_other_offers
+msgid "Offer Name"
+msgstr "Offer Name"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_overide_config
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Override Default Configuration"
+msgstr "Override Default Configuration"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_page_header_text
+msgid "Page Header Text"
+msgstr "Page Header Text"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_wk_pricelist
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_wk_pricelist
+msgid "Pricelist"
+msgstr "قائمه الاسعار"
+
+#. module: website_daily_deals
+#: model:ir.model,name:website_daily_deals.model_product_pricelist_item
+msgid "Pricelist item"
+msgstr "بنود لائحة الأسعار"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_products
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Products"
+msgstr "المنتجات"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,item_to_show:0
+#: selection:website.deals,item_to_show:0
+msgid "Products Only"
+msgstr "Products Only"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Rounding Method"
+msgstr "طريقة التقريب"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_website_sequence
+msgid "Sequence"
+msgstr "مسلسل"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Set To Draft"
+msgstr "Set To Draft"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_show_message_after_expiry
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_show_message_after_expiry
+msgid "Show Message After Expiry"
+msgstr "Show Message After Expiry"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_show_message_before_expiry
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_show_message_before_expiry
+msgid "Show Message before Expiry"
+msgstr "Show Message before Expiry"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_show_page_header
+msgid "Show Page Header"
+msgstr "Show Page Header"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_show_title
+msgid "Show Title In Website"
+msgstr "Show Title In Website"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.individual_deal
+msgid "Single Deal"
+msgstr "Single Deal"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_website_size_x
+msgid "Size X"
+msgstr "حجم س"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_product_pricelist_item_website_size_y
+msgid "Size Y"
+msgstr "حجم ص"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,display_products_as:0
+#: selection:website.deals,display_products_as:0
+msgid "Slider"
+msgstr "Slider"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_start_date
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_state
+msgid "State"
+msgstr "المحافظة"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_page_header_text
+msgid "Text for the header of the page to be displayed in website"
+msgstr "Text for the header of the page to be displayed in website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_message_before_expiry
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_message_before_expiry
+msgid "The message you want to show in the website when deal is about to expire."
+msgstr "The message you want to show in the website when deal is about to expire."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_message_after_expiry
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_message_after_expiry
+msgid "The message you want to show in the website when deal is expired."
+msgstr "The message you want to show in the website when deal is expired."
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_conf_view
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Time Interval before to show"
+msgstr "Time Interval before to show"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_unit_of_time
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_unit_of_time
+msgid "Time Unit"
+msgstr "Time Unit"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_interval_before
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_interval_before
+msgid "Time interval before to display message"
+msgstr "Time interval before to display message"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_title
+msgid "Title"
+msgstr "اللقب"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Validate"
+msgstr "تحقق"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Validity"
+msgstr "Validity"
+
+#. module: website_daily_deals
+#: model:ir.actions.act_window,name:website_daily_deals.action_website_daily_deals_conf
+#: model:ir.actions.act_window,name:website_daily_deals.website_daily_deals_action_id
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_conf_view
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "Website Daily Deals"
+msgstr "Website Daily Deals"
+
+#. module: website_daily_deals
+#: model:ir.model,name:website_daily_deals.model_website_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_deals_tree_view
+msgid "Website Deals"
+msgstr "Website Deals"
+
+#. module: website_daily_deals
+#: selection:website.daily.deals.conf,unit_of_time:0
+#: selection:website.deals,unit_of_time:0
+msgid "Weeks"
+msgstr "Weeks"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_deal_after_expiration
+msgid "What do you want to do with deal after expiration.Either you can blur the deals in website or delete a deal from website"
+msgstr "What do you want to do with deal after expiration.Either you can blur the deals in website or delete a deal from website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_item_to_show
+msgid "What to Display in Website"
+msgstr "What to Display in Website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_daily_deals_conf_item_to_show
+msgid "What to Display on Website"
+msgstr "What to Display on Website"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,field_description:website_daily_deals.field_website_deals_deal_after_expiration
+msgid "What to do with deal after Expiry"
+msgstr "What to do with deal after Expiry"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_form_view
+msgid "You can add products only after validating the deal.Click on validate button to validate deal."
+msgstr "You can add products only after validating the deal.Click on validate button to validate deal."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_display_products_as
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_display_products_as
+msgid "choose how to display the produts in website."
+msgstr "choose how to display the produts in website."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_item_to_show
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_item_to_show
+msgid "choose what you want to display in website."
+msgstr "choose what you want to display in website."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_description
+msgid "description of the deal to show in website"
+msgstr "description of the deal to show in website"
+
+#. module: website_daily_deals
+#: model:ir.ui.view,arch_db:website_daily_deals.website_daily_deals_conf_view
+msgid "or"
+msgstr "أو"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_daily_deals_conf_show_page_header
+msgid "show Page header in website."
+msgstr "show Page header in website."
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_product_pricelist_item_other_offers
+msgid "specify the other deals "
+msgstr "specify the other deals "
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_show_title
+msgid "the title will be displayed in the website and it is displayed only if 'What to Display in Website = Products Only'"
+msgstr "the title will be displayed in the website and it is displayed only if 'What to Display in Website = Products Only'"
+
+#. module: website_daily_deals
+#: model:ir.model.fields,help:website_daily_deals.field_website_deals_title
+msgid "title of the deal to show in website"
+msgstr "title of the deal to show in website"
+
+#. module: website_daily_deals
+#: model:ir.model,name:website_daily_deals.model_website_daily_deals_conf
+msgid "website.daily.deals.conf"
+msgstr "website.daily.deals.conf"
+
