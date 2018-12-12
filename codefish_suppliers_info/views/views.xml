@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <data>
+
         <record id="view_product_supplierinfo_search_attach" model="ir.ui.view">
             <field name="name">product.supplierinfo.search</field>
             <field name="model">product.supplierinfo</field>
@@ -14,5 +14,37 @@
               </field>
             </field>
         </record>
-    </data>
+    <record id="view_pos_orderline_tree" model="ir.ui.view">
+        <field name="name">point_of_sale.orderline.tree</field>
+        <field name="model">pos.order.line</field>
+        <field name="priority">90</field>
+        <field name="view_type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Order Line" >
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="pack_lot_ids"/>
+                <field name="price_unit"/>
+                <field name="qty"/>
+                <field name="price_subtotal_incl"/>
+                <field name="company_id"/>
+
+            </tree>
+        </field>
+        </record>
+            <record id="action_view_pos_orderline_tree" model="ir.actions.act_window" >
+        <field name="type">ir.actions.act_window</field>
+              <field name="res_model">pos.order.line</field>
+                <field name="name">Order Lines</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+
+    </record>
+
+         <menuitem
+        id="menu_view_pos_orderline_tree"
+        name="Order Line"
+        sequence="25"
+        action="action_view_pos_orderline_tree"
+        parent="point_of_sale.menu_point_rep"/>
 </odoo>
