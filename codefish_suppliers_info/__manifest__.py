@@ -20,7 +20,10 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['product_by_supplier'],
+    'depends': [
+        'product_by_supplier',
+        'point_of_sale',
+    ],
 
     # always loaded
     'data': [
