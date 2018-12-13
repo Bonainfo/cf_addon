@@ -76,7 +76,7 @@
                         </table>-->
 
                         <h2>Summary By Orders</h2>
-                        <table class="table table-condensed table-striped" dir="rtl" frame="box" border="1">
+                        <table class="table table-condensed table-striped" style="border-color: #000000;" dir="rtl" frame="box" border="1">
                             <thead>
 
                             </thead>
