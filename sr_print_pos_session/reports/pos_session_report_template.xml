@@ -29,7 +29,7 @@
                             </div>
                         </div>
 
-                        <h2>Summary By Payment Methods</h2>
+                       <!-- <h2>Summary By Payment Methods</h2>
                         <table class="table table-condensed table-striped">
                             <thead>
                                 <tr>
@@ -73,10 +73,10 @@
                                     </tr>
                                 </t>
                             </tbody>
-                        </table>
+                        </table>-->
 
                         <h2>Summary By Orders</h2>
-                        <table class="table table-condensed table-striped">
+                        <table class="table table-condensed table-striped" dir="rtl" frame="box">
                             <thead>
 
                             </thead>
