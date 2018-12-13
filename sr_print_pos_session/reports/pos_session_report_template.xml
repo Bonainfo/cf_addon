@@ -76,7 +76,7 @@
                         </table>-->
 
                         <h2>Summary By Orders</h2>
-                        <table class="table table-condensed table-striped" dir="rtl" frame="box">
+                        <table class="table table-condensed table-striped" dir="rtl" frame="box" border="1">
                             <thead>
 
                             </thead>
@@ -94,7 +94,7 @@
                                             <b t-field="oline.amount_total"  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style="text-align: center;">
                                         <th>Product</th>
                                         <th>Qty</th>
                                         <th>Unit Price</th>
