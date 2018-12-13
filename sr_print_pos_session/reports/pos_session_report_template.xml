@@ -76,9 +76,14 @@
                         </table>-->
 
                         <h2>Summary By Orders</h2>
-                        <table class="table table-condensed table-striped" style="border-color: #000000;" dir="rtl" frame="box" border="1">
+                        <table class="table table-condensed table-striped" >
                             <thead>
-
+<tr style="text-align: center;">
+                                        <th>Product</th>
+                                        <th>Qty</th>
+                                        <th>Unit Price</th>
+                                        <th>Total</th>
+                                    </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="doc.order_ids" t-as="oline">
@@ -94,12 +99,7 @@
                                             <b t-field="oline.amount_total"  t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
                                         </td>
                                     </tr>
-                                    <tr style="text-align: center;">
-                                        <th>Product</th>
-                                        <th>Qty</th>
-                                        <th>Unit Price</th>
-                                        <th>Total</th>
-                                    </tr>
+
                                             <tr t-foreach="oline.lines" t-as="olline">
                                                 <td >
                                                     <span t-field="olline.product_id"/>
