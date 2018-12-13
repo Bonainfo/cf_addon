@@ -76,7 +76,7 @@
                         </table>-->
 
                         <h2>Summary By Orders</h2>
-                        <table class="table table-condensed table-striped" dir="rtl" frame="box">
+                        <table dir="rtl" frame="box">
                             <thead>
 
                             </thead>
@@ -115,6 +115,8 @@
                                                 </td>
                                             </tr>
                                 </t>
+                                <hr />
+
                             </tbody>
                         </table>
 
