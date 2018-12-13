@@ -1,0 +1,190 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sr_print_pos_session
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-13 06:40+0000\n"
+"PO-Revision-Date: 2018-12-13 08:45+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.2\n"
+"Last-Translator: \n"
+"Language: ar\n"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<b>Cash</b>"
+msgstr "<b> نقدى </b>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<b>Credit</b>"
+msgstr "<b>آجل </b>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Closing Date:</strong>"
+msgstr "<strong> تاريخ الإغلاق: </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Manager</strong>"
+msgstr "<strong> المدير </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Opening Date:</strong>"
+msgstr "<strong> تاريخ الافتتاح: </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Point Of Sale:</strong>"
+msgstr "<strong> نقطة البيع </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Responsible Person:</strong>"
+msgstr "<strong> الشخص المسؤول: </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "<strong>Salesperson</strong>"
+msgstr "<strong> مندوب مبيعات </strong>"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Currency"
+msgstr "العملة"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Customer"
+msgstr "العميل"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Difference"
+msgstr "الفرق"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Ending Balance"
+msgstr "رصيد الإغلاق"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Journal"
+msgstr "اليومية"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Label"
+msgstr "العنوان"
+
+#. module: sr_print_pos_session
+#: model:ir.model,name:sr_print_pos_session.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr "سطور نقة البيع"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Order Date"
+msgstr "تاريخ أمر البيع"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Order Reference"
+msgstr "رقم أمر البيع"
+
+#. module: sr_print_pos_session
+#: model:ir.model,name:sr_print_pos_session.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "أوامر البيع "
+
+#. module: sr_print_pos_session
+#: model:ir.model.fields,field_description:sr_print_pos_session.field_pos_order_product_ids
+#: model:ir.model.fields,field_description:sr_print_pos_session.field_pos_session_product_ids
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Product"
+msgstr "المنتج"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Qty"
+msgstr "الكمية"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Reference"
+msgstr "المرجع"
+
+#. module: sr_print_pos_session
+#: model:ir.model.fields,field_description:sr_print_pos_session.field_pos_order_line_session_id
+msgid "Session"
+msgstr "الجلسة"
+
+#. module: sr_print_pos_session
+#: model:ir.actions.report.xml,name:sr_print_pos_session.sr_pos_session_report
+msgid "Session Summary Report"
+msgstr "تقرير ملخص للجلسة"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Starting Balance"
+msgstr "رصيد الإفتتاحى"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Status"
+msgstr "الحالة"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Subtotal:"
+msgstr "الإجمالى:"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Summary By Orders"
+msgstr "تقرير ملخص لأوامر البيع"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Summary By Payment Methods"
+msgstr "تقرير ملخص بطرق الدفع"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Summary By Statements"
+msgstr "تقرير ملخص باليومية"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Total"
+msgstr "الإجمالى"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Transactions Subtotal"
+msgstr "إجمالي العملية"
+
+#. module: sr_print_pos_session
+#: model:ir.ui.view,arch_db:sr_print_pos_session.pos_session_report_template
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#. module: sr_print_pos_session
+#: model:ir.model,name:sr_print_pos_session.model_pos_session
+msgid "pos.session"
+msgstr "جلسة نقطة البيع"
