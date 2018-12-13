@@ -78,7 +78,7 @@
                         <h2>Summary By Orders</h2>
                         <table class="table table-condensed table-striped" >
                             <thead>
-<tr style="text-align: center;">
+                                    <tr style="text-align: center;">
                                         <th>Product</th>
                                         <th>Qty</th>
                                         <th>Unit Price</th>
@@ -138,7 +138,7 @@
                                         <span t-set="total_cash" t-value="0"/>
                                         <tr>
                                             <td>
-                                                <b>Cash</b>
+                                                <b><span t-field="statement.journal_id"/></b>
                                             </td>
                                             <td colspan='4'></td>
                                         </tr>
@@ -181,7 +181,7 @@
                                         <span t-set="total_credit" t-value="0"/>
                                         <tr>
                                             <td>
-                                                <b>Credit</b>
+                                                <b><span t-field="statement.journal_id"/></b>
                                             </td>
                                             <strong>
                                                 <td colspan='4'></td>
