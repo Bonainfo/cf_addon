@@ -23,6 +23,7 @@
     'depends': [
         'product_by_supplier',
         'point_of_sale',
+        'product_expiry',
     ],
 
     # always loaded
