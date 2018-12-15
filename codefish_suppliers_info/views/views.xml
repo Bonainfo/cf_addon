@@ -11,9 +11,6 @@
                   <field name="product_qty"/>
                   <field name="product_ref"/>
                   <field name="product_barcode"/>
-
-
-
               </field>
             </field>
         </record>
