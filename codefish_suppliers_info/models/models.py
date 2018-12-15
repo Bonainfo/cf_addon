@@ -16,3 +16,9 @@ class ProductSupplierinfo(models.Model):
     def _value_pc(self):
         for line in self:
             line.total = line.standard_price * line.qty_available
+
+
+class ProducProductionLot(models.Model):
+    _inherit = 'stock.production.lot'
+
+    product_ref = fields.Char('Internal Ref', related='product_id.default_code')
