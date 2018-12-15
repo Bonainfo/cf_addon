@@ -21,4 +21,5 @@ class ProductSupplierinfo(models.Model):
 class ProducProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
-    product_ref = fields.Char('Internal Ref', related='product_id.default_code')
+    product_ref = fields.Char(related='product_id.default_code',store=True, translate=True)
+    product_barcode = fields.Char('Barcode', related='product_id.barcode',store=True, translate=True)
