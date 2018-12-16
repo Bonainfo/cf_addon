@@ -24,6 +24,9 @@
         'product_by_supplier',
         'point_of_sale',
         'product_expiry',
+        'stock',
+        'stock_account',
+        'mrp',
     ],
 
     # always loaded

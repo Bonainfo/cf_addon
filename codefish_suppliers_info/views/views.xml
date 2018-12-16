@@ -29,4 +29,35 @@
             </field>
         </record>
 
+    <record id="view_inventory_stock_witlot_tree" model="ir.ui.view">
+        <field name="name">stock.quant.stock</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref=""/>
+        <field name="priority">9</field>
+        <field name="arch" type="xml">
+            <tree string="Stock">
+                <field name="product_ref"/>
+                <field name="qty"/>
+                <field name="product_id"/>
+                <field name="product_barcode"/>
+                <field name="lot_id"/>
+                <field name="lot_life_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_inventory_stock_witlot_tree" model="ir.actions.act_window">
+        <field name="name">Stock</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+<menuitem action="action_view_inventory_stock_witlot_tree"
+              name="Stock"
+              id="menu_action_stock_form"
+              parent="stock.menu_warehouse_report"
+              sequence="10"
+              groups=""
+    />
 </odoo>
