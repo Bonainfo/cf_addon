@@ -30,5 +30,5 @@ class QuantsRports(models.Model):
     lot_life_date = fields.Datetime(related='lot_id.life_date', store=True)
     product_ref = fields.Char(related='product_id.default_code', store=True)
     product_barcode = fields.Char(related='product_id.barcode', store=True)
-    qty_available = fields.Float(related='product_id.qty_available', store=True)
+    qty_available = fields.Float(related='product_id.qty_available')
 
