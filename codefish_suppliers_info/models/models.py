@@ -42,3 +42,4 @@ class ProductProductIndex(models.Model):
     _inherit = 'product.product'
     
     display_name = fields.Char(index=True)
+    name = fields.Char(index=True)
