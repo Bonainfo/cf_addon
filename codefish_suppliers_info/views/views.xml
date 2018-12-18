@@ -1,6 +1,33 @@
 <?xml version="1.0"?>
 <odoo>
-
+        <record id="view_product_batch_no" model="ir.ui.view">
+            <field name="name">product.template.product.form.batch</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales']" position="after">
+                    <page name="batch_no"  string="Batch No.">
+                        <field name="lot_no">
+                            <tree create="true" delete="true" editable="true">
+                                <field name="name"/>
+                                <field name="life_date"/>
+                                <field name="product_qty"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="Varients_products" string="Varients Products">
+                        <field name="product_variant_ids">
+                            <tree create="false" delete="false" editable="true">
+                                <field name="code"/>
+                                <field name="display_name"/>
+                                <field name="barcode"/>
+                                <field name="lst_price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
        <record id="view_production_lot_tree_attache" model="ir.ui.view">
             <field name="name">stock.production.lot.tree1</field>
             <field name="model">stock.production.lot</field>
@@ -47,12 +74,25 @@
         </field>
     </record>
 
+    <record id="view_stock_quant_pivot_attache_attache" model="ir.ui.view">
+        <field name="name">stock.quant.pivot</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref=""/>
+        <field name="priority">9</field>
+        <field name="arch" type="xml">
+            <pivot string="Inventory">
+                <filed name="product_ref" type="row"/>
+                <filed name="product_id" type="measure"/>
+
+            </pivot>
+        </field>
+    </record>
     <record id="action_view_inventory_stock_witlot_tree" model="ir.actions.act_window">
         <field name="name">Stock</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.quant</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot</field>
     </record>
 <menuitem action="action_view_inventory_stock_witlot_tree"
               name="Stock"
