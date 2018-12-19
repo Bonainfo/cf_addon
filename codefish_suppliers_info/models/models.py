@@ -37,9 +37,11 @@ class ProductTempalteLot(models.Model):
     _inherit = 'product.template'
 
     lot_no = fields.One2many('stock.production.lot', 'product_id', string='Batch No.')
+    default_code = fields.Integer(store=True)
     
 class ProductProductIndex(models.Model):
     _inherit = 'product.product'
     
     display_name = fields.Char(index=True)
     name = fields.Char(index=True, store=True)
+    default_code = fields.Integer(store=True)
