@@ -20,8 +20,8 @@ class ProductSupplierinfo(models.Model):
 class ProducProductionLot(models.Model):
     _inherit = 'stock.production.lot'
 
-    product_ref = fields.Char(related='product_id.default_code', store=True, translate=True)
-    product_barcode = fields.Char('Barcode', related='product_id.barcode', store=True, translate=True)
+    product_ref = fields.Char(related='product_id.default_code', store=True)
+    product_barcode = fields.Char('Barcode', related='product_id.barcode', store=True)
 
 
 class QuantsRports(models.Model):
@@ -37,9 +37,3 @@ class ProductTempalteLot(models.Model):
     _inherit = 'product.template'
 
     lot_no = fields.One2many('stock.production.lot', 'product_id', string='Batch No.')
-    
-class ProductProductIndex(models.Model):
-    _inherit = 'product.product'
-    
-    display_name = fields.Char(index=True)
-    name = fields.Char(index=True, store=True)
