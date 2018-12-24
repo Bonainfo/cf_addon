@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_odoo_elasticsearch_config,odoo_elasticsearch.elastic.search.config.public,model_elastic_search_config,,1,0,0,0
-access_odoo_elastic_index,odoo_elasticsearch.elastic.index.public,model_elastic_index,,1,0,0,0

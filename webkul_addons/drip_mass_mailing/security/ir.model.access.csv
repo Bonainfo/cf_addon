@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_drip_mass_mailing_template,drip.mass_mailing.template,model_drip_mass_mailing_template,mass_mailing.group_mass_mailing_user,1,1,1,1
-access_drip_mailing_history,mailing_history,model_drip_mailing_history,mass_mailing.group_mass_mailing_user,1,1,1,1
