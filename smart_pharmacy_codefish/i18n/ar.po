@@ -1,0 +1,1672 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* smart_pharmacy_codefish
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-16 08:51+0000\n"
+"PO-Revision-Date: 2018-09-16 14:15+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.1.1\n"
+"Last-Translator: \n"
+"Language: ar\n"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_supplier_invoice_count
+msgid "# Vendor Bills"
+msgstr "# فواتير الموردين"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_purchase_order_count
+msgid "# of Purchase Order"
+msgstr "# طلب الشراء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_sale_order_count
+msgid "# of Sales Order"
+msgstr "# طلب البيع"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "(edit)"
+msgstr "(تعديل)"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "(update)"
+msgstr "(تحديث)"
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,blood_type:0
+msgid "AB"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_account_payable_id
+msgid "Account Payable"
+msgstr "دائن"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_account_receivable_id
+msgid "Account Receivable"
+msgstr "المدينون"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Accounting Information"
+msgstr "معلومات محاسبية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_needaction
+msgid "Action Needed"
+msgstr "يحتاج إجراء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_active
+msgid "Active"
+msgstr "نشط"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Address"
+msgstr "العنوان"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_type
+msgid "Address Type"
+msgstr "نوع العنوان"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_affected_chromosome
+msgid "Affected Chromosome"
+msgstr "كروموسوم المتاثره"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Aunt"
+msgstr "عمة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_balance
+msgid "Balance"
+msgstr "الرصيدالرصيد"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_bank_account_count
+msgid "Bank"
+msgstr "المصرف"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_bank_ids
+msgid "Banks"
+msgstr "البنوك"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_barcode
+msgid "BarCode"
+msgstr "باركود"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_barcode
+msgid "Barcode"
+msgstr "باركود"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_blood_type
+msgid "Blood Type"
+msgstr "فصيله الدم"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_bounce
+msgid "Bounce"
+msgstr "ارتداد"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Brother"
+msgstr "أخ"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_disease_category
+msgid "Category"
+msgstr "الفئة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_channel_ids
+msgid "Channels"
+msgstr "القنوات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_is_company
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr "تأكد من كون جهة الاتصال شركة، وإلا فستكون شخص"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_is_patient
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_res_partner_is_patient
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_res_users_is_patient
+msgid "Check if the party is a patient"
+msgstr "تحقق إذا كان الحزب هو المريض"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_customer
+msgid "Check this box if this contact is a customer."
+msgstr "حدد هذا المربع إذا كانت جهة الاتصال هذه هي العميل."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_supplier
+msgid ""
+"Check this box if this contact is a vendor. If it's not checked, purchase "
+"people will not see it when encoding a purchase order."
+msgstr ""
+"حدد هذا المربع إذا كانت جهة الاتصال هذه موردا. إذا لم يتم التحقق من ذلك ، "
+"فلن يتمكن الأشخاص المشتريون من مشاهدته عند ترميز أمر الشراء."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_employee
+msgid "Check this box if this contact is an Employee."
+msgstr "حدد هذا المربع إذا كانت جهة الاتصال موظف."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_city
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "City"
+msgstr "المدينة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_code
+msgid "Code"
+msgstr "الكود"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_color
+msgid "Color Index"
+msgstr "اللون"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_commercial_partner_id
+msgid "Commercial Entity"
+msgstr "الكيان التجارى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_ref_company_ids
+msgid "Companies that refers to partner"
+msgstr "شركات تشير إلي شركاء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_company_id
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Company"
+msgstr "المؤسسة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_company_name
+msgid "Company Name"
+msgstr "اسم المؤسسة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_commercial_company_name
+msgid "Company Name Entity"
+msgstr "علم هذا المربع اذا كانت الشركة كيان قانوني."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_company_type
+msgid "Company Type"
+msgstr "نوع المؤسسة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_contact_address
+msgid "Complete Address"
+msgstr "العنوان"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Contact / Address"
+msgstr "جهة إتصال"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Contact Name"
+msgstr "جهة إتصال"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_child_ids
+msgid "Contacts"
+msgstr "جهات الإتصال"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_content
+msgid "Content"
+msgstr "المحتوى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_contract_ids
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_contracts_count
+msgid "Contracts"
+msgstr "العقود"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_payment_token_count
+msgid "Count Payment Token"
+msgstr "إحصاء المدفوعات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_bounce
+msgid "Counter of the number of bounced emails for this contact"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_country_id
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Country"
+msgstr "دولة"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Cousin"
+msgstr "إبن الخال / إبن العم"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Create company"
+msgstr "إنشاء شركة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_create_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_create_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_create_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_create_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_create_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_create_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_create_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_create_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_create_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_create_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_credit
+msgid "Credit"
+msgstr "الدائن"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_credit_limit
+msgid "Credit Limit"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_credit_history_ids
+msgid "Credit log"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_stock_customer
+msgid "Customer Location"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_payment_term_id
+msgid "Customer Payment Terms"
+msgstr "شروط السداد للزبائن"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_dob
+msgid "Date of Birth"
+msgstr "تاريخ الميلاد:"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_dod
+msgid "Date of Death"
+msgstr "تاريخ الوفاة:"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Day"
+msgstr "يوم"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Day(s)"
+msgstr "يوم (أيام)"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_debit
+msgid "Debit"
+msgstr "المدين"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_trust
+msgid "Degree of trust you have in this debtor"
+msgstr "درجة الثقة التي لديكم في هذا المدين."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_disease
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_disease
+msgid "Disease"
+msgstr "الأمراض"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_name
+msgid "Disease Categories"
+msgstr "فئة الأمراض"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_display_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_display_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_display_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_display_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_display_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_display_name
+msgid "Display Name"
+msgstr "عرض الإسم"
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,marital_status:0
+msgid "Divorced"
+msgstr "مطلق"
+
+#. module: smart_pharmacy_codefish
+#. openerp-web
+#: code:addons/smart_pharmacy_codefish/static/src/xml/product.xml:9
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_dosage
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_dosage
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_dosage
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+#, python-format
+msgid "Dosage"
+msgstr "الجرعة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_dosage_uom
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_dosage_uom
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_dosage_uom
+msgid "Dosage Unite"
+msgstr "وحدة الجرعة"
+
+#. module: smart_pharmacy_codefish
+#. openerp-web
+#: code:addons/smart_pharmacy_codefish/static/src/xml/product.xml:6
+#, python-format
+msgid "Dosage:"
+msgstr "الجرعة:"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_partner_share
+msgid ""
+"Either customer (no user), either shared user. Indicated the current partner "
+"is a customer without access or with a limited access created for sharing "
+"data."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_email
+msgid "Email"
+msgstr "بريد إلكترونى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_notify_email
+msgid "Email Messages and Notifications"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_employee
+msgid "Employee"
+msgstr "موظف"
+
+#. module: smart_pharmacy_codefish
+#. openerp-web
+#: code:addons/smart_pharmacy_codefish/static/src/xml/product.xml:17
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_dosage_every
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_dosage_every
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_dosage_every
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+#, python-format
+msgid "Every"
+msgstr "كل"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_every_uom
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_every_uom
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_every_uom
+msgid "Every uom"
+msgstr "وحدة فترات تناول الجرعات"
+
+#. module: smart_pharmacy_codefish
+#. openerp-web
+#: code:addons/smart_pharmacy_codefish/static/src/xml/product.xml:15
+#, python-format
+msgid "Every:"
+msgstr "كل:"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_patient_user_id
+msgid "Existing Partner"
+msgstr "الشريك الخالى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_extra_Info
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Extra Info"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Family Members/Contacts"
+msgstr "العلاقة الأسرية / جهات الإتصال"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_relation
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_partner_relation
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_users_relation
+msgid "Family Relation"
+msgstr "العلاقة الأسرية"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Father"
+msgstr "الأب"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_fax
+msgid "Fax"
+msgstr "فاكس"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Fax:"
+msgstr "فاكس:"
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,sex:0
+msgid "Female"
+msgstr "أنثى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_account_position_id
+msgid "Fiscal Position"
+msgstr "الوضع المالي"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_form
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_form
+msgid "Form"
+msgstr "من"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_email_formatted
+msgid "Format email address \"Name <email@domain>\""
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_email_formatted
+msgid "Formatted Email"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_formulations_type
+msgid "Formulations"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_formulations_and_content
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_formulations_and_content
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Formulations and Content"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_gene
+msgid "Gene"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "General Information"
+msgstr "المعلومات العامة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_generic_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_generic_name
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Generic Name"
+msgstr "الإسم العلمى"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Grand Father"
+msgstr "الجد"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Grand Mother"
+msgstr "الجدة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_has_unreconciled_entries
+msgid "Has unreconciled entries"
+msgstr "يملك قيود لم يتم تسويتها"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Husband"
+msgstr "الزوج"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_im_status
+msgid "IM Status"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_opt_out
+msgid ""
+"If opt-out is checked, this contact has refused to receive emails for mass "
+"mailing and marketing campaign. Filter 'Available for Mass Mailing' allows "
+"users to filter the partners when performing mass mailing."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_team_id
+msgid ""
+"If set, sale team used notably for sales and assignations related to this "
+"partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_lang
+msgid ""
+"If the selected language is loaded in the system, all documents related to "
+"this contact will be printed in this language. If not, it will be English."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_image
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_patient_tree_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_product_tree_view
+msgid "Image"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:product.template,origin:0
+msgid "Import"
+msgstr "استيراد"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_product_product_origin
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_product_template_origin
+msgid "Import: Made outside of Egypt; Local: Made in Egypt"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Internal Notes"
+msgstr "ملاحظات داخلية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_ref
+msgid "Internal Reference"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Internal note..."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Inventory"
+msgstr "مخزن"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_invoice_warn
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Invoice"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_invoice_ids
+msgid "Invoices"
+msgstr "الفواتير"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_is_company
+msgid "Is a Company"
+msgstr "هل هذه شركة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_customer
+msgid "Is a Customer"
+msgstr "هل هذا عميل"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_supplier
+msgid "Is a Vendor"
+msgstr "هل هذا مورد"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_age
+msgid ""
+"It shows the age of the patient in years(y), months(m) and days(d).\n"
+"If the patient has died, the age shown is the age at time of death, the age "
+"corresponding to the date on the death certificate. It will show also "
+"\"deceased\" on the field"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_function
+msgid "Job Position"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_issued_total
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_journal_item_count
+msgid "Journal Items"
+msgstr "عناصر اليومية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_lang
+msgid "Language"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_last_post
+msgid "Last Message Date"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease___last_update
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories___last_update
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content___last_update
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type___last_update
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form___last_update
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient___last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_write_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_write_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_write_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_write_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_write_uid
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_write_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_write_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_write_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_write_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_form_write_date
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_last_time_entries_checked
+msgid ""
+"Last time the invoices & payments matching was performed for this partner. "
+"It is set either if there's not at least an unreconciled debit and an "
+"unreconciled credit or if you click the \"Done\" button."
+msgstr ""
+"آخر مرة تم إجراء تسوية بين فواتير ومدفوعات هذا الشريك. يتم تحديد هذا الحقل "
+"إذا كان هناك مبلغ مدين غير مسوى ومبلغ دائن غير مسوى - أو - إذا نقرت زر \"تم"
+"\"."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_last_time_entries_checked
+msgid "Latest Invoices & Payments Matching Date"
+msgstr "تاريخ اخر مطابقة للفواتير و المدفوعات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_limit_debit
+msgid "Limit debit"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:product.template,origin:0
+msgid "Local"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_patient_mail_form_view
+msgid "Mailing Opt-Out"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,sex:0
+msgid "Male"
+msgstr "ذكر"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_manufacture
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_manufacture
+msgid "Manufacture"
+msgstr "المصنع"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_marital_status
+msgid "Marital Status"
+msgstr "الحالة الإجتماعية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_deceased
+msgid "Mark if the patient has died"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,marital_status:0
+msgid "Married"
+msgstr "متزوج"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_product_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.view_res_partner_form
+msgid "Medical"
+msgstr "طبى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Medical Information"
+msgstr "معلومات طبية"
+
+#. module: smart_pharmacy_codefish
+#: selection:product.template,pharmacy_product_type:0
+msgid "Medical Product"
+msgstr "منتج طبى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Medication TimeLine"
+msgstr "جدول تناول الجرعات الدوائية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_prescriptions_line
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_partner_prescriptions_line
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_users_prescriptions_line
+msgid "Medications"
+msgstr "الجرعات الدوائية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_product_tree_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Medicine Trade Name"
+msgstr "الإسم التجارى"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_product_tree_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Medicines"
+msgstr "الأدوية"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_image_medium
+msgid "Medium-sized image"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_image_medium
+msgid ""
+"Medium-sized image of this contact. It is automatically resized as a "
+"128x128px image, with aspect ratio preserved. Use this field in form views "
+"or some kanban views."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_invoice_warn_msg
+msgid "Message for Invoice"
+msgstr "رسالة للفاتورة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_purchase_warn_msg
+msgid "Message for Purchase Order"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_sale_warn_msg
+msgid "Message for Sales Order"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_picking_warn_msg
+msgid "Message for Stock Picking"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Misc"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_mobile
+msgid "Mobile"
+msgstr "الجوال"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Mobile:"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Mother"
+msgstr "الأم"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_name
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_patient_tree_view
+msgid "Name"
+msgstr "الاسم"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Nephew"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Niece"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:product.template,pharmacy_product_type:0
+msgid "None Medical Product"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_comment
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Notes"
+msgstr "الملاحظات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_opt_out
+msgid "Opt-Out"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_prescriptions_tree_view
+msgid "Order Ref"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Order lines"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_origin
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_origin
+msgid "Origin"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Other"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Packaging"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_categories_parent_category
+msgid "Parent Category"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_parent_name
+msgid "Parent name"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_partner_id
+msgid "Partner-related data of the patient"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.actions.act_window,name:smart_pharmacy_codefish.action_patient_form_view
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_is_patient
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_order_partner_id
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_partner_is_patient
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_res_users_is_patient
+#: model:ir.ui.menu,name:smart_pharmacy_codefish.menu_action_patient_form
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_prescriptions_tree_view
+msgid "Patient"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_age
+msgid "Patient Age"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_deceased
+msgid "Patient Deceased ?"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_patient_tree_view
+msgid "Patients"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_debit_limit
+msgid "Payable Limit"
+msgstr "حد المدفوعات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Payment"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_payment_token_ids
+msgid "Payment Tokens"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Payments"
+msgstr "مدفوعات"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.actions.act_window,name:smart_pharmacy_codefish.action_medicines_form_view
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_is_pharmacy
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_is_pharmacy
+#: model:ir.ui.menu,name:smart_pharmacy_codefish.menu_action_medicines_form
+msgid "Pharmacy Product"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_phone
+msgid "Phone"
+msgstr "الهاتف"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Phone:"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_pos_loyalty_point
+msgid "Point"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_notify_email
+msgid ""
+"Policy to receive emails for new messages pushed to your personal Inbox:\n"
+"- Never: no emails are sent\n"
+"- All Messages: for every notification you receive in your Inbox"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_discount_id
+msgid "Pos discount"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_pos_order_count
+msgid "Pos order count"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Prescription"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.actions.act_window,name:smart_pharmacy_codefish.action_prescriptions_form_view
+#: model:ir.ui.menu,name:smart_pharmacy_codefish.menu_action_prescriptions_form
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medical_prescriptions_tree_view
+msgid "Prescriptions"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_product_id
+msgid "Product"
+msgstr "منتج"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Product Alert Time"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Product Removal Time"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Product Shelf Life Time"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_product_template
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Product Use Time"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Products"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_disease_protein_involved
+msgid "Protein involved"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Purchase"
+msgstr "شراء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_purchase_warn
+msgid "Purchase Order"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_parent_id
+msgid "Related Company"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_partner_id
+msgid "Related Partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Relative"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Return Products"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_rh
+msgid "Rh"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Sale"
+msgstr "بيع"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_product_pricelist
+msgid "Sale Pricelist"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Sales & Purchases"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_sale_order_ids
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_sale_warn
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_team_id
+msgid "Sales Team"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_user_id
+msgid "Salesperson"
+msgstr "مسئول المبيعات"
+
+#. module: smart_pharmacy_codefish
+#: sql_constraint:medical.patient:0
+msgid "Selected 'Responsible' user is already assigned to another patient !"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_invoice_warn
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_picking_warn
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_purchase_warn
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_sale_warn
+msgid ""
+"Selecting the \"Warning\" option will notify user with the message, "
+"Selecting \"Blocking Message\" will throw an exception with the message and "
+"block the flow. The Message has to be written in the next field."
+msgstr ""
+"اختيار الخيار \"تحذير\" سوف يخطر المستخدم مع الرسالة، واختيار \"حجب رسالة\" "
+"رمي استثناء مع الرسالة ومنع التدفق. يجب كتابة الرسالة في الحقل التالي."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_self
+msgid "Self"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,marital_status:0
+msgid "Separated"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_sex
+msgid "Sex"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_partner_share
+msgid "Share Partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_signup_type
+msgid "Signup Token Type"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_signup_valid
+msgid "Signup Token is Valid"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_signup_url
+msgid "Signup URL"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_signup_expiration
+msgid "Signup expiration"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_signup_token
+msgid "Signup token"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,marital_status:0
+msgid "Single"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Sister"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_image_small
+msgid "Small-sized image"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_image_small
+msgid ""
+"Small-sized image of this contact. It is automatically resized as a 64x64px "
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.menu,name:smart_pharmacy_codefish.menu_action_pharmacy_form
+msgid "Smart Pharmacy"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_state_id
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "State"
+msgstr "المحافظة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_prescriptionst_form_view
+msgid "Statement lines"
+msgstr "سطور القائمة"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_picking_warn
+msgid "Stock Picking"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_street
+msgid "Street"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Street 2..."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Street..."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_street2
+msgid "Street2"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_vat
+msgid "TIN"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_category_id
+msgid "Tags"
+msgstr "الوسوم"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "Tags..."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_vat
+msgid ""
+"Tax Identification Number. Fill it if the company is subjected to taxes. "
+"Used by the some of the legal statements."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_account_position_id
+msgid ""
+"The fiscal position will determine taxes and accounts used for the partner."
+msgstr "الوضع المالي سيحدد الضرائب والحسابات المستخدمة للعميل/الشريك"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_user_id
+msgid ""
+"The internal user that is in charge of communicating with this contact if "
+"any."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_pos_order_count
+msgid "The number of point of sale orders related to this customer"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_has_unreconciled_entries
+msgid ""
+"The partner has at least one unreconciled debit and credit since last time "
+"the invoices & payments matching was performed."
+msgstr ""
+"الشريك لديه حساب مدين و دائن واحد على الأقل لم يُسوى منذ أخر تطابق تم بين "
+"الفواتير و المدفوعات."
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_tz
+msgid ""
+"The partner's timezone, used to output proper date and time values inside "
+"printed reports. It is important to set a value for this field. You should "
+"use the same timezone that is otherwise used to pick and render date and "
+"time values: your computer's timezone."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_account_payable_id
+msgid ""
+"This account will be used instead of the default one as the payable account "
+"for the current partner"
+msgstr "سيُستخدم ه1ا الحساب بدلاً من الحساب الافتراضي كحساب الدائن للشريك الحالي"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_account_receivable_id
+msgid ""
+"This account will be used instead of the default one as the receivable "
+"account for the current partner"
+msgstr ""
+"وسيتم استخدام هذا الحساب بدلا من الحساب الافتراضي كحساب المدينون  للشريك "
+"الحالي"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_purchase_currency_id
+msgid ""
+"This currency will be used, instead of the default one, for purchases from "
+"the current partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_image
+msgid ""
+"This field holds the image used as avatar for this contact, limited to "
+"1024x1024px"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_supplier_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for purchase "
+"orders and vendor bills"
+msgstr ""
+"شرط السداد هذا سيُستخدم بدلاً من الشرط الافتراضي لأوامر الشراء و فواتير "
+"المورد. "
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for sale orders "
+"and customer invoices"
+msgstr ""
+"سيتم استخدام شرط السداد بدلا من الشرط الافتراضى لأوامر البيع و فواتير العملاء"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_product_pricelist
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_stock_customer
+msgid ""
+"This stock location will be used, instead of the default one, as the "
+"destination location for goods you send to this partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_property_stock_supplier
+msgid ""
+"This stock location will be used, instead of the default one, as the source "
+"location for goods you receive from the current partner"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_wallet
+msgid "This wallet amount of customer"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_tz
+msgid "Timezone"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_tz_offset
+msgid "Timezone offset"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_title
+msgid "Title"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_total_invoiced
+msgid "Total Invoiced"
+msgstr "الإجمالي الفواتير الصادرة "
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_type_name
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_pos_loyalty_type
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_pos_order_line_pharmacy_product_type
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_product_pharmacy_product_type
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_product_template_pharmacy_product_type
+msgid "Type"
+msgstr "نوع"
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Uncle"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Unit"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_formulations_and_content_uom_id
+msgid "Unit of Measure"
+msgstr "وحده القياس "
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_type
+msgid ""
+"Used to select automatically the right address according to the context in "
+"sales and purchases documents."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_user_ids
+msgid "Users"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_currency_id
+msgid "Utility field to express amount currency"
+msgstr "مستوى الفائدة للتعبير عن عملة المبلغ"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_stock_supplier
+msgid "Vendor Location"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_property_supplier_payment_term_id
+msgid "Vendor Payment Terms"
+msgstr "شروط السداد كمورد"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medicines_form_view
+msgid "Vendors"
+msgstr "المزودون"
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_wallet
+msgid "Wallet amount"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_website
+msgid "Website"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,help:smart_pharmacy_codefish.field_medical_patient_website
+msgid "Website of Partner or Company"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:medical.patient,marital_status:0
+msgid "Widowed"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: selection:res.partner,relation:0
+msgid "Wife"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "ZIP"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model.fields,field_description:smart_pharmacy_codefish.field_medical_patient_zip
+msgid "Zip"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_disease
+msgid "disease"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_disease_categories
+msgid "disease_categories"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "e.g. Mr."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "e.g. Sales Director"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_formulations_and_content
+msgid "formulations_and_content"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_formulations_type
+msgid "formulations_type"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.ui.view,arch_db:smart_pharmacy_codefish.medial_patient_form_view
+msgid "internal note..."
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_medical_patient
+msgid "medical.patient"
+msgstr ""
+
+#. module: smart_pharmacy_codefish
+#: model:ir.model,name:smart_pharmacy_codefish.model_medical_form
+msgid "medical_form"
+msgstr ""
