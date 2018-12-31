@@ -7,19 +7,42 @@ from odoo.addons.web.controllers.main import ensure_db, Home, Session, WebClient
 from odoo.addons.point_of_sale.controllers.main import PosController
 import json
 import logging
+import ast
 import base64
 import werkzeug.utils
+import timeit
 
 _logger = logging.getLogger(__name__)
 
 class dataset(DataSet):
 
-    @http.route('/pos/api_first_install', type='json', auth="user")
-    def api_first_install(self, model, fields=[], offset=0, limit=False, domain=[], sort=None):
-        record_ids = request.env[model].sudo().search(domain, order=sort, limit=limit, offset=offset)
-        datas = record_ids.sudo().read(fields)
-        request.env['pos.cache.database'].sudo().insert_data(datas, model, True)
-        return datas
+    @http.route('/api/pos/install_datas', type='json', auth="user")
+    def install_datas(self, model, fields=[], offset=0, limit=False, domain=[], sort=None):
+        call_log_object = request.env['pos.call.log']
+        min_id = domain[0][2]
+        max_id = domain[1][2]
+        call_logs = call_log_object.with_context(prefetch_fields=False).search([('call_model', '=', model), ('min_id', '=', min_id), ('max_id', '=', max_id)])
+        if call_logs:
+            call_log = call_logs[0]
+            results = call_log.call_results
+            return results
+        else:
+            record_ids = request.env[model].with_context(prefetch_fields=False).sudo().search(domain, order=sort, limit=limit, offset=offset)
+            if 'write_date' not in fields:
+                fields.append('write_date')
+            results = record_ids.sudo().read(fields)
+            results = call_log_object.covert_datetime(model, results)
+            vals = {
+                'active': True,
+                'min_id': min_id,
+                'max_id': max_id,
+                'call_fields': json.dumps(fields),
+                'call_results': json.dumps(results),
+                'call_model': model,
+                'call_domain': json.dumps(domain),
+            }
+            call_log_object.create(vals)
+            return results
 
 class pos_controller(PosController):
 
@@ -51,7 +74,6 @@ class pos_controller(PosController):
         pos_session = pos_sessions[0]
         pos_session.login()
         session_info['model_ids'] = {
-            'product.pricelist': {},
             'product.pricelist.item': {},
             'product.product': {},
             'res.partner': {},
@@ -63,14 +85,12 @@ class pos_controller(PosController):
             'sale.order.line': {},
         }
         first_install = request.env['ir.config_parameter'].sudo().get_param('pos_retail_first_install')
-        _logger.info(first_install)
         if not first_install:
             request.env.cr.execute("DELETE FROM pos_cache_database")
             request.env.cr.commit()
             request.env['ir.config_parameter'].sudo().set_param('pos_retail_first_install', 'Done')
         session_info['currency_id'] = request.env.user.company_id.currency_id.id
         model_list = {
-            'product.pricelist': 'product_pricelist',
             'product.pricelist.item': 'product_pricelist_item',
             'product.product': 'product_product',
             'res.partner': 'res_partner',
@@ -82,17 +102,31 @@ class pos_controller(PosController):
             'sale.order.line': 'sale_order_line',
         }
         for object, table in model_list.items():
-            request.env.cr.execute("select min(id) from %s" % table)
-            min_ids = request.env.cr.fetchall()
-            session_info['model_ids'][object]['min_id'] = min_ids[0][0] if min_ids and min_ids[0] else 1
-            request.env.cr.commit()
-            request.env.cr.execute("select max(id) from %s" % table)
-            max_ids = request.env.cr.fetchall()
-            session_info['model_ids'][object]['max_id'] = max_ids[0][0] if max_ids and max_ids[0] else 1
+            if table == "product.product":
+                products = request.env['product.product'].search(cr, uid, [('available_in_pos', '=', True)], order="id desc", limit=1)
+                if products:
+                    session_info['model_ids'][object]['max_id'] = products[0].id
+                products = request.env['product.product'].search(cr, uid, [('available_in_pos', '=', True)],
+                                                                 order="id", limit=1)
+                if products:
+                    session_info['model_ids'][object]['min_id'] = products[0].id
+            else:
+                request.env.cr.execute("select min(id) from %s" % table)
+                min_ids = request.env.cr.fetchall()
+                session_info['model_ids'][object]['min_id'] = min_ids[0][0] if min_ids and min_ids[0] else 1
+                request.env.cr.execute("select max(id) from %s" % table)
+                max_ids = request.env.cr.fetchall()
+                session_info['model_ids'][object]['max_id'] = max_ids[0][0] if max_ids and max_ids[0] else 1
+        if pos_session:
+            config = pos_session.config_id
+            session_info['stock_datas'] = None
+            if config.stock_location_id and config.display_onhand and not config.large_stocks:
+                session_info['stock_datas'] = request.env['pos.cache.database'].sudo().get_stock_datas(config.stock_location_id.id, [])
         context = {
             'session_info': json.dumps(session_info)
         }
         return request.render('point_of_sale.index', qcontext=context)
+
 
 class web_login(Home):
     @http.route()
@@ -105,6 +139,7 @@ class web_login(Home):
             if pos_config:
                 return http.local_redirect('/pos/web/')
         return response
+
 
 class pos_bus(BusController):
 

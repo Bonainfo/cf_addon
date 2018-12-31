@@ -37,7 +37,7 @@ odoo.define('pos_retail.loyalty', function (require) {
                 'type',
                 'product_ids',
                 'category_ids',
-                'min_amount',
+                'min_amount'
             ],
             condition: function (self) {
                 return self.loyalty;
@@ -96,8 +96,37 @@ odoo.define('pos_retail.loyalty', function (require) {
                     }
                 }
             }
-        },
+        }
     ]);
+    var _super_PosModel = models.PosModel.prototype;
+    models.PosModel = models.PosModel.extend({
+        initialize: function (session, attributes) {
+            var partner_model = this.get_model('res.partner');
+            partner_model.fields.push(
+                'pos_loyalty_point',
+                'pos_loyalty_type'
+            );
+            return _super_PosModel.initialize.apply(this, arguments);
+        },
+        _save_to_server: function (orders, options) {
+            for (var i = 0; i < orders.length; i++) {
+                var order = orders[i];
+                if ((order.data.plus_point || order.data.redeem_point) && order.data.partner_id) {
+                    var customer = this.db.get_partner_by_id(order.data.partner_id)
+                    if (order.data.plus_point != undefined) {
+                        customer['pos_loyalty_point'] += order.data.plus_point;
+                    }
+                    if (order.data.redeem_point != undefined) {
+                        customer['pos_loyalty_point'] -= order.data.redeem_point;
+                    }
+                    this.db.partner_by_id[order.data.partner_id] = customer;
+                    this.trigger('update:point-client');
+                }
+            }
+            return _super_PosModel._save_to_server.call(this, orders, options);
+        }
+    });
+
     var reward_button = screens.ActionButtonWidget.extend({
         template: 'reward_button',
         set_redeem_point: function (line, new_price, point) {
@@ -161,34 +190,24 @@ odoo.define('pos_retail.loyalty', function (require) {
                                 body: 'Point of customer not enough',
                             })
                         }
-                        if ((reward['type'] == 'discount_products' || reward['type'] == 'discount_categories') && reward['discount'] <= 0) {
+                        if ((reward['type'] == 'discount_products' || reward['type'] == 'discount_categories') && (reward['discount'] <= 0 || reward['discount'] > 100)) {
                             return self.pos.gui.show_popup('confirm', {
                                 title: 'Warning',
-                                body: 'Reward ' + reward['name'] + ' have discount amount is 0, could not apply',
+                                body: 'Reward discount required set discount bigger or equal 0 and smaller or equal 100'
                             })
                         }
                         if (reward['type'] == 'discount_products') {
                             var point_redeem = 0;
-                            var price_discount = 0;
+                            var amount_total = 0;
                             for (var i = 0; i < lines.length; i++) {
                                 var line = lines[i];
                                 if (reward['discount_product_ids'].indexOf(line['product']['id']) != -1) {
-                                    var price_with_tax = line.get_price_with_tax();
-                                    var point_will_redeem = price_with_tax / 100 * reward['discount'] / reward['coefficient'];
-                                    var next_redeem_point = redeem_point_used + point_will_redeem;
-                                    if (client['pos_loyalty_point'] < next_redeem_point) {
-                                        break;
-                                    } else {
-                                        if (reward['discount'] >= 100) {
-                                            price_discount += price_with_tax
-                                        } else {
-                                            price_discount += price_with_tax - (price_with_tax / 100 * reward['discount']);
-                                        }
-                                        point_redeem += point_will_redeem;
-                                    }
+                                    amount_total += line.get_price_with_tax();
                                 }
                             }
-                            if (price_discount) {
+                            var point_will_redeem = amount_total / 100 * reward['discount'] / reward['coefficient'];
+                            var price_discount = amount_total / 100 * reward['discount'];
+                            if ((client['pos_loyalty_point'] > (point_will_redeem + redeem_point_used)) && price_discount) {
                                 applied = true;
                                 order.add_product(product, {
                                     price: -price_discount,
@@ -197,32 +216,22 @@ odoo.define('pos_retail.loyalty', function (require) {
                                     extras: {
                                         reward_id: reward.id,
                                         redeem_point: point_will_redeem
-                                    },
+                                    }
                                 });
                             }
                         }
                         else if (reward['type'] == 'discount_categories') {
                             var point_redeem = 0;
-                            var price_discount = 0;
+                            var amount_total = 0;
                             for (var i = 0; i < lines.length; i++) {
                                 var line = lines[i];
                                 if (reward['discount_category_ids'].indexOf(line['product']['pos_categ_id'][0]) != -1) {
-                                    var price_with_tax = line.get_price_with_tax();
-                                    var point_will_redeem = price_with_tax / 100 * reward['discount'] / reward['coefficient'];
-                                    var next_redeem_point = redeem_point_used + point_will_redeem;
-                                    if (client['pos_loyalty_point'] < next_redeem_point) {
-                                        break;
-                                    } else {
-                                        if (reward['discount'] >= 100) {
-                                            price_discount += price_with_tax
-                                        } else {
-                                            price_discount += price_with_tax - (price_with_tax / 100 * reward['discount']);
-                                        }
-                                        point_redeem += point_will_redeem;
-                                    }
+                                    amount_total += line.get_price_with_tax();
                                 }
                             }
-                            if (price_discount) {
+                            var point_will_redeem = amount_total / 100 * reward['discount'] / reward['coefficient'];
+                            var price_discount = amount_total / 100 * reward['discount'];
+                            if ((client['pos_loyalty_point'] > (point_will_redeem + redeem_point_used)) && price_discount) {
                                 applied = true;
                                 order.add_product(product, {
                                     price: -price_discount,
@@ -230,20 +239,17 @@ odoo.define('pos_retail.loyalty', function (require) {
                                     merge: false,
                                     extras: {
                                         reward_id: reward.id,
-                                        redeem_point: point_redeem
-                                    },
+                                        redeem_point: point_will_redeem
+                                    }
                                 });
                             }
                         }
                         else if (reward['type'] == 'gift') {
                             for (var item_index in reward['gift_product_ids']) {
-                                var product_gift = self.pos.db.get_product_by_id(reward['gift_product_ids'][item_index])
+                                var product_gift = self.pos.db.get_product_by_id(reward['gift_product_ids'][item_index]);
                                 if (product_gift) {
                                     var point_will_redeem = product_gift['list_price'] / reward['coefficient'];
-                                    var next_redeem_point = redeem_point_used + point_will_redeem;
-                                    if (client['pos_loyalty_point'] < next_redeem_point) {
-                                        break;
-                                    } else {
+                                    if (client['pos_loyalty_point'] > (point_will_redeem + redeem_point_used)) {
                                         applied = true;
                                         order.add_product(product_gift, {
                                             price: 0,
@@ -252,40 +258,32 @@ odoo.define('pos_retail.loyalty', function (require) {
                                             extras: {
                                                 reward_id: reward.id,
                                                 redeem_point: point_will_redeem
-                                            },
+                                            }
                                         });
                                     }
                                 }
                             }
                         }
-                        else if (reward['type'] == 'resale') {
+                        else if (reward['type'] == 'resale' && reward['price_resale'] > 0) {
                             var point_redeem = 0;
-                            var price_discount = 0;
+                            var amount_total = 0;
                             for (var i = 0; i < lines.length; i++) {
                                 var line = lines[i];
                                 if (reward['resale_product_ids'].indexOf(line['product']['id']) != -1) {
-                                    var product = line.product
-                                    var price = product['list_price']
-                                    var point_will_redeem = (price - reward['price_resale']) / reward['coefficient'];
-                                    var next_redeem_point = redeem_point_used + point_will_redeem;
-                                    if (client['pos_loyalty_point'] < next_redeem_point) {
-                                        break;
-                                    } else {
-                                        price_discount += reward['price_resale'];
-                                        point_redeem += point_will_redeem
-                                    }
+                                    amount_total += (line.get_price_with_tax() / line.quantity - reward['price_resale']) * line.quantity;
                                 }
                             }
-                            if (price_discount) {
+                            var point_will_redeem = amount_total / reward['coefficient'];
+                            if (client['pos_loyalty_point'] > (point_will_redeem + redeem_point_used)) {
                                 applied = true;
                                 order.add_product(product, {
-                                    price: -price_discount,
+                                    price: -amount_total,
                                     quantity: 1,
                                     merge: false,
                                     extras: {
                                         reward_id: reward.id,
-                                        redeem_point: point_redeem
-                                    },
+                                        redeem_point: point_will_redeem
+                                    }
                                 });
                             }
                         }
@@ -341,7 +339,7 @@ odoo.define('pos_retail.loyalty', function (require) {
                         } else {
                             return self.gui.show_popup('confirm', {
                                 title: 'Warning',
-                                body: 'This order have not enough conditions apply reward program just selected',
+                                body: 'Client point have point smaller than reward point need',
                             });
                         }
                     }
@@ -475,7 +473,7 @@ odoo.define('pos_retail.loyalty', function (require) {
                     pos_loyalty_point: 0,
                     remaining_point: 0,
                     next_point: 0,
-                    client_point: 0,
+                    client_point: 0
                 }
             }
             var redeem_point = this.build_redeem_point();
@@ -558,7 +556,7 @@ odoo.define('pos_retail.loyalty', function (require) {
                 });
             }
             _super_Orderline.set_discount.apply(this, arguments);
-        },
+        }
     });
     screens.OrderWidget.include({
         active_loyalty: function (buttons, selected_order) {

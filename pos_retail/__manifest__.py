@@ -1,6 +1,6 @@
 {
     'name': "POS All In One Futures",
-    'version': '10.5.7.4',
+    'version': '5.9.4',
     'category': 'Point of Sale',
     'author': 'TL Technology',
     'live_test_url': 'http://posodoo.com/web/signup',
@@ -62,6 +62,8 @@
         'views/account_invoice.xml',
         'views/purchase_order.xml',
         'views/medical_insurance.xml',
+        'views/pos_call_log.xml',
+        'views/pos_cache_database.xml',
         'wizards/account_invoice_refund.xml',
         'wizards/sale_order_line_insert.xml',
         'wizards/remove_pos_order.xml',

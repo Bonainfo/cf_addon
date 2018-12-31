@@ -5,8 +5,10 @@ import odoo
 import logging
 import openerp.addons.decimal_precision as dp
 from datetime import datetime, timedelta
+from datetime import datetime, timedelta
 
 _logger = logging.getLogger(__name__)
+
 
 class pos_order(models.Model):
     _inherit = "pos.order"
@@ -22,7 +24,6 @@ class pos_order(models.Model):
     is_return = fields.Boolean('is Return')
     lock_return = fields.Boolean('Lock Return')
     return_order_id = fields.Many2one('pos.order', 'Return of order')
-    voucher_id = fields.Many2one('pos.voucher', 'Voucher')
     email = fields.Char('Email')
     email_invoice = fields.Boolean('Email invoice')
     mrp_order_ids = fields.One2many('mrp.production', 'pos_id', 'Manufacturing orders', readonly=1)
@@ -33,6 +34,7 @@ class pos_order(models.Model):
     parent_id = fields.Many2one('pos.order', 'Parent Order', readonly=1)
     sale_id = fields.Many2one('sale.order', 'Sale order', readonly=1)
     credit_order = fields.Boolean('Credit order')
+    create_voucher = fields.Boolean('Credit voucher', readonly=1)
     auto_register_payment = fields.Boolean('Auto register payment', default=0)
     partial_payment = fields.Boolean('Partial Payment')
     state = fields.Selection(selection_add=[
@@ -43,6 +45,8 @@ class pos_order(models.Model):
         'Margin', compute='_compute_margin', store=True,
         digits=dp.get_precision('Product Price'))
     location_id = fields.Many2one('stock.location', string="Location", required=True, related=False, readonly=0)
+    lines = fields.One2many('pos.order.line', 'order_id', string='Order Lines', states={'draft': [('readonly', False)], 'partial_payment': [('readonly', False)]},
+                            readonly=True, copy=True)
 
     @api.multi
     @api.depends('lines.margin')
@@ -50,11 +54,47 @@ class pos_order(models.Model):
         for order in self:
             order.margin = sum(order.mapped('lines.margin'))
 
+    def get_data(self):
+        cache_obj = self.env['pos.cache.database']
+        fields_sale_load = cache_obj.get_fields_by_model(self._inherit)
+        data = self.read(fields_sale_load)[0]
+        data['model'] = self._inherit
+        return data
+
+    @api.model
+    def sync(self):
+        data = self.get_data()
+        self.env['pos.cache.database'].sync_to_pos(data)
+        return True
+
+    @api.multi
+    def unlink(self):
+        for record in self:
+            data = record.get_data()
+            self.env['pos.cache.database'].remove_record(data)
+        return super(pos_order, self).unlink()
+
+    @api.multi
+    def write(self, vals):
+        res = super(pos_order, self).write(vals)
+        for order in self:
+            if vals.get('state', False) == 'paid':
+                for line in order.lines:
+                    vouchers = self.env['pos.voucher'].search([('pos_order_line_id', '=', line.id)])
+                    vouchers.write({'state': 'active'})
+            if vals.get('state', False) and not order.lock_return and not order.is_return:
+                order.sync()
+            if order.partner_id:  # sync credit, wallet balance to pos sessions
+                order.partner_id.sync()
+        return res
+
     @api.model
     def create(self, vals):
         order = super(pos_order, self).create(vals)
         if vals.get('partial_payment', False):
             order.write({'state': 'partial_payment'})
+        if order.create_voucher:
+            self.env['pos.voucher'].create_voucher(order)
         return order
 
     @api.multi
@@ -108,37 +148,14 @@ class pos_order(models.Model):
                 order.plus_point += line.plus_point
                 order.redeem_point += line.redeem_point
 
-    def get_data(self):
-        cache_obj = self.env['pos.cache.database']
-        fields_sale_load = cache_obj.get_fields_by_model(self._inherit)
-        data = self.read(fields_sale_load)[0]
-        data['model'] = self._inherit
-        return data
-
-    @api.model
-    def sync(self):
-        data = self.get_data()
-        self.env['pos.cache.database'].sync_to_pos(data)
-        return True
-
-    @api.multi
-    def unlink(self):
-        for record in self:
-            data = record.get_data()
-            self.env['pos.cache.database'].remove_record(data)
-        return super(pos_order, self).unlink()
-
-    @api.multi
-    def write(self, vals):
-        res = super(pos_order, self).write(vals)
-        for order in self:
-            if vals.get('state', False) and not order.lock_return and not order.is_return:
-                order.sync()
-            if order.partner_id:  # sync credit, wallet balance to pos sessions
-                order.partner_id.sync()
-        return res
-
     def add_payment(self, data):
+        # v12 check data have currency_id, will check company currency and line currency
+        # if have not difference could not create
+        if data.get('currency_id', False):
+            currency = self.env['res.currency'].browse(data.get('currency_id'))
+            if currency == self.env.user.company_id.currency_id:
+                del data['currency_id']
+                del data['amount_currency']
         res = super(pos_order, self).add_payment(data)
         self.sync()
         return res
@@ -164,11 +181,11 @@ class pos_order(models.Model):
             tax_ids = [tax.id for tax in line.tax_ids]
             inv_vals = {
                 'pos_line_id': line.id,
-                'invoice_line_tax_ids': [(6, 0 , tax_ids)]
+                'invoice_line_tax_ids': [(6, 0, tax_ids)]
             }
             inv_line.write(inv_vals)
             _logger.info(inv_vals)
-        return  inv_line
+        return inv_line
 
     # create 1 purchase get products return from customer
     def made_purchase_order(self):
@@ -244,10 +261,6 @@ class pos_order(models.Model):
             order_fields.update({
                 'is_return': ui_order['is_return']
             })
-        if ui_order.get('voucher_id', False):
-            order_fields.update({
-                'voucher_id': ui_order['voucher_id']
-            })
         if ui_order.get('email', False):
             order_fields.update({
                 'email': ui_order.get('email')
@@ -259,6 +272,10 @@ class pos_order(models.Model):
         if ui_order.get('auto_register_payment', False):
             order_fields.update({
                 'auto_register_payment': ui_order.get('auto_register_payment')
+            })
+        if ui_order.get('create_voucher', False):
+            order_fields.update({
+                'create_voucher': ui_order.get('create_voucher')
             })
         if ui_order.get('plus_point', 0):
             order_fields.update({
@@ -319,8 +336,6 @@ class pos_order(models.Model):
 
     @api.model
     def create_from_ui(self, orders):
-        _logger.info('begin create_from_ui')
-        _logger.info(orders)
         for o in orders:
             data = o['data']
             lines = data.get('lines')
@@ -361,8 +376,6 @@ class pos_order(models.Model):
             self.create_picking_with_multi_variant(orders, order)
             self.create_picking_combo(orders, order)
             self.pos_made_manufacturing_order(order)
-            if not order.lock_return and not order.is_return:
-                order.sync()
             """
                 * auto send email and receipt to customers
                 * auto reconcile invoice if pos config auto reconcile invoice
@@ -372,7 +385,6 @@ class pos_order(models.Model):
                 for inv in invoices:
                     inv.send_email_invoice(order)
         self.pos_order_auto_invoice_reconcile(orders_object)
-        _logger.info('end create_from_ui')
         return order_ids
 
     def pos_made_manufacturing_order(self, order):
@@ -381,19 +393,19 @@ class pos_order(models.Model):
             * if have bill of material config for product
         """
         version_info = odoo.release.version_info
-        for line in self.lines:
+        for line in order.lines:
             product_template = line.product_id.product_tmpl_id
             if not product_template.manufacturing_out_of_stock:
                 continue
             else:
                 mrp_orders = self.env['mrp.production'].sudo().search([('name', '=', order.name)])
-                if mrp_orders:
+                if mrp_orders or not order.session_id.config_id.stock_location_id:
                     continue
                 else:
                     quantity_available = 0
                     bom = product_template.bom_id
                     product_id = line.product_id.id
-                    location_id = self.session_id.config_id.stock_location_id.id
+                    location_id = order.session_id.config_id.stock_location_id.id
                     quants = self.env['stock.quant'].search(
                         [('product_id', '=', product_id), ('location_id', '=', location_id)])
                     if quants:
@@ -405,36 +417,42 @@ class pos_order(models.Model):
                     pos_min_qty = product_template.pos_min_qty
                     if quantity_available <= pos_min_qty:
                         pos_manufacturing_quantity = product_template.pos_manufacturing_quantity
-                        mrp_order = self.env['mrp.production'].create({
+                        vals = {
                             'name': self.name,
                             'product_id': line.product_id.id,
                             'product_qty': pos_manufacturing_quantity,
                             'bom_id': bom.id,
-                            'product_uom_id': bom.product_uom_id.id,
+                            'product_uom_id': bom.product_uom_id.id if bom.product_uom_id else line.product_id.uom_id.id,
                             'pos_id': self.id,
                             'origin': self.name,
                             'pos_user_id': self.env.user.id,
-                        })
-                        if product_template.manufacturing_state == 'manual':
-                            mrp_order.action_assign()
-                            _logger.info('MRP action_assign')
-                        if product_template.manufacturing_state == 'auto':
-                            mrp_order.action_assign()
-                            _logger.info('MRP button_mark_done')
-                            mrp_order.button_plan()
-                            work_orders = self.env['mrp.workorder'].search([('production_id', '=', mrp_order.id)])
-                            if work_orders:
-                                work_orders.button_start()
-                                work_orders.record_production()
-                            else:
-                                produce_wizard = self.env['mrp.product.produce'].with_context({
-                                    'active_id': mrp_order.id,
-                                    'active_ids': [mrp_order.id],
-                                }).create({
-                                    'product_qty': pos_manufacturing_quantity,
-                                })
-                                produce_wizard.do_produce()
-                            mrp_order.button_mark_done()
+                        }
+                        try:
+                            _logger.info('Create new MO: %s' % vals)
+                            mrp_order = self.env['mrp.production'].create(vals)
+                            if product_template.manufacturing_state == 'manual':
+                                mrp_order.action_assign()
+                                _logger.info('MRP action_assign')
+                            if product_template.manufacturing_state == 'auto':
+                                mrp_order.action_assign()
+                                _logger.info('MRP button_mark_done')
+                                mrp_order.button_plan()
+                                work_orders = self.env['mrp.workorder'].search([('production_id', '=', mrp_order.id)])
+                                if work_orders:
+                                    work_orders.button_start()
+                                    work_orders.record_production()
+                                else:
+                                    produce_wizard = self.env['mrp.product.produce'].with_context({
+                                        'active_id': mrp_order.id,
+                                        'active_ids': [mrp_order.id],
+                                    }).create({
+                                        'product_qty': pos_manufacturing_quantity,
+                                    })
+                                    produce_wizard.do_produce()
+                                mrp_order.button_mark_done()
+                        except:
+                            _logger.error('Error when create MO')
+                            continue
         return True
 
     def pos_compute_loyalty_point(self):
@@ -471,7 +489,6 @@ class pos_order(models.Model):
             'partner_id': self.partner_id.id,
         })
         return credit.partner_id.sync()
-
 
     def pos_order_auto_invoice_reconcile(self, orders):
         version_info = odoo.release.version_info
@@ -685,6 +702,7 @@ class pos_order(models.Model):
     # odoo will made account bank statement to parent, not child
     # what is that ??? i dont know reasons
     def _prepare_bank_statement_line_payment_values(self, data):
+        version_info = odoo.release.version_info[0]
         datas = super(pos_order, self)._prepare_bank_statement_line_payment_values(data)
         order_id = self.id
         if datas.get('journal_id', False):
@@ -695,7 +713,7 @@ class pos_order(models.Model):
             datas['currency_id'] = data['currency_id']
         if data.get('amount_currency', None):
             datas['amount_currency'] = data['amount_currency']
-        if data.get('payment_name', False) == 'return':
+        if data.get('payment_name', False) == 'return' and version_info != 12:
             datas.update({
                 'currency_id': self.env.user.company_id.currency_id.id if self.env.user.company_id.currency_id else None,
                 'amount_currency': data['amount']
@@ -766,25 +784,34 @@ class pos_order_line(models.Model):
 
     @api.model
     def create(self, vals):
+        voucher_val = {}
+        if vals.get('voucher', None):
+            voucher_val = vals.get('voucher')
+            del vals['voucher']
+        if 'voucher' in vals:
+            del vals['voucher']
+        order = self.env['pos.order'].browse(vals['order_id'])
         po_line = super(pos_order_line, self).create(vals)
-        po_line.sync()
-        if po_line.product_id and po_line.product_id.is_voucher:
-            voucher = self.env['pos.voucher'].create({
-                'customer_id': po_line.order_id.partner_id.id if po_line.order_id.partner_id else None,
-                'apply_type': 'fixed_amount',
-                'method': 'general',
-                'user_id': self.env.user.id,
-                'source': po_line.order_id.name,
-                'pos_order_line_id': po_line.id,
+        if po_line.product_id.is_voucher and voucher_val:
+            today = datetime.today()
+            end_date = None
+            if voucher_val.get('period_days', None):
+                end_date = today + timedelta(days=voucher_val['period_days'])
+            else:
+                end_date = today + timedelta(days=order.config_id.expired_days_voucher)
+            self.env['pos.voucher'].sudo().create({
+                'number': voucher_val.get('number', None) if voucher_val.get('number', None) else '',
+                'customer_id': order.partner_id and order.partner_id.id if order.partner_id else None,
                 'start_date': fields.Datetime.now(),
-                'end_date': datetime.today() + timedelta(days=po_line.order_id.config_id.expired_days_voucher),
-                'product_id': po_line.product_id.id,
+                'end_date': end_date,
+                'state': 'draft',
                 'value': po_line.price_subtotal_incl,
+                'apply_type': voucher_val.get('apply_type', None) if voucher_val.get('apply_type', None) else 'fixed_amount',
+                'method': voucher_val.get('method', None) if voucher_val.get('method', None) else 'general',
+                'source': order.name,
+                'pos_order_line_id': po_line.id
             })
-            format_code = "%s%s%s" % ('999', voucher.id, datetime.now().strftime("%d%m%y%H%M"))
-            code = self.env['barcode.nomenclature'].sanitize_ean(format_code)
-            voucher.write({'code': code})
-            _logger.info('cashier created new voucher id: %s' % voucher.id)
+        po_line.sync()
         return po_line
 
     @api.model

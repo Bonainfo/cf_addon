@@ -25,12 +25,14 @@ odoo.define('pos_retail.screen_receipt', function (require) {
         show: function () {
             this._super();
             try {
-                var order = this.pos.get_order();
-                JsBarcode("#barcode", order['ean13'], {
-                    format: "EAN13",
-                    displayValue: true,
-                    fontSize: 20
-                });
+                if (this.pos.config.barcode_receipt) {
+                    var order = this.pos.get_order();
+                    JsBarcode("#barcode", order['ean13'], {
+                        format: "EAN13",
+                        displayValue: true,
+                        fontSize: 20
+                    });
+                }
             } catch (error) {
                 console.error(error)
             }

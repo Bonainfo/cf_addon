@@ -2,57 +2,35 @@
 <templates id="template" xml:space="preserve">
 
     <t t-extend="XmlReceipt">
-        <t t-jquery="img[t-att-src*='receipt.company.logo']" t-operation="replace">
-            <t t-set="logo" t-value="widget.pos.get_shop_logo()"/>
-            <img t-att-src='logo' class="shop_logo"/>
-        </t>
         <t t-jquery="div[class*='cashier']" t-operation="replace">
             <div font='b'>
                 <t t-if='receipt.cashier'>
                     <div class='cashier'>
                         <div>--------------------------------</div>
                         <div>Seller by <t t-esc='receipt.cashier' /></div>
-                        <br/>
                     </div>
                 </t>
                 <t t-if='order.get_client()'>
                     <t t-set="client" t-value="order.get_client()"/>
                     <div class='cashier'>
                         <div>Customer: <t t-esc='client.name' /></div>
-                        <br/>
                     </div>
                     <t t-if="client.mobile">
                         <div class='cashier'>
                             <div>Mobile: <t t-esc='client.mobile' /></div>
-                            <br/>
                         </div>
                     </t>
                     <t t-if="client.mail">
                         <div class='cashier'>
                             <div>Email: <t t-esc='client.mail' /></div>
-                            <br/>
                         </div>
                     </t>
                 </t>
             </div>
         </t>
-        <t t-jquery="line[size*='double-height']:eq(1)" t-operation="replace">
-            <t t-if="receipt.change">
-                <line size='double-height'>
-                    <left><pre>        CHANGE</pre></left>
-                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.change' /></value></right>
-                </line>
-            </t>
-            <t t-if="receipt.change == 0">
-                <line size='double-height'>
-                    <left><pre>        CHANGE</pre></left>
-                    <right><value t-att-value-decimals='pos.currency.decimals'>0</value></right>
-                </line>
-            </t>
-        </t>
         <t t-jquery="t[t-if*='receipt.cashier']:eq(1)" t-operation="before">
             <line>
-                <left>Stock location:</left>
+                <left>WH location:</left>
                 <right><t t-esc='receipt.location.name' /></right>
             </line>
             <t t-if="widget.pos.config.booking_orders_display_shipping_receipt">
@@ -243,7 +221,6 @@
                             </t>
                         </t>
                     </div>
-                    <br />
                 </t>
             </t>
             <t t-if="!widget.pos.config.category_wise_receipt">
@@ -318,7 +295,6 @@
                     <left><pre>        PROMOTIONS</pre></left>
                     <right><value><t t-esc='receipt.promotion_amount || 0.00' /></value></right>
                 </line>
-                <br/>
                 <line><right>--------</right></line>
             </t>
             <t t-if="receipt.total_paid">
@@ -340,7 +316,7 @@
                     Period times return: <t t-esc="widget.pos.config.pos_order_period_return_days"/> days
                 </div>
             </t>
-            <t t-if="order.ean13">
+            <t t-if="widget.pos.config.barcode_receipt and order.ean13">
                 <barcode encoding="ean13"><t t-esc='order.ean13'/></barcode>
             </t>
         </t>
@@ -350,11 +326,9 @@
         <receipt align='center' width='40' value-thousands-separator='' >
             <t t-if='receipt.company.logo'>
                 <img t-att-src='receipt.company.logo' />
-                <br/>
             </t>
             <t t-if='!receipt.company.logo'>
                 <h1><t t-esc='receipt.company.name' /></h1>
-                <br/>
             </t>
             <div font='b'>
                 <t t-if='receipt.company.contact_address'>
@@ -385,8 +359,6 @@
                     </div>
                 </t>
             </div>
-            <br /><br />
-
             <div class='orderlines' line-ratio='0.6'>
                 <t t-foreach='receipt.orderlines' t-as='line'>
                     <line>
@@ -404,13 +376,9 @@
                 <t t-raw='receipt.footer_xml' />
             </t>
             <t t-if='!receipt.footer_xml and receipt.footer'>
-                <br/>
                 <t t-esc='receipt.footer' />
-                <br/>
-                <br/>
             </t>
             <div class='after-footer' />
-            <br/>
             <div font='b'>
                 <div><t t-esc='receipt.date.localestring' /></div>
             </div>

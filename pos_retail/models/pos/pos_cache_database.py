@@ -4,86 +4,64 @@ import json
 import ast
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 import odoo
-import base64
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class pos_cache_database(models.Model):
     _name = "pos.cache.database"
     _description = "Management POS database"
+    _rec_name = "res_id"
 
-    res_id = fields.Char('Id')
-    res_model = fields.Char('Model')
-    data = fields.Text('Data')
+    res_id = fields.Char('Res Id')
+    res_model = fields.Char('Res Model')
     deleted = fields.Boolean('Deleted', default=0)
-    updated_date = fields.Datetime('Updated date')
-
+    updated_date = fields.Datetime('Last updated date', readonly=1)
+    
     @api.model
     def create(self, vals):
-        # when create new record, auto add updated date
         vals['updated_date'] = fields.Datetime.now()
         return super(pos_cache_database, self).create(vals)
 
-    @api.multi
+    @api.model
     def write(self, vals):
-        # when write new record, auto add updated date
         vals['updated_date'] = fields.Datetime.now()
         return super(pos_cache_database, self).write(vals)
 
     @api.model
-    def sync_orders(self, config_id, datas):
-        config = self.env['pos.config'].sudo().browse(config_id)
-        for data in datas:
-            value = {
-                'data': data,
-                'action': 'new_order',
-                'bus_id': config.bus_id.id,
-                'order_uid': data['uid']
-            }
-            self.env['bus.bus'].sendmany(
-                [[(self.env.cr.dbname, 'pos.bus', config.user_id.id), json.dumps({
-                    'user_send_id': self.env.user.id,
-                    'value': value
-                })]])
-
-    @api.model
-    def load_master_data(self, models_cache = [], config_id=None):
-        database = {}
-        for model_cache in models_cache:
-            database[model_cache] = []
-        caches = self.search_read(
-            [('res_model', 'in', models_cache), ('deleted', '!=', True)], ['res_id', 'res_model', 'data', 'updated_date'])
-        if caches:
-            for cache in caches:
-                vals = json.loads(cache['data'])
-                vals['write_date'] = cache['updated_date'] # when read record, auto replace write date viva updated date
-                database[cache['res_model']].append(vals)
-        if database == {} or len(caches) == 0:
-            return False
-        else:
-            return database
+    def get_datas_backend_modified(self, updated_date):
+        records = self.sudo().search([('updated_date', '>', updated_date)])
+        results = []
+        if records:
+            for record in records:
+                try:
+                    val = self.env[record.res_model].browse(int(record.res_id)).get_data()
+                    if record.deleted:
+                        val['deleted'] = True
+                        val['id'] = int(record.res_id)
+                    val['write_date'] = record.updated_date
+                    results.append(val)
+                except:
+                    val['deleted'] = True
+                    val['id'] = int(record.res_id)
+                    val['write_date'] = record.updated_date
+                    results.append(val)
+        return results
 
     @api.model
     def get_stock_datas(self, location_id, product_need_update_onhand=[]):
-        location = self.env['stock.location'].browse(location_id)
-        if location.stocks and not product_need_update_onhand:
-            return json.loads(base64.decodestring(location.stocks).decode('utf-8'))
         values = {}
+        product_object = self.env['product.product'].sudo()
         if not product_need_update_onhand:
-            datas = self.env['product.template'].with_context(location=location_id).search_read(
-                [('type', '=', 'product'), ('available_in_pos', '=', True)], ['name', 'qty_available', 'default_code'])
+            datas = product_object.with_context({'location' : location_id}).search_read(
+                [('type', '=', 'product'), ('available_in_pos', '=', True)], ['qty_available'])
         else:
-            datas = self.env['product.template'].with_context(location=location_id).search_read(
+            datas = product_object.with_context({'location' : location_id}).search_read(
                 [('id', 'in', product_need_update_onhand)],
                 ['name', 'qty_available', 'default_code'])
         for data in datas:
-            products = self.env['product.product'].search([('product_tmpl_id', '=', data['id'])])
-            if products:
-                values[products[0].id] = data['qty_available']
-        if not product_need_update_onhand:
-            location.refresh_stocks()
-        if values:
-            return values
-        else:
-            return False
+            values[data['id']] = data['qty_available']
+        return values
 
     @api.multi
     def get_fields_by_model(self, model_name):
@@ -110,13 +88,11 @@ class pos_cache_database(models.Model):
 
     @api.model
     def insert_data(self, datas, model, first_install=False):
-        write_date = fields.Datetime.now()
         if type(model) == list:
             return False
         all_fields = self.env[model].fields_get()
         version_info = odoo.release.version_info[0]
         if version_info == 12:
-            write_date = write_date.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
             if all_fields:
                 for data in datas:
                     for field, value in data.items():
@@ -126,25 +102,21 @@ class pos_cache_database(models.Model):
                             data[field] = value.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
         if first_install:
             for data in datas:
-                data['write_date'] = write_date
                 self.create({
                     'res_id': str(data['id']),
                     'res_model': model,
-                    'data': json.dumps(data),
                 })
         else:
             for data in datas:
-                data['write_date'] = write_date
                 last_caches = self.search([('res_id', '=', str(data['id'])), ('res_model', '=', model)])
                 if last_caches:
                     last_caches.write({
-                        'data': json.dumps(data),
+                        'updated_date': fields.Datetime.now(),
                     })
                 else:
                     self.create({
                         'res_id': str(data['id']),
                         'res_model': model,
-                        'data': json.dumps(data),
                     })
         return True
 

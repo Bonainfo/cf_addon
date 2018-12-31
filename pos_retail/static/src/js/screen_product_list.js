@@ -149,8 +149,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                             $('.pos-content').removeClass('oe_hidden');
                             $('.pos-topheader').removeClass('oe_hidden');
                             return self.pos.gui.close_popup();
-                        }
-                        else if (pw !== self.pos.user.pos_security_pin) {
+                        } else if (pw !== self.pos.user.pos_security_pin) {
                             self.pos.gui.show_popup('confirm', {
                                 title: 'Warning',
                                 body: 'Wrong pos security pin'
@@ -314,7 +313,14 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                 }
                 if ([11, 12].indexOf(self.pos.server_version) != -1) {
                     var using_company_currency = self.pos.config.currency_id[0] === self.pos.company.currency_id[0];
-                    var conversion_rate = self.pos.currency.rate / self.pos.company_currency.rate;
+                    if (self.pos.company_currency) {
+                        var conversion_rate = self.pos.currency.rate / self.pos.company_currency.rate;
+                    } else {
+                        var conversion_rate = 1;
+                    }
+                    if (self.pos.stock_datas && self.pos.stock_datas[product_data['id']]) {
+                        product_data['qty_available'] = self.pos.stock_datas[product_data['id']];
+                    }
                     self.pos.db.add_products(_.map([product_data], function (product) {
                         if (!using_company_currency) {
                             product.lst_price = round_pr(product.lst_price * conversion_rate, self.pos.currency.rounding);
@@ -326,7 +332,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                         self.product_cache.cache_node(cache_key, null);
                         var product_node = self.render_product(product);
                         product_node.addEventListener('click', self.click_product_handler);
-                        var contents = self.el.querySelector(".product-list " + "[data-product-id='" + product['id'] + "']");
+                        var contents = document.querySelector(".product-list " + "[data-product-id='" + product['id'] + "']");
                         if (contents) {
                             contents.replaceWith(product_node)
                         }
@@ -422,6 +428,7 @@ odoo.define('pos_retail.screen_product_list', function (require) {
             }
         },
         renderElement: function () {
+            var self = this;
             if (this.pos.config.product_view == 'box') {
                 this._super();
             } else {
@@ -455,6 +462,36 @@ odoo.define('pos_retail.screen_product_list', function (require) {
                     $('#info_tooltip').remove();
                 });
             }
+            $('.sort_by_product_id').click(function () {
+                self.product_list = self.product_list.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                self.renderElement();
+                self.reverse = !self.reverse;
+            });
+            $('.sort_by_product_name').click(function () {
+                self.product_list = self.product_list.sort(self.pos.sort_by('display_name', self.reverse, function (a) {
+                    if (!a) {
+                        a = 'N/A';
+                    }
+                    return a.toUpperCase()
+                }));
+                self.renderElement();
+                self.reverse = !self.reverse;
+            });
+            $('.sort_by_product_list_price').click(function () {
+                self.product_list = self.product_list.sort(self.pos.sort_by('list_price', self.reverse, parseInt));
+                self.renderElement();
+                self.reverse = !self.reverse;
+            });
+            $('.sort_by_product_standard_price').click(function () {
+                self.product_list = self.product_list.sort(self.pos.sort_by('standard_price', self.reverse, parseInt));
+                self.renderElement();
+                self.reverse = !self.reverse;
+            });
+            $('.sort_by_product_qty_available').click(function () {
+                self.product_list = self.product_list.sort(self.pos.sort_by('qty_available', self.reverse, parseInt));
+                self.renderElement();
+                self.reverse = !self.reverse;
+            });
         },
         _get_active_pricelist: function () {
             var current_order = this.pos.get_order();

@@ -270,11 +270,11 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
                     return product['id'] != product_data['id'];
                 });
                 products.push(product_data);
-                self.product_by_string = "";
-                self.save_products(products);
+                self.product_by_id[product_data['id']] = product_data;
+                self.product_by_string += self.pos.db._product_search_string(product_data);
                 self.clear_search();
                 self.display_product_edit('show', product_data);
-            })
+            });
         },
         save_products: function (products) {
             for (var i = 0; i < products.length; i++) {
@@ -308,6 +308,7 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
             return results;
         },
         show: function () {
+            this.products_last_search = [];
             var self = this;
             this._super();
             this.renderElement();
@@ -316,10 +317,15 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
             this.$('.back').click(function () {
                 self.gui.back();
             });
+            this.$('.searchbox .search-clear').click(function () {
+                self.clear_search();
+            });
             this.$('.new-product').click(function () {
                 self.display_product_edit('show', {});
             });
-            this.render_list(this.products);
+            if (this.products) {
+                this.render_list(this.products);
+            }
             if (this.old_product) {
                 this.display_product_edit('show', this.old_product, 0);
             }
@@ -340,19 +346,179 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
             this.$('.searchbox .search-product').click(function () {
                 self.clear_search();
             });
+            if (!this.init_autocomplete_search) {
+                var $search_box = $('.clientlist-screen .searchbox >input');
+                $search_box.autocomplete({
+                    source: this.pos.db.products_autocomplete,
+                    minLength: this.pos.config.min_length_search,
+                    select: function (event, ui) {
+                        if (ui && ui['item'] && ui['item']['value']) {
+                            var product = self.product_by_id[ui['item']['value']];
+                            if (product) {
+                                self.display_product_edit('show', product);
+                            }
+                            self.clear_search();
+                        }
+                    }
+                });
+                this.init_autocomplete_search = true;
+            }
+            this.$('.sort_by_product_operation_id').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products = self.products_last_search.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_list(self.products);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_default_code').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('default_code', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products_last_search = self.products_last_search.sort(self.pos.sort_by('default_code', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.products_last_search);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_barcode').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('barcode', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products_last_search = self.products_last_search.sort(self.pos.sort_by('barcode', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.products_last_search);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_display_name').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('display_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products_last_search = self.products_last_search.sort(self.pos.sort_by('display_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.products_last_search);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_list_price').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('list_price', self.reverse, parseInt));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products = self.products_last_search.sort(self.pos.sort_by('list_price', self.reverse, parseInt));
+                    self.render_list(self.products);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_type').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('type', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products_last_search = self.products_last_search.sort(self.pos.sort_by('type', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.products_last_search);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_qty_available').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('qty_available', self.reverse, parseInt));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products = self.products_last_search.sort(self.pos.sort_by('qty_available', self.reverse, parseInt));
+                    self.render_list(self.products);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_product_operation_pos_categ_id').click(function () {
+                if (self.products_last_search.length == 0) {
+                    var products = self.products.sort(self.pos.sort_by('pos_categ', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(products);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.products_last_search = self.products_last_search.sort(self.pos.sort_by('pos_categ', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.products_last_search);
+                    self.reverse = !self.reverse;
+                }
+            });
         },
         hide: function () {
             this._super();
         },
         perform_search: function (query, associate_result) {
             var products = this.search_products(query);
+            this.products_last_search = products;
             this.render_list(products);
         },
         clear_search: function () {
             this.render_list(this.products);
             $('.search-product input')[0].value = '';
+            this.products_last_search = [];
         },
         render_list: function (products) {
+            if (!products) {
+                return;
+            }
             var self = this;
             var contents = this.$el[0].querySelector('.client-list-contents');
             contents.innerHTML = "";
@@ -370,20 +536,6 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
                 }
                 contents.appendChild(product_line);
             }
-            var $search_box = $('.clientlist-screen .searchbox >input');
-            $search_box.autocomplete({
-                source: this.pos.db.products_autocomplete,
-                minLength: this.pos.config.min_length_search,
-                select: function (event, ui) {
-                    if (ui && ui['item'] && ui['item']['value']) {
-                        var product = self.product_by_id[ui['item']['value']];
-                        if (product) {
-                            self.display_product_edit('show', product);
-                        }
-                        self.clear_search();
-                    }
-                }
-            });
         },
         product_selected: function (event, $line, id) {
             var product = this.product_by_id[id];
@@ -618,7 +770,7 @@ odoo.define('pos_retail.screen_products_operation', function (require) {
                                     return rpc.query({
                                         model: 'pos.cache.database',
                                         method: 'get_stock_datas',
-                                        args: [location.id, [product_tmpl_id]],
+                                        args: [location.id, [self.product.id]],
                                         context: {}
                                     }).then(function (datas) {
                                         if (!datas) {

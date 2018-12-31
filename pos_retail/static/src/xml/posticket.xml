@@ -9,19 +9,13 @@
             <t t-if="order.date">
                 <div class="pos-center-align"><t t-esc="order.date"/> | <t t-esc="order.name"/></div>
             </t>
-            <br/>
-            <t t-if="widget.pos.get_shop_logo()">
-                <div class="ticket_image">
-                    <img t-att-src='widget.pos.get_shop_logo()' class="shop_logo"/>
-                </div>
-            </t>
         </t>
         <t t-jquery="div[class*='receipt-user']" t-operation="replace">
             <div class="receipt-user">
-                Seller: <t t-esc="widget.pos.get_cashier().name"/><br />
+                Seller: <t t-esc="widget.pos.get_cashier().name"/>
             </div>
             <t t-if="order.get_client()">
-                Customer: <t t-esc="order.get_client().name"/><br />
+                Customer: <t t-esc="order.get_client().name"/>
             </t>
         </t>
         <t t-jquery="table[class*='receipt-orderlines']" t-operation="replace">
@@ -213,59 +207,47 @@
         </t>
         <t t-jquery="t[t-if*='receipt.header']" t-operation="before">
             <t t-if="order.delivery_phone">
-                WH location: <t t-esc="order.location.name"/><br />
+                WH location: <t t-esc="order.location.name"/>
             </t>
             <t t-if="widget.pos.config.booking_orders_display_shipping_receipt">
                 <t t-if="order.delivery_address">
                     <div>Shipping information:</div>
-                    Address: <t t-esc="order.delivery_address"/><br />
+                    Address: <t t-esc="order.delivery_address"/>
                 </t>
                 <t t-if="order.delivery_date">
-                    Date: <t t-esc="order.delivery_date"/><br />
+                    Date: <t t-esc="order.delivery_date"/>
                 </t>
                 <t t-if="order.delivery_phone">
-                    Phone: <t t-esc="order.delivery_phone"/><br />
+                    Phone: <t t-esc="order.delivery_phone"/>
                 </t>
             </t>
             <t t-if="widget.pos.config.display_fiscal_position_receipt and order.fiscal_position">
-                <div>Fiscal Position: <t t-esc="order.fiscal_position.name"/><br /></div>
+                <div>Fiscal Position: <t t-esc="order.fiscal_position.name"/></div>
             </t>
             <t t-set="client" t-value="order.get_client()"/>
             <t t-if="client and widget.pos.config.receipt_customer_vat">
                 <t t-set="client" t-value="order.get_client()"/>
                 <div>Customer information:</div>
-                    Name: <t t-esc="client['name']"/><br />
+                    Name: <t t-esc="client['name']"/>
                 <t t-if="client['street']">
-                    Street: <t t-esc="client['street']"/><br />
+                    Street: <t t-esc="client['street']"/>
                 </t>
                 <t t-if="client['vat']">
-                    Tin: <t t-esc="client['vat']"/><br />
+                    Tin: <t t-esc="client['vat']"/>
                 </t>
                 <t t-if="client['email']">
-                    Email: <t t-esc="client['email']"/><br />
+                    Email: <t t-esc="client['email']"/>
                 </t>
                 <t t-if="client['phone'] or client['mobile']">
-                    Phone (mobile): <t t-esc="client['phone'] || client['mobile']"/><br />
+                    Phone (mobile): <t t-esc="client['phone'] || client['mobile']"/>
                 </t>
             </t>
             <t t-if="order.invoice_number and widget.pos.config.receipt_invoice_number">
-                <div>Invoice number: <t t-esc="order.invoice_number"/><br /></div>
+                <div>Invoice number: <t t-esc="order.invoice_number"/></div>
             </t>
         </t>
 
         <t t-jquery=".receipt-change" t-operation="after">
-            <table>
-                <t t-if="order.plus_point">
-                    <td class="pos-right-align point">
-                        Point plus: <t t-esc="order.plus_point.toFixed(2)"/>
-                    </td>
-                </t>
-                <t t-if="order.redeem_point">
-                    <td class="pos-right-align point">
-                        Point redeem: <t t-esc="order.redeem_point.toFixed(2)"/>
-                    </td>
-                </t>
-            </table>
             <t t-if="order.note">
                 <table>
                     <t t-if="order.note">
@@ -314,7 +296,7 @@
                         </div>
                     </t>
                 </div>
-                <br /><br />
+                
                 <div class='data.orderlines' line-ratio='0.6'>
                     <t t-foreach='orderlines' t-as='line'>
                         <line>

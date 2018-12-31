@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="button_go_pos_orders_screen">
+        <span class="product left_button">
+            <div class="button_icon">
+                <img src="/pos_retail/static/src/icons/find.png" class="pos_logo"/>
+            </div>
+            <div class="product-name button_text">
+                POS orders
+            </div>
+        </span>
+    </t>
+
     <t t-name="return_pos_order_line">
         <t t-set="count" t-value="1"/>
         <t t-foreach="order_lines || []" t-as="line">
@@ -40,7 +51,7 @@
 
     <t t-name="pos_orders_screen">
         <div class="clientlist-screen screen">
-            <div class="screen-content">
+            <div class="full_width screen-content">
                 <section class="top-content">
                     <span class='button back'>
                         <i class='fa fa-angle-double-left'/>
@@ -65,14 +76,15 @@
                                     <table class='client-list'>
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Barcode</th>
-                                                <th>Partner</th>
-                                                <th>Amount total</th>
-                                                <th>Amount paid</th>
-                                                <th>Amount tax</th>
-                                                <th>Debit</th>
-                                                <th>State</th>
+                                                <th><a href="#" class="sort sort_by_pos_order_id">ID</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_name">Name</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_barcode">Barcode</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_partner_name">Partner</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_amount_total">Total</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_amount_paid">Paid</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_amount_tax">Tax</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#">Debit</a></th>
+                                                <th><a href="#" class="sort sort_by_pos_order_state">State</a><i class="fa fa-sort"/></th>
                                             </tr>
                                         </thead>
                                         <tbody class='client-list-contents pos_order_list'>
@@ -118,6 +130,7 @@
 
     <t t-name="pos_order_row">
         <tr class='client-line pos_order_row' t-att-data-id='order.id'>
+            <td><t t-esc='order.id'/></td>
             <td><t t-esc='order.name'/></td>
             <td><t t-esc='order.ean13'/></td>
             <td>

@@ -600,15 +600,6 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                 }
             }
         },
-        active_button_print_voucher: function (buttons, selected_order) {
-            if (buttons.button_print_voucher) {
-                if (this.pos.config.iface_print_via_proxy) {
-                    buttons.button_print_voucher.highlight(true);
-                } else {
-                    buttons.button_print_voucher.highlight(false);
-                }
-            }
-        },
         active_lock_unlock_order: function (buttons, selected_order) {
             if (buttons.button_lock_unlock_order) {
                 if (selected_order['lock']) {
@@ -686,7 +677,6 @@ odoo.define('pos_retail.screen_order_widget', function (require) {
                 this.active_button_create_purchase_order(buttons, selected_order);
                 this.active_button_change_unit(buttons, selected_order);
                 this.active_button_set_tags(buttons, selected_order);
-                this.active_button_print_voucher(buttons);
                 this.active_lock_unlock_order(buttons, selected_order);
                 this.active_button_global_discount(buttons, selected_order);
                 try { // try catch because may be customer not installed pos_restaurant

@@ -6,10 +6,21 @@ from odoo.exceptions import UserError
 import base64
 import json
 
+import io
+import os
+import timeit
+
+try:
+    to_unicode = unicode
+except NameError:
+    to_unicode = str
+
 _logger = logging.getLogger(__name__)
+
 
 class pos_config_image(models.Model):
     _name = "pos.config.image"
+    _description = "Image show to customer screen"
 
     name = fields.Char('Title', required=1)
     image = fields.Binary('Image', required=1)
@@ -39,7 +50,7 @@ class pos_config(models.Model):
 
     display_point_receipt = fields.Boolean('Display point / receipt')
     loyalty_id = fields.Many2one('pos.loyalty', 'Loyalty Program',
-                                   domain=[('state', '=', 'running')])
+                                 domain=[('state', '=', 'running')])
 
     promotion_ids = fields.Many2many('pos.promotion',
                                      'pos_config_promotion_rel',
@@ -72,14 +83,18 @@ class pos_config(models.Model):
 
     sync_pricelist = fields.Boolean('Sync prices list', default=0)
 
-    display_onhand = fields.Boolean('Show qty available product', default=0, help='Display quantity on hand all products on pos screen')
-    allow_order_out_of_stock = fields.Boolean('Allow out-of-stock', default=0,
+    display_onhand = fields.Boolean('Show qty available product', default=1,
+                                    help='Display quantity on hand all products on pos screen')
+    large_stocks = fields.Boolean('Large stock', help='If count products bigger than 100,000 rows, please check it')
+    allow_order_out_of_stock = fields.Boolean('Allow out-of-stock', default=1,
                                               help='If checked, allow cashier can add product have out of stock')
-    allow_of_stock_approve_by_admin = fields.Boolean('Approve allow of stock', help='Allow manager approve allow of stock')
+    allow_of_stock_approve_by_admin = fields.Boolean('Approve allow of stock',
+                                                     help='Allow manager approve allow of stock')
 
-    print_voucher = fields.Boolean('Create voucher', default=0)
+    print_voucher = fields.Boolean('Print vouchers', help='Reprint last vouchers', default=1)
     scan_voucher = fields.Boolean('Scan voucher', default=0)
-    expired_days_voucher = fields.Integer('Expired days of voucher', default=30, help='Total days keep voucher can use, if out of period days from create date, voucher will expired')
+    expired_days_voucher = fields.Integer('Expired days of voucher', default=30,
+                                          help='Total days keep voucher can use, if out of period days from create date, voucher will expired')
 
     sync_multi_session = fields.Boolean('Sync multi session', default=0)
     bus_id = fields.Many2one('pos.bus', string='Branch/store')
@@ -142,7 +157,8 @@ class pos_config(models.Model):
 
     print_user_card = fields.Boolean('Print user card')
 
-    product_operation = fields.Boolean('Product Operation', default=0, help='Allow cashiers add pos categories and products on pos screen')
+    product_operation = fields.Boolean('Product Operation', default=0,
+                                       help='Allow cashiers add pos categories and products on pos screen')
     quickly_payment_full = fields.Boolean('Quickly payment full')
     quickly_payment_full_journal_id = fields.Many2one('account.journal', 'Payment mode',
                                                       domain=[('journal_user', '=', True)])
@@ -153,8 +169,6 @@ class pos_config(models.Model):
     quickly_buttons = fields.Boolean('Quickly Actions', default=0)
     display_amount_discount = fields.Boolean('Display amount discount', default=0)
 
-
-
     booking_orders = fields.Boolean('Booking orders', default=0)
     booking_orders_required_cashier_signature = fields.Boolean('Book order required sessions signature',
                                                                help='Checked if need required pos seller signature',
@@ -164,8 +178,6 @@ class pos_config(models.Model):
                                      help='Pos clients can get booking orders and delivery orders',
                                      default=0)
     booking_orders_display_shipping_receipt = fields.Boolean('Display shipping on receipt', default=0)
-
-
 
     display_tax_orderline = fields.Boolean('Display tax orderline', default=0)
     display_tax_receipt = fields.Boolean('Display tax receipt', default=0)
@@ -190,13 +202,17 @@ class pos_config(models.Model):
         'Accounting Invoice Journal',
         domain=[('type', '=', 'sale')],
         help="Accounting journal use for create invoices.")
-    send_invoice_email = fields.Boolean('Send email invoice', help='Help cashier send invoice to email of customer', default=0)
-    lock_print_invoice_on_pos = fields.Boolean('Lock print invoice', help='Lock print pdf invoice when clicked button invoice', default=0)
+    send_invoice_email = fields.Boolean('Send email invoice', help='Help cashier send invoice to email of customer',
+                                        default=0)
+    lock_print_invoice_on_pos = fields.Boolean('Lock print invoice',
+                                               help='Lock print pdf invoice when clicked button invoice', default=0)
     pos_auto_invoice = fields.Boolean('Auto create invoice',
                                       help='Automatic create invoice if order have client',
                                       default=0)
-    receipt_invoice_number = fields.Boolean('Add invoice on receipt', help='Show invoice number on receipt header', default=0)
-    receipt_customer_vat = fields.Boolean('Add vat customer on receipt', help='Show customer VAT(TIN) on receipt header', default=0)
+    receipt_invoice_number = fields.Boolean('Add invoice on receipt', help='Show invoice number on receipt header',
+                                            default=0)
+    receipt_customer_vat = fields.Boolean('Add vat customer on receipt',
+                                          help='Show customer VAT(TIN) on receipt header', default=0)
     auto_register_payment = fields.Boolean('Auto invocie register payment', default=0)
 
     fiscal_position_auto_detect = fields.Boolean('Fiscal position auto detect', default=0)
@@ -219,23 +235,26 @@ class pos_config(models.Model):
     set_guest = fields.Boolean('Set guest', default=0)
     reset_sequence = fields.Boolean('Reset sequence order', default=0)
     update_tax = fields.Boolean('Modify tax', default=0, help='Cashier can change tax of order line')
-    subtotal_tax_included = fields.Boolean('Show Tax-Included Prices', help='When checked, subtotal of line will display amount have tax-included')
+    subtotal_tax_included = fields.Boolean('Show Tax-Included Prices',
+                                           help='When checked, subtotal of line will display amount have tax-included')
     cash_out = fields.Boolean('Cash out', default=0, help='Allow cashiers take money out')
     cash_in = fields.Boolean('Cash in', default=0, help='Allow cashiers input money in')
-    min_length_search = fields.Integer('Min character length search', default=3, help='Allow auto suggestion items when cashiers input on search box')
-    review_receipt_before_paid = fields.Boolean('Review receipt before paid', help='Show receipt before paid order', default=1)
+    min_length_search = fields.Integer('Min character length search', default=3,
+                                       help='Allow auto suggestion items when cashiers input on search box')
+    review_receipt_before_paid = fields.Boolean('Review receipt before paid', help='Show receipt before paid order',
+                                                default=1)
     keyboard_event = fields.Boolean('Keyboard event', default=0, help='Allow cashiers use shortcut keyboard')
-    multi_variant = fields.Boolean('Multi variant', default=0, help='Allow cashiers change variant of order lines on pos screen')
+    multi_variant = fields.Boolean('Multi variant', default=0,
+                                   help='Allow cashiers change variant of order lines on pos screen')
     switch_user = fields.Boolean('Switch user', default=0, help='Allow cashiers switch to another cashier')
-    change_unit_of_measure = fields.Boolean('Change unit of measure', default=0, help='Allow cashiers change unit of measure of order lines')
+    change_unit_of_measure = fields.Boolean('Change unit of measure', default=0,
+                                            help='Allow cashiers change unit of measure of order lines')
     print_last_order = fields.Boolean('Print last receipt', default=0, help='Allow cashiers print last receipt')
-    close_session = fields.Boolean('Close session', help='When cashiers click close pos, auto log out of system', default=0)
-    display_image_product = fields.Boolean('Display image product', default=1, help='Allow hide/display product images on pos screen')
+    close_session = fields.Boolean('Close session', help='When cashiers click close pos, auto log out of system',
+                                   default=0)
+    display_image_product = fields.Boolean('Display image product', default=1,
+                                           help='Allow hide/display product images on pos screen')
     printer_on_off = fields.Boolean('On/Off printer', help='Help cashier turn on/off printer viva posbox', default=0)
-
-    opt_out = fields.Boolean('Opt out', default=0)
-    sms_opt_out = fields.Boolean('Sms opt out', default=0)
-    call_opt_out = fields.Boolean('Call opt out', default=0)
     check_duplicate_email = fields.Boolean('Check duplicate email', default=0)
     check_duplicate_phone = fields.Boolean('Check duplicate phone', default=0)
     hide_country = fields.Boolean('Hide country', default=0)
@@ -251,33 +270,93 @@ class pos_config(models.Model):
     add_notes = fields.Boolean('Add notes line', default=0, help='Allow cashiers add notes to order lines')
     add_sale_person = fields.Boolean('Add sale person', default=0)
     logo = fields.Binary('Logo of store')
-    paid_full = fields.Boolean('Allow paid full', default=0, help='Allow cashiers click one button, do payment full order')
+    paid_full = fields.Boolean('Allow paid full', default=0,
+                               help='Allow cashiers click one button, do payment full order')
     paid_partial = fields.Boolean('Allow partial payment', default=0, help='Allow cashiers do partial payment')
-    backup = fields.Boolean('Backup/Restore orders', default=0, help='Allow cashiers backup and restore orders on pos screen')
+    backup = fields.Boolean('Backup/Restore orders', default=0,
+                            help='Allow cashiers backup and restore orders on pos screen')
     backup_orders = fields.Text('Backup orders')
     change_logo = fields.Boolean('Change logo', default=1, help='Allow cashiers change logo of shop on pos screen')
     management_session = fields.Boolean('Management session', default=0)
+    barcode_receipt = fields.Boolean('Barcode receipt', default=0)
+
+    # Config client
+    opt_out = fields.Boolean('Opt out', default=0)
+    sms_opt_out = fields.Boolean('Sms opt out', default=0)
+    call_opt_out = fields.Boolean('Call opt out', default=0)
+    hide_mobile = fields.Boolean('Hide mobile', default=1)
+    hide_phone = fields.Boolean('Hide phone', default=1)
+    hide_email = fields.Boolean('Hide email', default=1)
+    update_client = fields.Boolean('Update client', help='Uncheck if you dont want cashier change customer information on pos')
+    add_client = fields.Boolean('Add client', help='Uncheck if you dont want cashier add new customers on pos')
+    remove_client = fields.Boolean('Remove client', help='Uncheck if you dont want cashier remove customers on pos')
 
 
     @api.multi
     def remove_database(self):
-        sessions = self.env['pos.session'].search([])
-        for session in sessions:
-            self.env['bus.bus'].sendmany(
-                [[(self.env.cr.dbname, 'pos.indexed_db', session.user_id.id), json.dumps({
-                    'db': self.env.cr.dbname
-                })]])
-        self.env.cr.execute("DELETE FROM pos_cache_database")
-        self.env.cr.commit()
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/pos/web/',
-            'target': 'self',
-        }
+        for config in self:
+            sessions = self.env['pos.session'].search([('config_id', '=', config.id)])
+            for session in sessions:
+                self.env['bus.bus'].sendmany(
+                    [[(self.env.cr.dbname, 'pos.indexed_db', session.user_id.id), json.dumps({
+                        'db': self.env.cr.dbname
+                    })]])
+            self.env['pos.cache.database'].with_context(prefetch_fields=False).search([]).unlink()
+            self.env['pos.call.log'].with_context(prefetch_fields=False).search([]).unlink()
+            return {
+                'type': 'ir.actions.act_url',
+                'url': '/pos/web/',
+                'target': 'self',
+            }
 
     @api.multi
-    def refresh_stocks(self):
-        return self.env['stock.location'].refresh_stocks()
+    def remove_caches(self):
+        for config in self:
+            sessions = self.env['pos.session'].search([('config_id', '=', config.id)])
+            for session in sessions:
+                self.env['bus.bus'].sendmany(
+                    [[(self.env.cr.dbname, 'pos.indexed_db', session.user_id.id), json.dumps({
+                        'db': self.env.cr.dbname
+                    })]])
+                if session.state != 'closed':
+                    session.action_pos_session_closing_control()
+            return {
+                'type': 'ir.actions.act_url',
+                'url': '/pos/web/',
+                'target': 'self',
+            }
+
+    # @api.model
+    # def store_cached_file(self, datas):
+    #     start = timeit.default_timer()
+    #     _logger.info('==> begin cached_file')
+    #     os.chdir(os.path.dirname(__file__))
+    #     path = os.getcwd()
+    #     file_name = path + '/pos.json'
+    #     if os.path.exists(file_name):
+    #         os.remove(file_name)
+    #     with io.open(file_name, 'w', encoding='utf8') as outfile:
+    #         str_ = json.dumps(datas, indent=4, sort_keys=True, separators=(',', ': '), ensure_ascii=False)
+    #         outfile.write(to_unicode(str_))
+    #     stop = timeit.default_timer()
+    #     _logger.info(stop - start)
+    #     return True
+    #
+    # @api.model
+    # def get_cached_file(self):
+    #     start = timeit.default_timer()
+    #     _logger.info('==> begin get_cached_file')
+    #     os.chdir(os.path.dirname(__file__))
+    #     path = os.getcwd()
+    #     file_name = path + '/pos.json'
+    #     if not os.path.exists(file_name):
+    #         return False
+    #     else:
+    #         with open(file_name) as f:
+    #             datas = json.load(f)
+    #             stop = timeit.default_timer()
+    #             _logger.info(stop - start)
+    #             return datas
 
     @api.onchange('lock_print_invoice_on_pos')
     def _onchange_lock_print_invoice_on_pos(self):

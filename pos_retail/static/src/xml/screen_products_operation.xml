@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Name<span class="voucher-form-required"> (*)</span></span>
-                                            <input class="form-control product_input" id="name" name="name" required="true" />
+                                            <input class="form-control product_input" name="name" required="true" />
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Internal ref</span>
@@ -160,7 +160,7 @@
 
     <t t-name="products_screen">
         <div class="clientlist-screen screen">
-            <div class="screen-content">
+            <div class="full_width screen-content">
                 <section class="top-content">
                     <span class='button back'>
                         <i class='fa fa-angle-double-left'></i>
@@ -185,17 +185,18 @@
                         </section>
                         <section class='subwindow'>
                             <div class='subwindow-container'>
-                                <div class='subwindow-container-fix touch-scrollable scrollable-y' style="max-height:800px">
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y'>
                                     <table class='client-list'>
                                         <thead>
                                             <tr>
-                                                <th>Internal reference</th>
-                                                <th>Barcode</th>
-                                                <th>Name</th>
-                                                <th>List Price</th>
-                                                <th>Type</th>
-                                                <th>Qty on hand</th>
-                                                <th>Category</th>
+                                                <th><a href="#" class="sort sort_by_product_operation_id">ID</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_default_code">Internal reference</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_barcode">Barcode</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_display_name">Name</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_list_price">List Price</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_type">Type</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_qty_available">Qty on hand</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_product_operation_pos_categ_id">Category</a><i class="fa fa-sort"/></th>
                                             </tr>
                                         </thead>
                                         <tbody class='client-list-contents'>
@@ -213,6 +214,9 @@
     <t t-name="product_row">
         <tr class='product_row' t-att-data-id='product.id'>
             <td>
+                <t t-esc='product.id' />
+            </td>
+            <td>
                 <t t-if="product.default_code"><t t-esc='product.default_code' /></t>
                 <t t-if="!product.default_code">N/A</t>
             </td>
@@ -223,7 +227,7 @@
             <td><t t-esc='product.display_name' /></td>
             <td><t t-esc='product.list_price' /></td>
             <td><t t-esc='product.type' /></td>
-            <td><t t-esc='product.qty_available' /></td>
+            <td><t t-esc='product.qty_available'/></td>
             <td><t t-if="product.pos_categ_id"><t t-esc='product.pos_categ_id[1]' /></t> </td>
         </tr>
     </t>

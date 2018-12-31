@@ -306,6 +306,7 @@ odoo.define('pos_retail.screens', function (require) {
             if (this.pos.config.is_customer_screen) {
                 $('.pos .order-selector').css('display', 'none');
                 $('.pos .leftpane').css('left', '0px');
+                $('.pos .rightpane').css('left', '440px');
                 $('.pos-topheader').css("background", '#e16200');
                 $('.pos-rightheader').css("right", '0px');
                 $('.pos-rightheader').css("float", 'right');
@@ -330,11 +331,11 @@ odoo.define('pos_retail.screens', function (require) {
                     spaceBetween: 10,
                     navigation: {
                         nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
+                        prevEl: '.swiper-button-prev'
                     },
                     autoplay: {
                         delay: self.pos.config.delay,
-                        disableOnInteraction: false,
+                        disableOnInteraction: false
                     }
                 });
                 new Swiper('.gallery-thumbs', {
@@ -345,7 +346,7 @@ odoo.define('pos_retail.screens', function (require) {
                     slideToClickedSlide: true,
                     autoplay: {
                         delay: self.pos.config.delay,
-                        disableOnInteraction: false,
+                        disableOnInteraction: false
                     }
                 });
             }

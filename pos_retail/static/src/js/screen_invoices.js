@@ -17,6 +17,7 @@ odoo.define('pos_retail.screen_invoices', function (require) {
             })
         },
         show: function () {
+            this.search_invoices = [];
             var self = this;
             this.render_screen();
             this.invoice_selected = null;
@@ -41,42 +42,10 @@ odoo.define('pos_retail.screen_invoices', function (require) {
                         body: 'Your database have not any invoices state at Open'
                     })
                 }
-
-            })
-            var invoices = [];
-            for (var i = 0; i < this.pos.db.invoices.length; i++) {
-                var invoice = this.pos.db.invoices[i];
-                var partner = this.pos.db.get_partner_by_id(invoice.partner_id[0]);
-                if (!partner) {
-                    partner = this.pos.db.supplier_by_id[invoice.partner_id[0]]
-                }
-                if (!partner) {
-                    continue;
-                }
-                var label = invoice['number'];
-                if (invoice['name']) {
-                    label += ', ' + invoice['name'];
-                }
-                if (partner['display_name']) {
-                    label += ', ' + partner['display_name']
-                }
-                if (partner['email']) {
-                    label += ', ' + partner['email']
-                }
-                if (partner['phone']) {
-                    label += ', ' + partner['phone']
-                }
-                if (partner['mobile']) {
-                    label += ', ' + partner['mobile']
-                }
-                invoices.push({
-                    value: invoice['id'],
-                    label: label
-                })
-            }
+            });
             var $search_box = $('.clientlist-screen .search-invoice >input');
             $search_box.autocomplete({
-                source: invoices,
+                source: this.pos.db.invoices_autocomplete,
                 minLength: this.pos.config.min_length_search,
                 select: function (event, ui) {
                     if (ui && ui['item'] && ui['item']['value']) {
@@ -89,15 +58,204 @@ odoo.define('pos_retail.screen_invoices', function (require) {
                     }
                 }
             });
+            this.$('.sort_by_invoice_id').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_number').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('number', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('number', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_partner_name').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('partner_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('partner_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_payment_term_id').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('payment_term', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('payment_term', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_date_invoice').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('date_invoice', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('date_invoice', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_date_due').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('date_due', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('date_due', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_user_id').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('user', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('user', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_amount_tax').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('amount_tax', self.reverse, parseInt));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('amount_tax', self.reverse, parseInt));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_amount_total').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('amount_total', self.reverse, parseInt));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('amount_total', self.reverse, parseInt));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_residual').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('residual', self.reverse, parseInt));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('residual', self.reverse, parseInt));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_invoice_state').click(function () {
+                if (self.search_invoices.length == 0) {
+                    var invoices = self.pos.db.invoices.sort(self.pos.sort_by('state', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(invoices);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_invoices = self.search_invoices.sort(self.pos.sort_by('state', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_invoice_list(self.search_invoices);
+                    self.reverse = !self.reverse;
+                }
+            });
         },
         invoice_select: function (event, $invoice, id) {
             var invoice = this.pos.db.get_invoice_by_id(id);
             this.$('.invoice-line').removeClass('highlight');
             $invoice.addClass('highlight');
             this.display_invoice_details(invoice);
-
         },
-
         display_invoice_details: function (invoice) {
             var self = this;
             this.invoice_selected = invoice;
@@ -202,6 +360,7 @@ odoo.define('pos_retail.screen_invoices', function (require) {
         perform_search: function (query, associate_result) {
             if (query) {
                 var invoices = this.pos.db.search_invoice(query);
+                this.search_invoices = invoices;
                 this.render_invoice_list(invoices);
             }
         },
@@ -212,6 +371,7 @@ odoo.define('pos_retail.screen_invoices', function (require) {
             this.render_invoice_list(invoices);
             this.$('.searchbox input')[0].value = '';
             this.$('.searchbox input').focus();
+            this.search_invoices = [];
         },
         partner_icon_url: function (id) {
             return '/web/image?model=res.partner&id=' + id + '&field=image_small';

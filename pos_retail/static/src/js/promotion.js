@@ -925,7 +925,7 @@ odoo.define('pos_retail.promotion', function (require) {
                         this.add_promotion(product, -discount / 100 * discount_item.discount, 1, {
                             promotion: true,
                             promotion_discount: true,
-                            promotion_reason: 'Applied ' + promotion['name'] + ', discount ' + discount_item.product_id[1]
+                            promotion_reason: promotion['name'] + ', discount ' + discount_item.product_id[1]
                         })
                     }
                     i++;
@@ -1036,18 +1036,14 @@ odoo.define('pos_retail.promotion', function (require) {
                                     continue;
                                 }
                                 if (line.product.id == price_item_tmp.product_id[0]) {
-                                    if (this.pos.config.iface_tax_included === 'total') {
-                                        price_discount += (line.get_price_with_tax() / line.quantity - price_item_tmp['price_down']) * line.quantity;
-                                    } else {
-                                        price_discount += price_item_tmp['price_down'] * line.quantity;
-                                    }
+                                    price_discount += line.quantity * price_item_tmp['price_down'];
                                 }
                             }
                             if (price_discount != 0) {
                                 this.add_promotion(product, price_discount, -1, {
                                     promotion: true,
                                     promotion_price_by_quantity: true,
-                                    promotion_reason: 'Applied ' + promotion['name'] + ', By greater or equal ' + price_item_tmp.minimum_quantity + ' ' + price_item_tmp.product_id[1] + ' price down  ' + price_item_tmp['price_down'] + ' / unit.'
+                                    promotion_reason: promotion['name'] + ', By greater or equal ' + price_item_tmp.minimum_quantity + ' ' + price_item_tmp.product_id[1] + ' price down  ' + price_item_tmp['price_down'] + ' / unit.'
                                 })
                             }
                         }
@@ -1105,7 +1101,7 @@ odoo.define('pos_retail.promotion', function (require) {
                                 this.add_promotion(product_service, -discount, 1, {
                                     promotion: true,
                                     promotion_special_category: true,
-                                    promotion_reason: 'Applied ' + promotion['name'] + ',Buy bigger than or equal ' + promotion_line['count'] + ' product of ' + promotion_line['category_id'][1] + ' discount ' + promotion_line['discount'] + ' %'
+                                    promotion_reason: promotion['name'] + ',Buy bigger than or equal ' + promotion_line['count'] + ' product of ' + promotion_line['category_id'][1] + ' discount ' + promotion_line['discount'] + ' %'
                                 })
                             }
                         }
@@ -1115,7 +1111,7 @@ odoo.define('pos_retail.promotion', function (require) {
                                 this.add_promotion(product_free, 0, promotion_line['qty_free'], {
                                     promotion: true,
                                     promotion_special_category: true,
-                                    promotion_reason: 'Applied ' + promotion['name'] + ', Buy bigger than or equal ' + promotion_line['count'] + ' product of ' + promotion_line['category_id'][1] + ' free ' + promotion_line['qty_free'] + ' ' + product_free['display_name']
+                                    promotion_reason: promotion['name'] + ', Buy bigger than or equal ' + promotion_line['count'] + ' product of ' + promotion_line['category_id'][1] + ' free ' + promotion_line['qty_free'] + ' ' + product_free['display_name']
                                 })
                             }
                         }
@@ -1147,7 +1143,7 @@ odoo.define('pos_retail.promotion', function (require) {
                 this.add_promotion(product_discount, price, -1, {
                     promotion: true,
                     promotion_discount_lowest_price: true,
-                    promotion_reason: 'Applied ' + promotion['name'] + ', discount ' + promotion.discount_lowest_price + ' % on product ' + line_apply.product.display_name
+                    promotion_reason: promotion['name'] + ', discount ' + promotion.discount_lowest_price + ' % on product ' + line_apply.product.display_name
                 })
             }
         },
@@ -1164,7 +1160,7 @@ odoo.define('pos_retail.promotion', function (require) {
                 } else {
                     total_qty_by_product[line.product.id] += line.quantity;
                 }
-                if (rule) {
+                if (rule && rule['promotion_id'][0] == promotion['id']) {
                     rule_applied[rule['product_id'][0]] = rule;
                 }
                 if (this.pos.config.iface_tax_included === 'total') {
@@ -1206,7 +1202,7 @@ odoo.define('pos_retail.promotion', function (require) {
                         this.add_promotion(product_discount, price_discount, -1, {
                             promotion: true,
                             promotion_multi_buy: true,
-                            promotion_reason: 'Applied ' + promotion['name'] + ', multi buy ' + product['display_name']
+                            promotion_reason: promotion['name'] + ', multi buy ' + product['display_name']
                         })
                     }
                 }
@@ -1275,7 +1271,7 @@ odoo.define('pos_retail.promotion', function (require) {
                     this.add_promotion(promotion_service, price_discount, -1, {
                         promotion: true,
                         promotion_multi_buy: true,
-                        promotion_reason: 'Applied ' + promotion['name'] + ' : Buy ' + total_quantity_line + ' free ' + quantity_promotion + ' items lowest price'
+                        promotion_reason: promotion['name'] + ' : Buy ' + total_quantity_line + ' free ' + quantity_promotion + ' items lowest price'
                     })
                 }
             }
@@ -1443,7 +1439,7 @@ odoo.define('pos_retail.promotion', function (require) {
             }
             return promotion_added;
         },
-        active_buyers_promotion(buttons, selected_order) {
+        active_buyers_promotion: function (buttons, selected_order) {
             if (buttons.button_buyer_promotion) {
                 var check = false;
                 if (selected_order.orderlines.length == 0) {

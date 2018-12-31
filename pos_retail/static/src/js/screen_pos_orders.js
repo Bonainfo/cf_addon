@@ -9,7 +9,6 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
     var qweb = core.qweb;
     var PopupWidget = require('point_of_sale.popups');
     var utils = require('web.utils');
-    var round_pr = utils.round_precision;
 
     var popup_return_pos_order_lines = PopupWidget.extend({
         template: 'popup_return_pos_order_lines',
@@ -51,47 +50,38 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                             body: 'Please select lines need return from request of customer',
                         });
                     } else {
-                        return self.pos.add_return_order(self.order, self.line_selected);
+                        self.pos.add_return_order(self.order, self.line_selected);
+                        return self.pos.gui.show_screen('payment');
                     }
                 });
                 this.$('.create_voucher').click(function () { // create voucher when return order
-                    var value = 0;
-                    if (!self.line_selected) {
+                    if (self.line_selected == [] || !self.order) {
                         self.pos.gui.show_popup('confirm', {
                             title: _t('Error'),
-                            body: 'Please select lines need return from request of customer',
+                            body: 'Please select lines need return',
                         });
                     } else {
+                        var order = new models.Order({}, {pos: self.pos});
+                        order['create_voucher'] = true;
+                        self.pos.gui.show_screen('payment');
+                        order['is_return'] = true;
+                        self.pos.get('orders').add(order);
+                        self.pos.set('selectedOrder', order);
                         for (var i = 0; i < self.line_selected.length; i++) {
-                            var line = self.line_selected[i];
-                            if (!line['new_quantity']) {
-                                value += line['price_subtotal_incl'];
-                            } else {
-                                value += line['price_subtotal_incl'] / line['qty'] * line['new_quantity']
+                            var line_return  = self.line_selected[i];
+                            var product_id = line_return['product_id'][0];
+                            var product =  self.pos.db.get_product_by_id(product_id);
+                            if (product) {
+                                var line = new models.Orderline({}, {pos: self.pos, order: order, product: product});
+                                line['is_return'] = true;
+                                order.orderlines.add(line);
+                                var price_unit = line_return['price_unit'];
+                                line.set_unit_price(price_unit);
+                                line.set_quantity(-line_return['qty'], 'keep price when return');
                             }
-
                         }
-                    }
-                    if (value) {
-                        value = round_pr(value, self.pos.currency.rounding);
-                        var voucher_data = {
-                            apply_type: 'fixed_amount',
-                            value: value,
-                            method: 'general',
-                            period_days: self.pos.config.expired_days_voucher || 30,
-                            total_available: 1,
-                            customer_id: self.order['partner_id']
-                        };
-                        return rpc.query({
-                            model: 'pos.voucher',
-                            method: 'create_voucher',
-                            args: [voucher_data]
-                        }).then(function (vouchers) {
-                            self.pos.vouchers = vouchers;
-                            return self.pos.gui.show_screen('vouchers_screen');
-                        }).fail(function (type, error) {
-                            return self.pos.query_backend_fail(type, error);
-                        });
+                        return self.gui.show_screen('payment');
+
                     }
 
                 });
@@ -129,13 +119,40 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
     var pos_orders_screen = screens.ScreenWidget.extend({
         template: 'pos_orders_screen',
         init: function (parent, options) {
+            var self = this;
+            this.reverse = true;
             this._super(parent, options);
             this.pos_order_cache = new screens.DomCache();
+            this.pos.bind('sync:pos_order', function () {
+                self.hide_order_selected();
+                self.renderElement();
+            });
         },
-        show: function () {
+        renderElement: function () {
+            this.search_orders = [];
             var self = this;
-            this.render_screen();
+
             this._super();
+            this.$('.back').click(function () {
+                self.gui.show_screen('products');
+            });
+            var $search_box = $('.search-pos-order >input');
+            if ($search_box) {
+                $search_box.autocomplete({
+                    source: this.pos.db.pos_orders_autocomplete,
+                    minLength: this.pos.config.min_length_search,
+                    select: function (event, ui) {
+                        if (ui && ui['item'] && ui['item']['value']) {
+                            var order = self.pos.db.order_by_id[ui['item']['value']];
+                            self.display_pos_order_detail(order);
+                            setTimeout(function () {
+                                self.clear_search();
+                            }, 1000);
+
+                        }
+                    }
+                });
+            }
             var search_timeout = null;
             var input = this.el.querySelector('.searchbox input');
             input.value = '';
@@ -158,11 +175,143 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
             this.$('.searchbox .search-clear').click(function () {
                 self.clear_search();
             });
+            this.$('.sort_by_pos_order_id').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_pos_order_amount_total').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('amount_total', self.reverse, parseInt));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('amount_total', self.reverse, parseInt));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+
+            });
+            this.$('.sort_by_pos_order_amount_paid').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('amount_paid', self.reverse, parseInt));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('amount_paid', self.reverse, parseInt));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+
+            });
+            this.$('.sort_by_pos_order_amount_tax').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('amount_tax', self.reverse, parseInt));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('amount_tax', self.reverse, parseInt));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+
+            });
+            this.$('.sort_by_pos_order_name').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_pos_order_partner_name').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('partner_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('partner_name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_pos_order_barcode').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('ean13', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase();
+                    }));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('ean13', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase();
+                    }));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_pos_order_state').click(function () {
+                if (self.search_orders.length == 0) {
+                    self.pos.db.orders_store = self.pos.db.orders_store.sort(self.pos.sort_by('state', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase();
+                    }));
+                    self.render_pos_order_list(self.pos.db.orders_store);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_orders = self.search_orders.sort(self.pos.sort_by('state', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase();
+                    }));
+                    self.render_pos_order_list(self.search_orders);
+                    self.reverse = !self.reverse;
+                }
+            });
         },
         clear_search: function () {
             this.render_pos_order_list(this.pos.db.orders_store);
             this.$('.searchbox input')[0].value = '';
             this.$('.searchbox input').focus();
+            this.search_orders = [];
         },
         perform_search: function (query, associate_result) {
             var orders;
@@ -171,34 +320,12 @@ odoo.define('pos_retail.screen_pos_orders', function (require) {
                 if (associate_result && orders.length === 1) {
                     return this.display_pos_order_detail(orders[0]);
                 }
+                this.search_orders = orders;
                 return this.render_pos_order_list(orders);
+
             } else {
                 orders = this.pos.db.orders_store;
                 return this.render_pos_order_list(orders);
-            }
-        },
-        render_screen: function () {
-            this.pos.quotation_selected = null;
-            var self = this;
-            this.$('.back').click(function () {
-                self.gui.show_screen('products');
-            });
-            var $search_box = $('.search-pos-order >input');
-            if ($search_box) {
-                $search_box.autocomplete({
-                    source: this.pos.db.pos_orders_autocomplete,
-                    minLength: this.pos.config.min_length_search,
-                    select: function (event, ui) {
-                        if (ui && ui['item'] && ui['item']['value']) {
-                            var order = self.pos.db.order_by_id[ui['item']['value']];
-                            self.display_pos_order_detail(order);
-                            setTimeout(function () {
-                                self.clear_search();
-                            }, 1000);
-
-                        }
-                    }
-                });
             }
         },
         partner_icon_url: function (id) {

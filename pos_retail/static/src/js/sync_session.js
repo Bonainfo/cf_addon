@@ -8,6 +8,34 @@ odoo.define('pos_retail.synchronization', function (require) {
     var _t = core._t;
     var session = require('web.session');
     var screens = require('point_of_sale.screens');
+    var db = require('point_of_sale.DB');
+
+    db.include({
+        // save data send fail of sync
+        add_datas_false: function (data) {
+            var datas_false = this.load('datas_false', []);
+            this.sequence += 1
+            data['sequence'] = this.sequence
+            datas_false.push(data);
+            this.save('datas_false', datas_false);
+        },
+
+        get_datas_false: function () {
+            var datas_false = this.load('datas_false');
+            if (datas_false && datas_false.length) {
+                return datas_false
+            } else {
+                return []
+            }
+        },
+        remove_data_false: function (sequence) {
+            var datas_false = this.load('datas_false', []);
+            var datas_false_new = _.filter(datas_false, function (data) {
+                return data['sequence'] !== sequence;
+            });
+            this.save('datas_false', datas_false_new);
+        }
+    });
 
     var button_sync_orders = screens.ActionButtonWidget.extend({
         template: 'button_sync_orders',
@@ -15,14 +43,41 @@ odoo.define('pos_retail.synchronization', function (require) {
             this._super(parent, options);
         },
         button_click: function () {
-            this.gui.show_popup('popup_sync_orders', {})
+            var self = this;
+            var orders = [];
+            var unpaid_orders = this.pos.db.get_unpaid_orders();
+            for (var i = 0; i < unpaid_orders.length; i++) {
+                var order = unpaid_orders[i];
+                orders.push(order);
+            }
+            if (orders.length) {
+                return rpc.query({
+                    model: 'pos.bus',
+                    method: 'sync_orders',
+                    args: [this.pos.config.id, orders],
+                    context: {}
+                }).then(function () {
+                }).fail(function (type, error) {
+                    self.pos.gui.show_popup('error', {
+                        'title': _t('Error'),
+                        'body': _t('Your odoo server offline mode or your internet have problem')
+                    });
+                    console.log(type);
+                    console.log(error);
+                })
+            } else {
+                self.pos.gui.show_popup('error', {
+                    'title': _t('Error'),
+                    'body': _t('Orders is blank, could not sync')
+                });
+            }
         }
     });
     screens.define_action_button({
         'name': 'button_sync_orders',
         'widget': button_sync_orders,
         'condition': function () {
-            return this.pos.configs && this.pos.configs.length > 1 && this.pos.config.sync_multi_session;
+            return this.pos.config.sync_multi_session;
         }
     });
 
@@ -446,6 +501,7 @@ odoo.define('pos_retail.synchronization', function (require) {
                     self.chrome.loading_message(_t('Active sync between sessions'), 1);
                     self.pos_bus = new exports.pos_bus(self);
                     self.pos_bus.start();
+                    console.log('Actived sync between sessions')
                 }
             })
         },

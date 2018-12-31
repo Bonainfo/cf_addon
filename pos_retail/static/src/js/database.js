@@ -51,87 +51,6 @@ odoo.define('pos_retail.database', function (require) {
             this.insurance_by_id = {};
             this.insurance_by_partner_id = {};
         },
-        // function support version 10, re-build price
-        compute_price: function (product, pricelist, quantity) {
-            if (pricelist['items'] == undefined) {
-                return product['price'];
-            }
-            var date = moment().startOf('day');
-            var category_ids = [];
-            var category = this.categ;
-            while (category) {
-                category_ids.push(category.id);
-                category = category.parent;
-            }
-            var pricelist_items = _.filter(pricelist.items, function (item) {
-                return (!item.product_tmpl_id || item.product_tmpl_id[0] === self.product_tmpl_id) &&
-                    (!item.product_id || item.product_id[0] === self.id) &&
-                    (!item.categ_id || _.contains(category_ids, item.categ_id[0])) &&
-                    (!item.date_start || moment(item.date_start).isSameOrBefore(date)) &&
-                    (!item.date_end || moment(item.date_end).isSameOrAfter(date));
-            });
-            var price = product['list_price'];
-            _.find(pricelist_items, function (rule) {
-                if (rule.min_quantity && quantity < rule.min_quantity) {
-                    return false;
-                }
-                if (rule.base === 'pricelist') {
-                    price = self.get_price(rule.base_pricelist, quantity);
-                } else if (rule.base === 'standard_price') {
-                    price = self.standard_price;
-                }
-                if (rule.compute_price === 'fixed') {
-                    price = rule.fixed_price;
-                    return true;
-                } else if (rule.compute_price === 'percentage') {
-                    price = price - (price * (rule.percent_price / 100));
-                    return true;
-                } else {
-                    var price_limit = price;
-                    price = price - (price * (rule.price_discount / 100));
-                    if (rule.price_round) {
-                        price = round_pr(price, rule.price_round);
-                    }
-                    if (rule.price_surcharge) {
-                        price += rule.price_surcharge;
-                    }
-                    if (rule.price_min_margin) {
-                        price = Math.max(price, price_limit + rule.price_min_margin);
-                    }
-                    if (rule.price_max_margin) {
-                        price = Math.min(price, price_limit + rule.price_max_margin);
-                    }
-                    return true;
-                }
-                return false;
-            });
-            return price;
-        },
-
-        // save data send fail of sync
-        add_datas_false: function (data) {
-            var datas_false = this.load('datas_false', []);
-            this.sequence += 1
-            data['sequence'] = this.sequence
-            datas_false.push(data);
-            this.save('datas_false', datas_false);
-        },
-
-        get_datas_false: function () {
-            var datas_false = this.load('datas_false');
-            if (datas_false && datas_false.length) {
-                return datas_false
-            } else {
-                return []
-            }
-        },
-        remove_data_false: function (sequence) {
-            var datas_false = this.load('datas_false', []);
-            var datas_false_new = _.filter(datas_false, function (data) {
-                return data['sequence'] !== sequence;
-            });
-            this.save('datas_false', datas_false_new);
-        },
         add_partners: function (new_partners) {
             var updated_count = this._super(new_partners);
             if (!this.partners) {
@@ -185,6 +104,9 @@ odoo.define('pos_retail.database', function (require) {
                         partner.property_product_pricelist = [pricelist.id, pricelist.display_name]
                     }
                 }
+                if (partner.pos_loyalty_type) {
+                    partner.pos_loyalty_type_name = partner.pos_loyalty_type[1];
+                }
             }
             return 1;
         },
@@ -236,6 +158,9 @@ odoo.define('pos_retail.database', function (require) {
             if (!products instanceof Array) {
                 products = [products];
             }
+            /*
+                We only render products filter by store/branch (bus)
+             */
             if (self.posmodel.config.bus_id) {
                 var products_filter_by_bus_id = []
                 var bus_id = self.posmodel.config.bus_id[0];
@@ -263,35 +188,36 @@ odoo.define('pos_retail.database', function (require) {
             if (!products instanceof Array) {
                 products = [products];
             }
-            if (this.products_autocomplete.length == 0) { // only action when pos start sessions
-                for (var i = 0; i < products.length; i++) { // cache datas for auto complete
-                    var product = products[i];
-                    var label = product['default_code'] || '';
-                    if (product['barcode']) {
-                        label += '/' + product['barcode'];
-                    }
-                    if (product['name']) {
-                        label += '/' + product['name'];
-                    }
-                    if (product['description']) {
-                        label += '/' + product['description'];
-                    }
-                    if (product['product_description']) {
-                        label += '/' + product['product_description'];
-                    }
-                    if (product['price']) {
-                        label += '/' + product['price'];
-                    }
-                    this.products_autocomplete.push({
-                        value: product['id'],
-                        label: label
-                    })
-                }
-            }
             for (var i = 0, len = products.length; i < len; i++) {
                 var product = products[i];
+                var product = products[i];
+                var label = product['default_code'] || '';
+                if (product['barcode']) {
+                    label += '/' + product['barcode'];
+                }
+                if (product['name']) {
+                    label += '/' + product['name'];
+                }
+                if (product['description']) {
+                    label += '/' + product['description'];
+                }
+                if (product['product_description']) {
+                    label += '/' + product['product_description'];
+                }
+                if (product['price']) {
+                    label += '/' + product['price'];
+                }
+                this.products_autocomplete.push({
+                    value: product['id'],
+                    label: label
+                });
                 var stored_categories = this.product_by_category_id;
                 product = products[i];
+                if (product.pos_categ_id) {
+                    product.pos_categ = product.pos_categ_id[1]
+                } else {
+                    product.pos_categ = 'N/A';
+                }
                 var search_string = this._product_search_string(product);
                 var category_ids = products[i].pos_categ_ids;
                 if (!category_ids) {
@@ -391,12 +317,16 @@ odoo.define('pos_retail.database', function (require) {
             for (var i = 0; i < orders.length; i++) {
                 var order = orders[i];
                 if (order.partner_id) {
+                    var partner;
                     if (order.partner_id && order.partner_id[0]) {
-                        var partner = this.get_partner_by_id(order.partner_id[0]);
+                        partner = this.get_partner_by_id(order.partner_id[0]);
                     } else {
-                        var partner = this.get_partner_by_id(order.partner_id);
+                        partner = this.get_partner_by_id(order.partner_id);
                     }
-                    order.partner = partner;
+                    if (partner) {
+                        order.partner = partner;
+                        order.partner_name = partner.name;
+                    }
                 }
                 this.order_by_id[order['id']] = order;
                 this.order_by_ean13[order.ean13] = order;
@@ -501,14 +431,53 @@ odoo.define('pos_retail.database', function (require) {
                 this.invoices = this.invoices.concat(invoices);
             }
             for (var i = 0; i < invoices.length; i++) {
-                var inv = invoices[i];
-                this.invoice_by_id[inv.id] = inv;
-                if (!this.invoice_by_partner_id[inv.partner_id[0]]) {
-                    this.invoice_by_partner_id[inv.partner_id[0]] = [inv]
+                var invoice = invoices[i];
+                this.invoice_by_id[invoice.id] = invoice;
+                if (!this.invoice_by_partner_id[invoice.partner_id[0]]) {
+                    this.invoice_by_partner_id[invoice.partner_id[0]] = [invoice]
                 } else {
-                    this.invoice_by_partner_id[inv.partner_id[0]].push(inv);
+                    this.invoice_by_partner_id[invoice.partner_id[0]].push(invoice);
                 }
-                this.invoice_search_string += this._invoice_search_string(inv);
+                this.invoice_search_string += this._invoice_search_string(invoice);
+                invoice['partner_name'] = invoice.partner_id[1];
+                if (invoice.payment_term_id) {
+                    invoice['payment_term'] = invoice.payment_term_id[1];
+                } else {
+                    invoice['payment_term'] = 'N/A';
+                }
+                if (invoice.user_id) {
+                    invoice['user'] = invoice.user_id[1];
+                } else {
+                    invoice['user'] = 'N/A';
+                }
+                var invoice = this.invoices[i];
+                var partner = this.get_partner_by_id(invoice.partner_id[0]);
+                if (!partner) {
+                    partner = this.supplier_by_id[invoice.partner_id[0]]
+                }
+                if (!partner) {
+                    continue;
+                }
+                var label = invoice['number'];
+                if (invoice['name']) {
+                    label += ', ' + invoice['name'];
+                }
+                if (partner['display_name']) {
+                    label += ', ' + partner['display_name']
+                }
+                if (partner['email']) {
+                    label += ', ' + partner['email']
+                }
+                if (partner['phone']) {
+                    label += ', ' + partner['phone']
+                }
+                if (partner['mobile']) {
+                    label += ', ' + partner['mobile']
+                }
+                this.invoices_autocomplete.push({
+                    value: invoice['id'],
+                    label: label
+                })
             }
         },
         save_invoice_lines: function (lines) {
@@ -629,6 +598,7 @@ odoo.define('pos_retail.database', function (require) {
                             label += ', ' + partner['mobile']
                         }
                     }
+                    sale['partner_name'] = sale.partner_id[1];
                 }
                 this.sale_orders_autocomplete.push({
                     value: sale['id'],

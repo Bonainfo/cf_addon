@@ -18,6 +18,15 @@
                             </group>
                             <!-- /////////////////// -->
                             <div id="pos_retail">
+                                <group>
+                                    <button name="remove_database"
+                                        string="Remove Database"
+                                        class="btn-danger"
+                                        type="object"
+                                        icon="fa-archive"
+                                        confirm="Your odoo will remove all caches, and will take some times for reinstall again. Are you sure need to do ?"
+                                        />
+                                </group>
                                 <separator string="Sync between sessions"/>
                                 <group>
                                     <group id="sync_multi_session">
@@ -30,15 +39,6 @@
                                         <field name="user_id"
                                                attrs="{'invisible': [('sync_multi_session', '=', False)], 'required' : [('sync_multi_session', '=', True)]}"/>
                                     </group>
-                                </group>
-                                <group string="Big data">
-                                    <button name="remove_database"
-                                        string="Remove caches"
-                                        class="btn-danger"
-                                        type="object"
-                                        icon="fa-archive"
-                                        confirm="POS will removing all caches, and re-install caches. Are you want doing ?"
-                                        />
                                 </group>
                                 <separator string="Security Rules of cashier"/>
                                 <group>
@@ -134,6 +134,12 @@
                                         <field name="opt_out"/>
                                         <field name="sms_opt_out"/>
                                         <field name="call_opt_out"/>
+                                        <field name="hide_mobile"/>
+                                        <field name="hide_phone"/>
+                                        <field name="hide_email"/>
+                                        <field name="update_client"/>
+                                        <field name="add_client"/>
+                                        <!--<field name="remove_client"/>-->
                                     </group>
                                 </group>
                                 <group>
@@ -178,6 +184,7 @@
                                         <field name="allow_order_out_of_stock"/>
                                         <field name="allow_of_stock_approve_by_admin" invisible="1"/>
                                         <field name="display_onhand"/>
+                                        <field name="large_stocks"/>
                                     </group>
                                     <group string="Quickly actions">
                                         <field name="quickly_buttons"/>
@@ -228,6 +235,7 @@
                                         <field name="add_sale_person"/>
                                     </group>
                                     <group string="Receipt/Ticket display">
+                                        <field name="barcode_receipt"/>
                                         <field name="print_last_order"/>
                                         <field name="display_fiscal_position_receipt"/>
                                         <field name="ticket_font_size"/>
@@ -267,6 +275,8 @@
                                         <field name="customer_default_id"/>
                                         <field name="printer_on_off"/>
                                         <field name="chat"/>
+                                        <field name="change_logo"/>
+                                        <field name="management_session"/>
                                     </group>
                                     <group>
                                         <field name="switch_user"/>
@@ -311,6 +321,22 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="bus_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_pos_config_kanban" model="ir.ui.view">
+            <field name="name">pos.config.kanban.view</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='open_ui']" position="after">
+                    <button name="remove_caches"
+                        class="btn btn-danger"
+                        type="object"
+                        groups="point_of_sale.group_pos_manager"
+                        confirm="Your odoo will remove all caches, and will take some times for reinstall again. Are you sure need to do ?"
+                    >Remove caches</button>
                 </xpath>
             </field>
         </record>

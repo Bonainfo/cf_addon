@@ -3,11 +3,14 @@ odoo.define('pos_retail.screen_voucher', function (require) {
 
     var screens = require('point_of_sale.screens');
     var core = require('web.core');
+    var _t = core._t;
     var gui = require('point_of_sale.gui');
     var qweb = core.qweb;
     var PopupWidget = require('point_of_sale.popups');
     var rpc = require('pos.rpc');
     var models = require('point_of_sale.models');
+    var db = require('point_of_sale.DB');
+    var screens = require('point_of_sale.screens');
 
     models.load_models([
         {
@@ -27,30 +30,120 @@ odoo.define('pos_retail.screen_voucher', function (require) {
 
     var _super_PosModel = models.PosModel.prototype;
     models.PosModel = models.PosModel.extend({
-        get_model: function (_name) {
-            var _index = this.models.map(function (e) {
-                return e.model;
-            }).indexOf(_name);
-            if (_index > -1) {
-                return this.models[_index];
-            }
-            return false;
-        },
         initialize: function (session, attributes) {
+            _super_PosModel.initialize.apply(this, arguments);
             var wait_journal = this.get_model('account.journal');
             wait_journal.fields.push('pos_method_type');
-            return _super_PosModel.initialize.apply(this, arguments);
+        },
+        _flush_orders: function (orders, options) {
+            var self = this;
+            return _super_PosModel._flush_orders.apply(this, arguments).done(function (order_ids) {
+                return rpc.query({
+                    model: 'pos.voucher',
+                    method: 'get_vouchers_by_order_ids',
+                    args: [[], order_ids]
+                }).then(function (vouchers_created) {
+                    if (vouchers_created.length != 0) {
+                        self.vouchers_created = vouchers_created;
+                        setTimeout(function () {
+                            self.gui.show_popup('confirm', {
+                            title: 'Message',
+                            body: 'Vouchers just created, click yes if need print voucher card',
+                            confirm: function () {
+                                $('.next').click();
+                                return this.pos.gui.show_screen('vouchers_screen');
+                            }
+                        });
+                        }, 1000);
+
+                    } else {
+                        console.log('nothing');
+                    }
+                })
+            })
         }
     });
 
     var _super_Order = models.Order.prototype;
     models.Order = models.Order.extend({
+        init_from_JSON: function (json) {
+            var res = _super_Order.init_from_JSON.apply(this, arguments);
+            if (json.voucher) {
+                this.voucher = json.voucher
+            }
+            if (json.create_voucher) {
+                this.create_voucher = json.create_voucher
+            }
+            return res;
+        },
         export_as_JSON: function () {
             var json = _super_Order.export_as_JSON.apply(this, arguments);
             if (this.voucher_id) {
                 json.voucher_id = parseInt(this.voucher_id);
             }
+            if (this.voucher) {
+                json.voucher = this.voucher;
+            }
+            if (this.create_voucher) {
+                json.create_voucher = this.create_voucher;
+            }
             return json;
+        },
+        show_popup_create_voucher: function () {
+            var selected_line = this.selected_orderline;
+            if (selected_line) {
+                this.pos.gui.show_popup('popup_print_vouchers', {
+                    'selected_line': selected_line
+                });
+            }
+        },
+        add_product: function (product, options) {
+            var self = this;
+            _super_Order.add_product.apply(this, arguments);
+            if (product.is_voucher && this.pos.config.print_voucher) {
+                setTimeout(function () {
+                    self.show_popup_create_voucher();
+                }, 1000);
+            }
+        },
+        get_order_is_create_voucher: function () {
+            return this.create_voucher;
+        },
+        set_order_create_voucher: function () {
+            this.create_voucher = !this.create_voucher;
+            this.trigger('change');
+        }
+    });
+
+    var _super_Orderline = models.Orderline.prototype;
+    models.Orderline = models.Orderline.extend({
+        initialize: function (attributes, options) {
+            var res = _super_Orderline.initialize.apply(this, arguments);
+            if (!this.voucher) {
+                this.voucher = {};
+            }
+            return res;
+        },
+        init_from_JSON: function (json) {
+            var res = _super_Orderline.init_from_JSON.apply(this, arguments);
+            if (json.voucher) {
+                this.voucher = json.voucher
+            }
+            return res
+        },
+        export_as_JSON: function () {
+            var json = _super_Orderline.export_as_JSON.apply(this, arguments);
+            if (this.voucher) {
+                json.voucher = this.voucher;
+            }
+            return json;
+        },
+        export_for_printing: function () {
+            var receipt_line = _super_Orderline.export_for_printing.apply(this, arguments);
+            if (this.voucher) {
+                receipt_line['voucher'] = this.voucher;
+            }
+            return receipt_line
         }
     });
 
@@ -85,30 +178,14 @@ odoo.define('pos_retail.screen_voucher', function (require) {
         }
     });
 
-    screens.OrderWidget.include({
-        active_button_print_voucher: function (buttons, selected_order) {
-            if (buttons.button_print_voucher) {
-                if (this.pos.config.iface_print_via_proxy) {
-                    buttons.button_print_voucher.highlight(true);
-                } else {
-                    buttons.button_print_voucher.highlight(false);
-                }
-            }
-        },
-        update_summary: function () {
-            this._super();
-            var selected_order = this.pos.get_order();
-            var buttons = this.getParent().action_buttons;
-            if (selected_order && buttons) {
-                this.active_button_print_voucher(buttons);
-            }
-        }
-    });
-
     screens.PaymentScreenWidget.include({
         renderElement: function () {
             var self = this;
             this._super();
+            this.$('.js_create_voucher').click(function () { // create voucher
+                var selected_order = self.pos.get_order();
+                return selected_order.set_order_create_voucher();
+            });
             this.$('.input_voucher').click(function () { // input manual voucher
                 self.hide();
                 return self.pos.gui.show_popup('alert_input', {
@@ -295,7 +372,6 @@ odoo.define('pos_retail.screen_voucher', function (require) {
                             body: 'POS config not add payment method Voucher. Please add method voucher, close and reopen session',
                         });
                     }
-
                 }
             }).fail(function (type, error) {
                 return self.pos.query_backend_fail(type, error);
@@ -310,7 +386,9 @@ odoo.define('pos_retail.screen_voucher', function (require) {
         show: function () {
             this._super();
             this.vouchers = this.pos.vouchers_created;
-            this.render_vouchers();
+            if (this.vouchers) {
+                this.render_vouchers();
+            }
             this.handle_auto_print();
         },
         handle_auto_print: function () {
@@ -331,7 +409,6 @@ odoo.define('pos_retail.screen_voucher', function (require) {
         },
         lock_screen: function (locked) {
             this.$('.back').addClass('highlight');
-            window.print();
         },
         get_voucher_env: function (voucher) {
             var order = this.pos.get_order();
@@ -357,16 +434,11 @@ odoo.define('pos_retail.screen_voucher', function (require) {
         },
         print: function () {
             var self = this;
-            if (!this.pos.config.iface_print_via_proxy) {
-                this.lock_screen(true);
-                setTimeout(function () {
-                    self.lock_screen(false);
-                }, 1000);
-
-                this.print_web();
-            } else {
+            if (this.pos.config.iface_print_via_proxy) {
                 this.print_xml();
                 this.lock_screen(false);
+            } else {
+                this.print_web();
             }
         },
         click_back: function () {
@@ -401,23 +473,30 @@ odoo.define('pos_retail.screen_voucher', function (require) {
     });
     gui.define_screen({name: 'vouchers_screen', widget: vouchers_screen});
 
-    // print vouchers
     var popup_print_vouchers = PopupWidget.extend({
         template: 'popup_print_vouchers',
         show: function (options) {
             var self = this;
+            this.selected_line = options.selected_line;
             this._super(options);
             this.$('.print-voucher').click(function () {
+                var order = self.pos.get_order();
+                if (!order) {
+                    return false;
+                }
+                var selected_line = order.get_selected_orderline();
+                if (!selected_line) {
+                    return false;
+                }
+                var voucher_amount = selected_line.get_price_with_tax();
                 var validate;
                 var number = parseFloat(self.$('.number').val());
                 var period_days = parseFloat(self.$('.period_days').val());
                 var apply_type = self.$('.apply_type').val();
-                var voucher_amount = parseFloat(self.$('.voucher_amount').val());
-                var quantity_create = parseInt(self.$('.quantity_create').val());
                 var method = self.$('.method').val();
                 var customer = self.pos.get_order().get_client();
                 if (method == "special_customer" && !customer) {
-                    this.pos.gui.show_popup('confirm', {
+                    self.pos.gui.show_popup('confirm', {
                         title: 'Warning',
                         body: 'Because apply to special customer, required select customer the first'
                     });
@@ -441,12 +520,6 @@ odoo.define('pos_retail.screen_voucher', function (require) {
                 } else {
                     self.passed_input('.voucher_amount');
                 }
-                if (typeof quantity_create != 'number' || isNaN(quantity_create) || quantity_create <= 0) {
-                    self.wrong_input('.quantity_create');
-                    validate = false;
-                } else {
-                    self.passed_input('.quantity_create');
-                }
                 if (validate == false) {
                     return;
                 }
@@ -455,25 +528,21 @@ odoo.define('pos_retail.screen_voucher', function (require) {
                     value: voucher_amount,
                     method: method,
                     period_days: period_days,
-                    total_available: quantity_create,
                     number: number
                 };
                 if (customer) {
                     voucher_data['customer_id'] = customer['id'];
                 }
-                self.gui.close_popup();
-                return rpc.query({
-                    model: 'pos.voucher',
-                    method: 'create_voucher',
-                    args: [voucher_data]
-                }).then(function (vouchers_created) {
-                    self.pos.vouchers_created = vouchers_created;
-                    self.pos.gui.show_screen('vouchers_screen', {});
-                }).fail(function (type, error) {
-                    return self.pos.query_backend_fail(type, error);
-                });
+                self.selected_line.voucher = voucher_data;
+                self.click_cancel();
             });
             this.$('.cancel').click(function () {
+                var voucher_data = {
+                    apply_type: 'fixed_amount',
+                    method: 'general',
+                    period_days: self.pos.config.expired_days_voucher,
+                };
+                self.selected_line.voucher = voucher_data;
                 self.click_cancel();
             });
         }
@@ -483,16 +552,75 @@ odoo.define('pos_retail.screen_voucher', function (require) {
         widget: popup_print_vouchers
     });
 
-    var button_print_voucher = screens.ActionButtonWidget.extend({
-        template: 'button_print_voucher',
-        button_click: function () {
-            this.gui.show_popup('popup_print_vouchers', {});
-
+    screens.OrderWidget.include({
+        click_line: function (orderline, event) {
+            this._super(orderline, event);
+            var selected_order = this.pos.get_order();
+            var selected_line = selected_order.selected_orderline;
+            if (selected_line && this.pos.config.print_voucher) {
+                var product = selected_line.product;
+                if (product.is_voucher) {
+                    setTimeout(function () {
+                        selected_order.show_popup_create_voucher();
+                    }, 300);
+                }
+            }
+        },
+        remove_orderline: function (order_line) {
+            try {
+                this._super(order_line);
+            } catch (ex) {
+                console.log('dont worries, client without table select');
+            }
         }
     });
+
+    var button_create_voucher = screens.ActionButtonWidget.extend({ // combo button
+        template: 'button_create_voucher',
+        button_click: function () {
+            var order = this.pos.get_order();
+            if (!order) {
+                return;
+            }
+            var selected_line = order.selected_orderline;
+            if (selected_line && selected_line.product.is_voucher) {
+                this.pos.gui.show_popup('popup_print_vouchers', {
+                    'selected_line': selected_line
+                });
+            } else {
+                this.pos.gui.show_popup('confirm', {
+                    title: 'Warning',
+                    body: 'Line selected is not voucher'
+                });
+            }
+        }
+    });
+
     screens.define_action_button({
-        'name': 'button_print_voucher',
-        'widget': button_print_voucher,
+        'name': 'button_create_voucher',
+        'widget': button_create_voucher,
+        'condition': function () {
+            return this.pos.config.print_voucher;
+        }
+    });
+
+    var button_print_vouchers = screens.ActionButtonWidget.extend({ // combo button
+        template: 'button_print_vouchers',
+        button_click: function () {
+            if (this.pos.vouchers_created) {
+                return this.pos.gui.show_screen('vouchers_screen')
+            } else {
+                return this.pos.gui.show_popup('confirm', {
+                    title: 'Warning',
+                    body: 'Have not any vouchers create before'
+                })
+            }
+        }
+    });
+
+    screens.define_action_button({
+        'name': 'button_print_vouchers',
+        'widget': button_print_vouchers,
         'condition': function () {
             return this.pos.config.print_voucher;
         }

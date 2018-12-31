@@ -13,7 +13,7 @@ odoo.define('pos_retail.parameter', function (require) {
                 this.save('uid', options.uid)
             }
             if (options.database) {
-                this.save('uid', options.database)
+                this.save('database', options.database)
             }
             if (options.uid) {
                 this.save('uid', options.uid)

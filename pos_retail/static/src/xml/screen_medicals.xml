@@ -3,7 +3,7 @@
 
     <t t-name="medical_insurance_screen">
         <div class="clientlist-screen screen">
-            <div class="screen-content">
+            <div class="full_width screen-content">
                 <section class="top-content">
                     <span class='button back' style="background: none">
                         <img src="/pos_retail/static/src/icons/back.png" class="button_logo"/>

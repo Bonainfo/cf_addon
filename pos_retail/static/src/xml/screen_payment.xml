@@ -93,34 +93,38 @@
                     </t>
                 </span>
                 <t t-if="widget.pos.config.paid_full">
-                    <span class='product left_button button_text button paid_full'>
-                        <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/payment_full.png" class="pos_logo"/>
-                        </div>
-                        <div class="product-name button_text">
-                            Paid full
-                        </div>
-                        <t t-if="widget.pos.config.keyboard_event">
-                            <span class="button_key">
-                                f
-                            </span>
-                        </t>
-                    </span>
+                    <t t-if="widget.pos.get_order().get_total_with_tax() &gt; 0">
+                        <span class='product left_button button_text button paid_full'>
+                            <div class="button_icon">
+                                <img src="/pos_retail/static/src/icons/payment_full.png" class="pos_logo"/>
+                            </div>
+                            <div class="product-name button_text">
+                                Paid full
+                            </div>
+                            <t t-if="widget.pos.config.keyboard_event">
+                                <span class="button_key">
+                                    f
+                                </span>
+                            </t>
+                        </span>
+                    </t>
                 </t>
                 <t t-if="widget.pos.config.paid_partial">
-                    <span class='product left_button button_text button paid_partial'>
-                        <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/partial_payment.png" class="pos_logo"/>
-                        </div>
-                        <div class="product-name button_text">
-                            Partial pay
-                        </div>
-                        <t t-if="widget.pos.config.keyboard_event">
-                            <span class="button_key">
-                                p
-                            </span>
-                        </t>
-                    </span>
+                    <t t-if="widget.pos.get_order().get_total_with_tax() &gt; 0">
+                        <span class='product left_button button_text button paid_partial'>
+                            <div class="button_icon">
+                                <img src="/pos_retail/static/src/icons/partial_payment.png" class="pos_logo"/>
+                            </div>
+                            <div class="product-name button_text">
+                                Partial pay
+                            </div>
+                            <t t-if="widget.pos.config.keyboard_event">
+                                <span class="button_key">
+                                    p
+                                </span>
+                            </t>
+                        </span>
+                    </t>
                 </t>
                 <span class='product left_button button_text button next'>
                     <div class="button_icon">
@@ -382,32 +386,38 @@
                         </t>
                     </div>
                 </span>
-                <span t-attf-class='product left_button js_auto_register_payment #{ widget.pos.get_order().is_auto_register_payment() ? "highlight" : ""} '>
-                    <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/note.png" class="pos_logo"/>
-                    </div>
-                    <div class="product-name button_text">
-                        Auto reconcile
-                        <t t-if="widget.pos.config.keyboard_event">
-                            <span class="button_key">
-                                <i class="fa fa-keyboard"></i>
-                                a
-                            </span>
-                        </t>
-                    </div>
-                </span>
+                <t t-if="widget.pos.get_order()">
+                    <t t-if="widget.pos.get_order().get_total_with_tax() &gt; 0">
+                        <span t-attf-class='product left_button js_auto_register_payment #{ widget.pos.get_order().is_auto_register_payment() ? "highlight" : ""} '>
+                            <div class="button_icon">
+                                <img src="/pos_retail/static/src/icons/note.png" class="pos_logo"/>
+                            </div>
+                            <div class="product-name button_text">
+                                Auto reconcile
+                                <t t-if="widget.pos.config.keyboard_event">
+                                    <span class="button_key">
+                                        <i class="fa fa-keyboard"></i>
+                                        a
+                                    </span>
+                                </t>
+                            </div>
+                        </span>
+                    </t>
+                </t>
             </t>
         </t>
         <t t-jquery="t[t-if*='widget.pos.config.tip_product_id']" t-operation="replace">
             <t t-if='widget.pos.config.tip_product_id'>
-                <span class="product left_button js_tip">
-                    <div class="button_icon">
-                        <img src="/pos_retail/static/src/icons/tip.png" class="pos_logo"/>
-                    </div>
-                    <div class="product-name button_text">
-                        Tip
-                    </div>
-                </span>
+                <t t-if="widget.pos.get_order() and widget.pos.get_order().get_total_with_tax() > 0">
+                    <span class="product left_button js_tip">
+                        <div class="button_icon">
+                            <img src="/pos_retail/static/src/icons/tip.png" class="pos_logo"/>
+                        </div>
+                        <div class="product-name button_text">
+                            Tip
+                        </div>
+                    </span>
+                </t>
             </t>
         </t>
         <t t-jquery="t[t-if*='widget.pos.config.iface_cashdrawer']" t-operation="replace">

@@ -55,10 +55,12 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             }
             if (model == 'pos.order' && this.pos.config.pos_orders_management) {
                 this.pos.db.save_data_sync_order(data);
-                this.pos.trigger('update:order');
             }
             if (model == 'pos.order.line' && this.pos.config.pos_orders_management) {
                 this.pos.db.save_data_sync_order_line(data);
+            }
+            if ((model == 'pos.order' || model == 'pos.order.line')  && this.pos.config.pos_orders_management) {
+                this.pos.trigger('sync:pos_order');
             }
             if (model == 'sale.order' && this.pos.config.sync_sale_order == true) {
                 this.pos.db.sync_sale_order(data);
@@ -184,6 +186,15 @@ odoo.define('pos_retail.pos_chanel', function (require) {
         },
         save_data_sync_order_line: function (new_order_line) {
             var old_line = this.order_line_by_id[new_order_line['id']];
+            if (new_order_line.deleted) {
+                var lines_by_order_id = this.lines_by_order_id[new_order_line.order_id[0]];
+                if (lines_by_order_id) {
+                    this.lines_by_order_id[new_order_line.order_id[0]] = _.filter(this.lines_by_order_id[new_order_line.order_id[0]], function (line) {
+                        return line['id'] != new_order_line['id']
+                    })
+                }
+                return;
+            }
             if (!old_line) {
                 this.order_line_by_id[new_order_line['id']] = new_order_line;
                 if (!this.lines_by_order_id[new_order_line.order_id[0]]) {
@@ -298,10 +309,11 @@ odoo.define('pos_retail.pos_chanel', function (require) {
             }
         },
         sync_sale_order_lines: function (line) {
-            var order_id = line.order_id[0];
-            if (!order_id) {
+            var order_ids = line.order_id;
+            if (!order_ids) {
                 return;
             } else {
+                var order_id = order_ids[0];
                 var old_order_lines = this.sale_lines_by_sale_id[order_id];
                 var new_order_lines = _.filter(old_order_lines, function (old_line) {
                     return old_line['id'] != line['id'];

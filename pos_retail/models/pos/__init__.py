@@ -14,3 +14,4 @@ from . import pos_bus
 from . import pos_cache_database
 from . import pos_session
 from . import pos_category
+from . import pos_call_log

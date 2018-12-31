@@ -4,6 +4,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
     var screens = require('point_of_sale.screens');
     var core = require('web.core');
     var qweb = core.qweb;
+    var rpc = require('pos.rpc');
 
     screens.ClientListScreenWidget.include({
         start: function () {
@@ -42,6 +43,7 @@ odoo.define('pos_retail.screen_client_list', function (require) {
         },
         show: function () {
             var self = this;
+            this.search_partners = [];
             this._super();
             var $search_box = $('.clientlist-screen .searchbox >input');
             $search_box.autocomplete({
@@ -92,22 +94,123 @@ odoo.define('pos_retail.screen_client_list', function (require) {
             this.$('.next').click(function () {
                 self.pos.trigger('back:order');
             });
-
+            this.$('.sort_by_id').click(function () {
+                if (self.search_partners.length == 0) {
+                    var partners = self.pos.db.get_partners_sorted(1000).sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_list(partners);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_partners = self.search_partners.sort(self.pos.sort_by('id', self.reverse, parseInt));
+                    self.render_list(self.search_partners);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_name').click(function () {
+                if (self.search_partners.length == 0) {
+                    var partners = self.pos.db.get_partners_sorted(1000).sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(partners);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_partners = self.search_partners.sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.search_partners);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_address').click(function () {
+                if (self.search_partners.length == 0) {
+                    var partners = self.pos.db.get_partners_sorted(1000).sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(partners);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_partners = self.search_partners.sort(self.pos.sort_by('name', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.search_partners);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_phone').click(function () {
+                if (self.search_partners.length == 0) {
+                    var partners = self.pos.db.get_partners_sorted(1000).sort(self.pos.sort_by('phone', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(partners);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_partners = self.search_partners.sort(self.pos.sort_by('phone', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.search_partners);
+                    self.reverse = !self.reverse;
+                }
+            });
+            this.$('.sort_by_mobile').click(function () {
+                if (self.search_partners.length == 0) {
+                    var partners = self.pos.db.get_partners_sorted(1000).sort(self.pos.sort_by('mobile', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(partners);
+                    self.reverse = !self.reverse;
+                } else {
+                    self.search_partners = self.search_partners.sort(self.pos.sort_by('mobile', self.reverse, function (a) {
+                        if (!a) {
+                            a = 'N/A';
+                        }
+                        return a.toUpperCase()
+                    }));
+                    self.render_list(self.search_partners);
+                    self.reverse = !self.reverse;
+                }
+            });
         },
         render_list: function (partners) {
             if (this.pos.only_customer) {
                 var partners = _.filter(partners, function (partner) {
                     return partner['customer'] == true;
                 });
+                this.search_partners = partners;
                 return this._super(partners);
             }
             if (this.pos.only_supplier) {
                 var partners = _.filter(partners, function (partner) {
                     return partner['supplier'] == true;
                 });
+                this.search_partners = partners;
                 return this._super(partners);
             }
+            this.search_partners = partners;
             return this._super(partners);
+        },
+        clear_search: function () {
+            this.search_partners = [];
+            return this._super();
         },
         display_client_details: function (visibility, partner, clickpos) {
             this._super(visibility, partner, clickpos);
@@ -115,27 +218,58 @@ odoo.define('pos_retail.screen_client_list', function (require) {
             this.$(".opt_out").click(function () {
                 if (self.$(".opt_out").val() == 'true') {
                     self.$(".opt_out").val(false);
-                }
-                else {
+                } else {
                     self.$(".opt_out").val(true);
                 }
             });
             this.$(".sms_opt_out").click(function () {
                 if (self.$(".sms_opt_out").val() == 'true') {
                     self.$(".sms_opt_out").val(false);
-                }
-                else {
+                } else {
                     self.$(".sms_opt_out").val(true);
                 }
             });
             this.$(".call_opt_out").click(function () {
                 if (self.$(".call_opt_out").val() == 'true') {
                     self.$(".call_opt_out").val(false);
-                }
-                else {
+                } else {
                     self.$(".call_opt_out").val(true);
                 }
             });
+            // if (partner) {
+            //     this.pos.client_will_remove = partner;
+            //     this.$('.remove').click(function () {
+            //         if (self.pos.client_will_remove) {
+            //             return self.pos.gui.show_popup('confirm', {
+            //                 title: 'Warning',
+            //                 body: 'Are you sure remove this client ?',
+            //                 confirm: function () {
+            //                     var client = this.pos.client_will_remove;
+            //                     return rpc.query({
+            //                         model: 'res.partner',
+            //                         method: 'unlink',
+            //                         args:
+            //                             [[client['id']]],
+            //                         context: {
+            //                             pos: true
+            //                         }
+            //                     }).then(function (result) {
+            //                         self.pos.gui.show_popup('confirm', {
+            //                             title: 'Done',
+            //                             body: 'Client removed'
+            //                         });
+            //                         self.display_client_details('hide');
+            //                         var partners = self.pos.db.get_partners_sorted(100);
+            //                         self.render_list(partners);
+            //                         delete self.pos.db.partner_by_id[self.pos.client_will_remove['id']];
+            //                     }).fail(function (type, error) {
+            //                         return self.pos.query_backend_fail(type, error);
+            //                     })
+            //                 }
+            //             })
+            //         }
+            //     });
+            // }
         },
         save_client_details: function (partner) {
             var id = partner.id || false;

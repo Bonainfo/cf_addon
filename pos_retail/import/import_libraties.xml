@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
     <template id="assets_backend" name="pos_retail assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/pos_retail/static/src/js/pos_backend.js"/>
+            <script type="text/javascript" src="/pos_retail/static/src/extend_libs/pos_backend.js"/>
         </xpath>
     </template>
 
@@ -33,6 +34,7 @@
             <script type="text/javascript" src="/pos_retail/static/src/js/rpc.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/parameter.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/big_data.js"/>
+            <script type="text/javascript" src="/pos_retail/static/src/extend_libs/indexed_db.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/buttons.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/chromes.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/database.js"/>
@@ -67,11 +69,12 @@
             <script type="text/javascript" src="/pos_retail/static/src/js/gui.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/backup_orders.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/shop_logo.js"/>
-            <script type="text/javascript" src="/pos_retail/static/src/js/indexed_db.js"/>
+            <script type="text/javascript" src="/pos_retail/static/src/js/devices.js"/>
             <script type="text/javascript" src="/pos_retail/static/src/js/session.js"/>
+            <link rel="stylesheet" href="/pos_retail/static/src/css/loyalty.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/session.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/core.css"/>
-            <link rel="stylesheet" href="/pos_retail/static/src/css/synchronization.css"/>
+            <link rel="stylesheet" href="/pos_retail/static/src/css/sync_session.css"/>
             <link rel="stylesheet" href="/pos_retail/static/src/css/dock.css" />
             <link rel="stylesheet" href="/pos_retail/static/src/css/chat.css" />
             <script type="text/javascript" src="/pos_retail/static/src/js/chat.js"/>

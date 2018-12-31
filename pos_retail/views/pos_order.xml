@@ -48,7 +48,6 @@
                             <field name="is_return" groups="point_of_sale.group_pos_manager" readonly="1"/>
                             <field name="lock_return" groups="point_of_sale.group_pos_manager"/>
                             <field name="return_order_id" groups="point_of_sale.group_pos_manager"/>
-                            <field name="voucher_id" groups="point_of_sale.group_pos_manager"/>
                         </group>
                         <group>
                              <field name="signature" widget='image' groups="point_of_sale.group_pos_manager"/>

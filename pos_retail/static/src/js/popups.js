@@ -611,7 +611,7 @@ odoo.define('pos_retail.popups', function (require) {
                 self.$('.sale_order_field').each(function (idx, el) {
                     fields[el.name] = el.value || false;
                 });
-                var pricelist_id;
+                var pricelist_id = null;
                 var order = self.order_selected;
                 if (!order) {
                     return
@@ -630,9 +630,10 @@ odoo.define('pos_retail.popups', function (require) {
                     return;
                 }
                 var pricelist = order['pricelist'];
-                if (!pricelist) {
+                if (!pricelist && this.pos.default_pricelist) {
                     pricelist_id = this.pos.default_pricelist.id;
-                } else {
+                }
+                if (pricelist) {
                     pricelist_id = pricelist.id;
                 }
                 var so_val = order.export_as_JSON();
@@ -2144,69 +2145,5 @@ odoo.define('pos_retail.popups', function (require) {
         }
     });
     gui.define_popup({name: 'popup_set_location', widget: popup_set_location});
-
-    var popup_sync_orders = PopupWidget.extend({
-        template: 'popup_sync_orders',
-        show: function (options) {
-            var self = this;
-            this._super(options);
-            var configs = [];
-            for (var i = 0; i < this.pos.configs.length; i++) {
-                var config = this.pos.configs[i];
-                if (!config.user_id || !config.sync_multi_session || !config.bus_id || !this.pos.config.bus_id) {
-                    continue;
-                }
-                if (config.user_id[0] != this.pos.config.user_id[0] && config.bus_id[0] == this.pos.config.bus_id[0]) {
-                    configs.push(config)
-                }
-            }
-            if (configs.length > 0) {
-                self.$el.find('.body').html(qweb.render('users_list', {
-                    configs: configs,
-                    widget: self
-                }));
-                this.$('.config').click(function () {
-                    var config_id = parseInt($(this).data('id'));
-                    var orders = [];
-                    var unpaid_orders = self.pos.db.get_unpaid_orders();
-                    var not_loaded_count = 0;
-                    for (var i = 0; i < unpaid_orders.length; i++) {
-                        var order = unpaid_orders[i];
-                        if (order.pos_session_id === self.pos.pos_session.id) {
-                            orders.push(order);
-                        } else {
-                            not_loaded_count += 1;
-                        }
-                    }
-                    if (orders.length) {
-                        if (not_loaded_count) {
-                            console.info('There are ' + not_loaded_count + ' locally saved unpaid orders belonging to another session');
-                        }
-                        return rpc.query({
-                            model: 'pos.cache.database',
-                            method: 'sync_orders',
-                            args: [config_id, orders],
-                            context: {}
-                        }).then(function () {
-                            self.pos.gui.close_popup();
-
-                        }).fail(function (type, error) {
-                            self.pos.gui.close_popup();
-                            return self.pos.query_backend_fail(type, error);
-                        })
-                    }
-                });
-            } else {
-                return this.pos.gui.show_popup('confirm', {
-                    title: 'Warning',
-                    body: 'Your pos system only you active sync between session'
-                })
-            }
-            this.$('.close').click(function () {
-                self.pos.gui.close_popup();
-            });
-        }
-    });
-    gui.define_popup({name: 'popup_sync_orders', widget: popup_sync_orders});
 
 });

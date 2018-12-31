@@ -32,6 +32,10 @@
                                 <field name="source"/>
                                 <field name="user_id"/>
                             </group>
+                            <group>
+                                <field name="pos_order_id"/>
+                                <field name="pos_order_line_id"/>
+                            </group>
                         </group>
                         <group string="Histories used">
                             <field name="use_history_ids" nolabel="1">
@@ -94,6 +98,18 @@
                   action="pos_voucher_action"
                   parent="menu_retail"
         />
+
+         <record id="voucher_pos_order" model="ir.ui.view">
+            <field name="name">pos.order.retail</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="voucher_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
 
     </data>
 </odoo>

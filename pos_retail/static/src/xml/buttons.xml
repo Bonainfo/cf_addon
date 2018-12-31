@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="button_cache_database">
+        <span class="product left_button">
+            <div class="product-name button_text">
+                Cache database
+            </div>
+        </span>
+    </t>
+
     <t t-name="button_create_internal_transfer">
         <span class="product left_button">
             <div class="button_icon">
@@ -19,17 +27,6 @@
             </div>
             <div class="product-name button_text">
                 Create PO
-            </div>
-        </span>
-    </t>
-
-    <t t-name="button_create_sale_order">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/shopping_cart.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Create SO
             </div>
         </span>
     </t>
@@ -85,17 +82,6 @@
             </div>
             <div class="product-name button_text">
                 Lock order
-            </div>
-        </span>
-    </t>
-
-    <t t-name="reward_button">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/rewards.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Rewards Program
             </div>
         </span>
     </t>
@@ -343,52 +329,6 @@
         </span>
     </t>
 
-
-    <t t-name="button_booking_order">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/booking.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Booking order
-            </div>
-        </span>
-    </t>
-
-    <t t-name="button_go_sale_orders_screen">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/booked.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Booked Orders
-                <span class="notification booked_orders">0</span>
-            </div>
-        </span>
-    </t>
-
-    <t t-name="button_go_pos_orders_screen">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/find.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                POS orders
-            </div>
-        </span>
-    </t>
-
-    <t t-name="button_delivery_order">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/delivery_order.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Delivery order
-            </div>
-        </span>
-    </t>
-
     <t t-name="button_lock_session">
         <span class="product left_button">
             <div class="button_icon">
@@ -516,71 +456,6 @@
         </t>
     </t>
 
-    <t t-extend="SplitbillButton">
-        <t t-jquery="span[class*='control-button']" t-operation="replace">
-            <span class="product left_button">
-                <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/split.png" class="pos_logo"/>
-                </div>
-                <div class="product-name button_text">
-                    Split
-                </div>
-            </span>
-        </t>
-    </t>
-
-    <t t-extend="PrintBillButton">
-        <t t-jquery="span[class*='control-button']" t-operation="replace">
-            <span class="product left_button">
-                <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/bill.png" class="pos_logo"/>
-                </div>
-                <div class="product-name button_text">
-                    Bill
-                </div>
-            </span>
-        </t>
-    </t>
-
-    <t t-extend="SubmitOrderButton">
-        <t t-jquery="span[class*='control-button']" t-operation="replace">
-            <span class="product left_button">
-                <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/chef.png" class="pos_logo"/>
-                </div>
-                <div class="product-name button_text">
-                    Bill to kitchen
-                </div>
-            </span>
-        </t>
-    </t>
-
-    <t t-extend="TableGuestsButton">
-        <t t-jquery="div[class*='control-button']" t-operation="replace">
-            <span class="product left_button">
-                <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/guests.png" class="pos_logo"/>
-                </div>
-                <div class="product-name button_text">
-                    Guests <t t-esc="widget.guests()" />
-                </div>
-            </span>
-        </t>
-    </t>
-
-    <t t-extend="TransferOrderButton">
-        <t t-jquery="div[class*='control-button']" t-operation="replace">
-            <span class="product left_button">
-                <div class="button_icon">
-                    <img src="/pos_retail/static/src/icons/transfer.png" class="pos_logo"/>
-                </div>
-                <div class="product-name button_text">
-                    Transfer
-                </div>
-            </span>
-        </t>
-    </t>
-
     <t t-name="button_cash_in">
         <span class="product left_button">
             <div class="button_icon">
@@ -625,17 +500,6 @@
                 </div>
             </span>
         </t>
-    </t>
-
-    <t t-name="button_sync_orders">
-        <span class="product left_button">
-            <div class="button_icon">
-                <img src="/pos_retail/static/src/icons/sync.png" class="pos_logo"/>
-            </div>
-            <div class="product-name button_text">
-                Sync orders
-            </div>
-        </span>
     </t>
 
 </templates>

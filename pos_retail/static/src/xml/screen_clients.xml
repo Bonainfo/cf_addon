@@ -3,7 +3,7 @@
 
     <t t-extend="ClientListScreenWidget">
         <t t-jquery="span[class*='new-customer']" t-operation="after">
-            <t t-if="!widget.pos.config.hide_supplier">
+            <t t-if="widget.pos.config.hide_supplier">
                 <span class='button only_customer not_highlight' style="left: 10%;border-color: whitesmoke;background: rgb(230,230,230);top: 1px; border-radius: 5px">
                     Customer
                 </span>
@@ -11,6 +11,49 @@
                     Supplier
                 </span>
             </t>
+        </t>
+        <t t-jquery="table[class*='client-list']" t-operation="replace">
+            <table class='client-list'>
+                <thead>
+                    <tr>
+                        <th><a href="#" class="sort sort_by_id">ID</a><i class="fa fa-sort"/></th>
+                        <th><a href="#" class="sort sort_by_name">Name</a><i class="fa fa-sort"/></th>
+                        <th><a href="#" class="sort sort_by_address">Address</a><i class="fa fa-sort"/></th>
+                        <t t-if="!widget.pos.config.hide_phone">
+                            <th><a href="#" class="sort sort_by_phone">Phone</a><i class="fa fa-sort"/></th>
+                        </t>
+                        <t t-if="!widget.pos.config.hide_mobile">
+                            <th><a href="#" class="sort sort_by_mobile">Mobile</a><i class="fa fa-sort"/></th>
+                        </t>
+                    </tr>
+                </thead>
+                <tbody class='client-list-contents'>
+                </tbody>
+            </table>
+        </t>
+        <t t-jquery="span[class*='new-customer']" t-operation="replace">
+            <t t-if="widget.pos.config.add_client">
+                <span class='button new-customer'>
+                    <i class='fa fa-user'></i>
+                    <i class='fa fa-plus'></i>
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="ClientLine">
+        <t t-jquery="tr[class*='client-line']" t-operation="replace">
+            <tr class='client-line' t-att-data-id='partner.id'>
+                <td><t t-esc='partner.id' /></td>
+                <td><t t-esc='partner.name' /></td>
+                <td><t t-esc='partner.address' /></td>
+                <t t-if="!widget.pos.config.hide_phone">
+                    <td><t t-esc='partner.phone or ""' /></td>
+                </t>
+                <t t-if="!widget.pos.config.hide_mobile">
+                    <td><t t-esc='partner.mobile or ""' /></td>
+                </t>
+            </tr>
         </t>
     </t>
 
@@ -74,14 +117,18 @@
                         </t>
                     </div>
                     <div class='client-details-right'>
-                        <div class='client-detail'>
-                            <span class='label'>Email</span>
-                            <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
-                        </div>
-                        <div class='client-detail'>
-                            <span class='label'>Phone</span>
-                            <input class='detail client-phone'  name='phone'    type='tel'      t-att-value='partner.phone || ""'></input>
-                        </div>
+                        <t t-if="!widget.pos.config.hide_email">
+                            <div class='client-detail'>
+                                <span class='label'>Email</span>
+                                <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
+                            </div>
+                        </t>
+                        <t t-if="!widget.pos.config.hide_mobile and !widget.pos.config.hide_phone">
+                            <div class='client-detail'>
+                                <span class='label'>Phone</span>
+                                <input class='detail client-phone'  name='phone'    type='tel'      t-att-value='partner.phone || ""'></input>
+                            </div>
+                        </t>
                         <t t-if="!widget.pos.config.hide_barcode">
                             <div class='client-detail'>
                                 <span class='label'>Barcode</span>
@@ -110,28 +157,52 @@
                         <t t-if="widget.pos.config.opt_out">
                             <div class='client-detail'>
                                 <span class='label'>Opt out</span>
-                                <input class="detail opt_out"
-                                       type="checkbox" name="opt_out"
-                                       t-att-checked="(partner.opt_out ? true : undefined)"
-                                       t-att-value='(partner.opt_out ? true : false)'/>
+                                    <t t-if="partner.id">
+                                        <input class="detail opt_out"
+                                               type="checkbox" name="opt_out"
+                                               t-att-checked="(partner.opt_out ? true : undefined)"
+                                               t-att-value='(partner.opt_out ? true : false)'/>
+                                    </t>
+                                    <t t-if="!partner.id">
+                                        <input class="detail opt_out"
+                                               type="checkbox" name="opt_out"
+                                               checked="true"
+                                               value="true"/>
+                                    </t>
                             </div>
                         </t>
                         <t t-if="widget.pos.config.sms_opt_out">
                             <div class='client-detail'>
                                 <span class='label'>Sms opt out</span>
-                                <input class="detail sms_opt_out"
+                                <t t-if="att-partner.id">
+                                    <input class="detail sms_opt_out"
                                        type="checkbox" name="sms_opt_out"
                                        t-att-checked="(partner.sms_opt_out ? true : undefined)"
                                        t-att-value='(partner.sms_opt_out ? true : false)'/>
+                                </t>
+                                <t t-if="!partner.id">
+                                    <input class="detail sms_opt_out"
+                                       type="checkbox" name="sms_opt_out"
+                                       checked="true"
+                                       value='true'/>
+                                </t>
                             </div>
                         </t>
                         <t t-if="widget.pos.config.call_opt_out">
                             <div class='client-detail'>
                                 <span class='label'>Call opt out</span>
-                                <input class="detail call_opt_out"
-                                       type="checkbox" name="call_opt_out"
-                                       t-att-checked="(partner.call_opt_out ? true : undefined)"
-                                       t-att-value='(partner.call_opt_out ? true : false)'/>
+                                <t t-if="partner.id">
+                                    <input class="detail call_opt_out"
+                                        type="checkbox" name="call_opt_out"
+                                        t-att-checked="(partner.call_opt_out ? true : undefined)"
+                                        t-att-value='(partner.call_opt_out ? true : false)'/>
+                                </t>
+                                <t t-if="!partner.id">
+                                    <input class="detail call_opt_out"
+                                        type="checkbox" name="call_opt_out"
+                                        checked="true"
+                                        value='true'/>
+                                </t>
                             </div>
                         </t>
                     </div>
@@ -142,11 +213,20 @@
 
     <t t-extend="ClientDetails">
         <t t-jquery="div[class*='edit-buttons']" t-operation="replace">
-            <div class='edit-buttons'>
-                <div class='button edit'>
-                    <img src="/pos_retail/static/src/icons/note.png" class="button_logo"/>
+            <t t-if="widget.pos.config.update_client">
+                <div class='edit-buttons'>
+                    <div class='button edit'>
+                        <img src="/pos_retail/static/src/icons/note.png" class="button_logo"/>
+                    </div>
                 </div>
-            </div>
+            </t>
+            <!--<t t-if="widget.pos.config.remove_client">-->
+                <!--<div class='remove-buttons'>-->
+                    <!--<div class='button remove'>-->
+                        <!--<img src="/pos_retail/static/src/icons/trash.png" class="button_logo"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</t>-->
         </t>
         <t t-jquery="div[class*='client-details-left']" t-operation="append">
             <t t-if="partner.vat">
@@ -169,10 +249,6 @@
                     <span class='detail'><t t-esc='partner.property_account_position_id[1]'/></span>
                 </div>
             </t>
-            <div class='client-detail'>
-                <span class='label'>Loyalty Point</span>
-                <span class='detail'><t t-esc='partner.pos_loyalty_point || 0'/></span>
-            </div>
             <t t-if="partner.wallet != 0">
                 <div class='client-detail'>
                     <span class='label'>Wallet card</span>

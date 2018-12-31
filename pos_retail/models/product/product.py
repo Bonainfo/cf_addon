@@ -38,7 +38,7 @@ class product_template(models.Model):
         ('auto', 'Auto Process')], string='Manufacturing State', default='auto')
 
     pos_min_qty = fields.Float('Minimum quantity POS', help='This is Minimum quantity made to manufacturing order')
-    pos_manufacturing_quantity = fields.Float('Manufacturing quantity', help='This is quantity will manufacturing')
+    pos_manufacturing_quantity = fields.Float('Manufacturing quantity', help='This is quantity will manufacturing', default=10)
     bom_id = fields.Many2one('mrp.bom', string='Bill of material')
 
     suggestion_sale = fields.Boolean('Suggestion sale')
@@ -51,8 +51,10 @@ class product_template(models.Model):
     @api.multi
     def write(self, vals):
         res = super(product_template, self).write(vals)
-        # if bomb product tmpl id not the same self product
-        # raise error
+        if vals.get('manufacturing_out_of_stock', False) and not vals.get('bom_id', False):
+            raise UserError(_('Please add Bill Of material'))
+        if vals.get('manufacturing_out_of_stock', False) and vals.get('pos_manufacturing_quantity', 0) <= 0:
+            raise UserError(_('Manufacturing quantity could not smaller than 0'))
         if vals.get('bom_id', False):
             for template in self:
                 bom = self.env['mrp.bom'].browse(vals.get('bom_id'))

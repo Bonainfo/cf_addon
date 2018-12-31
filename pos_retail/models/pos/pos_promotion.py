@@ -21,7 +21,7 @@ class pos_promotion(models.Model):
         ('7_special_category', '7. Discount each special category'),
         ('8_discount_lowest_price', '8. Discount lowest price'),
         ('9_multi_buy', '9. Multi buy - By X for price'),
-        ('10_buy_x_get_another_free', '10. Buy x get anothor free'),
+        ('10_buy_x_get_another_free', '10. Buy x get another free'),
     ], 'Type', default='1_discount_total_order', required=1)
     product_id = fields.Many2one('product.product', 'Product service', domain=[('available_in_pos', '=', True)])
     discount_order_ids = fields.One2many('pos.promotion.discount.order', 'promotion_id', 'Discounts')
@@ -142,22 +142,22 @@ class pos_promotion_price(models.Model):
 
     product_id = fields.Many2one('product.product', domain=[('available_in_pos', '=', True)], string='Product',
                                  required=1)
-    minimum_quantity = fields.Float('Minimim quantity apply', required=1)
+    minimum_quantity = fields.Float('Minimim quantity apply', required=1, default=1)
     price_down = fields.Float('Price down', required=1)
     promotion_id = fields.Many2one('pos.promotion', 'Promotion', required=1, ondelete='cascade')
 
     @api.model
     def create(self, vals):
         product = self.env['product.product'].browse(vals['product_id'])
-        if vals['price_down'] > product.list_price:
-            raise UserError('Price down could not bigger than product price %s' % product.list_price)
+        if vals['price_down'] > product.lst_price:
+            raise UserError('Price down could not bigger than product price %s' % product.lst_price)
         return super(pos_promotion_price, self).create(vals)
 
     @api.multi
     def write(self, vals):
         for record in self:
-            if vals.get('price_down') and vals.get('price_down') > record.product_id.list_price:
-                raise UserError('Price down could not bigger than product price %s' % record.product_id.list_price)
+            if vals.get('price_down') and (vals.get('price_down') > record.product_id.lst_price):
+                raise UserError('Price down could not bigger than product price %s' % record.product_id.lst_price)
         return super(pos_promotion_price, self).write(vals)
 
 

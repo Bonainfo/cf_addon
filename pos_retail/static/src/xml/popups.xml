@@ -14,7 +14,6 @@
                             <span class="line right"></span>
                         </span>
                     </div>
-                    <div class="swal2-icon swal2-question" style="display: none;">?</div>
                     <div class="swal2-icon swal2-warning pulse-warning" style="display: block;">!</div>
                     <div class="swal2-icon swal2-info" style="display: none;">i</div>
                     <div class="swal2-icon swal2-success" style="display: none;">
@@ -55,7 +54,6 @@
             <div class="swal2-modal swal2-show"
                  style="display: block; width: 500px; padding: 20px; background: rgb(255, 255, 255); min-height: 340px;"
                  tabindex="-1">
-                <div class="swal2-icon swal2-question">?</div>
                 <h2><t t-esc=" widget.options.title || 'Confirm ?' " /></h2>
                 <div class="swal2-content" style="display: block;"><t t-esc="  widget.options.body || '' "/>
                 </div>
@@ -1154,7 +1152,7 @@
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Name<span class="voucher-form-required"> (*)</span></span>
-                                            <input class="form-control partner_input" id="name" name="name" required="true" />
+                                            <input class="form-control partner_input" name="name" required="true" />
                                         </div>
                                         <div class="form-group label-floating">
                                             <span class='label voucher-label'>Street</span>
@@ -1550,30 +1548,6 @@
         </t>
     </t>
 
-    <t t-name="popup_sync_orders">
-        <div class="modal-dialog">
-            <div class="popup touch-scrollable scrollable-y" style="height: 500px">
-                <div class="card">
-                    <div class="card-content">
-                        <h4 class="card-title">
-                            <t t-if="widget.options.title">
-                                <t t-esc="widget.options.title"/>
-                            </t>
-                        </h4>
-                        <div class="table-responsive">
-                            <div class='body'>
-                            </div>
-                            <div class="form-footer text-center">
-                                <div class="btn btn-danger pull-right close">
-                                     Close
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </t>
 
     <t t-name="users_list">
         <t t-if="configs" >

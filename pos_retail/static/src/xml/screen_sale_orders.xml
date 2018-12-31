@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="button_create_sale_order">
+        <span class="product left_button">
+            <div class="button_icon">
+                <img src="/pos_retail/static/src/icons/shopping_cart.png" class="pos_logo"/>
+            </div>
+            <div class="product-name button_text">
+                Create SO
+            </div>
+        </span>
+    </t>
+
+    <t t-name="button_delivery_order">
+        <span class="product left_button">
+            <div class="button_icon">
+                <img src="/pos_retail/static/src/icons/delivery_order.png" class="pos_logo"/>
+            </div>
+            <div class="product-name button_text">
+                Delivery order
+            </div>
+        </span>
+    </t>
+
+    <t t-name="button_booking_order">
+        <span class="product left_button">
+            <div class="button_icon">
+                <img src="/pos_retail/static/src/icons/booking.png" class="pos_logo"/>
+            </div>
+            <div class="product-name button_text">
+                Booking order
+            </div>
+        </span>
+    </t>
+
+    <t t-name="button_go_sale_orders_screen">
+        <span class="product left_button">
+            <div class="button_icon">
+                <img src="/pos_retail/static/src/icons/booked.png" class="pos_logo"/>
+            </div>
+            <div class="product-name button_text">
+                Booked Orders
+                <span class="notification booked_orders">0</span>
+            </div>
+        </span>
+    </t>
+
     <t t-name="sale_orders">
         <div class="clientlist-screen screen">
-            <div class="screen-content">
+            <div class="full_width screen-content">
                 <section class="top-content">
                     <span class='button back'>
                         <i class='fa fa-angle-double-left'/>
@@ -36,14 +81,15 @@
                                     <table class='client-list'>
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Origin</th>
-                                                <th>Partner</th>
-                                                <th>Date order</th>
-                                                <th>Partial paid</th>
-                                                <th>Amount tax</th>
-                                                <th>Amount total</th>
-                                                <th>State</th>
+                                                <th><a href="#" class="sort sort_by_sale_order_id">ID</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_name">Name</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_origin">Origin</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_partner_name">Partner</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_date_order">Date order</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_payment_partial_amount">Partial</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_amount_tax">Tax</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_amount_total">Total</a><i class="fa fa-sort"/></th>
+                                                <th><a href="#" class="sort sort_by_sale_order_state">State</a><i class="fa fa-sort"/></th>
                                             </tr>
                                         </thead>
                                         <tbody class='client-list-contents sale_orders_table'>
@@ -85,6 +131,7 @@
 
     <t t-name="sale_row">
         <tr class='client-line sale_row' t-att-data-id='sale.id'>
+            <td><t t-esc='sale.id'/></td>
             <td><t t-esc='sale.name'/></td>
             <td>
                 <t t-if="sale.origin">

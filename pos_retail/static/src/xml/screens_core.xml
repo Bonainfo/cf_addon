@@ -35,7 +35,7 @@
     <!-- kitchen receipt -->
     <t t-name="kitchen_receipt_screen">
         <div class='receipt-screen screen'>
-            <div class='screen-content'>
+            <div class='full_width screen-content'>
                 <div class='top-content'>
                     <span class='button back'>
                         <i class='fa fa-angle-double-left'></i>

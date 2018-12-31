@@ -10,9 +10,47 @@ odoo.define('pos_retail.shop_logo', function (require) {
     var rpc = require('pos.rpc');
     var models = require('point_of_sale.models');
 
+    models.load_models([
+        {
+            label: 'logo',
+            loaded: function (self) {
+                self.pos_logo = new Image();
+                var logo_loaded = new $.Deferred();
+                self.pos_logo.onload = function () {
+                    var img = self.pos_logo;
+                    var ratio = 1;
+                    var targetwidth = 300;
+                    var maxheight = 150;
+                    if (img.width !== targetwidth) {
+                        ratio = targetwidth / img.width;
+                    }
+                    if (img.height * ratio > maxheight) {
+                        ratio = maxheight / img.height;
+                    }
+                    var width = Math.floor(img.width * ratio);
+                    var height = Math.floor(img.height * ratio);
+                    var c = document.createElement('canvas');
+                    c.width = width;
+                    c.height = height;
+                    var ctx = c.getContext('2d');
+                    ctx.drawImage(self.pos_logo, 0, 0, width, height);
+
+                    self.shop_logo_base64 = c.toDataURL();
+                    logo_loaded.resolve();
+                };
+                self.pos_logo.onerror = function () {
+                    logo_loaded.reject();
+                };
+                self.pos_logo.crossOrigin = "anonymous";
+                self.pos_logo.src = '/web/image?model=pos.config&field=logo&id=' + self.config.id;
+
+                return logo_loaded;
+            },
+        },
+    ]);
     models.PosModel = models.PosModel.extend({
         get_shop_logo: function () {
-            if (this.config.logo) {
+            if (this.shop_logo_base64) {
                 return 'data:image/png;base64, ' + this.config.logo
             } else {
                 if (this.company.logo) {
@@ -20,6 +58,13 @@ odoo.define('pos_retail.shop_logo', function (require) {
                 } else {
                     return 'http://localhost:8011/web/image?model=product.product&field=image_medium&id=null'
                 }
+            }
+        },
+        get_receipt_logo: function () {
+            if (this.shop_logo_base64) {
+                return this.shop_logo_base64
+            } else {
+                return None
             }
         }
     });
@@ -52,12 +97,6 @@ odoo.define('pos_retail.shop_logo', function (require) {
                                     logo: fields.image
                                 }]
                             }).then(function (result) {
-                                if (result == true) {
-                                    self.pos.gui.show_popup('confirm', {
-                                        title: 'Saved',
-                                        body: 'Saved logo'
-                                    })
-                                }
                             }, function (type, err) {
                                 self.pos.gui.show_popup('confirm', {
                                     title: 'Error',

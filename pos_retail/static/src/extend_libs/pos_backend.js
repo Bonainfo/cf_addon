@@ -3,6 +3,8 @@ odoo.define('pos_retail.pos_backend', function (require) {
 
     var bus = require('bus.bus').bus;
     var WebClient = require('web.WebClient');
+    var core = require('web.core');
+    var _t = core._t;
 
     var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
 
@@ -13,11 +15,14 @@ odoo.define('pos_retail.pos_backend', function (require) {
     WebClient.include({
         remove_indexed_db: function (notifications) {
             var dbName = JSON.parse(notifications).db;
-            indexedDB.deleteDatabase(dbName);
-            console.log('deleted pos indexdb');
+            for (var i=0; i <= 50; i ++) {
+                indexedDB.deleteDatabase(dbName + '_' + i);
+            }
+            this.do_notify(_t('POS database deleted'),
+                        _t('We start pos session for installing again now'));
         },
         show_application: function () {
-            bus.on('notification', this, function (notifications) {
+            bus.on('notification', this, function (notifications) { // v10 and v11 dont merge
                 _.each(notifications, (function (notification) {
                     if (notification[0][1] === 'pos.indexed_db') {
                         this.remove_indexed_db(notification[1]);

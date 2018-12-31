@@ -154,8 +154,10 @@ odoo.define('pos_retail.order', function (require) {
                     json.email = client.email;
                 }
             }
-            if (this.auto_register_payment) {
+            if (this.auto_register_payment && this.get_total_without_tax > 0) {
                 json.auto_register_payment = this.auto_register_payment;
+            } else {
+                json.auto_register_payment = false;
             }
             if (this.delivery_date) {
                 json.delivery_date = this.delivery_date;
@@ -558,7 +560,7 @@ odoo.define('pos_retail.order', function (require) {
             this.validate_medical_insurance();
         },
         add_global_discount: function (discount) {
-            var total_without_tax = this.get_total_without_tax();
+            var total_without_tax = this.get_total_with_tax();
             var product = this.pos.db.product_by_id[discount.product_id[0]];
             var price = total_without_tax / 100 * discount['amount'];
             this.add_product(product, {
@@ -574,7 +576,13 @@ odoo.define('pos_retail.order', function (require) {
             return this.email_invoice;
         },
         is_auto_register_payment: function () { // auto register payment or not
-            return this.auto_register_payment;
+            var total_without_tax = this.get_total_with_tax();
+            if (total_without_tax <= 0) {
+                this.auto_register_payment = false;
+                return false
+            } else {
+                return this.auto_register_payment;
+            }
         },
         set_email_invoice: function (email_invoice) {
             this.assert_editable();
@@ -878,9 +886,11 @@ odoo.define('pos_retail.order', function (require) {
             this.pricelist = pricelist;
             // change price of current order lines
             _.each(this.get_orderlines(), function (line) {
-                var price = self.pos.db.compute_price(line['product'], pricelist, line.quantity);
-                line['product']['price'] = price;
-                line.set_unit_price(price);
+                if (line['product']) {
+                    var price = self.pos.get_price(line['product'], pricelist, line.quantity);
+                    line['product']['price'] = price;
+                    line.set_unit_price(price);
+                }
             });
             // after update order lines price
             // will update screen product and with new price
@@ -890,9 +900,12 @@ odoo.define('pos_retail.order', function (require) {
         update_product_price: function (pricelist) {
             var self = this;
             var products = this.pos.products;
+            if (!products) {
+                return;
+            }
             for (var i = 0; i < products.length; i++) {
                 var product = products[i];
-                var price = this.pos.db.compute_price(product, pricelist, 1);
+                var price = this.pos.get_price(product, pricelist, 1);
                 product['price'] = price;
             }
             self.pos.trigger('product:change_price_list', products)
@@ -1047,6 +1060,14 @@ odoo.define('pos_retail.order', function (require) {
                 return false
             }
         },
+        set_product_lot: function (product) {
+            // first install may be have old orders, this is reason made bug
+            if (product) {
+                return _super_Orderline.export_for_printing.apply(this, arguments);
+            } else {
+                return null
+            }
+        },
         // if config product tax id: have difference tax of other company
         // but when load data account.tax, pos default only get data of current company
         // and this function return some item undefined
@@ -1199,8 +1220,7 @@ odoo.define('pos_retail.order', function (require) {
                                 }
                             }
                         })
-                    }
-                    else if (!suggestion_items && contents) {
+                    } else if (!suggestion_items && contents) {
                         contents.css({'display': 'none'});
                     }
                 }
@@ -1372,10 +1392,10 @@ odoo.define('pos_retail.order', function (require) {
             var current_price = this.price;
             var line_add_price;
             if (this.pos.server_version == 10) {
-                var line_add_price = this.price;
+                line_add_price = this.price;
             }
             if ([11, 12].indexOf(this.pos.server_version) != -1) {
-                var line_add_price = orderline.get_product().get_price(orderline.order.pricelist, this.get_quantity());
+                line_add_price = orderline.get_product().get_price(orderline.order.pricelist, this.get_quantity());
             }
             var current_price_round = round_pr(Math.max(0, current_price), this.pos.currency.rounding);
             var line_add_price_round = round_pr(Math.max(0, line_add_price), this.pos.currency.rounding);
@@ -1430,8 +1450,7 @@ odoo.define('pos_retail.order', function (require) {
                         base = ret.total_excluded;
                         total_included = ret.total_included;
                         list_taxes = list_taxes.concat(ret.taxes);
-                    }
-                    else {
+                    } else {
                         var tax_amount = self._compute_all(tax, base, quantity);
                         tax_amount = round_pr(tax_amount, currency_rounding);
 
@@ -1439,8 +1458,7 @@ odoo.define('pos_retail.order', function (require) {
                             if (tax.price_include) {
                                 total_excluded -= tax_amount;
                                 base -= tax_amount;
-                            }
-                            else {
+                            } else {
                                 total_included += tax_amount;
                             }
                             if (tax.include_base_amount) {

@@ -126,6 +126,7 @@ class sale_order(models.Model):
         fields_sale_load = cache_obj.get_fields_by_model(self._inherit)
         data = self.read(fields_sale_load)[0]
         data['model'] = self._inherit
+        data['write_date'] = self.write_date
         return data
 
     @api.model
@@ -146,7 +147,12 @@ class sale_order_line(models.Model):
     def get_data(self):
         cache_obj = self.env['pos.cache.database']
         fields_sale_load = cache_obj.get_fields_by_model(self._inherit)
-        data = self.read(fields_sale_load)[0]
+        datas = self.read(fields_sale_load)
+        if not datas:
+            data = {}
+            data['deleted'] = True
+        else:
+            data = datas[0]
         data['model'] = self._inherit
         return data
 
