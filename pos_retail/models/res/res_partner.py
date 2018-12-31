@@ -11,12 +11,12 @@ class res_partner(models.Model):
 
     wallet = fields.Float(digits=(16, 4),
                           compute='_compute_wallet', string='Wallet amount', help='This wallet amount of customer')
-    credit = fields.Float(digits=(16, 4),
-                          compute='_compute_debit_credit_balance', string='Credit')
-    debit = fields.Float(digits=(16, 4),
-                         compute='_compute_debit_credit_balance', string='Debit')
+    #credit = fields.Float(digits=(16, 4),
+    #                      compute='_compute_debit_credit_balance', string='Credit')
+    #debit = fields.Float(digits=(16, 4),
+    #                     compute='_compute_debit_credit_balance', string='Debit')
     balance = fields.Float(digits=(16, 4),
-                           compute='_compute_debit_credit_balance', string='Balance', store=True)
+                           compute='_compute_debit_credit_balance', string='Balance')
     limit_debit = fields.Float('Limit debit')
     credit_history_ids = fields.One2many('res.partner.credit', 'partner_id', 'Credit log')
 
@@ -48,20 +48,10 @@ class res_partner(models.Model):
                 partner.pos_loyalty_point -= order.redeem_point
 
     @api.multi
-    @api.depends('credit_history_ids')
+    @api.depends('balance', 'credit', 'debit')
     def _compute_debit_credit_balance(self):
         for partner in self:
-            partner.credit = 0
-            partner.debit = 0
-            partner.balance = 0
-            credits = partner.credit_history_ids
-            for credit in credits:
-                if credit.type == 'plus':
-                    partner.credit += credit.amount
-                if credit.type == 'redeem':
-                    partner.debit += credit.amount
-            partner.balance = partner.credit + partner.limit_debit - partner.debit
-        return True
+            partner.balance = partner.credit - partner.debit
 
     @api.multi
     def _compute_wallet(self):
