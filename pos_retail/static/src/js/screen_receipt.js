@@ -91,8 +91,12 @@ odoo.define('pos_retail.screen_receipt', function (require) {
         print_xml: function () {
             var self = this;
             if (this.pos.config.receipt_invoice_number) {
-                self.receipt_data = this.get_receipt_render_env();
                 var order = this.pos.get_order();
+                if (this.pos.server_version == 10) {
+                    self.receipt_data = this.get_receipt_data()
+                } else {
+                    self.receipt_data = this.get_receipt_render_env();
+                }
                 return rpc.query({
                     model: 'pos.order',
                     method: 'search_read',

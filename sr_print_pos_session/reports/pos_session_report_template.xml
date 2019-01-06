@@ -90,7 +90,19 @@
                                     <tr>
                                     <td>
                                         <b t-field="oline.pos_reference"/>
+                                        <tobody>
+                                        <t t-foreach="oline.statement_ids" t-as="state">
+                                            <tr>
+                                                    <td>
+                                            <b t-field="state.journal_id"/>
 
+                                        </td>
+                                                <td>
+                                                    <b t-field="state.amount"/>
+                                                </td>
+                                            </tr>
+                                            </t>
+                                        </tobody>
                                     </td>
                                         <td>
                                             <b t-field="oline.partner_id"/>

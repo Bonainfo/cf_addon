@@ -22,17 +22,15 @@
                     </span>
                 </t>
             </t>
-            <t t-if="widget.pos.get_order()">
-                <t t-if="widget.pos.get_order().get_total_with_tax() &lt; 0">
-                    <span t-attf-class='product left_button js_create_voucher #{ widget.pos.get_order().get_order_is_create_voucher() ? "highlight" : ""} '>
-                        <div class="button_icon">
-                            <img src="/pos_retail/static/src/icons/voucher.png" class="pos_logo"/>
-                        </div>
-                        <div class="product-name button_text">
-                            Create voucher
-                        </div>
-                    </span>
-                </t>
+            <t t-if="widget.pos.get_order() and widget.pos.get_order().get_total_with_tax() &lt; 0">
+                <span t-attf-class='product left_button js_create_voucher #{ widget.pos.get_order().get_order_is_create_voucher() ? "highlight" : ""} '>
+                    <div class="button_icon">
+                        <img src="/pos_retail/static/src/icons/voucher.png" class="pos_logo"/>
+                    </div>
+                    <div class="product-name button_text">
+                        Create voucher
+                    </div>
+                </span>
             </t>
         </t>
     </t>

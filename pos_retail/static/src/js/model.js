@@ -267,7 +267,12 @@ odoo.define('pos_retail.model', function (require) {
             This function return product amount with default tax set on product > sale > taxes
          */
         get_price_with_tax: function (product, pricelist) {
-            var price = this.get_price(product, pricelist);
+            var price;
+            if (pricelist) {
+                price = this.get_price(product, pricelist);
+            } else {
+                price = product['list_price'];
+            }
             var taxes_id = product['taxes_id'];
             if (!taxes_id) {
                 return price;
