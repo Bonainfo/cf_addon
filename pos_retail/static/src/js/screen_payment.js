@@ -159,7 +159,7 @@ odoo.define('pos_retail.screen_payment', function (require) {
                 var selected_currency = self.pos.currency_by_id[currency_id];
                 var company_currency = self.pos.currency_by_id[self.pos.currency['id']];
                 // Return action if have not selected currency or company currency is 0
-                if (!selected_currency || company_currency['rate'] == 0) {
+                if (!selected_currency || company_currency['rate'] == 1) {
                     return;
                 }
                 order.selected_currency = selected_currency;
