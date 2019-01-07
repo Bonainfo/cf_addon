@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f81ce11a-a143-4598-bf0b-2106d73b79cb" name="Default Changelist" comment="pos.company_currency 1">
+    <list default="true" id="f81ce11a-a143-4598-bf0b-2106d73b79cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pos_retail/static/src/js/screen_payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos_retail/static/src/js/screen_payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" afterDir="false" />
     </list>
     <ignored path="F:\odoo-Modules\cf_addon\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,7 +16,17 @@
     <favorites_list name="cf_addon" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="38" column="91" lean-forward="true" selection-start-line="38" selection-start-column="91" selection-end-line="38" selection-end-column="91" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -28,6 +38,7 @@
       <find>rate</find>
       <find>company_currency</find>
       <find>pos.company_currency</find>
+      <find>pos.company_currency.rate</find>
     </findStrings>
     <dirStrings>
       <dir>F:\odoo-Modules\cf_addon\pos_retail\static</dir>
@@ -49,8 +60,8 @@
         <option value="$PROJECT_DIR$/sr_print_pos_session/reports/pos_session_report_template.xml" />
         <option value="$PROJECT_DIR$/pos_retail/models/res/res_partner.py" />
         <option value="$PROJECT_DIR$/pos_retail/static/src/js/screen_payment.js" />
-        <option value="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" />
         <option value="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_list.js" />
+        <option value="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" />
       </list>
     </option>
   </component>
@@ -261,18 +272,26 @@
       <option name="project" value="LOCAL" />
       <updated>1546870539806</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="pos.company_currency 1">
+      <created>1546871050450</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1546871050450</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978903" visible="true" weight="0.20489095" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4957806" visible="true" weight="0.20489095" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" id="Favorites" order="2" sideWeight="0.5021097" side_tool="true" visible="true" weight="0.20489095" />
+      <window_info id="Favorites" order="2" sideWeight="0.5042194" side_tool="true" visible="true" weight="0.20489095" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -548,8 +567,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="33" column="103" selection-start-line="33" selection-start-column="103" selection-end-line="33" selection-end-column="103" />
+        <state relative-caret-position="306">
+          <caret line="38" column="91" lean-forward="true" selection-start-line="38" selection-start-column="91" selection-end-line="38" selection-end-column="91" />
         </state>
       </provider>
     </entry>
