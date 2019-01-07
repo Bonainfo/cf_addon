@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f81ce11a-a143-4598-bf0b-2106d73b79cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js" afterDir="false" />
     </list>
     <ignored path="F:\odoo-Modules\cf_addon\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+            <state relative-caret-position="323">
+              <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -292,12 +293,25 @@
       <option name="project" value="LOCAL" />
       <updated>1546885051037</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="pos.company_currency 1123">
+      <created>1546885378382</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1546885378382</updated>
+    </task>
+    <task id="LOCAL-00019" summary="pos.company_currency 1123">
+      <created>1546885673697</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1546885673697</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4957806" visible="true" weight="0.20489095" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -353,7 +367,8 @@
     <MESSAGE value="pos.company_currency 1" />
     <MESSAGE value="pos.company_currency 11" />
     <MESSAGE value="pos.company_currency 112" />
-    <option name="LAST_COMMIT_MESSAGE" value="pos.company_currency 112" />
+    <MESSAGE value="pos.company_currency 1123" />
+    <option name="LAST_COMMIT_MESSAGE" value="pos.company_currency 1123" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pos_retail/wizards/account_invoice_refund.xml">
@@ -582,8 +597,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pos_retail/static/src/js/screen_product_categories.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+        <state relative-caret-position="323">
+          <caret line="40" column="27" lean-forward="true" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
         </state>
       </provider>
     </entry>
