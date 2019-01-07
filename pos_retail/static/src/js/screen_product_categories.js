@@ -30,7 +30,7 @@ odoo.define('pos_retail.screen_product_categories', function (require) {
                 var max_sequence = this.pos.session.model_ids['product.product']['max_id'] / 100000 + 1;
                 $.when(indexed_db.search_by_index('product.product', max_sequence, index_list, query)).done(function (product) {
                     if (product['id']) {
-                        var using_company_currency = self.pos.config.currency_id[1] === self.pos.company.currency_id[1];
+                        var using_company_currency = self.pos.config.currency_id[0] === self.pos.company.currency_id[0];
                         var conversion_rate = self.pos.currency.rate / self.pos.company_currency.rate;
                         self.pos.db.add_products(_.map([product], function (product) {
                             if (!using_company_currency) {
