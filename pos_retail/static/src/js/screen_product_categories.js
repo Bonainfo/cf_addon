@@ -37,7 +37,7 @@ odoo.define('pos_retail.screen_product_categories', function (require) {
                                 product.lst_price = round_pr(product.lst_price * conversion_rate, self.pos.currency.rounding);
                             }
                             /* /product.categ = _.findWhere(self.pos.product_categories, {'id': product.categ_id[0]}); */
-                            return new models.Product({}, product);
+                            /* /return new models.Product({}, product); */
                         }));
                         var product = self.pos.db.get_product_by_id(product['id'])
                         if (product) {
